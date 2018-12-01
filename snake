@@ -1,0 +1,246 @@
+#!/bin/bash
+
+
+_version="0.1.3"
+_name="S.N.A.K.E."
+
+
+
+_mac(){
+
+    echo "Mac detected"
+
+    #ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+
+    #brew install nmap
+
+    #sudo gem install iStats
+
+}
+
+_linux(){
+     echo "Linux detected"
+}
+
+_haiku(){
+     echo "Haiku detected"
+}
+
+_bsd(){
+     echo "BSD detected"
+}
+
+_minix(){
+     echo "Minix detected"
+}
+
+_unknown(){
+     echo "Operating system unknown. $_name init failed"
+}
+
+_wts(){
+
+     printf "$_name has been waiting for your command\n"
+
+}
+
+RED='\e[1;91m'
+GREEN='\e[1;92m'
+BLUE='\e[1;96m'
+YELLOW='\e[1;93m'
+NC='\033[0m'
+WHITE='\e[1;97m'
+
+00x65v40(){
+
+printf "This is $GREEN $_name$BLUE $_version$NC at your service  \n"
+
+}
+
+00cz87xp(){
+
+   echo "                         "
+   printf "$GREEN     <<<<< $_name >>>>>$NC\n"
+   printf "$GREEN       <<<$NC     🐍     $GREEN>>>  $NC\n"
+   printf "$GREEN         < $_name >    $NC\n"
+   echo "                  "
+
+}
+
+
+if [ "$1" == "-v" ]; then
+
+
+printf "\n"
+printf "        $_name    \n"
+printf "          $_version                 \n"
+printf "\n"
+
+elif [[ "$1" == "-h" ]]; then
+
+
+printf "\n"
+printf "$_name\n"
+printf "\n"
+printf "Usage:  snake [-vhupodw] [--summon <daemon> ]\n"
+printf "\n"
+printf "Options: -v - Show version info\n"
+printf "         -h - Show help menu\n"
+printf "         -p - power mode\n"
+printf "         -d - destroy mode\n"
+printf "         -o - observe mode\n"
+printf "         -w - wizard mode\n"
+printf "         -u - unload mode\n"
+printf "         --summon - Daemon summoning - Vnemane\n"
+printf "\n"
+printf "Examples: snake -p\n"
+printf "          snake -o --summon Artyom\n"
+printf "          snake --opaa\n"
+printf "\n"
+
+
+elif [ "$1" == "-w" ]; then
+
+
+        clear
+        _wts
+        00x65v40
+        printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+        printf "\n`echo Local IP  ` >> $YELLOW`ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}'`$NC"
+        printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig en0 | grep ether | awk '{print $2;}'`$NC"
+        printf "\n`echo Router IP  ` >> $BLUE`ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12`$NC"
+        printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
+        printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
+        printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
+        printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
+        printf "\n`echo Вы подключены к`$BLUE `airport -c | awk '{print $2;}'` $NC`echo на маршрутизаторе` $BLUE`airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`$NC\n"
+        printf "`echo "вот "`$BLUE`arp -a | grep ? -c` $NC`echo "люди готовы уковы укусить"`\n"
+        printf "$BLUE"
+        arp -a | sed -n '1p'
+        printf "$YELLOW"
+        arp -a | grep $(ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}')
+        printf "$NC"
+        arp -a | sed '1d'
+        echo
+        printf "$WHITE\n"
+        date
+        printf "$NC\n"
+
+
+elif [[ "$1" == "-d" ]]; then
+   clear
+   printf "$GREEN     $_name$RED Destroy Mode$NC \n"
+   _wts
+   00x65v40
+   00cz87xp
+   printf "     $YELLOW  Here are our options $NC: \n"
+   printf "$WHITE   ports $GREEN-> Сканирование всех портов\n"
+   printf "$WHITE   off $GREEN-> Завершить S.N.A.K.E. невосприимчивость\n"
+   printf "$WHITE   purge $GREEN-> S.N.A.K.E. Рабочая станция навесов\n"
+   printf "$WHITE   docked + pN $GREEN-> проверить порт\n"
+   printf "$WHITE   smell $GREEN-> Oткрытые порты\n"
+   printf "$WHITE   manual/autoFan $GREEN-> настроить вентиляторы\n"
+   printf "$WHITE   thermal $GREEN-> салазарные тепловые данные\n"
+   printf "$GREEN   <<$RED badPill $WHITE||$BLUE goodPill$GREEN >> $NC \n"
+   00cz87xp
+   printf "$WHITE"
+   date
+   printf "$NC"
+
+
+elif [[ "$1" == "-o" ]]; then
+
+
+    clear
+    00x65v40
+    00cz87xp
+    printf "$GREEN       $_name$WHITE Observe Mode\n"
+    printf "\n$WHITE         я вижу $GREEN Gates\n"
+    printf "$WHITE         я вижу $GREEN Ports\n"
+    printf "$WHITE         я вижу $GREEN Wifi\n"
+    printf "$WHITE         я вижу $GREEN People\n"
+    printf "$WHITE         я вижу $GREEN Sockets\n"
+    printf "$WHITE         я вижу $GREEN Router\n"
+    printf "$WHITE         я вижу $GREEN Devices\n"
+    printf "\n$BLUE          я вижу себя\n"
+    printf "$RED          Я все вижу\n"
+    printf "$BLUE      что ты хочешь увидеть?\n"
+    printf "$WHITE\n"
+    date
+    printf "$NC\n"
+
+
+elif [[ "$1" == "-p" ]]; then
+
+
+   printf "      $_name $RED Power Mode $NC  \n"
+   _wts
+   00x65v40
+   00cz87xp
+   printf " $YELLOW     Here are our options $NC:\n"
+   printf "$WHITE   biteOS $GREEN-> ws OS\n"
+   printf "$WHITE   biteOS_u $GREEN-> ws OS + UDP\n"
+   printf "$WHITE   biteinfo $GREEN-> T4-n-A-vv-65535P\n"
+   printf "$WHITE   venom $GREEN-> ws OS 65535P -Pn-vv-n-A-t4-sSU\n"
+   printf "$WHITE   venomIPV6 $GREEN-> -6 -Pn 65535P\n"
+   printf "$WHITE   venomPorts $GREEN-> ws 65535P-Pn-vv-n-A-T4\n"
+   printf "$WHITE   venomOS|IP $GREEN-> wsOS -A -T4-n-vv-Pn-65535P|DNS $NC \n"
+   00cz87xp
+   printf "$WHITE"
+   date
+   printf "$NC\n"
+
+elif [[ "$1" == "-u" ]]; then
+ 
+   _system="$(uname -s)"
+
+   if [ "$_system" == "Darwin" ]; then
+      _mac
+   elif [[ "$_system" == "Linux" ]]; then
+      _linux
+   elif [[ "$_system" == "Haiku" ]]; then
+      _haiku
+   elif [[ "$_system" == "BSD" ]]; then
+      _bsd
+   elif [[ "$_system" == "Minix" ]]; then
+      _minix
+   else
+      _unknown
+   fi
+
+elif [[ "$1" == "--nest" ]]; then
+
+      sudo chmod +x snake
+      sudo cp snake /usr/local/bin/
+      printf "snakeD\n"
+   
+elif [[ "$1" == "--opaa" ]]; then
+
+      clear
+      printf "                  ..      .........   .ue     ^Rc\n"
+      printf "                .R   Lo #           7d  .daN.   S\n"
+      printf "               A  ua             .ug  oe    #L  ?b\n"
+      printf "              A                    .d   .BLYAT   ?b.\n"
+      printf "             Z                    a*CYKA#           Nu\n"
+      printf "            A                                        #b\n"
+      printf "          .L                                           Sr\n"
+      printf "        .A                                   SL        S\n"
+      printf "      .S                                    8 R      dP\n"
+      printf "   .dx                                   .dP d    .d#\n"
+      printf "  xP              .e                 .ud#   dE.oa (\n"
+      printf "  S             s                .ua           \dP\n"
+      printf "  ?L  ..                    ..oa          .S  uP\n"
+      printf "   #c:S  u.             .ua*  S          uR .a\n"
+      printf "    ?LS.        Nc    xa     A          d  JP\n"
+      printf "     ^#S.        #L  .S     8          d  d\n"
+      printf "                   b. S.   A          S  8\n"
+      printf "                      aSL S          S  a\n"
+      printf "                   aL    S          d  8\n"
+      printf "                   SSu.uS          dF dF\n"
+      printf "                   S       o      dP xR\n"
+      printf "                   S      dFNu...a   S\n"
+      printf "                    N..   ?B        :R\n"
+
+
+fi
+
