@@ -14,7 +14,14 @@ _mac(){
 
     #brew install nmap
 
+    #brew install speedtest-cli
+
+    #brew install telnet
+
+    #brew install imagesnap
+
     #sudo gem install iStats
+
 
 }
 
