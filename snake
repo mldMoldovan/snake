@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.1.3"
+_version="0.1.4"
 _name="S.N.A.K.E."
 
 
@@ -10,17 +10,15 @@ _mac(){
 
     echo "Mac detected"
 
-    #ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
 
-    #brew install nmap
+    brew install speedtest-cli
 
-    #brew install speedtest-cli
+    brew install imagesnap
 
-    #brew install telnet
+    brew install nmap
 
-    #brew install imagesnap
-
-    #sudo gem install iStats
+    sudo gem install iStats
 
 
 }
@@ -51,6 +49,42 @@ _wts(){
 
 }
 
+
+
+_opaa(){
+
+
+  clear
+  printf "                  ..      .........   .ue     ^Rc\n"
+  printf "                .R   Lo #           7d  .daN.   S\n"
+  printf "               A  ua             .ug  oe    #L  ?b\n"
+  printf "              A                    .d   .BLYAT   ?b.\n"
+  printf "             Z                    a*CYKA#           Nu\n"
+  printf "            A                                        #b\n"
+  printf "          .L                                           Sr\n"
+  printf "        .A                                   SL        S\n"
+  printf "      .S                                    8 R      dP\n"
+  printf "   .dx                                   .dP d    .d#\n"
+  printf "  xP              .e                 .ud#   dE.oa (\n"
+  printf "  S             s                .ua           \dP\n"
+  printf "  ?L  ..                    ..oa          .S  uP\n"
+  printf "   #c:S  u.             .ua*  S          uR .a\n"
+  printf "    ?LS.        Nc    xa     A          d  JP\n"
+  printf "     ^#S.        #L  .S     8          d  d\n"
+  printf "                   b. S.   A          S  8\n"
+  printf "                      aSL S          S  a\n"
+  printf "                   aL    S          d  8\n"
+  printf "                   SSu.uS          dF dF\n"
+  printf "                   S       o      dP xR\n"
+  printf "                   S      dFNu...a   S\n"
+  printf "                    N..   ?B        :R\n"
+
+
+}
+
+
+
+
 RED='\e[1;91m'
 GREEN='\e[1;92m'
 BLUE='\e[1;96m'
@@ -58,19 +92,54 @@ YELLOW='\e[1;93m'
 NC='\033[0m'
 WHITE='\e[1;97m'
 
-00x65v40(){
+
+
+
+
+_motto(){
 
 printf "This is $GREEN $_name$BLUE $_version$NC at your service  \n"
 
 }
 
-00cz87xp(){
+_logo(){
 
    echo "                         "
    printf "$GREEN     <<<<< $_name >>>>>$NC\n"
    printf "$GREEN       <<<$NC     🐍     $GREEN>>>  $NC\n"
    printf "$GREEN         < $_name >    $NC\n"
    echo "                  "
+
+}
+
+
+_exec(){
+
+  sudo chmod +x snake
+  sudo cp snake /usr/local/bin/
+  printf "snakeD\n"
+
+}
+
+
+
+_checkOS(){
+
+  _system="$(uname -s)"
+
+  if [ "$_system" == "Darwin" ]; then
+     _mac
+  elif [[ "$_system" == "Linux" ]]; then
+     _linux
+  elif [[ "$_system" == "Haiku" ]]; then
+     _haiku
+  elif [[ "$_system" == "BSD" ]]; then
+     _bsd
+  elif [[ "$_system" == "Minix" ]]; then
+     _minix
+  else
+     _unknown
+  fi
 
 }
 
@@ -111,7 +180,7 @@ elif [ "$1" == "-w" ]; then
 
         clear
         _wts
-        00x65v40
+        _motto
         printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
         printf "\n`echo Local IP  ` >> $YELLOW`ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}'`$NC"
         printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig en0 | grep ether | awk '{print $2;}'`$NC"
@@ -138,18 +207,18 @@ elif [[ "$1" == "-d" ]]; then
    clear
    printf "$GREEN     $_name$RED Destroy Mode$NC \n"
    _wts
-   00x65v40
-   00cz87xp
+   _motto
+   _logo
    printf "     $YELLOW  Here are our options $NC: \n"
-   printf "$WHITE   ports $GREEN-> Сканирование всех портов\n"
-   printf "$WHITE   off $GREEN-> Завершить S.N.A.K.E. невосприимчивость\n"
-   printf "$WHITE   purge $GREEN-> S.N.A.K.E. Рабочая станция навесов\n"
-   printf "$WHITE   docked + pN $GREEN-> проверить порт\n"
+   printf "$WHITE   ports $GREEN-> Scan every port in specified range\n"
+   printf "$WHITE   off $GREEN-> Completely close all connections\n"
+   printf "$WHITE   purge $GREEN-> Wipe the workstation clean\n"
+   printf "$WHITE   docked + pN $GREEN-> Check port status\n"
    printf "$WHITE   smell $GREEN-> Oткрытые порты\n"
-   printf "$WHITE   manual/autoFan $GREEN-> настроить вентиляторы\n"
-   printf "$WHITE   thermal $GREEN-> салазарные тепловые данные\n"
+   printf "$WHITE   manual/autoFan $GREEN-> Select fan control type\n"
+   printf "$WHITE   thermal $GREEN-> Get thermal data\n"
    printf "$GREEN   <<$RED badPill $WHITE||$BLUE goodPill$GREEN >> $NC \n"
-   00cz87xp
+   _logo
    printf "$WHITE"
    date
    printf "$NC"
@@ -159,8 +228,8 @@ elif [[ "$1" == "-o" ]]; then
 
 
     clear
-    00x65v40
-    00cz87xp
+    _motto
+    _logo
     printf "$GREEN       $_name$WHITE Observe Mode\n"
     printf "\n$WHITE         я вижу $GREEN Gates\n"
     printf "$WHITE         я вижу $GREEN Ports\n"
@@ -182,72 +251,39 @@ elif [[ "$1" == "-p" ]]; then
 
    printf "      $_name $RED Power Mode $NC  \n"
    _wts
-   00x65v40
-   00cz87xp
+   _motto
+   _logo
    printf " $YELLOW     Here are our options $NC:\n"
-   printf "$WHITE   biteOS $GREEN-> ws OS\n"
-   printf "$WHITE   biteOS_u $GREEN-> ws OS + UDP\n"
-   printf "$WHITE   biteinfo $GREEN-> T4-n-A-vv-65535P\n"
+   printf "$WHITE   biteOS $GREEN-> OS Detection L1\n"
+   printf "$WHITE   biteOS_u $GREEN-> OS Detection L2\n"
+   printf "$WHITE   biteinfo $GREEN-> OS Detection Li\n"
    printf "$WHITE   venom $GREEN-> ws OS 65535P -Pn-vv-n-A-t4-sSU\n"
    printf "$WHITE   venomIPV6 $GREEN-> -6 -Pn 65535P\n"
    printf "$WHITE   venomPorts $GREEN-> ws 65535P-Pn-vv-n-A-T4\n"
    printf "$WHITE   venomOS|IP $GREEN-> wsOS -A -T4-n-vv-Pn-65535P|DNS $NC \n"
-   00cz87xp
+   _logo
    printf "$WHITE"
    date
    printf "$NC\n"
 
 elif [[ "$1" == "-u" ]]; then
- 
-   _system="$(uname -s)"
 
-   if [ "$_system" == "Darwin" ]; then
-      _mac
-   elif [[ "$_system" == "Linux" ]]; then
-      _linux
-   elif [[ "$_system" == "Haiku" ]]; then
-      _haiku
-   elif [[ "$_system" == "BSD" ]]; then
-      _bsd
-   elif [[ "$_system" == "Minix" ]]; then
-      _minix
-   else
-      _unknown
-   fi
+    _checkOS
 
 elif [[ "$1" == "--nest" ]]; then
 
-      sudo chmod +x snake
-      sudo cp snake /usr/local/bin/
-      printf "snakeD\n"
-   
+     _exec
+
+elif [[ "$1" == "--install" ]]; then
+
+     _exec
+
 elif [[ "$1" == "--opaa" ]]; then
 
-      clear
-      printf "                  ..      .........   .ue     ^Rc\n"
-      printf "                .R   Lo #           7d  .daN.   S\n"
-      printf "               A  ua             .ug  oe    #L  ?b\n"
-      printf "              A                    .d   .BLYAT   ?b.\n"
-      printf "             Z                    a*CYKA#           Nu\n"
-      printf "            A                                        #b\n"
-      printf "          .L                                           Sr\n"
-      printf "        .A                                   SL        S\n"
-      printf "      .S                                    8 R      dP\n"
-      printf "   .dx                                   .dP d    .d#\n"
-      printf "  xP              .e                 .ud#   dE.oa (\n"
-      printf "  S             s                .ua           \dP\n"
-      printf "  ?L  ..                    ..oa          .S  uP\n"
-      printf "   #c:S  u.             .ua*  S          uR .a\n"
-      printf "    ?LS.        Nc    xa     A          d  JP\n"
-      printf "     ^#S.        #L  .S     8          d  d\n"
-      printf "                   b. S.   A          S  8\n"
-      printf "                      aSL S          S  a\n"
-      printf "                   aL    S          d  8\n"
-      printf "                   SSu.uS          dF dF\n"
-      printf "                   S       o      dP xR\n"
-      printf "                   S      dFNu...a   S\n"
-      printf "                    N..   ?B        :R\n"
+     _opaa
 
+elif [[ "$1" == "-opaa" ]]; then
+
+     _opaa
 
 fi
-
