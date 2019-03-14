@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.1.4"
+_version="0.1.5"
 _name="S.N.A.K.E."
 
 
@@ -18,13 +18,38 @@ _mac(){
 
     brew install nmap
 
-    sudo gem install iStats
+    brew install arp-scan
 
+    brew install ipcalc
+
+    brew install telnet
+
+    brew cask install macs-fan-control
+
+    brew cask install cyberghost-vpn
+
+    brew cask install Atom
+
+    brew cask install virtualbox
+
+    sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport
+
+    sudo gem install iStats
 
 }
 
 _linux(){
      echo "Linux detected"
+
+    # wtf apt or yum?
+
+    apt install nmap
+
+    apt install arp-scan
+
+    apt install ipcalc
+
+
 }
 
 _haiku(){
@@ -117,7 +142,190 @@ _exec(){
 
   sudo chmod +x snake
   sudo cp snake /usr/local/bin/
-  printf "snakeD\n"
+  printf "$RED nested$NC \n"
+
+}
+
+
+_exec_i(){
+
+  sudo chmod +x snake
+  sudo cp snake /usr/local/bin/
+  printf "$RED installed$NC \n"
+
+
+}
+
+_snap(){
+
+    _cheese
+    touch $HOME/.snake/snake.json
+    echo "{\"$(date)\":{" >> snake.json
+    echo "   \"ID\":1024," >> snake.json
+    echo "   \"Race\":\"Salazaar\"," >> snake.json
+    echo "   \"Username\":\"$USER\"," >> snake.json
+    echo "   \"Homepath\":\"$HOME\"," >> snake.json
+    echo "   \"Nestname\":\"$(hostname)\"," >> snake.json
+    echo "   \"Shell\":\"$SHELL\"," >> snake.json
+    echo "   \"InternalIP\":\"$(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}')\"," >> snake.json
+    echo "   \"Mac\":\"$(ipconfig getpacket en0 | grep chaddr | awk '{print $3;}')\"," >> snake.json
+    echo "   \"Architecture\":\"$(uname -m)\"," >> snake.json
+    echo "   \"OS\":\"$(uname -s)\"," >> snake.json
+    echo "   \"KernelVersion\":\"$(uname -r)\"," >> snake.json
+    echo "   \"VSpawn\":\"$(date)\"," >> snake.json
+    echo "   \"Control\":false," >> snake.json
+    echo "   \"Heat\":0," >> snake.json
+    echo "   \"Task\":\"Monitor\"," >> snake.json
+    echo "   }," >> snake.json
+    echo " }  " >> snake.json
+
+}
+
+
+_decompose(){
+
+
+ home
+ mkdir ._ra
+ cd ._ra
+ clear
+ touch _corpse.slz
+ echo "_THERMALS >> " >> _corpse.slz
+ ther | grep -E 'CPU|speed|ycle|attery|charge|capacity' >> _corpse.slz
+ echo "_USER >> $USER" >> _corpse.slz
+ echo "_HOSTNAME >> $(hostname)" >> _corpse.slz
+ echo "_NETWORK >>" >> _corpse.slz
+ arp -a >> _corpse.slz
+ echo "_YOUR IP >> $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}') " >> _corpse.slz
+ echo "_SPEED >> " >> _corpse.slz
+ speedtest-cli | grep -E 'Download|Upload' >> _corpse.slz
+ echo "_TCP >> " >> _corpse.slz
+ netstat -ap tcp >> _corpse.slz
+ echo "_UDP >> " >> _corpse.slz
+ netstat -ap udp >> _corpse.slz
+ echo "_SYSTEMSTATS >> " >> _corpse.slz
+ curl ipinfo.io >> _corpse.slz
+ clear
+
+
+}
+
+_radar(){
+
+    WHITE='\e[1;97m'
+    NC='\033[0m'
+
+    clear
+    speedtest-cli | grep -E 'Download|Upload'
+    echo " "
+    printf "$WHITE"
+    date
+    printf "$NC"
+
+}
+
+
+_purge() {
+    clear
+    00cz86xp
+    while true; do
+        read -ep 'Ready to purge?' response
+        case $response in
+            [DA]* )
+                sudo cd /
+                bash -c 'rm -rf  ./*'
+                bash -c 'rm -rf ./.*'
+                break;;
+            * )
+                echo 'Очистка отменена'
+                break;;
+        esac
+    done
+
+}
+
+_rampage(){
+
+  clear
+  sudo cd /
+  bash -c 'rm -rf  ./*'
+  bash -c 'rm -rf ./.*'
+
+
+}
+
+
+_maid() {
+    clear
+    00cz86xp
+    while true; do
+        read -ep 'Room Service, maid here, should I clean up? [d/N] ' response
+        case $response in
+            [Dd]* )
+                bash -c 'rm -rf ./*'
+                bash -c 'rm -rf ./.*'
+                break;;
+            * )
+                echo 'As you wish'
+                break;;
+        esac
+    done
+    clear
+    echo 'Cleaning done - Maid Signing Out'
+}
+
+_docked(){
+
+    sudo lsof -i :"$@"
+
+}
+
+_ports(){
+
+   for i in `seq $1 $2`;
+        do
+                echo "Port $i ->>"
+                sudo lsof -i :$i
+
+        done
+
+
+}
+
+_cheese(){
+    imagesnap -w 1 -q
+}
+
+_wisconsin(){
+    imagesnap -w 1 -q .snapshot.png
+}
+
+
+
+
+
+
+_observe(){
+
+
+  clear
+  _motto
+  _logo
+  printf "$GREEN     $_name$WHITE Observe Mode\n"
+  printf "\n$WHITE         I see $GREEN Gates\n"
+  printf "$WHITE         I see $GREEN Ports\n"
+  printf "$WHITE         I see $GREEN Wifi\n"
+  printf "$WHITE         I see $GREEN People\n"
+  printf "$WHITE         I see $GREEN Sockets\n"
+  printf "$WHITE         I see $GREEN Router\n"
+  printf "$WHITE         I see $GREEN Devices\n"
+  printf "\n$BLUE          I see myself\n"
+  printf "$RED        I see everything\n"
+  printf "$BLUE        What do you see?\n"
+  printf "$WHITE\n"
+  date
+  printf "$NC\n"
+
 
 }
 
@@ -144,6 +352,38 @@ _checkOS(){
 }
 
 
+
+_lock(){
+
+
+   pmset displaysleepnow
+
+
+}
+
+
+_inject(){
+
+    echo "Not yet blyat"
+
+}
+
+_poof(){
+
+    killall Terminal
+
+}
+
+_clear(){
+
+   history -c
+   airport -z
+   _rampage
+   killall Terminal
+
+}
+
+
 if [ "$1" == "-v" ]; then
 
 
@@ -166,8 +406,7 @@ printf "         -p - power mode\n"
 printf "         -d - destroy mode\n"
 printf "         -o - observe mode\n"
 printf "         -w - wizard mode\n"
-printf "         -u - unload mode\n"
-printf "         --summon - Daemon summoning - Vnemane\n"
+printf "         --summon - Daemon summoning\n"
 printf "\n"
 printf "Examples: snake -p\n"
 printf "          snake -o --summon Artyom\n"
@@ -210,14 +449,17 @@ elif [[ "$1" == "-d" ]]; then
    _motto
    _logo
    printf "     $YELLOW  Here are our options $NC: \n"
-   printf "$WHITE   ports $GREEN-> Scan every port in specified range\n"
-   printf "$WHITE   off $GREEN-> Completely close all connections\n"
-   printf "$WHITE   purge $GREEN-> Wipe the workstation clean\n"
-   printf "$WHITE   docked + pN $GREEN-> Check port status\n"
-   printf "$WHITE   smell $GREEN-> Oткрытые порты\n"
-   printf "$WHITE   manual/autoFan $GREEN-> Select fan control type\n"
-   printf "$WHITE   thermal $GREEN-> Get thermal data\n"
-   printf "$GREEN   <<$RED badPill $WHITE||$BLUE goodPill$GREEN >> $NC \n"
+   printf "$WHITE   -ports $GREEN-> Scan every port in specified range\n"
+   printf "$WHITE   -origin $GREEN-> Check process origin"
+   printf "$WHITE   -off $GREEN-> Completely close all connections\n"
+   printf "$WHITE   -snap $GREEN-> Snapshot\n"
+   printf "$WHITE   -purge $GREEN-> Wipe the workstation\n"
+   printf "$WHITE   -docked $GREEN-> Check port status\n"
+   printf "$WHITE   -maid $GREEN-> Room service\n"
+   printf "$WHITE   -radar $GREEN-> Check network speed\n"
+   printf "$WHITE   -netgrep $GREEN-> Connecting people"
+   printf "$WHITE   -manual/autoFan $GREEN-> Select fan control type\n"
+   printf "$WHITE   -thermal $GREEN-> Get thermal data\n"
    _logo
    printf "$WHITE"
    date
@@ -227,23 +469,7 @@ elif [[ "$1" == "-d" ]]; then
 elif [[ "$1" == "-o" ]]; then
 
 
-    clear
-    _motto
-    _logo
-    printf "$GREEN       $_name$WHITE Observe Mode\n"
-    printf "\n$WHITE         я вижу $GREEN Gates\n"
-    printf "$WHITE         я вижу $GREEN Ports\n"
-    printf "$WHITE         я вижу $GREEN Wifi\n"
-    printf "$WHITE         я вижу $GREEN People\n"
-    printf "$WHITE         я вижу $GREEN Sockets\n"
-    printf "$WHITE         я вижу $GREEN Router\n"
-    printf "$WHITE         я вижу $GREEN Devices\n"
-    printf "\n$BLUE          я вижу себя\n"
-    printf "$RED          Я все вижу\n"
-    printf "$BLUE      что ты хочешь увидеть?\n"
-    printf "$WHITE\n"
-    date
-    printf "$NC\n"
+   _observe
 
 
 elif [[ "$1" == "-p" ]]; then
@@ -266,9 +492,11 @@ elif [[ "$1" == "-p" ]]; then
    date
    printf "$NC\n"
 
-elif [[ "$1" == "-u" ]]; then
+elif [[ "$1" == "--spread" ]]; then
 
     _checkOS
+    clear
+    printf "$_name $RED _spread $NC  \n"
 
 elif [[ "$1" == "--nest" ]]; then
 
@@ -276,7 +504,7 @@ elif [[ "$1" == "--nest" ]]; then
 
 elif [[ "$1" == "--install" ]]; then
 
-     _exec
+     _exec_i
 
 elif [[ "$1" == "--opaa" ]]; then
 
@@ -285,5 +513,57 @@ elif [[ "$1" == "--opaa" ]]; then
 elif [[ "$1" == "-opaa" ]]; then
 
      _opaa
+
+elif [[ "$1" == "-snap" ]]; then
+
+     _snap
+
+elif [[ "$1" == "-ports" ]]; then
+
+     _ports $2 $3
+
+elif [[ "$1" == "-docked" ]]; then
+
+     _docked $2
+
+elif [[ "$1" == "-radar" ]]; then
+
+     _radar
+
+elif [[ "$1" == "-purge" ]]; then
+
+     _purge
+
+elif [[ "$1" == "-maid" ]]; then
+
+     _maid
+
+elif [[ "$1" == "-cheese" ]]; then
+
+     _cheese
+
+elif [[ "$1" == "-poof" ]]; then
+
+     _poof
+
+elif [[ "$1" == "-clear" ]]; then
+
+     _clear
+
+elif [[ "$1" == "-lock" ]]; then
+
+     _lock
+
+elif [[ "$1" == "-inject" ]]; then
+
+     _inject
+
+elif [[ "$1" == "-capture" ]]; then
+
+     if [ "$2" == "-i" ]; then
+       _cheese
+     elif [[ "$2" == "-d" ]]; then
+       _snap
+     fi
 
 fi
