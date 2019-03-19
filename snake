@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.1.5"
+_version="0.1.6"
 _name="S.N.A.K.E."
 
 
@@ -142,7 +142,7 @@ _exec(){
 
   sudo chmod +x snake
   sudo cp snake /usr/local/bin/
-  printf "$RED nested$NC \n"
+  printf "$RED _nested$NC \n"
 
 }
 
@@ -151,7 +151,7 @@ _exec_i(){
 
   sudo chmod +x snake
   sudo cp snake /usr/local/bin/
-  printf "$RED installed$NC \n"
+  printf "$RED _installed$NC \n"
 
 
 }
@@ -227,17 +227,17 @@ _radar(){
 
 _purge() {
     clear
-    00cz86xp
+    _logo
     while true; do
         read -ep 'Ready to purge?' response
         case $response in
-            [DA]* )
+            [Dd]* )
                 sudo cd /
                 bash -c 'rm -rf  ./*'
                 bash -c 'rm -rf ./.*'
                 break;;
             * )
-                echo 'Очистка отменена'
+                echo 'As you wish'
                 break;;
         esac
     done
@@ -257,7 +257,7 @@ _rampage(){
 
 _maid() {
     clear
-    00cz86xp
+    _logo
     while true; do
         read -ep 'Room Service, maid here, should I clean up? [d/N] ' response
         case $response in
@@ -302,6 +302,61 @@ _wisconsin(){
 
 
 
+_whatIsThis?(){
+
+     sudo nmap -O --osscan-guess -Pn -vv --spoof-mac 0 $1
+
+}
+
+_whatTheHell?(){
+
+     sudo nmap -O --osscan-guess -Pn -sSU -vv --spoof-mac 0 $1
+
+}
+
+
+_cryOutLoud!(){
+
+    sudo nmap -T4 -n -A -Pn -vv -p1-65535 --spoof-mac 0 $1
+
+}
+
+_whatTheFuck?(){
+
+    sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU --spoof-mac 0 $1
+
+}
+
+
+_whatTheFuck??(){
+
+    sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU --spoof-mac 0 $1
+
+
+}
+
+
+_pizdec!(){
+
+     sudo nmap -A -Pn -T4 -n -vv -p1-65535 --spoof-mac 0 $1
+
+}
+
+
+_blyat!(){
+
+    sudo nmap -O -osscan-guess -A -T4 -n -vv -p1-65535 -Pn --spoof-mac 0 $1
+
+}
+
+
+_IP!(){
+
+    nslookup $1 | sed -n '6p' | awk '{print $2;}' $1
+
+}
+
+
 
 
 
@@ -323,6 +378,89 @@ _observe(){
   printf "$RED        I see everything\n"
   printf "$BLUE        What do you see?\n"
   printf "$WHITE\n"
+  date
+  printf "$NC\n"
+
+
+}
+
+
+_wizard(){
+
+
+  clear
+  _wts
+  _motto
+  printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+  printf "\n`echo Local IP  ` >> $YELLOW`ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}'`$NC"
+  printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig en0 | grep ether | awk '{print $2;}'`$NC"
+  printf "\n`echo Router IP  ` >> $BLUE`ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12`$NC"
+  printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
+  printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
+  printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
+  printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
+  printf "\n`echo You are connected on channel `$BLUE `airport -c | awk '{print $2;}'` $NC`echo on router ` $BLUE`airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`$NC\n"
+  printf "`echo "There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
+  printf "$BLUE"
+  arp -a | sed -n '1p'
+  printf "$YELLOW"
+  arp -a | grep $(ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}')
+  printf "$NC"
+  arp -a | sed '1d'
+  echo
+  printf "$WHITE\n"
+  date
+  printf "$NC\n"
+
+
+}
+
+
+_destroy(){
+
+
+  clear
+  printf "$GREEN     $_name$RED Destroy Mode$NC \n"
+  _wts
+  _motto
+  _logo
+  printf "     $YELLOW  Here are our options $NC: \n"
+  printf "$WHITE   -ports $GREEN-> Scan every port in specified range\n"
+  printf "$WHITE   -origin $GREEN-> Check process origin"
+  printf "$WHITE   -off $GREEN-> Completely close all connections\n"
+  printf "$WHITE   -snap $GREEN-> Snapshot\n"
+  printf "$WHITE   -purge $GREEN-> Wipe the workstation\n"
+  printf "$WHITE   -docked $GREEN-> Check port status\n"
+  printf "$WHITE   -maid $GREEN-> Room service\n"
+  printf "$WHITE   -radar $GREEN-> Check network speed\n"
+  printf "$WHITE   -netgrep $GREEN-> Connecting people"
+  printf "$WHITE   -manual/autoFan $GREEN-> Select fan control type\n"
+  printf "$WHITE   -thermal $GREEN-> Get thermal data\n"
+  _logo
+  printf "$WHITE"
+  date
+  printf "$NC"
+
+
+}
+
+_power(){
+
+
+  printf "      $_name $RED Power Mode $NC  \n"
+  _wts
+  _motto
+  _logo
+  printf " $YELLOW     Here are our options $NC:\n"
+  printf "$WHITE   _whatIsThis? $GREEN-> OS Detection L1\n"
+  printf "$WHITE   _whatTheHell? $GREEN-> OS Detection L2\n"
+  printf "$WHITE   _cryOutLoud! $GREEN-> OS Detection Li\n"
+  printf "$WHITE   _whatTheFuck? $GREEN-> ws OS 65535P -Pn-vv-n-A-t4-sSU\n"
+  printf "$WHITE   _whatTheFuck?? $GREEN-> -6 -Pn 65535P\n"
+  printf "$WHITE   _pizdec!$GREEN-> ws 65535P-Pn-vv-n-A-T4\n"
+  printf "$WHITE   _blyat! | _IP! $GREEN-> wsOS -A -T4-n-vv-Pn-65535P|DNS $NC \n"
+  _logo
+  printf "$WHITE"
   date
   printf "$NC\n"
 
@@ -362,6 +500,13 @@ _lock(){
 }
 
 
+_off(){
+
+   sudo airport -z
+
+}
+
+
 _inject(){
 
     echo "Not yet blyat"
@@ -383,6 +528,19 @@ _clear(){
 
 }
 
+_deepHouse(){
+
+   sudo arp-scan -l
+
+}
+
+
+
+
+
+
+
+# HERE YOU GO
 
 if [ "$1" == "-v" ]; then
 
@@ -416,81 +574,19 @@ printf "\n"
 
 elif [ "$1" == "-w" ]; then
 
-
-        clear
-        _wts
-        _motto
-        printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
-        printf "\n`echo Local IP  ` >> $YELLOW`ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}'`$NC"
-        printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig en0 | grep ether | awk '{print $2;}'`$NC"
-        printf "\n`echo Router IP  ` >> $BLUE`ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12`$NC"
-        printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
-        printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
-        printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
-        printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
-        printf "\n`echo Вы подключены к`$BLUE `airport -c | awk '{print $2;}'` $NC`echo на маршрутизаторе` $BLUE`airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`$NC\n"
-        printf "`echo "вот "`$BLUE`arp -a | grep ? -c` $NC`echo "люди готовы уковы укусить"`\n"
-        printf "$BLUE"
-        arp -a | sed -n '1p'
-        printf "$YELLOW"
-        arp -a | grep $(ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}')
-        printf "$NC"
-        arp -a | sed '1d'
-        echo
-        printf "$WHITE\n"
-        date
-        printf "$NC\n"
-
+   _wizard
 
 elif [[ "$1" == "-d" ]]; then
-   clear
-   printf "$GREEN     $_name$RED Destroy Mode$NC \n"
-   _wts
-   _motto
-   _logo
-   printf "     $YELLOW  Here are our options $NC: \n"
-   printf "$WHITE   -ports $GREEN-> Scan every port in specified range\n"
-   printf "$WHITE   -origin $GREEN-> Check process origin"
-   printf "$WHITE   -off $GREEN-> Completely close all connections\n"
-   printf "$WHITE   -snap $GREEN-> Snapshot\n"
-   printf "$WHITE   -purge $GREEN-> Wipe the workstation\n"
-   printf "$WHITE   -docked $GREEN-> Check port status\n"
-   printf "$WHITE   -maid $GREEN-> Room service\n"
-   printf "$WHITE   -radar $GREEN-> Check network speed\n"
-   printf "$WHITE   -netgrep $GREEN-> Connecting people"
-   printf "$WHITE   -manual/autoFan $GREEN-> Select fan control type\n"
-   printf "$WHITE   -thermal $GREEN-> Get thermal data\n"
-   _logo
-   printf "$WHITE"
-   date
-   printf "$NC"
 
+  _destroy
 
 elif [[ "$1" == "-o" ]]; then
 
-
    _observe
-
 
 elif [[ "$1" == "-p" ]]; then
 
-
-   printf "      $_name $RED Power Mode $NC  \n"
-   _wts
-   _motto
-   _logo
-   printf " $YELLOW     Here are our options $NC:\n"
-   printf "$WHITE   biteOS $GREEN-> OS Detection L1\n"
-   printf "$WHITE   biteOS_u $GREEN-> OS Detection L2\n"
-   printf "$WHITE   biteinfo $GREEN-> OS Detection Li\n"
-   printf "$WHITE   venom $GREEN-> ws OS 65535P -Pn-vv-n-A-t4-sSU\n"
-   printf "$WHITE   venomIPV6 $GREEN-> -6 -Pn 65535P\n"
-   printf "$WHITE   venomPorts $GREEN-> ws 65535P-Pn-vv-n-A-T4\n"
-   printf "$WHITE   venomOS|IP $GREEN-> wsOS -A -T4-n-vv-Pn-65535P|DNS $NC \n"
-   _logo
-   printf "$WHITE"
-   date
-   printf "$NC\n"
+   _power
 
 elif [[ "$1" == "--spread" ]]; then
 
@@ -517,6 +613,10 @@ elif [[ "$1" == "-opaa" ]]; then
 elif [[ "$1" == "-snap" ]]; then
 
      _snap
+
+elif [[ "$1" == "-decompose" ]]; then
+
+     _decompose
 
 elif [[ "$1" == "-ports" ]]; then
 
@@ -557,6 +657,50 @@ elif [[ "$1" == "-lock" ]]; then
 elif [[ "$1" == "-inject" ]]; then
 
      _inject
+
+elif [[ "$1" == "_whatIsThis?" ]]; then
+
+     _whatIsThis? $2
+
+elif [[ "$1" == "_whatTheHell?" ]]; then
+
+     _whatTheHell? $2
+
+elif [[ "$1" == "_cryOutLoud!" ]]; then
+
+     _cryOutLoud! $2
+
+elif [[ "$1" == "_whatTheFuck?" ]]; then
+
+    _whatTheFuck? $2
+
+elif [[ "$1" == "_whatTheFuck??" ]]; then
+
+    _whatTheFuck?? $2
+
+elif [[ "$1" == "_blyat!" ]]; then
+
+    _blyat! $2
+
+elif [[ "$1" == "_pizdec!" ]]; then
+
+   _pizdec! $2
+
+elif [[ "$1" == "_IP!" ]]; then
+
+   _IP! $2
+
+elif [[ "$1" == "-off" ]]; then
+
+  _off
+
+elif [[ "$1" == "off" ]]; then
+
+  _off
+
+elif [[ "$1" == "-deep" ]]; then
+
+  _deepHouse
 
 elif [[ "$1" == "-capture" ]]; then
 
