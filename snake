@@ -1,8 +1,69 @@
 #!/bin/bash
 
 
-_version="0.1.6"
+_version="0.1.8"
 _name="S.N.A.K.E."
+
+
+
+RED='\e[1;91m'
+GREEN='\e[1;92m'
+BLUE='\e[1;96m'
+YELLOW='\e[1;93m'
+NC='\033[0m'
+WHITE='\e[1;97m'
+
+
+_green(){
+   GREEN='\e[1;92m'
+   clear
+   printf "$GREEN Green Bold Activate\n"
+   date
+}
+
+_white(){
+   WHITE='\e[1;97m'
+   clear
+   printf "$WHITE White Bold Activate\n"
+   date
+}
+
+_yellow(){
+   YELLOW='\e[1;93m'
+   clear
+   printf "$YELLOW Yellow Bold Activate\n"
+   date
+}
+
+_red(){
+   RED='\e[1;91m'
+   clear
+   printf "$RED Red Bold Activate\n"
+   date
+}
+
+_cyan(){
+
+   CYAN='\e[1;96m'
+   clear
+   printf "$CYAN Cyan Bold Activate\n"
+   date
+}
+
+_normal(){
+   NC='\033[0m'
+   clear
+   printf "$NC Text Normalized\n"
+   date
+}
+
+quietTextRestore(){
+    NC='\033[0m'
+    printf "$NC\n"
+
+}
+
+
 
 
 
@@ -29,8 +90,6 @@ _mac(){
     brew cask install cyberghost-vpn
 
     brew cask install Atom
-
-    brew cask install virtualbox
 
     sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport
 
@@ -107,20 +166,6 @@ _opaa(){
 
 }
 
-
-
-
-RED='\e[1;91m'
-GREEN='\e[1;92m'
-BLUE='\e[1;96m'
-YELLOW='\e[1;93m'
-NC='\033[0m'
-WHITE='\e[1;97m'
-
-
-
-
-
 _motto(){
 
 printf "This is $GREEN $_name$BLUE $_version$NC at your service  \n"
@@ -134,6 +179,30 @@ _logo(){
    printf "$GREEN       <<<$NC     🐍     $GREEN>>>  $NC\n"
    printf "$GREEN         < $_name >    $NC\n"
    echo "                  "
+
+}
+
+
+
+
+
+
+_relist(){
+
+   clear ; ls
+
+}
+
+_highlight(){
+
+   _yellow ; clear ; ls ; _quietTextRestore
+
+}
+
+
+_reveal(){
+
+   _white ; clear ; ls -la ; quietTextRestore
 
 }
 
@@ -153,6 +222,12 @@ _exec_i(){
   sudo cp snake /usr/local/bin/
   printf "$RED _installed$NC \n"
 
+
+}
+
+_appID(){
+
+    ps -A | grep -m1 "$1" | awk '{print $1}'
 
 }
 
@@ -304,33 +379,33 @@ _wisconsin(){
 
 _whatIsThis?(){
 
-     sudo nmap -O --osscan-guess -Pn -vv --spoof-mac 0 $1
+     sudo nmap -O --osscan-guess -Pn -vv  $1
 
 }
 
 _whatTheHell?(){
 
-     sudo nmap -O --osscan-guess -Pn -sSU -vv --spoof-mac 0 $1
+     sudo nmap -O --osscan-guess -Pn -sSU -vv $1
 
 }
 
 
 _cryOutLoud!(){
 
-    sudo nmap -T4 -n -A -Pn -vv -p1-65535 --spoof-mac 0 $1
+    sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O --osscan-guess $1
 
 }
 
 _whatTheFuck?(){
 
-    sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU --spoof-mac 0 $1
+    sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -sV -sSU $1
 
 }
 
 
 _whatTheFuck??(){
 
-    sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU --spoof-mac 0 $1
+    sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU -6 $1
 
 
 }
@@ -338,14 +413,14 @@ _whatTheFuck??(){
 
 _pizdec!(){
 
-     sudo nmap -A -Pn -T4 -n -vv -p1-65535 --spoof-mac 0 $1
+     sudo nmap -A -Pn -T4 -n -vv -p1-65535 $1
 
 }
 
 
 _blyat!(){
 
-    sudo nmap -O -osscan-guess -A -T4 -n -vv -p1-65535 -Pn --spoof-mac 0 $1
+    sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn $1
 
 }
 
@@ -353,6 +428,13 @@ _blyat!(){
 _IP!(){
 
     nslookup $1 | sed -n '6p' | awk '{print $2;}' $1
+
+}
+
+
+_look(){
+
+   curl ipinfo.io/$(nslookup $1 | sed -n '6p' | awk '{print $2;}')
 
 }
 
@@ -426,14 +508,11 @@ _destroy(){
   _logo
   printf "     $YELLOW  Here are our options $NC: \n"
   printf "$WHITE   -ports $GREEN-> Scan every port in specified range\n"
-  printf "$WHITE   -origin $GREEN-> Check process origin"
+  printf "$WHITE   -origin $GREEN-> Check process origin\n"
   printf "$WHITE   -off $GREEN-> Completely close all connections\n"
-  printf "$WHITE   -snap $GREEN-> Snapshot\n"
-  printf "$WHITE   -purge $GREEN-> Wipe the workstation\n"
   printf "$WHITE   -docked $GREEN-> Check port status\n"
   printf "$WHITE   -maid $GREEN-> Room service\n"
   printf "$WHITE   -radar $GREEN-> Check network speed\n"
-  printf "$WHITE   -netgrep $GREEN-> Connecting people"
   printf "$WHITE   -manual/autoFan $GREEN-> Select fan control type\n"
   printf "$WHITE   -thermal $GREEN-> Get thermal data\n"
   _logo
@@ -489,13 +568,29 @@ _checkOS(){
 
 }
 
+_radar(){
 
+  clear
+  speedtest-cli | grep -E 'Download|Upload'
+  echo " "
+  printf "$WHITE"
+  date
+  printf "$NC"
+
+}
 
 _lock(){
 
 
    pmset displaysleepnow
 
+
+}
+
+_origin(){
+
+  clear
+  ps -p $1 | awk '{print $4;}' | sed '1d'
 
 }
 
@@ -506,10 +601,143 @@ _off(){
 
 }
 
+_hide(){
+
+  _off
+  sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+  echo 00-60-2F$end)
+  printf "$WHITE Velkommen, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+
+}
+
+
+_piece(){
+
+  _off
+  sudo ifconfig en0 ether $(arp -a | awk '{print $4}' | sed '1d')
+  printf "$WHITE Integration done: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+
+}
+
+
+_mb(){
+
+  _off
+  sudo ifconfig en0 ether $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')
+  printf "$WHITE Hello, Motherboard: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+
+}
 
 _inject(){
 
-    echo "Not yet blyat"
+
+    cd ~
+    echo "export PS1=\">>>\"" >> .bash_profile
+    echo " " >> .bash_profile
+    echo "# Aliases " >> .bash_profile
+    echo " " >> .bash_profile
+    echo "alias rip=\"sudo kill -9\"" >> .bash_profile
+    echo "alias off=\"sudo airport -z\"" >> .bash_profile
+    echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
+    echo "alias die=\"killall Terminal\"" >> .bash_profile
+    echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
+    echo "alias home=\"cd ~\"" >> .bash_profile
+    echo "alias root=\"cd /\"" >> .bash_profile
+    echo "alias ?=\"file\"" >> .bash_profile
+    echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
+    echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
+    echo "alias refresh=\"_update ; clear\"" >> .bash_profile
+    echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
+    echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
+    echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
+    echo "alias ther=\"temp\"" >> .bash_profile
+    echo "alias thermal=\"temp\"" >> .bash_profile
+    echo " " >> .bash_profile
+    echo "# Functions " >> .bash_profile
+    echo " " >> .bash_profile
+    echo "cd() { builtin cd \"$@\"; ls; }" >> .bash_profile
+    echo "_+() { open -a $1 $2 }" >> .bash_profile
+    echo "_a() { open -a /Applications/\"$1.app\"/Contents/MacOS/$1 }" >> .bash_profile
+    echo "_f() { open -a Finder ./ }" >> .bash_profile
+    echo "space() { du -hs "$@" | sort -nr; }" >> .bash_profile
+    echo "mkdg() { mkdir $1 ; clear ; cd $1 }" >> .bash_profile
+    echo "docked() { sudo lsof -i :\"$@\" }" >> .bash_profile
+    echo "destroy() { killall -9 appPID \"$1\" }" >> .bash_profile
+    echo "geolocate() { curl ipinfo.io/$1 }" >> .bash_profile
+    echo "origin() { clear ; ps -p $1 | awk '{print $4;}' | sed '1d' }" >> .bash_profile
+    echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
+    echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
+    echo "iwannafind() { mdfind $2 $1 }" >> .bash_profile
+    echo "iwannasee() { clear ; cat $(mdfind $2 $1) }" >> .bash_profile
+    echo "replace() { sed -i -e 's/$1/$2/g' $3 ; rm $3-e }" >> .bash_profile
+    echo "ports(){" >> .bash_profile
+    echo "   for i in `seq $1 $2`;" >> .bash_profile
+    echo "        do" >> .bash_profile
+    echo "              echo \"проверка процессов для порта  $i ->>\"" >> .bash_profile
+    echo "              sudo lsof -i :$i" >> .bash_profile
+    echo "        done" >> .bash_profile
+    echo "}" >> .bash_profile
+    echo "temp(){" >> .bash_profile
+    echo "   WHITE='\e[1;97m'" >> .bash_profile
+    echo "   NC='\033[0m'" >> .bash_profile
+    echo "   clear" >> .bash_profile
+    echo "   istats | sed '$d'" >> .bash_profile
+    echo "   printf \"$WHITE\n\"" >> .bash_profile
+    echo "   date" >> .bash_profile
+    echo "   printf \"$NC\n\"" >> .bash_profile
+    echo "}" >> .bash_profile
+    echo " " >> .bash_profile
+    echo "# Color functions " >> .bash_profile
+    echo " " >> .bash_profile
+    echo "_green(){" >> .bash_profile
+    echo "   GREEN='\e[1;92m'" >> .bash_profile
+    echo "   clear" >> .bash_profile
+    echo "   printf \"$GREEN Green Bold Activate\n\"" >> .bash_profile
+    echo "   date" >> .bash_profile
+    echo "}" >> .bash_profile
+    echo "_white(){" >> .bash_profile
+    echo "   WHITE='\e[1;97m'" >> .bash_profile
+    echo "   clear" >> .bash_profile
+    echo "   printf \"$WHITE White Bold Activate\n\"" >> .bash_profile
+    echo "   date" >> .bash_profile
+    echo "}" >> .bash_profile
+    echo "_yellow(){" >> .bash_profile
+    echo "   YELLOW='\e[1;93m'" >> .bash_profile
+    echo "   clear" >> .bash_profile
+    echo "   printf \"$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
+    echo "   date" >> .bash_profile
+    echo "}" >> .bash_profile
+    echo "_red(){" >> .bash_profile
+    echo "   RED='\e[1;91m'" >> .bash_profile
+    echo "   clear" >> .bash_profile
+    echo "   printf \"$RED Red Bold Activate\n\"" >> .bash_profile
+    echo "   date" >> .bash_profile
+    echo "}" >> .bash_profile
+    echo "_cyan(){" >> .bash_profile
+    echo "   CYAN='\e[1;96m'" >> .bash_profile
+    echo "   clear" >> .bash_profile
+    echo "   printf \"$CYAN Cyan Bold Activate\n\"" >> .bash_profile
+    echo "   date" >> .bash_profile
+    echo "}" >> .bash_profile
+    echo "_normal(){" >> .bash_profile
+    echo "   NC='\033[0m'" >> .bash_profile
+    echo "   clear" >> .bash_profile
+    echo "   printf \"$NC Text Normalized\n\"" >> .bash_profile
+    echo "   date" >> .bash_profile
+    echo "}" >> .bash_profile
+    echo "quietTextRestore(){" >> .bash_profile
+    echo "   NC='\033[0m'" >> .bash_profile
+    echo "   printf \"$NC\n\"" >> .bash_profile
+    echo "}"
+    echo " "
+
+}
+
+
+_blood(){
+
+  _red ; clear ; netstat -ap tcp ; quietTextRestore
 
 }
 
@@ -530,7 +758,30 @@ _clear(){
 
 _deepHouse(){
 
-   sudo arp-scan -l
+   sudo arp-scan -l | sed -n '2!p'
+   printf "$WHITE\n"
+   date
+   printf "$NC\n"
+
+}
+
+
+_summon(){
+
+   if [ "$1" == "roll" ]; then
+      printf "$RED Kolya $YELLOW Wilfred $GREEN Salazaar $BLUE Beria $NC\n"
+   elif [[ "$1" == "kolya" ]]; then
+      printf "$RED Summoning Kolya...$NC\n"
+   elif [[ "$1" == "wilfred" ]]; then
+      printf "$YELLOW Summoning Wilfred...$NC\n"
+   elif [[ "$1" == "salazaar" ]]; then
+      printf "$GREEN Summoning Salazaar...$NC\n"
+   elif [[ "$1" == "beria" ]]; then
+      printf "$BLUE Summoning Beria...$NC\n"
+   else
+      printf "$RED Summoning failed$NC\n"
+   fi
+
 
 }
 
@@ -598,6 +849,14 @@ elif [[ "$1" == "--nest" ]]; then
 
      _exec
 
+elif [[ "$1" == "-look" ]]; then
+
+     _look
+
+elif [[ "$1" == "--look" ]]; then
+
+    _look
+
 elif [[ "$1" == "--install" ]]; then
 
      _exec_i
@@ -641,6 +900,14 @@ elif [[ "$1" == "-maid" ]]; then
 elif [[ "$1" == "-cheese" ]]; then
 
      _cheese
+
+elif [[ "$1" == "-piece" ]]; then
+
+     _piece
+
+elif [[ "$1" == "-mb" ]]; then
+
+     _mb
 
 elif [[ "$1" == "-poof" ]]; then
 
@@ -702,12 +969,56 @@ elif [[ "$1" == "-deep" ]]; then
 
   _deepHouse
 
+elif [[ "$1" == "--summon" ]]; then
+
+  _summon $2
+
+elif [[ "$1" == "-summon" ]]; then
+
+  _summon $2
+
+elif [[ "$1" == "-origin" ]]; then
+
+  _origin $2
+
+elif [[ "$1" == "-radar" ]]; then
+
+  _radar
+
+elif [[ "$1" == "-relist" ]]; then
+
+  _relist
+
+elif [[ "$1" == "-highlight" ]]; then
+
+  _highlight
+
+elif [[ "$1" == "-reveal" ]]; then
+
+  _reveal
+
+elif [[ "$1" == "-appID" ]]; then
+
+  _appID
+
+elif [[ "$1" == "-hide" ]]; then
+
+  _hide
+
+elif [[ "$1" == "-blood" ]]; then
+
+  _blood
+
 elif [[ "$1" == "-capture" ]]; then
 
      if [ "$2" == "-i" ]; then
        _cheese
      elif [[ "$2" == "-d" ]]; then
        _snap
+     elif [[ "$2" == "-v" ]]; then
+       printf "Video capture not ready yet\n"
+     elif [[ "$2" == "-a" ]]; then
+       printf "Audio capture not ready yet\n"
      fi
 
 fi
