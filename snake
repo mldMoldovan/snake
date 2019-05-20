@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.2.2"
+_version="0.2.3"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 
@@ -389,6 +389,8 @@ _tv(){
 _mac(){
 
     echo "Mac detected"
+
+    xcode-select --install
 
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
 
@@ -806,14 +808,14 @@ _generalize(){
   _wts
   _motto
   printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
-  printf "\n`echo Local IP  ` >> $YELLOW`ifconfig en0 | grep inet | sed '1d' | awk '{print $1;}'`$NC"
-  printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig en0 | grep ether | awk '{print $1;}'`$NC"
+  printf "\n`echo Local IP  ` >> $YELLOW`ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}'`$NC"
+  printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig en0 | grep ether | awk '{print $2;}'`$NC"
   printf "\n`echo Router IP  ` >> $BLUE`ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12`$NC"
   printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
   printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
   printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
   printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
-  printf "\n`echo You are connected on channel `$BLUE `airport -c | awk '{print $1;}'` $NC`echo on router ` $BLUE`airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}'`$NC\n"
+  printf "\n`echo You are connected on channel `$BLUE `airport -c | awk '{print $2}'` $NC`echo on router ` $BLUE`airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}'`$NC\n"
   printf "`echo "There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
   printf "$BLUE"
   arp -a | sed -n '1p'
@@ -866,7 +868,7 @@ _engage(){
   printf "$WHITE   _whatIsThis? $GREEN-> OS Detection L1\n"
   printf "$WHITE   _whatTheHell? $GREEN-> OS Detection L2\n"
   printf "$WHITE   _cryOutLoud! $GREEN-> OS Detection Li\n"
-  printf "$WHITE   _whatTheFuck? $GREEN-> Hardcore OS Detection\n"
+  printf "$WHITE   _whatTheFuck? $GREEN-> Oh come on\n"
   printf "$WHITE   _pizdec!$GREEN-> This is BAD\n"
   printf "$WHITE   _blyat! | _IP! $GREEN-> JUST DON'T $NC \n"
   _logo
@@ -899,6 +901,135 @@ _checkOS(){
 
 }
 
+
+
+_vendor(){
+
+
+
+
+  # Set Functions
+  usage()
+  {
+  echo "MAC Vendor Help"
+  echo "mac_vendor -a 'MAC Address' | Get the vendor of the specified address."
+  echo "mac_vendor -s 'MAC Address' | Silent, only output result."
+  exit 0
+  }
+  get_database()
+  {
+  # Test Connection
+    ping -c 1 standards-oui.ieee.org &> /dev/null
+    [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach the database." && exit 68
+  # Download Database
+    database="$(curl -sf http://standards-oui.ieee.org/oui/oui.txt)"
+    [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+  }
+  format_vendor_address()
+  {
+    [[ -n $1 ]] && vendor_address="$1"
+    vendor_address="$(echo "$vendor_address" | tr -d ':' | tr '[:lower:]' '[:upper:]')"
+  if [[ ${#vendor_address} == "6" ]]; then
+  return
+  else
+      vendor_address="$(echo "$vendor_address" | cut -c1-6)"
+  fi
+  }
+  # Set Arguments
+  while getopts ":s:a:h" opt; do
+  case $opt in
+      s )  silent=true; vendor_address="$OPTARG" ;;
+      a )  vendor_address="$OPTARG" ;;
+      h )  usage ;;
+  \?)  echo "[Error] Invalid option: -$OPTARG" ; exit 1 ;;
+  esac
+  done
+  # Get Vendor Address
+  [[ -z $vendor_address && -n $1 ]] && vendor_address="$1"
+  [[ -z $vendor_address ]] && read -p "Vender address to test for [##:##:##:##:##:##]: " vendor_address
+  format_vendor_address
+  [[ ${#vendor_address} < 6 || ! $vendor_address =~ ^[0-9A-F]{6}$ ]] \
+  && echo "[Error 65:$LINENO] The address '$vendor_address' was invalid." && exit 65
+  # Search Database
+  [[ $silent != true ]] && echo "Searching Database..."
+  get_database
+  vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
+  [[ -z $vendor ]] && vendor="Unknown"
+  # Print Result
+  printf "$BLUE$vendor$NC\n"
+  exit 0
+
+
+
+}
+
+
+_just_vendor(){
+
+
+
+
+  # Set Functions
+  usage()
+  {
+  echo "MAC Vendor Help"
+  echo "mac_vendor -a 'MAC Address' | Get the vendor of the specified address."
+  echo "mac_vendor -s 'MAC Address' | Silent, only output result."
+  exit 0
+  }
+  get_database()
+  {
+  # Test Connection
+    ping -c 1 standards-oui.ieee.org &> /dev/null
+    [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach the database." && exit 68
+  # Download Database
+    database="$(curl -sf http://standards-oui.ieee.org/oui/oui.txt)"
+    [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+  }
+  format_vendor_address()
+  {
+    [[ -n $1 ]] && vendor_address="$1"
+    vendor_address="$(echo "$vendor_address" | tr -d ':' | tr '[:lower:]' '[:upper:]')"
+  if [[ ${#vendor_address} == "6" ]]; then
+  return
+  else
+      vendor_address="$(echo "$vendor_address" | cut -c1-6)"
+  fi
+  }
+  # Set Arguments
+  while getopts ":s:a:h" opt; do
+  case $opt in
+      s )  silent=true; vendor_address="$OPTARG" ;;
+      a )  vendor_address="$OPTARG" ;;
+      h )  usage ;;
+  \?)  echo "[Error] Invalid option: -$OPTARG" ; exit 1 ;;
+  esac
+  done
+  # Get Vendor Address
+  [[ -z $vendor_address && -n $1 ]] && vendor_address="$1"
+  [[ -z $vendor_address ]] && read -p "Vender address to test for [##:##:##:##:##:##]: " vendor_address
+  format_vendor_address
+  [[ ${#vendor_address} < 6 || ! $vendor_address =~ ^[0-9A-F]{6}$ ]] \
+  && echo "[Error 65:$LINENO] The address '$vendor_address' was invalid." && exit 65
+  # Search Database
+  get_database
+  vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
+  [[ -z $vendor ]] && vendor="Unknown"
+  # Print Result
+  printf "$BLUE$vendor$NC\n"
+  exit 0
+
+
+
+}
+
+
+_newScan(){
+
+   arp -a | awk -v column=$4 '{ $column = _just_vendor($column); print }'
+
+
+}
 
 
 _lock(){
@@ -1116,6 +1247,23 @@ _clear(){
 _mac(){
 
   printf "$YELLOW$(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+
+}
+
+
+_capture(){
+
+
+  if [ "$1" == "-i" ]; then
+    _cheese
+  elif [[ "$1" == "-d" ]]; then
+    _snap
+  elif [[ "$1" == "-v" ]]; then
+    printf "Video capture not ready yet\n"
+  elif [[ "$1" == "-a" ]]; then
+    printf "Audio capture not ready yet\n"
+  fi
+
 
 }
 
@@ -1367,6 +1515,10 @@ elif [[ "$1" == "-install" ]]; then
 
      _exec_i
 
+
+elif [[ "$1" == "-oui" ]]; then
+     _vendor $2
+
 elif [[ "$1" == "--morph" ]]; then
 
      _morph $2
@@ -1531,6 +1683,9 @@ elif [[ "$1" == "-scan" ]]; then
 
   _scanHouse
 
+elif [[ "$1" == "-test" ]]; then
+  _newScan
+
 elif [[ "$1" == "-blood" ]]; then
 
   _blood
@@ -1542,14 +1697,6 @@ elif [[ "$1" == "--light" ]]; then
 
 elif [[ "$1" == "-capture" ]]; then
 
-     if [ "$2" == "-i" ]; then
-       _cheese
-     elif [[ "$2" == "-d" ]]; then
-       _snap
-     elif [[ "$2" == "-v" ]]; then
-       printf "Video capture not ready yet\n"
-     elif [[ "$2" == "-a" ]]; then
-       printf "Audio capture not ready yet\n"
-     fi
+  _capture $2
 
 fi
