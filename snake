@@ -1,18 +1,21 @@
 #!/bin/bash
 
 
-_version="0.2.3"
+_version="0.2.5"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
+_blinking=true
 
 
 
 RED='\e[1;91m'
 GREEN='\e[1;92m'
 BLUE='\e[1;96m'
+NEW_BLUE='\e[34m'
 YELLOW='\e[1;93m'
 NC='\033[0m'
 WHITE='\e[1;97m'
+BLINK='\e[5m'
 
 
 _green(){
@@ -74,7 +77,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 38:2D:E8$end)
 _on
-printf "$WHITE Samsung, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Samsung :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -85,7 +92,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 2C:54:CF$end)
 _on
-printf "$WHITE LG, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE LG :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -96,7 +107,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo DC:A9:04$end)
 _on
-printf "$WHITE Apple, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Apple :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -107,7 +122,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 50:29:F5$end)
 _on
-printf "$WHITE Oppo, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Oppo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -118,7 +137,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo C0:EE:FB$end)
 _on
-printf "$WHITE One Plus, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE One Plus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -129,7 +152,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 78:F5:FD$end)
 _on
-printf "$WHITE Huawei, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Huawei :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -140,7 +167,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 1C:7B:21$end)
 _on
-printf "$WHITE Xperia, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Xperia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -151,7 +182,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 28:C6:71$end)
 _on
-printf "$WHITE Yota Phone, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Yota Phone :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -163,7 +198,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 38:F2:3E$end)
 _on
-printf "$WHITE Yota Phone, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lumia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -174,7 +213,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo F8:A4:5F$end)
 _on
-printf "$WHITE Xiaomi, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Xiaomi :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -186,7 +229,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 3C:D9:2B$end)
 _on
-printf "$WHITE HP, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE HP :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -197,7 +244,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo F8:DB:88$end)
 _on
-printf "$WHITE Dell, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Dell :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -208,7 +259,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 6C:AE:8B$end)
 _on
-printf "$WHITE IBM, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE IBM :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -219,7 +274,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 48:50:73$end)
 _on
-printf "$WHITE IBM, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -230,7 +289,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 70:72:0D$end)
 _on
-printf "$WHITE IBM, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lenovo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -244,7 +307,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 98:ED:5C$end)
 _on
-printf "$WHITE Tesla, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Tesla :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -255,7 +322,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:11:BD$end)
 _on
-printf "$WHITE Bombardier, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Bombardier :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -267,7 +338,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:50:93$end)
 _on
-printf "$WHITE Boeing, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Boeing :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -279,7 +354,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:07:EF$end)
 _on
-printf "$WHITE Lockheed, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lockheed :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -290,7 +369,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:23:B9$end)
 _on
-printf "$WHITE Airbus, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Airbus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -301,7 +384,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:19:8A$end)
 _on
-printf "$WHITE Airbus, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Northrop :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -312,7 +399,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo CC:3F:EA$end)
 _on
-printf "$WHITE BAE, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE BAE :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -324,7 +415,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:C0:ED$end)
 _on
-printf "$WHITE US Army, $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE US Army :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -336,7 +431,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:0A:AB$end)
 _on
-printf "$WHITE Toyota, $(ifconfig en0 | grep ether | awk '{print $1}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Toyota :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -348,7 +447,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo D0:0E:A4$end)
 _on
-printf "$WHITE Toyota, $(ifconfig en0 | grep ether | awk '{print $1}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Porsche :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -359,7 +462,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo A0:14:3D$end)
 _on
-printf "$WHITE Parrot, $(ifconfig en0 | grep ether | awk '{print $1}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Parrot :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -370,7 +477,11 @@ sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:08:55$end)
 _on
-printf "$WHITE NASA, $(ifconfig en0 | grep ether | awk '{print $1}')$NC\n"
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE NASA :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
 
 }
 
@@ -379,7 +490,11 @@ _tv(){
   _off
   sudo ifconfig en0 ether 80:56:F2:78:98:DD
   _on
-  printf "$WHITE Sony Bravia, $(ifconfig en0 | grep ether | awk '{print $1}')$NC\n"
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE Sony Bravia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  fi
 
 
 }
@@ -394,29 +509,31 @@ _mac(){
 
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
 
-    brew install speedtest-cli
+    brew install speedtest-cli >/dev/null
 
-    brew install imagesnap
+    brew install imagesnap >/dev/null
 
-    brew install nmap
+    brew install nmap >/dev/null  2>&1
 
-    brew install arp-scan
+    brew install arp-scan >/dev/null  2>&1
 
-    brew install ipcalc
+    brew install ipcalc >/dev/null  2>&1
 
-    brew install telnet
+    brew install telnet >/dev/null  2>&1
 
-    brew install watch
+    brew install watch >/dev/null  2>&1
 
-    brew cask install macs-fan-control
+    brew install htop >/dev/null  2>&1
 
-    brew cask install cyberghost-vpn
+    brew cask install macs-fan-control >/dev/null  2>&1
 
-    brew cask install Atom
+    brew cask install cyberghost-vpn >/dev/null  2>&1
 
-    sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport
+    brew cask install Atom >/dev/null  2>&1
 
-    sudo gem install iStats
+    sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport >/dev/null
+
+    sudo gem install iStats >/dev/null  2>&1
 
 }
 
@@ -425,11 +542,11 @@ _linux(){
 
     # wtf apt or yum?
 
-    apt install nmap
+    apt install nmap >/dev/null  2>&1
 
-    apt install arp-scan
+    apt install arp-scan >/dev/null  2>&1
 
-    apt install ipcalc
+    apt install ipcalc >/dev/null  2>&1
 
 
 }
@@ -473,7 +590,7 @@ _opaa(){
 
 
   clear
-  printf "                  ..      .........   .ue     ^Rc\n"
+  printf "$BLINK                  ..      .........   .ue     ^Rc\n"
   printf "                .R   Lo #           7d  .daN.   S\n"
   printf "               A  ua             .ug  oe    #L  ?b\n"
   printf "              A                    .d   .BLYAT   ?b.\n"
@@ -495,7 +612,7 @@ _opaa(){
   printf "                   SSu.uS          dF dF\n"
   printf "                   S       o      dP xR\n"
   printf "                   S      dFNu...a   S\n"
-  printf "                    N..   ?B        :R\n"
+  printf "                    N..   ?B        :R$NC\n"
 
 
 }
@@ -508,11 +625,117 @@ printf "This is $GREEN $_name$BLUE $_version$NC at your service  \n"
 
 _logo(){
 
-   echo "                         "
-   printf "$GREEN     <<<<< $_name >>>>>$NC\n"
-   printf "$GREEN       <<<$NC     🐍     $GREEN>>>  $NC\n"
-   printf "$GREEN         < $_name >    $NC\n"
-   echo "                  "
+  printf "Logo call: $_blinking\n"
+  if $_blinking ; then
+  printf "$BLINK\n"
+  printf "$GREEN     <<<<< $_name >>>>>$NC\n"
+  printf "$BLINK$GREEN       <<<$NC$BLINK     🐍     $GREEN$BLINK>>>  $NC\n"
+  printf "$BLINK$GREEN         < $_name >    $NC\n"
+  printf "$NC\n"
+  else
+  printf "\n"
+  printf "$GREEN     <<<<< $_name >>>>>$NC\n"
+  printf "$GREEN       <<<$NC     🐍     $GREEN>>>  $NC\n"
+  printf "$GREEN         < $_name >    $NC\n"
+  printf "$NC\n"
+  fi
+
+
+
+}
+
+
+
+_cloak(){
+
+  while true
+do
+  if [ "$1" == "samsung" ]; then
+    _samsung $3
+
+  elif [[ "$1" == "lg" ]]; then
+    _lg $3
+
+  elif [[ "$1" == "apple" ]]; then
+    _apple $3
+
+  elif [[ "$1" == "huawei" ]]; then
+    _huawei $3
+
+  elif [[ "$1" == "xperia" ]]; then
+    _xperia $3
+
+  elif [[ "$1" == "oppo" ]]; then
+    _oppo $3
+
+  elif [[ "$1" == "yota" ]]; then
+    _yota $3
+
+  elif [[ "$1" == "lumia" ]]; then
+    _lumia $3
+
+  elif [[ "$1" == "hp" ]]; then
+    _hp $3
+
+  elif [[ "$1" == "dell" ]]; then
+    _dell $3
+
+  elif [[ "$1" == "ibm" ]]; then
+    _ibm $3
+
+  elif [[ "$1" == "microsoft" ]]; then
+    _microsoft $3
+
+  elif [[ "$1" == "lenovo" ]]; then
+    _lenovo $3
+
+  elif [[ "$1" == "one_plus" ]]; then
+    _one_plus $3
+
+  elif [[ "$1" == "airbus" ]]; then
+    _airbus $3
+
+  elif [[ "$1" == "boeing" ]]; then
+    _boeing $3
+
+  elif [[ "$1" == "lockheed" ]]; then
+    _lockheed $3
+
+  elif [[ "$1" == "northrop" ]]; then
+    _northrop $3
+
+  elif [[ "$1" == "bae" ]]; then
+    _bae $3
+
+  elif [[ "$1" == "bombardier" ]]; then
+    _bombardier $3
+
+  elif [[ "$1" == "tesla" ]]; then
+    _tesla $3
+
+  elif [[ "$1" == "toyota" ]]; then
+    _toyota $3
+
+  elif [[ "$1" == "porsche" ]]; then
+    _porsche $3
+
+  elif [[ "$1" == "us_army" ]]; then
+    _us_army $3
+
+  elif [[ "$1" == "parrot" ]]; then
+    _parrot $3
+
+  elif [[ "$1" == "nasa" ]]; then
+    _nasa $3
+
+  elif [[ "$1" == "tv" ]]; then
+    _tv $3
+  fi
+  printf "$WHITE$(date)$NC\n"
+  printf "\n"
+   sleep $2
+done
+
 
 }
 
@@ -810,6 +1033,7 @@ _generalize(){
   printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
   printf "\n`echo Local IP  ` >> $YELLOW`ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}'`$NC"
   printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig en0 | grep ether | awk '{print $2;}'`$NC"
+  printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig en0 | grep ether | awk '{print $2;}')`$NC"
   printf "\n`echo Router IP  ` >> $BLUE`ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12`$NC"
   printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
   printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
@@ -1244,9 +1468,10 @@ _clear(){
 
 }
 
-_mac(){
+_macA(){
 
-  printf "$YELLOW$(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+ifconfig en0 | grep ether | awk '{print $2}'
+#  printf "$YELLOW$(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 
 }
 
@@ -1297,85 +1522,85 @@ _deepHouse(){
 _morph(){
 
   if [ "$1" == "samsung" ]; then
-    _samsung
+    _samsung  $2
 
   elif [[ "$1" == "lg" ]]; then
-    _lg
+    _lg  $2
 
   elif [[ "$1" == "apple" ]]; then
-    _apple
+    _apple $2
 
   elif [[ "$1" == "huawei" ]]; then
-    _huawei
+    _huawei $2
 
   elif [[ "$1" == "xperia" ]]; then
-    _xperia
+    _xperia $2
 
   elif [[ "$1" == "oppo" ]]; then
-    _oppo
+    _oppo $2
 
   elif [[ "$1" == "yota" ]]; then
-    _yota
+    _yota $2
 
   elif [[ "$1" == "lumia" ]]; then
-    _lumia
+    _lumia $2
 
   elif [[ "$1" == "hp" ]]; then
-    _hp
+    _hp $2
 
   elif [[ "$1" == "dell" ]]; then
-    _dell
+    _dell $2
 
   elif [[ "$1" == "ibm" ]]; then
-    _ibm
+    _ibm $2
 
   elif [[ "$1" == "microsoft" ]]; then
-    _microsoft
+    _microsoft $2
 
   elif [[ "$1" == "lenovo" ]]; then
-    _lenovo
+    _lenovo $2
 
   elif [[ "$1" == "one_plus" ]]; then
-    _one_plus
+    _one_plus $2
 
   elif [[ "$1" == "airbus" ]]; then
-    _airbus
+    _airbus $2
 
   elif [[ "$1" == "boeing" ]]; then
-    _boeing
+    _boeing $2
 
   elif [[ "$1" == "lockheed" ]]; then
-    _lockheed
+    _lockheed $2
 
   elif [[ "$1" == "northrop" ]]; then
-    _northrop
+    _northrop $2
 
   elif [[ "$1" == "bae" ]]; then
-    _bae
+    _bae $2
 
   elif [[ "$1" == "bombardier" ]]; then
-    _bombardier
+    _bombardier $2
 
   elif [[ "$1" == "tesla" ]]; then
-    _tesla
+    _tesla $2
 
   elif [[ "$1" == "toyota" ]]; then
-    _toyota
+    _toyota $2
 
   elif [[ "$1" == "porsche" ]]; then
-    _porsche
+    _porsche $2
 
   elif [[ "$1" == "us_army" ]]; then
-    _us_army
+    _us_army $2
 
   elif [[ "$1" == "parrot" ]]; then
-    _parrot
+    _parrot $2
 
   elif [[ "$1" == "nasa" ]]; then
-    _nasa
+    _nasa $2
 
   elif [[ "$1" == "tv" ]]; then
-    _tv
+    _tv $2
 
   elif [[ "$1" == "magic" ]]; then
     _magic_morph
@@ -1391,7 +1616,7 @@ _morph(){
 _summon(){
 
    if [ "$1" == "magic" ]; then
-      printf "$RED Kolya $YELLOW Wilfred $GREEN Salazaar $BLUE Beria $WHITE Shinigami $NC\n"
+      printf "$RED Kolya $YELLOW Wilfred $GREEN Salazaar $BLUE Beria $WHITE Shinigami $NEW_BLUE Samael$NC\n"
    elif [[ "$1" == "kolya" ]]; then
       printf "$RED Summoning Kolya...$NC\n"
       cd ~
@@ -1431,6 +1656,16 @@ _summon(){
       printf "$RED Summoning failed$NC\n"
    fi
 
+
+}
+
+_badblood(){
+
+while true
+do
+    _blood
+    sleep $1
+done
 
 }
 
@@ -1521,11 +1756,11 @@ elif [[ "$1" == "-oui" ]]; then
 
 elif [[ "$1" == "--morph" ]]; then
 
-     _morph $2
+     _morph $2 $3
 
 elif [[ "$1" == "-morph" ]]; then
 
-     _morph $2
+     _morph $2 $3
 
 elif [[ "$1" == "--opaa" ]]; then
 
@@ -1672,12 +1907,27 @@ elif [[ "$1" == "-appID" ]]; then
 
   _appID
 
+elif [[ "$1" == "iseewifi" ]]; then
+
+  airport -s | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'
+
+elif [[ "$1" == "iseeallwifi" ]]; then
+
+  airport -s
+
 elif [[ "$1" == "-hide" ]]; then
 
   _hide
 
+elif [[ "$1" == "-badblood" ]]; then
+
+  _badblood
+
 elif [[ "$1" == "-mac" ]]; then
-  _mac
+  _macA
+
+elif [[ "$1" == "-cloak" ]]; then
+  _cloak $2 $3 $4
 
 elif [[ "$1" == "-scan" ]]; then
 
@@ -1685,6 +1935,18 @@ elif [[ "$1" == "-scan" ]]; then
 
 elif [[ "$1" == "-test" ]]; then
   _newScan
+
+
+elif [[ "$1" == "-blink" ]]; then
+  _blinking=true
+  printf "$_blinking\n"
+
+elif [[ "$1" == "-unblink" ]]; then
+  _blinking=false
+  printf "$_blinking\n"
+
+elif  [[ "$1" == "-check" ]]; then
+  printf "$_blinking\n"
 
 elif [[ "$1" == "-blood" ]]; then
 
