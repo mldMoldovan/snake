@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.2.5"
+_version="0.2.6"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 _blinking=true
@@ -934,33 +934,33 @@ _wisconsin(){
 
 
 
-_whatIsThis?(){
+_wit(){
 
      sudo nmap -O --osscan-guess -Pn -vv  $1
 
 }
 
-_whatTheHell?(){
+_wth(){
 
      sudo nmap -O --osscan-guess -Pn -sSU -vv $1
 
 }
 
 
-_cryOutLoud!(){
+_col(){
 
     sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O --osscan-guess $1
 
 }
 
-_whatTheFuck?(){
+_wtf(){
 
     sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -sV -sSU $1
 
 }
 
 
-_whatTheFuck??(){
+_wtf6(){
 
     sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU -6 $1
 
@@ -968,14 +968,14 @@ _whatTheFuck??(){
 }
 
 
-_pizdec!(){
+_pizdec(){
 
      sudo nmap -A -Pn -T4 -n -vv -p1-65535 $1
 
 }
 
 
-_blyat!(){
+_blyat(){
 
     sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn $1
 
@@ -1829,35 +1829,35 @@ elif [[ "$1" == "-inject" ]]; then
 
 elif [[ "$1" == "_wit?" ]]; then
 
-     _whatIsThis? $2
+     _wit $2
 
 elif [[ "$1" == "_wth" ]]; then
 
-     _whatTheHell? $2
+     _wth $2
 
 elif [[ "$1" == "_col!" ]]; then
 
-     _cryOutLoud! $2
+     _col $2
 
 elif [[ "$1" == "_wtf?" ]]; then
 
-    _whatTheFuck? $2
+    _wtf $2
 
 elif [[ "$1" == "_wtf??" ]]; then
 
-    _whatTheFuck?? $2
+    _wtf6 $2
 
 elif [[ "$1" == "_blyat!" ]]; then
 
-    _blyat! $2
+    _blyat $2
 
 elif [[ "$1" == "_pizdec!" ]]; then
 
-   _pizdec! $2
+   _pizdec $2
 
 elif [[ "$1" == "_IP!" ]]; then
 
-   _IP! $2
+   _IP $2
 
 elif [[ "$1" == "-off" ]]; then
 
