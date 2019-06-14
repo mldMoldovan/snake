@@ -982,7 +982,7 @@ _blyat(){
 }
 
 
-_IP!(){
+_IP(){
 
     nslookup $1 | sed -n '6p' | awk '{print $1;}' $1
 
