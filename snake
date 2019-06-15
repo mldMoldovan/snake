@@ -1,7 +1,7 @@
-#!/bin/bash
+.bashrc#!/bin/bash
 
 
-_version="0.2.7"
+_version="0.2.8"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 _blinking=true
@@ -298,7 +298,20 @@ fi
 }
 
 
+_intel(){
 
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo E4:F8:9C$end)
+_on
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Intel :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+}
 
 _tesla(){
 
@@ -505,7 +518,7 @@ _mac(){
 
     echo "Mac detected"
 
-    xcode-select --install
+    sudo xcode-select --install
 
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
 
@@ -538,17 +551,17 @@ _mac(){
 }
 
 _linux(){
-     echo "Linux detected"
+    echo "Linux detected"
 
     # wtf apt or yum?
 
     sudo apt install net-tools >/dev/null 2>&1
 
-    apt install nmap >/dev/null  2>&1
+    sudo apt install nmap >/dev/null  2>&1
 
-    apt install arp-scan >/dev/null  2>&1
+    sudo apt install arp-scan >/dev/null  2>&1
 
-    apt install ipcalc >/dev/null  2>&1
+    sudo apt install ipcalc >/dev/null  2>&1
 
     sudo apt install curl >/dev/null 2>&1
 
@@ -694,6 +707,9 @@ do
 
   elif [[ "$1" == "lenovo" ]]; then
     _lenovo $3
+
+  elif [[ "$1" == "intel" ]]; then
+    _intel $3
 
   elif [[ "$1" == "one_plus" ]]; then
     _one_plus $3
@@ -1343,7 +1359,9 @@ _mb(){
 
 _inject(){
 
+   _system="$(uname -s)"
 
+    if [ $_system == "Darwin" ]; then
     cd ~
     echo "export PS1=\">>>\"" >> .bash_profile
     echo " " >> .bash_profile
@@ -1441,8 +1459,117 @@ _inject(){
     echo "quietTextRestore(){" >> .bash_profile
     echo "   NC='\033[0m'" >> .bash_profile
     echo "   printf \"$NC\n\"" >> .bash_profile
-    echo "}"
-    echo " "
+    echo "}" >> .bash_profile
+    echo " " >> .bash_profile
+  elif [[ $_system == "Linux" ]]; then
+    cd ~
+    echo "export PS1=\">>>\"" >> .bashrc
+    echo " " >> .bashrc
+    echo "# Aliases " >> .bashrc
+    echo " " >> .bashrc
+    echo "alias rip=\"sudo kill -9\"" >> .bashrc
+    echo "alias off=\"sudo airport -z\"" >> .bashrc
+    echo "alias lock=\"pmset displaysleepnow\"" >> .bashrc
+    echo "alias die=\"killall Terminal\"" >> .bashrc
+    echo "alias ll=\"ls -FGlAh\"" >> .bashrc
+    echo "alias home=\"cd ~\"" >> .bashrc
+    echo "alias root=\"cd /\"" >> .bashrc
+    echo "alias ?=\"file\"" >> .bashrc
+    echo "alias _edit=\"nano ~/.bash_profile\"" >> .bashrc
+    echo "alias _update\"source ~/.bash_profile\"" >> .bashrc
+    echo "alias refresh=\"_update ; clear\"" >> .bashrc
+    echo "alias relist=\"_update ; clear ; ls\"" >> .bashrc
+    echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bashrc
+    echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bashrc
+    echo "alias ther=\"temp\"" >> .bashrc
+    echo "alias thermal=\"temp\"" >> .bashrc
+    echo " " >> .bashrc
+    echo "# Functions " >> .bashrc
+    echo " " >> .bashrc
+    echo "cd() { builtin cd \"$@\"; ls; }" >> .bashrc
+    echo "_+() { open -a $1 $2 }" >> .bashrc
+    echo "_a() { open -a /Applications/\"$1.app\"/Contents/MacOS/$1 }" >> .bashrc
+    echo "_f() { open -a Finder ./ }" >> .bashrc
+    echo "space() { du -hs "$@" | sort -nr; }" >> .bashrc
+    echo "mkdg() { mkdir $1 ; clear ; cd $1 }" >> .bashrc
+    echo "docked() { sudo lsof -i :\"$@\" }" >> .bashrc
+    echo "destroy() { killall -9 appPID \"$1\" }" >> .bashrc
+    echo "geolocate() { curl ipinfo.io/$1 }" >> .bashrc
+    echo "origin() { clear ; ps -p $1 | awk '{print $4;}' | sed '1d' }" >> .bashrc
+    echo "cheese() { imagesnap -w 1 -q }" >> .bashrc
+    echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bashrc
+    echo "iwannafind() { find $2 $1 }" >> .bashrc
+    echo "iwannasee() { clear ; cat $(find $2 $1) }" >> .bashrc
+    echo "replace() { sed -i -e 's/$1/$1/g' $3 ; rm $3-e }" >> .bashrc
+    echo "ports(){" >> .bashrc
+    echo "   for i in `seq $1 $2`;" >> .bashrc
+    echo "        do" >> .bashrc
+    echo "              echo \"проверка процессов для порта  $i ->>\"" >> .bashrc
+    echo "              sudo lsof -i :$i" >> .bashrc
+    echo "        done" >> .bashrc
+    echo "}" >> .bashrc
+    echo "temp(){" >> .bashrc
+    echo "   WHITE='\e[1;97m'" >> .bashrc
+    echo "   NC='\033[0m'" >> .bashrc
+    echo "   clear" >> .bashrc
+    echo "   istats | sed '$d'" >> .bashrc
+    echo "   printf \"$WHITE\n\"" >> .bashrc
+    echo "   date" >> .bashrc
+    echo "   printf \"$NC\n\"" >> .bashrc
+    echo "}" >> .bashrc
+    echo " " >> .bashrc
+    echo "# Color functions " >> .bashrc
+    echo " " >> .bashrc
+    echo "_green(){" >> .bashrc
+    echo "   GREEN='\e[1;92m'" >> .bashrc
+    echo "   clear" >> .bashrc
+    echo "   printf \"$GREEN Green Bold Activate\n\"" >> .bashrc
+    echo "   date" >> .bashrc
+    echo "}" >> .bashrc
+    echo "_white(){" >> .bashrc
+    echo "   WHITE='\e[1;97m'" >> .bashrc
+    echo "   clear" >> .bashrc
+    echo "   printf \"$WHITE White Bold Activate\n\"" >> .bashrc
+    echo "   date" >> .bashrc
+    echo "}" >> .bashrc
+    echo "_yellow(){" >> .bashrc
+    echo "   YELLOW='\e[1;93m'" >> .bashrc
+    echo "   clear" >> .bashrc
+    echo "   printf \"$YELLOW Yellow Bold Activate\n\"" >> .bashrc
+    echo "   date" >> .bashrc
+    echo "}" >> .bashrc
+    echo "_red(){" >> .bashrc
+    echo "   RED='\e[1;91m'" >> .bashrc
+    echo "   clear" >> .bashrc
+    echo "   printf \"$RED Red Bold Activate\n\"" >> .bashrc
+    echo "   date" >> .bashrc
+    echo "}" >> .bashrc
+    echo "_cyan(){" >> .bashrc
+    echo "   CYAN='\e[1;96m'" >> .bashrc
+    echo "   clear" >> .bashrc
+    echo "   printf \"$CYAN Cyan Bold Activate\n\"" >> .bashrc
+    echo "   date" >> .bashrc
+    echo "}" >> .bashrc
+    echo "_normal(){" >> .bashrc
+    echo "   NC='\033[0m'" >> .bashrc
+    echo "   clear" >> .bashrc
+    echo "   printf \"$NC Text Normalized\n\"" >> .bashrc
+    echo "   date" >> .bashrc
+    echo "}" >> .bashrc
+    echo "quietTextRestore(){" >> .bashrc
+    echo "   NC='\033[0m'" >> .bashrc
+    echo "   printf \"$NC\n\"" >> .bashrc
+    echo "}" >> .bashrc
+    echo " " >> .bash_rc
+  elif [[ $_system == "BSD" ]]; then
+    printf "$RED Cannot inject on this system$NC\n"
+  elif [[ $_system == "Minix" ]]; then
+    printf "$RED Cannot inject on this system$NC\n"
+  elif [[ $_system == "Haiku" ]]; then
+    printf "$RED Cannot inject on this system$NC\n"
+  else
+    printf "$RED Cannot inject on this system$NC\n"
+  fi
 
 }
 
@@ -1579,6 +1706,9 @@ _morph(){
 
   elif [[ "$1" == "lenovo" ]]; then
     _lenovo $2
+
+  elif [[ "$1" == "intel" ]]; then
+    _intel $2
 
   elif [[ "$1" == "one_plus" ]]; then
     _one_plus $2
