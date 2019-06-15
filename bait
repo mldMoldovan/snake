@@ -1,0 +1,58 @@
+#!/bin/bash
+
+
+RED='\e[1;91m'
+GREEN='\e[1;92m'
+BLUE='\e[1;96m'
+NEW_BLUE='\e[34m'
+YELLOW='\e[1;93m'
+NC='\033[0m'
+WHITE='\e[1;97m'
+BLINK='\e[5m'
+
+_check(){
+
+   printf "$RED Inject? [y/n]$NC\n"
+   old_stty_cfg=$(stty -g)
+   stty raw -echo
+   answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
+   stty $old_stty_cfg
+   if echo "$answer" | grep -iq "^y" ;then
+   snake -inject
+   else
+   clear
+   printf "$WHITE OK. Done $NC\n"
+   fi
+
+}
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+   cd ~
+   mkdir .snake
+   cd .snake
+   git clone https://github.com/mldMoldovan/snake.git
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   _check
+elif [[ $_system == "Linux" ]]; then
+   sudo apt install git >/dev/null 2>&1
+   cd ~
+   mkdir .snake
+   cd .snake
+   git clone https://github.com/mldMoldovan/snake.git
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   _check
+elif [[ $_system == "Minix" ]]; then
+   printf "$RED No setup necessary$NC\n"
+elif [[ $_system == "BSD" ]]; then
+   printf "$RED No setup necessary$NC\n"
+elif [[ $_system == "Haiku" ]]; then
+   printf "$RED No setup necessary$NC\n"
+else
+   printf "$RED No setup necessary$NC\n"
+fi

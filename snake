@@ -1,7 +1,7 @@
-.bashrc#!/bin/bash
+#!/bin/bash
 
 
-_version="0.2.8"
+_version="0.2.9"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 _blinking=true
@@ -520,7 +520,7 @@ _mac(){
 
     sudo xcode-select --install
 
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" >/dev/null
 
     brew install speedtest-cli >/dev/null
 
@@ -599,7 +599,7 @@ _magic_morph(){
     printf " HP / Dell / IBM / Lenovo / Xperia / Yota / Xiaomi\n"
     printf " Tesla / Bombardier / Toyota / Porsche / Boeing\n"
     printf " Lockheed / Airbus / BAE / NASA / Parrot / Lumia\n"
-    printf " Northrop / Microsoft / US Army / TV\n"
+    printf " Northrop / Microsoft / US Army / TV / Intel\n"
     printf "\n"
 
 }
@@ -1049,6 +1049,10 @@ _affichage(){
 _generalize(){
 
 
+  _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+
   clear
   _wts
   _motto
@@ -1073,6 +1077,18 @@ _generalize(){
   printf "$WHITE\n"
   date
   printf "$NC\n"
+
+  elif [[ $_system == "Linux" ]]; then
+     printf "$RED Not available on your OS$NC\n"
+  elif [[ $_system == "BSD" ]]; then
+     printf "$RED Not available on your OS$NC\n"
+  elif [[ $_system == "Minix" ]]; then
+     printf "$RED Not available on your OS$NC\n"
+  elif [[ $_system == "Haiku" ]]; then
+     printf "$RED Not available on your OS$NC\n"
+  else
+
+  fi
 
 
 }
@@ -1362,7 +1378,9 @@ _inject(){
    _system="$(uname -s)"
 
     if [ $_system == "Darwin" ]; then
+    printf "$RED Injecting on macOS...$NC\n"
     cd ~
+    sudo rm .bash_profile
     echo "export PS1=\">>>\"" >> .bash_profile
     echo " " >> .bash_profile
     echo "# Aliases " >> .bash_profile
@@ -1461,8 +1479,13 @@ _inject(){
     echo "   printf \"$NC\n\"" >> .bash_profile
     echo "}" >> .bash_profile
     echo " " >> .bash_profile
+    source .bash_profile
+    clear
+    printf "$RED _injected$NC\n"
   elif [[ $_system == "Linux" ]]; then
+    printf "$YELLOW Injecting on Linux...$NC\n"
     cd ~
+    sudo rm .bashrc
     echo "export PS1=\">>>\"" >> .bashrc
     echo " " >> .bashrc
     echo "# Aliases " >> .bashrc
@@ -1560,7 +1583,10 @@ _inject(){
     echo "   NC='\033[0m'" >> .bashrc
     echo "   printf \"$NC\n\"" >> .bashrc
     echo "}" >> .bashrc
-    echo " " >> .bash_rc
+    echo " " >> .bashrc
+    source .bashrc
+    clear
+    printf "$RED _injected$NC\n"
   elif [[ $_system == "BSD" ]]; then
     printf "$RED Cannot inject on this system$NC\n"
   elif [[ $_system == "Minix" ]]; then
@@ -1605,6 +1631,15 @@ _macA(){
 
 ifconfig en0 | grep ether | awk '{print $2}'
 #  printf "$YELLOW$(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+
+}
+
+
+
+_suicide(){
+
+  sudo shutdown now
+
 
 }
 
@@ -1946,6 +1981,10 @@ elif [[ "$1" == "-docked" ]]; then
 elif [[ "$1" == "-radar" ]]; then
 
      _radar
+
+elif [[ "$1" == "-suicide" ]]; then
+
+    _suicide
 
 elif [[ "$1" == "-purge" ]]; then
 
