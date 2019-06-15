@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.2.6"
+_version="0.2.7"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 _blinking=true
@@ -542,11 +542,17 @@ _linux(){
 
     # wtf apt or yum?
 
+    sudo apt install net-tools >/dev/null 2>&1
+
     apt install nmap >/dev/null  2>&1
 
     apt install arp-scan >/dev/null  2>&1
 
     apt install ipcalc >/dev/null  2>&1
+
+    sudo apt install curl >/dev/null 2>&1
+
+    sudo apt install htop >/dev/null 2>&1
 
 
 }
@@ -625,7 +631,7 @@ printf "This is $GREEN $_name$BLUE $_version$NC at your service  \n"
 
 _logo(){
 
-  printf "Logo call: $_blinking\n"
+  #printf "Logo call: $_blinking\n"
   if $_blinking ; then
   printf "$BLINK\n"
   printf "$GREEN     <<<<< $_name >>>>>$NC\n"
@@ -1495,9 +1501,16 @@ _capture(){
 
 _scanHouse(){
 
+  _system="$(uname -s)"
+
+  if [ "$_system" == "Darwin" ]; then
+
   printf "\n"
   printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
   printf "\n"
+
+  fi
+
   arp -a
   printf "$WHITE\n"
   date
@@ -1508,9 +1521,16 @@ _scanHouse(){
 
 _deepHouse(){
 
+  _system="$(uname -s)"
+
+   if [ "$_system" == "Darwin" ]; then
+
    printf "\n"
    printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
    printf "\n"
+
+   fi
+
    sudo arp-scan -l | sed -n '2!p'
    printf "$WHITE\n"
    date
@@ -1725,6 +1745,12 @@ elif [[ "$1" == "-e" ]]; then
    _engage
 
 elif [[ "$1" == "--spread" ]]; then
+
+    _checkOS
+    clear
+    printf "$_name $RED _spread $NC  \n"
+
+elif [[ "$1" == "-spread" ]]; then
 
     _checkOS
     clear
