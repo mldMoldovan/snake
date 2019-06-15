@@ -28,6 +28,8 @@ _check(){
 
 _system="$(uname -s)"
 
+printf "$RED $_system $NC\n"
+
 if [ $_system == "Darwin" ]; then
    cd ~
    mkdir .snake

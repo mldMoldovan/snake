@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.2.9"
+_version="0.3.0"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 _blinking=true
@@ -1087,7 +1087,7 @@ _generalize(){
   elif [[ $_system == "Haiku" ]]; then
      printf "$RED Not available on your OS$NC\n"
   else
-
+     printf "$RED Not available on your OS$NC\n"
   fi
 
 
