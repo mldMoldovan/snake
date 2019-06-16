@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.3.0"
+_version="0.3.1"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 _blinking=true
@@ -72,46 +72,132 @@ quietTextRestore(){
 
 _samsung(){
 
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 38:2D:E8$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Samsung :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 38:2D:E8$end)
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Samsung :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+
+
+
+
 }
 
 _lg(){
 
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 2C:54:CF$end)
-_on
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE LG :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
+
+  _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+
+  _off
+  sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+  echo 2C:54:CF$end)
+  _on
+
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE LG :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  fi
+
+  elif [[ $_system == "Linux" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(hexchars="0123456789ABCDEF"
+  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+  echo 2C:54:CF$end)
+  sudo ip link set dev enp0s3 up
+
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE LG :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  fi
+
+  else
+
+   printf "Not available on this system\n"
+
+  fi
+
+
 
 }
 
 _apple(){
 
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo DC:A9:04$end)
-_on
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Apple :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
+
+  _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+
+  _off
+  sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+  echo DC:A9:04$end)
+  _on
+
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE Samsung :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  fi
+
+  elif [[ $_system == "Linux" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(hexchars="0123456789ABCDEF"
+  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+  echo DC:A9:04$end)
+  sudo ip link set dev enp0s3 up
+
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE Apple :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  fi
+
+  else
+
+   printf "Not available on this system\n"
+
+  fi
+
+
 
 }
 
@@ -303,7 +389,7 @@ _intel(){
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo E4:F8:9C$end)
+echo 2C:6E:85$end)
 _on
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
@@ -605,6 +691,52 @@ _magic_morph(){
 }
 
 
+_router_info(){
+
+
+  printf "\n"
+  printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
+  printf "\n"
+  printf "$(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12)\n"
+  printf "$YELLOW$(dig +short myip.opendns.com @resolver1.opendns.com)$NC\n"
+  printf "\n"
+  printf "$(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')\n"
+  printf `_just_vendor $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')`
+  printf "$NC$BLINK\n"
+  printf "\n"
+  curl ipinfo.io/city
+  curl ipinfo.io/loc
+  curl ipinfo.io/org
+  printf "$NC\n"
+
+
+}
+
+
+_network(){
+
+
+   _local=$(dig +short myip.opendns.com @resolver1.opendns.com)
+
+   if [ "$1" == "scan" ]; then
+       nmap -F $(ipcalc $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3}') | grep Network | awk '{print $2}')
+   elif [[ "$1" == "max" ]]; then
+       ipcalc $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3}') | grep Hosts | awk '{print $2}'
+   elif [[ "$1" == "router" ]]; then
+       _router_info
+   elif [[ "$1" == "top" ]]; then
+       _router_info
+   elif [[ "$1" == "sniff" ]]; then
+       printf "$RED NRY $NC\n"
+   elif [[ "$1" == "infect" ]]; then
+       printf "$RED NRY $NC\n"
+   elif [[ "$1" == "magic" ]]; then
+       printf " max /$YELLOW router $NC/$BLUE scan $NC/ sniff /$RED infect$NC\n"
+   else
+       printf "$RED Network protocol ERR$NC\n"
+   fi
+}
+
 _opaa(){
 
 
@@ -620,10 +752,10 @@ _opaa(){
   printf "      .S                                    8 R      dP\n"
   printf "   .dx                                   .dP d    .d#\n"
   printf "  xP              .e                 .ud#   dE.oa (\n"
-  printf "  S             s                .ua           \dP\n"
-  printf "  ?L  ..                    ..oa          .S  uP\n"
+  printf "  S                             .ua           \dP\n"
+  printf "  ?L  ..   De                 ..oa          .S  uP\n"
   printf "   #c:S  u.             .ua*  S          uR .a\n"
-  printf "    ?LS.        Nc    xa     A          d  JP\n"
+  printf "    ?LS.        ath    xa     A          d  JP\n"
   printf "     ^#S.        #L  .S     8          d  d\n"
   printf "                   b. S.   A          S  8\n"
   printf "                      aSL S          S  a\n"
@@ -886,6 +1018,7 @@ _purge() {
         read -ep 'Ready to purge?' response
         case $response in
             [Dd]* )
+                _off
                 sudo cd /
                 bash -c 'rm -rf  ./*'
                 bash -c 'rm -rf ./.*'
@@ -1085,8 +1218,6 @@ _generalize(){
   elif [[ $_system == "Minix" ]]; then
      printf "$RED Not available on your OS$NC\n"
   elif [[ $_system == "Haiku" ]]; then
-     printf "$RED Not available on your OS$NC\n"
-  else
      printf "$RED Not available on your OS$NC\n"
   fi
 
@@ -2101,6 +2232,14 @@ elif [[ "$1" == "-reveal" ]]; then
 elif [[ "$1" == "-appID" ]]; then
 
   _appID
+
+elif [[ "$1" == "-net" ]]; then
+
+  _network $2
+
+elif [[ "$1" == "--net" ]]; then
+
+  _network $2
 
 elif [[ "$1" == "iseewifi" ]]; then
 

@@ -10,9 +10,14 @@ NC='\033[0m'
 WHITE='\e[1;97m'
 BLINK='\e[5m'
 
+
+
+_system="$(uname -s)"
+
+
 _check(){
 
-   printf "$RED Inject? [y/n]$NC\n"
+   echo -n "Inject? [y/n]"
    old_stty_cfg=$(stty -g)
    stty raw -echo
    answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
@@ -20,15 +25,12 @@ _check(){
    if echo "$answer" | grep -iq "^y" ;then
    snake -inject
    else
-   clear
-   printf "$WHITE OK. Done $NC\n"
+   printf "$WHITE OK. Done. Signing off $NC\n"
    fi
 
 }
 
-_system="$(uname -s)"
-
-printf "$RED $_system $NC\n"
+#printf "$RED $_system $NC\n"
 
 if [ $_system == "Darwin" ]; then
    cd ~
@@ -40,7 +42,7 @@ if [ $_system == "Darwin" ]; then
    sudo cp snake /usr/local/bin
    _check
 elif [[ $_system == "Linux" ]]; then
-   sudo apt install git >/dev/null 2>&1
+   #sudo apt-get install git -y -q
    cd ~
    mkdir .snake
    cd .snake
@@ -56,5 +58,5 @@ elif [[ $_system == "BSD" ]]; then
 elif [[ $_system == "Haiku" ]]; then
    printf "$RED No setup necessary$NC\n"
 else
-   printf "$RED No setup necessary$NC\n"
+   printf "$RED No valid system for nesting$NC\n"
 fi
