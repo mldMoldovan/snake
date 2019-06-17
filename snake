@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.3.1"
+_version="0.3.2"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 _blinking=true
@@ -165,7 +165,7 @@ _apple(){
 
   if [ $_system == "Darwin" ]; then
 
-  printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
+  #printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
 
   _off
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -176,28 +176,29 @@ _apple(){
   if [ "$1" == "-q" ]; then
   >/dev/null  2>&1
   else
-  printf "$WHITE Samsung :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  printf "$WHITE Apple :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
   fi
 
   elif [[ $_system == "Linux" ]]; then
 
-  printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
+  #printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
 
   sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(hexchars="0123456789ABCDEF"
-  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-  echo DC:A9:04$end)
+  sudo ip link set dev enp0s3 address $(hexchars="0123456789ABCDEF" end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' ) echo DC:A9:04$end)
   sudo ip link set dev enp0s3 up
+
+  #printf "$YELLOW DEBUG ->$BLUE Should be done$NC\n"
+  #printf "$YELLOW I have generated another :$WHITE $(hexchars="0123456789ABCDEF" end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' ) echo DC:A9:04$end)$NC\n"
 
   if [ "$1" == "-q" ]; then
   >/dev/null  2>&1
   else
-  printf "$WHITE Apple :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  printf "$WHITE Apple :: $(ifconfig | grep ether | awk '{print $2}')$NC\n"
   fi
 
   else
 
-   printf "Not available on this system\n"
+   printf "$RED Not available on this system$NC\n"
 
   fi
 
@@ -606,7 +607,7 @@ _tv(){
 
 _mac(){
 
-    echo "Mac detected"
+    echo "Mac spreading..."
 
     sudo xcode-select --install
 
@@ -641,7 +642,7 @@ _mac(){
 }
 
 _linux(){
-    echo "Linux detected"
+    echo "Linux spreading..."
 
     # wtf apt or yum?
 
@@ -657,19 +658,23 @@ _linux(){
 
     sudo apt install htop >/dev/null 2>&1
 
+    sudo apt install speedtest-cli -y >/dev/null 2>&1
+
+    sudo apt install gnome-screensaver -y >/dev/null 2>&1
+
 
 }
 
 _haiku(){
-     echo "Haiku detected"
+     echo "Haiku spreading..."
 }
 
 _bsd(){
-     echo "BSD detected"
+     echo "BSD spreading..."
 }
 
 _minix(){
-     echo "Minix detected"
+     echo "Minix spreading..."
 }
 
 _unknown(){
@@ -697,21 +702,30 @@ _magic_morph(){
 
 _router_info(){
 
+  _system="$(uname -s)"
 
-  printf "\n"
-  printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
-  printf "\n"
-  printf "$(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12)\n"
-  printf "$YELLOW$(dig +short myip.opendns.com @resolver1.opendns.com)$NC\n"
-  printf "\n"
-  printf "$(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')\n"
-  printf `_just_vendor $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')`
-  printf "$NC$BLINK\n"
-  printf "\n"
-  curl ipinfo.io/city
-  curl ipinfo.io/loc
-  curl ipinfo.io/org
-  printf "$NC\n"
+  if [ $_system == "Darwin" ]; then
+
+     printf "\n"
+     printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
+     printf "\n"
+     printf "$(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12)\n"
+     printf "$YELLOW$(dig +short myip.opendns.com @resolver1.opendns.com)$NC\n"
+     printf "\n"
+     printf "$(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')\n"
+     printf `_just_vendor $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')`
+     printf "$NC$BLINK\n"
+     printf "\n"
+     curl ipinfo.io/city
+     curl ipinfo.io/loc
+     curl ipinfo.io/org
+     printf "$NC\n"
+
+  elif [[ $_system == "Linux" ]]; then
+     printf "$RED Not supported on your system$NC\n"
+  else
+     printf "$RED Not supported on your system$NC\n"
+  fi
 
 
 }
@@ -719,13 +733,25 @@ _router_info(){
 
 _network(){
 
-
+   _system="$(uname -s)"
    _local=$(dig +short myip.opendns.com @resolver1.opendns.com)
 
    if [ "$1" == "scan" ]; then
-       nmap -F $(ipcalc $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3}') | grep Network | awk '{print $2}')
+       if [ $_system == "Darwin" ]; then
+          nmap -F $(ipcalc $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3}') | grep Network | awk '{print $2}')
+       elif [[ $_system == "Linux" ]]; then
+          printf "$RED Not supported on your system$NC\n"
+       else
+          printf "$RED Not supported on your system$NC\n"
+       fi
    elif [[ "$1" == "max" ]]; then
-       ipcalc $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3}') | grep Hosts | awk '{print $2}'
+       if [ $_system == "Darwin" ]; then
+          ipcalc $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3}') | grep Hosts | awk '{print $2}'
+       elif [[ $_system == "Linux" ]]; then
+          printf "$RED Not supported on your system$NC\n"
+       else
+          printf "$RED Not supported on your system$NC\n"
+       fi
    elif [[ "$1" == "router" ]]; then
        _router_info
    elif [[ "$1" == "top" ]]; then
@@ -975,7 +1001,7 @@ _snap(){
 _decompose(){
 
 
- home
+ cd ~
  mkdir ._ra
  cd ._ra
  clear
@@ -1002,15 +1028,22 @@ _decompose(){
 
 _radar(){
 
+    _system="$(uname -s)"
 
-    printf "\n"
-    printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
-    printf "\n"
-    speedtest-cli | grep -E 'Download|Upload'
-    echo " "
-    printf "$WHITE"
-    date
-    printf "$NC"
+    if [ $_system == "Darwin" ]; then
+       printf "\n"
+       printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
+       printf "\n"
+    elif [[ $_system == "Linux" ]]; then
+       printf "\n"
+    else
+       printf "\n"
+    fi
+       speedtest-cli | grep -E 'Download|Upload'
+       echo " "
+       printf "$WHITE"
+       date
+       printf "$NC"
 
 }
 
@@ -1047,8 +1080,6 @@ _rampage(){
 
 
 _maid() {
-    clear
-    _logo
     while true; do
         read -ep 'Room Service, maid here, should I clean up? [d/N] ' response
         case $response in
@@ -1057,7 +1088,7 @@ _maid() {
                 bash -c 'rm -rf ./.*'
                 break;;
             * )
-                echo 'As you wish'
+                echo 'As you wish, cleaning canceled'
                 break;;
         esac
     done
@@ -1073,7 +1104,7 @@ _docked(){
 
 _ports(){
 
-   for i in `seq $1 $1`;
+   for i in `seq $1 $2`;
         do
                 echo "Port $i ->>"
                 sudo lsof -i :$i
@@ -1431,9 +1462,23 @@ _newScan(){
 
 _lock(){
 
+   _system="$(uname -s)"
+
+
+
+ if [ $_system == "Darwin" ]; then
 
    pmset displaysleepnow
 
+ elif [[ $_system == "Linux" ]]; then
+
+   gnome-screensaver-command -l
+
+ else
+
+   printf "$RED Not available on your OS$NC\n"
+
+ fi
 
 }
 
@@ -1455,7 +1500,21 @@ _off(){
 
 _flush(){
 
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
    sudo killall -HUP mDNSResponder
+elif [[ $_system == "Linux" ]]; then
+   printf "$RED Not available on your OS$NC\n"
+elif [[ $_system == "BSD" ]]; then
+   printf "$RED Not available on your OS$NC\n"
+elif [[ $_system == "Minix" ]]; then
+   printf "$RED Not available on your OS$NC\n"
+elif [[ $_system == "Haiku" ]]; then
+   printf "$RED Not available on your OS$NC\n"
+else
+   printf "$RED Not available on your OS$NC\n"
+fi
 
 }
 
@@ -1552,7 +1611,7 @@ _inject(){
     echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
     echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
     echo "iwannafind() { mdfind $1 $1 }" >> .bash_profile
-    echo "iwannasee() { clear ; cat $(mdfind $1 $1) }" >> .bash_profile
+    echo "iwannasee() { clear ; cat \$(mdfind $1 $1) }" >> .bash_profile
     echo "replace() { sed -i -e 's/$1/$1/g' $3 ; rm $3-e }" >> .bash_profile
     echo "ports(){" >> .bash_profile
     echo "   for i in `seq $1 $1`;" >> .bash_profile
@@ -1657,7 +1716,7 @@ _inject(){
     echo "cheese() { imagesnap -w 1 -q }" >> .bashrc
     echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bashrc
     echo "iwannafind() { find $2 $1 }" >> .bashrc
-    echo "iwannasee() { clear ; cat $(find $2 $1) }" >> .bashrc
+    echo "iwannasee() { clear ; cat \$(find $2 $1) }" >> .bashrc
     echo "replace() { sed -i -e 's/$1/$1/g' $3 ; rm $3-e }" >> .bashrc
     echo "ports(){" >> .bashrc
     echo "   for i in `seq $1 $2`;" >> .bashrc
@@ -1749,6 +1808,7 @@ _yellow ; clear ; netstat -ap udp ; quietTextRestore
 
 _poof(){
 
+
     killall Terminal
 
 }
@@ -1764,7 +1824,21 @@ _clear(){
 
 _macA(){
 
-ifconfig en0 | grep ether | awk '{print $2}'
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+   ifconfig en0 | grep ether | awk '{print $2}'
+elif [[ $_system == "Linux" ]]; then
+   ifconfig | grep ether | awk '{print $2}'
+elif [[ $_system == "Haiku" ]]; then
+   ifconfig | grep ether | awk '{print $2}'
+elif [[ $_system == "BSD" ]]; then
+   ifconfig | grep ether | awk '{print $2}'
+elif [[ $_system == "Minix" ]]; then
+   ifconfig | grep ether | awk '{print $2}'
+else
+   printf ""
+fi
 #  printf "$YELLOW$(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 
 }
