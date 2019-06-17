@@ -165,6 +165,8 @@ _apple(){
 
   if [ $_system == "Darwin" ]; then
 
+  printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
+
   _off
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
   end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
@@ -178,6 +180,8 @@ _apple(){
   fi
 
   elif [[ $_system == "Linux" ]]; then
+
+  printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(hexchars="0123456789ABCDEF"
