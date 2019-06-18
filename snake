@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.3.3"
+_version="0.3.4"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 _blinking=true
@@ -183,8 +183,11 @@ _apple(){
 
   #printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
 
+
+  # TEST THIS IN POOLA MEA S035
+
   sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(hexchars="0123456789ABCDEF" end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' ) echo DC:A9:04$end)
+  sudo ip link set dev enp0s3 address $(end=$($[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]) echo DC:A9:04$end)
   sudo ip link set dev enp0s3 up
 
   #printf "$YELLOW DEBUG ->$BLUE Should be done$NC\n"
@@ -1119,8 +1122,6 @@ _cheese(){
 
   _system="$(uname -s)"
 
-  # check if /dev/null works fine S034
-
   if [ $_system == "Darwin" ]; then
 
     imagesnap -w 1 -q >/dev/null
@@ -1138,13 +1139,11 @@ _cheese(){
 
 _wisconsin(){
 
-  # same shit here as up S034
-
     _system="$(uname -s)"
 
   if [ $_system == "Darwin" ]; then
 
-    imagesnap -w 1 -q .snapshot.png
+    imagesnap -w 1 -q .snapshot.png >/dev/null
 
   elif [[ $_system == "Linux" ]]; then
 
@@ -1323,11 +1322,11 @@ _generalize(){
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
     printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
     printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
-    printf "`echo "There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
+    printf "\n`echo " There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
     printf "$BLUE"
     arp -a | sed -n '1p'
     printf "$YELLOW"
-    arp -a | grep $(ifconfig en0 | grep inet | sed '1d' | awk '{print $1;}')
+    arp -a | grep $(ifconfig enp0s3 | grep inet | awk '{print $2}')
     printf "$NC"
     arp -a | sed '1d'
     echo
@@ -2103,7 +2102,7 @@ _morph(){
 
 _summon(){
 
-  # check if dev null works S034
+  # check if stderr redirect is fortao S035
 
    if [ "$1" == "magic" ]; then
       printf "$RED Kolya $YELLOW Wilfred $GREEN Salazaar $BLUE Beria $WHITE Shinigami $NEW_BLUE Samael$NC\n"
@@ -2111,7 +2110,7 @@ _summon(){
       printf "$RED Summoning Kolya...$NC\n"
       cd ~
       mkdir .kolya ; cd .kolya
-      git clone https://github.com/mldMoldovan/kolya >/dev/null
+      git clone https://github.com/mldMoldovan/kolya >/dev/null 2>&1
       sh kolya -install
       printf "$RED Kolya is here $NC\n"
    elif [[ "$1" == "wilfred" ]]; then
@@ -2422,6 +2421,10 @@ elif [[ "$1" == "iseewifi" ]]; then
 elif [[ "$1" == "iseeallwifi" ]]; then
 
   airport -s
+
+elif [[ "$1" == "iseerouter" ]]; then
+
+  _router_info
 
 elif [[ "$1" == "-hide" ]]; then
 
