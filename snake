@@ -1587,6 +1587,7 @@ _off(){
    sudo ip link set dev enp0s3 down
  else
    printf "$RED Not supported on your OS$NC\n"
+ fi
 
 }
 
