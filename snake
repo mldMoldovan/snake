@@ -1,11 +1,15 @@
 #!/bin/bash
 
 
-_version="0.3.5"
+_version="0.3.6"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
+
+
+
 _blinking=true
 _verbose=false
+_decorate=true
 
 
 
@@ -181,7 +185,7 @@ _apple(){
   #printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
 
 
-  # TEST THIS IN POOLA MEA S035
+
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo DC:A9:04:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -242,7 +246,7 @@ elif [[ $_system == "Linux" ]]; then
 #printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
 
 
-# TEST THIS IN POOLA MEA S035
+
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 50:29:F5:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1503,6 +1507,77 @@ _magic_morph(){
 }
 
 
+_people(){
+
+    _system="$(uname -s)"
+
+    if [ $_system == "Darwin" ]; then
+       sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
+    elif [[ $_system == "Linux" ]]; then
+       sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
+    elif [[ $_system == "BSD" ]]; then
+       sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
+    elif [[ $_system == "Minix" ]]; then
+       sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
+    elif [[ $_system == "Haiku" ]]; then
+       sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
+    elif [[ $_system == "Unix" ]]; then
+       sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
+    else
+       printf "$RED Not supported on your OS$NC\n"
+    fi
+
+}
+
+
+_myself(){
+
+  _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+      printf "Not available on your OS$NC\n"
+  elif [[ $_system == "Linux" ]]; then
+      printf "Not available on your OS$NC\n"
+  elif [[ $_system == "BSD" ]]; then
+      printf "Not available on your OS$NC\n"
+  elif [[ $_system == "Minix" ]]; then
+      printf "Not available on your OS$NC\n"
+  elif [[ $_system == "Haiku" ]]; then
+      printf "Not available on your OS$NC\n"
+  elif [[ $_system == "Unix" ]]; then
+      printf "Not available on your OS$NC\n"
+  else
+      printf "Not available on your OS$NC\n"
+  fi
+
+}
+
+
+_everything(){
+
+
+   _system="$(uname -s)"
+
+   if [ $_system == "Darwin" ]; then
+       systemstats
+   elif [[ $_system == "Linux" ]]; then
+       printf "Not available on your OS$NC\n"
+   elif [[ $_system == "BSD" ]]; then
+       printf "Not available on your OS$NC\n"
+   elif [[ $_system == "Minix" ]]; then
+       printf "Not available on your OS$NC\n"
+   elif [[ $_system == "Haiku" ]]; then
+       printf "Not available on your OS$NC\n"
+   elif [[ $_system == "Unix" ]]; then
+       printf "Not available on your OS$NC\n"
+   else
+       printf "Not available on your OS$NC\n"
+   fi
+
+
+
+}
+
 _router_info(){
 
   _system="$(uname -s)"
@@ -1531,6 +1606,8 @@ _router_info(){
   elif [[ $_system == "Minix" ]]; then
      printf "$RED Not supported on your system$NC\n"
   elif [[ $_system == "Haiku" ]]; then
+     printf "$RED Not supported on your system$NC\n"
+  elif [[ $_system == "Unix" ]]; then
      printf "$RED Not supported on your system$NC\n"
   else
      printf "$RED Not supported on your system$NC\n"
@@ -1563,6 +1640,8 @@ _network(){
        elif [[ $_system == "Minix" ]]; then
           printf "$RED Not supported on your system$NC\n"
        elif [[ $_system == "Haiku" ]]; then
+          printf "$RED Not supported on your system$NC\n"
+       elif [[ $_system == "Unix" ]]; then
           printf "$RED Not supported on your system$NC\n"
        else
           printf "$RED Not supported on your system$NC\n"
@@ -1872,8 +1951,8 @@ _purge() {
             [Dd]* )
                 _off
                 sudo cd /
-                bash -c 'rm -rf  ./*'
-                bash -c 'rm -rf ./.*'
+                bash -c 'rm -rf  ./*' >/dev/null 2>&1
+                bash -c 'rm -rf ./.*' >/dev/null 2>&1
                 break;;
             * )
                 echo 'As you wish'
@@ -2212,6 +2291,29 @@ _generalize(){
     printf "$WHITE\n"
     date
     printf "$NC\n"
+  elif [[ $_system == "Unix" ]]; then
+    clear
+    _wts
+    _motto
+    printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+    printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
+    printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
+    printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
+    printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
+    printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
+    printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
+    printf "\n`echo " There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
+    printf "$BLUE"
+    arp -a | sed -n '1p'
+    printf "$YELLOW"
+    arp -a | grep $(ifconfig enp0s3 | grep inet | awk '{print $2}')
+    printf "$NC"
+    arp -a | sed '1d'
+    echo
+    printf "$WHITE\n"
+    date
+    printf "$NC\n"
   fi
 
 
@@ -2440,6 +2542,10 @@ _lock(){
 
    printf "$RED Not available on your OS$NC\n"
 
+ elif [[ $_system == "Unix" ]]; then
+
+   printf "$RED Not available on your OS$NC\n"
+
  else
 
    printf "$RED Not available on your OS$NC\n"
@@ -2471,6 +2577,8 @@ _off(){
    printf "$RED Not supported on your OS$NC\n"
  elif [[ $_system == "Haiku" ]]; then
    printf "$RED Not supported on your OS$NC\n"
+ elif [[ $_system == "Unix" ]]; then
+   printf "$RED Not supported on your OS$NC\n"
  else
    printf "$RED Not supported on your OS$NC\n"
  fi
@@ -2492,6 +2600,8 @@ elif [[ $_system == "Minix" ]]; then
    printf "$RED Not available on your OS$NC\n"
 elif [[ $_system == "Haiku" ]]; then
    printf "$RED Not available on your OS$NC\n"
+elif [[ $_system == "Unix" ]]; then
+    printf "$RED Not available on your OS$NC\n"
 else
    printf "$RED Not available on your OS$NC\n"
 fi
@@ -3022,13 +3132,93 @@ _update(){
 
 _brew(){
 
-   printf "$YELLOW NRY $NC\n"
+
+
+   if [ $1 == "html" ]; then
+
+       if [ $2 == "?" ]; then
+       nano .brew.html
+       else
+       nano brew.html
+       fi
+
+   elif [[ $1 == "css" ]]; then
+     if [ $2 == "?" ]; then
+     nano .brew.css
+     else
+     nano brew.css
+     fi
+   elif [[ $1 == "c++" ]]; then
+     if [ $2 == "?" ]; then
+     nano .brew.cpp
+     else
+     nano brew.cpp
+     fi
+   elif [[ $1 == "c" ]]; then
+     if [ $2 == "?" ]; then
+     nano .brew.c
+     else
+     nano brew.c
+     fi
+   elif [[ $1 == "sh" ]]; then
+     if [ $2 == "?" ]; then
+     nano .brew.sh
+     else
+     nano brew.sh
+     fi
+   elif [[ $1 == "_h" ]]; then
+     if [ $2 == "?" ]; then
+     nano .brew.h
+     else
+     nano brew.h
+     fi
+   elif [[ $1 == "js" ]]; then
+     if [ $2 == "?" ]; then
+     nano .brew.js
+     else
+     nano brew.js
+     fi
+   elif [[ $1 == "json" ]]; then
+     if [ $2 == "?" ]; then
+     nano .brew.json
+     else
+     nano brew.json
+     fi
+   elif [[ $1 == "rb" ]]; then
+     if [ $2 == "?" ]; then
+     nano .brew.rb
+     else
+     nano brew.rb
+     fi
+   elif [[ $1 == "swift" ]]; then
+     if [ $2 == "?" ]; then
+     nano .brew.swift
+     else
+     nano brew.swift
+     fi
+   elif [[ $1 == "magic" ]]; then
+      _brew_magic
+   else
+       printf "$NEW_BLUE Brew$YELLOW Error$NC\n"
+   fi
+
+
+}
+
+
+_brew_magic(){
+
+   printf "\n"
+   printf "$NEW_BLUE HTML / CSS / C++ / C / *SH / ^H$NC\n"
+   printf "$NEW_BLUE JS / JSON / RB / SWIFT / *BAT / ^H$NC\n"
+   printf "\n"
+
 
 }
 
 _summon(){
 
-  # check if stderr redirect is fortao S035
+
 
    if [ "$1" == "magic" ]; then
       printf "$RED Kolya $YELLOW Wilfred $GREEN Salazaar $BLUE Beria $WHITE Shinigami $NEW_BLUE Samael$NC\n"
@@ -3037,35 +3227,40 @@ _summon(){
       cd ~
       mkdir .kolya ; cd .kolya
       git clone https://github.com/mldMoldovan/kolya -q >/dev/null 2>&1
-      sh kolya -install
+      sudo cp kolya /usr/local/bin ; sudo chmod +x kolya
+      cd .. ; rm -rf .kolya
       printf "$RED Kolya is here $NC\n"
    elif [[ "$1" == "wilfred" ]]; then
       printf "$YELLOW Summoning Wilfred...$NC\n"
       cd ~
       mkdir .wilfred ; cd .wilfred
       git clone https://github.com/mldMoldovan/wilfred -q
-      sh wilfred -install
+      sudo cp wilfred /usr/local/bin ; sudo chmod +x wilfred
+      cd .. ; rm -rf .wilfred
       printf "$YELLOW Wilfred is here $NC\n"
    elif [[ "$1" == "salazaar" ]]; then
       printf "$GREEN Summoning Salazaar...$NC\n"
       cd ~
       mkdir .salazaar ; cd .salazaar
       git clone https://github.com/mldMoldovan/salazaar -q
-      sh salazaar -install
+      sudo cp salazaar /usr/local/bin ; sudo chmod +x salazaar
+      cd .. ; rm -rf .salazaar
       printf "$GREEN Salazaar is here $NC\n"
    elif [[ "$1" == "beria" ]]; then
       printf "$BLUE Summoning Beria...$NC\n"
       cd ~
       mkdir .beria ; cd .beria
       git clone https://github.com/mldMoldovan/beria -q >/dev/null
-      sh beria -install
+      sudo cp beria /usr/local/bin ; sudo chmod +x beria
+      cd .. ; rm -rf .beria
       printf "$BLUE Beria is here $NC\n"
     elif [[ "$1" == "shinigami" ]]; then
       printf "$WHITE Summoning Shinigami...$NC\n"
       cd ~
       mkdir .shinigami ; cd .shinigami
       git clone https://github.com/mldMoldovan/shinigami -q
-      sh shinigami -install
+      sudo cp shinigami /usr/local/bin ; sudo chmod +x shinigami
+      cd .. ; rm -rf .shinigami
       printf "$RED Shinigami is here $NC\n"
    else
       printf "$RED Summoning failed$NC\n"
@@ -3318,7 +3513,7 @@ elif [[ "$1" == "-update" ]]; then
 
 elif [[ "$1" == "-brew" ]]; then
 
-  _brew
+  _brew $2 $3
 
 elif [[ "$1" == "off" ]]; then
 
@@ -3384,6 +3579,22 @@ elif [[ "$1" == "iseerouter" ]]; then
 
   _router_info
 
+elif [[ "$1" == "iseepeople" ]]; then
+
+  _people
+
+elif [[ "$1" == "iseedevices" ]]; then
+
+  _people
+
+elif [[ "$1" == "iseeeverything" ]]; then
+
+  _everything
+
+elif [[ "$1" == "iseemyself" ]]; then
+
+  _myself
+
 elif [[ "$1" == "-hide" ]]; then
 
   _hide
@@ -3421,6 +3632,10 @@ elif [[ "$1" == "-blood" ]]; then
 
   _blood
 
+elif [[ "$1" == "--blood" ]]; then
+
+  _blood
+
 elif [[ "$1" == "-light" ]]; then
   _light
 elif [[ "$1" == "--light" ]]; then
@@ -3429,5 +3644,9 @@ elif [[ "$1" == "--light" ]]; then
 elif [[ "$1" == "-capture" ]]; then
 
   _capture $2
+
+else
+
+  htop
 
 fi
