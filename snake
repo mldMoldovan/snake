@@ -1,10 +1,11 @@
 #!/bin/bash
 
 
-_version="0.3.4"
+_version="0.3.5"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 _blinking=true
+_verbose=false
 
 
 
@@ -92,15 +93,13 @@ fi
 elif [[ $_system == "Linux" ]]; then
 
 sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 38:2D:E8$end)
+sudo ip link set dev enp0s3 address $(echo 38:2D:E8:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 sudo ip link set dev enp0s3 up
 
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
-printf "$WHITE Samsung :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+printf "$WHITE Samsung :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
 else
@@ -137,15 +136,13 @@ _lg(){
   elif [[ $_system == "Linux" ]]; then
 
   sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(hexchars="0123456789ABCDEF"
-  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-  echo 2C:54:CF$end)
+  sudo ip link set dev enp0s3 address $(echo 2C:54:CF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
   if [ "$1" == "-q" ]; then
   >/dev/null  2>&1
   else
-  printf "$WHITE LG :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  printf "$WHITE LG :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
   fi
 
   else
@@ -187,7 +184,7 @@ _apple(){
   # TEST THIS IN POOLA MEA S035
 
   sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(end=$($[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]) echo DC:A9:04$end)
+  sudo ip link set dev enp0s3 address $(echo DC:A9:04:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
   #printf "$YELLOW DEBUG ->$BLUE Should be done$NC\n"
@@ -196,7 +193,7 @@ _apple(){
   if [ "$1" == "-q" ]; then
   >/dev/null  2>&1
   else
-  printf "$WHITE Apple :: $(ifconfig | grep ether | awk '{print $2}')$NC\n"
+  printf "$WHITE Apple :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
   fi
 
   else
@@ -214,7 +211,7 @@ _oppo(){
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 50:29:F5$end)
+echo $end)
 _on
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
@@ -222,64 +219,206 @@ else
 printf "$WHITE Oppo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+#printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 50:29:F5$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Oppo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+#printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
+
+
+# TEST THIS IN POOLA MEA S035
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 50:29:F5:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+#printf "$YELLOW DEBUG ->$BLUE Should be done$NC\n"
+#printf "$YELLOW I have generated another :$WHITE $(hexchars="0123456789ABCDEF" end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' ) echo DC:A9:04$end)$NC\n"
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Oppo :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "$RED Not available on this system$NC\n"
+
+fi
+
 }
 
 _one_plus(){
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo C0:EE:FB$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE One Plus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE One Plus :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _huawei(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 78:F5:FD$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Huawei :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 78:F5:FD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Huawei :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _xperia(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 1C:7B:21$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Xperia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Xperia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _yota(){
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 28:C6:71$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
-printf "$WHITE Yota Phone :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+printf "$WHITE Yota :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Yota :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
 fi
 
 }
@@ -287,30 +426,157 @@ fi
 
 _lumia(){
 
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 38:F2:3E$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Lumia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lumia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_nokia(){
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo A4:81:EE$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Nokia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo A4:81:EE:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Nokia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_htc(){
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 80:7A:BF$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE HTC :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 80:7A:BF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE HTC :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _xiaomi(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo F8:A4:5F$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Xiaomi :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo F8:A4:5F:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Xiaomi :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
 fi
 
 }
@@ -318,75 +584,198 @@ fi
 
 _hp(){
 
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 3C:D9:2B$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE HP :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 3C:D9:2B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE HP :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _dell(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo F8:DB:88$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Dell :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo F8:DB:88:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Dell :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _ibm(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 6C:AE:8B$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE IBM :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 6C:AE:8B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE IBM :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _microsoft(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 48:50:73$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 48:50:73:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Microsoft :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _lenovo(){
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 70:72:0D$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Lenovo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 70:72:0D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lenovo :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
 fi
 
 }
@@ -394,45 +783,197 @@ fi
 
 _intel(){
 
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 2C:6E:85$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Intel :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 2C:6E:85:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Intel :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_amd(){
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:0C:87$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE AMD :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE AMD :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_nvidia(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:04:4B$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Nvidia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Nvidia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _tesla(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 98:ED:5C$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Tesla :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Tesla :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _bombardier(){
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:11:BD$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
-printf "$WHITE Bombardier :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Microsoft :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
 fi
 
 }
@@ -443,12 +984,46 @@ _boeing(){
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:50:93$end)
+echo $end)
 _on
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
+printf "$WHITE  :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:50:93$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
 printf "$WHITE Boeing :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:50:93:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Boeing :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
 fi
 
 }
@@ -456,60 +1031,160 @@ fi
 
 _lockheed(){
 
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:07:EF$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Lockheed :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lockheed :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _airbus(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:23:B9$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Airbus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Airbus :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _northrop(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:19:8A$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Northrop :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Northrop :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _bae(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo CC:3F:EA$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE BAE :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE BAE :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
 fi
 
 }
@@ -517,15 +1192,39 @@ fi
 
 _us_army(){
 
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:C0:ED$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
-printf "$WHITE US Army :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+printf "$WHITE US Army  :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE US Army :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
 fi
 
 }
@@ -533,15 +1232,40 @@ fi
 
 _toyota(){
 
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:0A:AB$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Toyota :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Toyota :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
 fi
 
 }
@@ -549,45 +1273,118 @@ fi
 
 _porsche(){
 
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo D0:0E:A4$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Porsche :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Porsche :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _parrot(){
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo A0:14:3D$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE Parrot :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo A0:14:3D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Parrot :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
 }
 
 _nasa(){
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:08:55$end)
 _on
+
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
 printf "$WHITE NASA :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE NASA :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+else
+
+ printf "Not available on this system\n"
+
 fi
 
 }
@@ -696,10 +1493,11 @@ _magic_morph(){
 
     printf "\n"
     printf " Samsung / Apple / LG / Opoo / One Plus / Huawei\n"
-    printf " HP / Dell / IBM / Lenovo / Xperia / Yota / Xiaomi\n"
-    printf " Tesla / Bombardier / Toyota / Porsche / Boeing\n"
-    printf " Lockheed / Airbus / BAE / NASA / Parrot / Lumia\n"
-    printf " Northrop / Microsoft / US Army / TV / Intel\n"
+    printf " HP / Dell / IBM / Lenovo / Xperia / Yota / Nokia \n"
+    printf " Xiaomi / HTC / Lumia / Tesla / Bombardier / Toyota \n"
+    printf " Porsche / Boeing / Lockheed / Airbus / BAE / NASA / Parrot \n"
+    printf " Northrop / Microsoft / US Army / TV / Intel / AMD \n"
+    printf " Nvidia \n"
     printf "\n"
 
 }
@@ -728,6 +1526,12 @@ _router_info(){
 
   elif [[ $_system == "Linux" ]]; then
      printf "$RED Not supported on your system$NC\n"
+  elif [[ $_system == "BSD" ]]; then
+     printf "$RED Not supported on your system$NC\n"
+  elif [[ $_system == "Minix" ]]; then
+     printf "$RED Not supported on your system$NC\n"
+  elif [[ $_system == "Haiku" ]]; then
+     printf "$RED Not supported on your system$NC\n"
   else
      printf "$RED Not supported on your system$NC\n"
   fi
@@ -754,6 +1558,12 @@ _network(){
           ipcalc $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3}') | grep Hosts | awk '{print $2}'
        elif [[ $_system == "Linux" ]]; then
           printf "$RED Not supported on your system$NC\n"
+       elif [[ $_system == "BSD" ]]; then
+          printf "$RED Not supported on your system$NC\n"
+       elif [[ $_system == "Minix" ]]; then
+          printf "$RED Not supported on your system$NC\n"
+       elif [[ $_system == "Haiku" ]]; then
+          printf "$RED Not supported on your system$NC\n"
        else
           printf "$RED Not supported on your system$NC\n"
        fi
@@ -768,7 +1578,7 @@ _network(){
    elif [[ "$1" == "magic" ]]; then
        printf " max /$YELLOW router $NC/$BLUE scan $NC/ sniff /$RED infect$NC\n"
    else
-       printf "$RED Network protocol ERR$NC\n"
+       printf "$RED Network protocol ERR $NC\n"
    fi
 }
 
@@ -1334,11 +2144,74 @@ _generalize(){
     date
     printf "$NC\n"
   elif [[ $_system == "BSD" ]]; then
-     printf "$RED Not available on your OS$NC\n"
+    clear
+    _wts
+    _motto
+    printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+    printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
+    printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
+    printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
+    printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
+    printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
+    printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
+    printf "\n`echo " There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
+    printf "$BLUE"
+    arp -a | sed -n '1p'
+    printf "$YELLOW"
+    arp -a | grep $(ifconfig enp0s3 | grep inet | awk '{print $2}')
+    printf "$NC"
+    arp -a | sed '1d'
+    echo
+    printf "$WHITE\n"
+    date
+    printf "$NC\n"
   elif [[ $_system == "Minix" ]]; then
-     printf "$RED Not available on your OS$NC\n"
+    clear
+    _wts
+    _motto
+    printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+    printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
+    printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
+    printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
+    printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
+    printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
+    printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
+    printf "\n`echo " There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
+    printf "$BLUE"
+    arp -a | sed -n '1p'
+    printf "$YELLOW"
+    arp -a | grep $(ifconfig enp0s3 | grep inet | awk '{print $2}')
+    printf "$NC"
+    arp -a | sed '1d'
+    echo
+    printf "$WHITE\n"
+    date
+    printf "$NC\n"
   elif [[ $_system == "Haiku" ]]; then
-     printf "$RED Not available on your OS$NC\n"
+    clear
+    _wts
+    _motto
+    printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+    printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
+    printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
+    printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
+    printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
+    printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
+    printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
+    printf "\n`echo " There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
+    printf "$BLUE"
+    arp -a | sed -n '1p'
+    printf "$YELLOW"
+    arp -a | grep $(ifconfig enp0s3 | grep inet | awk '{print $2}')
+    printf "$NC"
+    arp -a | sed '1d'
+    echo
+    printf "$WHITE\n"
+    date
+    printf "$NC\n"
   fi
 
 
@@ -1559,6 +2432,14 @@ _lock(){
 
    gnome-screensaver-command -l
 
+ elif [[ $_system == "BSD" ]]; then
+
+   printf "$RED Not available on your OS$NC\n"
+
+ elif [[ $_system == "Minix" ]]; then
+
+   printf "$RED Not available on your OS$NC\n"
+
  else
 
    printf "$RED Not available on your OS$NC\n"
@@ -1584,6 +2465,12 @@ _off(){
    sudo airport -z
  elif [[ $_system == "Linux" ]]; then
    sudo ip link set dev enp0s3 down
+ elif [[ $_system == "BSD" ]]; then
+   printf "$RED Not supported on your OS$NC\n"
+ elif [[ $_system == "Minix" ]]; then
+   printf "$RED Not supported on your OS$NC\n"
+ elif [[ $_system == "Haiku" ]]; then
+   printf "$RED Not supported on your OS$NC\n"
  else
    printf "$RED Not supported on your OS$NC\n"
  fi
@@ -1945,6 +2832,12 @@ _suicide(){
 
 }
 
+_reboot(){
+
+sudo reboot now
+
+}
+
 
 _capture(){
 
@@ -2029,6 +2922,12 @@ _morph(){
   elif [[ "$1" == "lumia" ]]; then
     _lumia $2
 
+  elif [[ "$1" == "nokia" ]]; then
+    _nokia $2
+
+  elif [[ "$1" == "htc" ]]; then
+    _htc $2
+
   elif [[ "$1" == "hp" ]]; then
     _hp $2
 
@@ -2046,6 +2945,12 @@ _morph(){
 
   elif [[ "$1" == "intel" ]]; then
     _intel $2
+
+  elif [[ "$1" == "amd" ]]; then
+    _amd $2
+
+  elif [[ "$1" == "nvidia" ]]; then
+    _nvidia $2
 
   elif [[ "$1" == "one_plus" ]]; then
     _one_plus $2
@@ -2099,6 +3004,27 @@ _morph(){
 
 }
 
+_update(){
+
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   cd .. ; cd ..
+   sudo rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+
+}
+
+
+_brew(){
+
+   printf "$YELLOW NRY $NC\n"
+
+}
 
 _summon(){
 
@@ -2110,35 +3036,35 @@ _summon(){
       printf "$RED Summoning Kolya...$NC\n"
       cd ~
       mkdir .kolya ; cd .kolya
-      git clone https://github.com/mldMoldovan/kolya >/dev/null 2>&1
+      git clone https://github.com/mldMoldovan/kolya -q >/dev/null 2>&1
       sh kolya -install
       printf "$RED Kolya is here $NC\n"
    elif [[ "$1" == "wilfred" ]]; then
       printf "$YELLOW Summoning Wilfred...$NC\n"
       cd ~
       mkdir .wilfred ; cd .wilfred
-      git clone https://github.com/mldMoldovan/wilfred
+      git clone https://github.com/mldMoldovan/wilfred -q
       sh wilfred -install
       printf "$YELLOW Wilfred is here $NC\n"
    elif [[ "$1" == "salazaar" ]]; then
       printf "$GREEN Summoning Salazaar...$NC\n"
       cd ~
       mkdir .salazaar ; cd .salazaar
-      git clone https://github.com/mldMoldovan/salazaar
+      git clone https://github.com/mldMoldovan/salazaar -q
       sh salazaar -install
       printf "$GREEN Salazaar is here $NC\n"
    elif [[ "$1" == "beria" ]]; then
       printf "$BLUE Summoning Beria...$NC\n"
       cd ~
       mkdir .beria ; cd .beria
-      git clone https://github.com/mldMoldovan/beria >/dev/null
+      git clone https://github.com/mldMoldovan/beria -q >/dev/null
       sh beria -install
       printf "$BLUE Beria is here $NC\n"
     elif [[ "$1" == "shinigami" ]]; then
       printf "$WHITE Summoning Shinigami...$NC\n"
       cd ~
       mkdir .shinigami ; cd .shinigami
-      git clone https://github.com/mldMoldovan/shinigami
+      git clone https://github.com/mldMoldovan/shinigami -q
       sh shinigami -install
       printf "$RED Shinigami is here $NC\n"
    else
@@ -2290,6 +3216,10 @@ elif [[ "$1" == "-suicide" ]]; then
 
     _suicide
 
+elif [[ "$1" == "-reboot" ]]; then
+
+    _reboot
+
 elif [[ "$1" == "-purge" ]]; then
 
      _purge
@@ -2330,13 +3260,25 @@ elif [[ "$1" == "_wit?" ]]; then
 
      _wit $2
 
-elif [[ "$1" == "_wth" ]]; then
+elif [[ "$1" == "_wit??" ]]; then
+
+        _wit6 $2
+
+elif [[ "$1" == "_wth?" ]]; then
 
      _wth $2
+
+elif [[ "$1" == "_wth??" ]]; then
+
+     _wth6 $2
 
 elif [[ "$1" == "_col!" ]]; then
 
      _col $2
+
+elif [[ "$1" == "_col!?" ]]; then
+
+     _col6 $2
 
 elif [[ "$1" == "_wtf?" ]]; then
 
@@ -2350,9 +3292,17 @@ elif [[ "$1" == "_blyat!" ]]; then
 
     _blyat $2
 
+elif [[ "$1" == "_blyat!?" ]]; then
+
+    _blyat6 $2
+
 elif [[ "$1" == "_pizdec!" ]]; then
 
    _pizdec $2
+
+elif [[ "$1" == "_pizdec!?" ]]; then
+
+   _pizdec6 $2
 
 elif [[ "$1" == "_IP!" ]]; then
 
@@ -2361,6 +3311,14 @@ elif [[ "$1" == "_IP!" ]]; then
 elif [[ "$1" == "-off" ]]; then
 
   _off
+
+elif [[ "$1" == "-update" ]]; then
+
+  _update
+
+elif [[ "$1" == "-brew" ]]; then
+
+  _brew
 
 elif [[ "$1" == "off" ]]; then
 
