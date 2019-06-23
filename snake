@@ -1791,7 +1791,7 @@ _logo(){
       _l_poor
 
   else
-
+    printf "$REDmOO$WHITEmOO$NC\n"
   fi
 
 
