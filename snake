@@ -1961,7 +1961,7 @@ elif [[ $_system == "Minix" ]]; then
    sudo cp snake /usr/local/bin/
    printf "$RED _installed$NC \n"
 else
-
+   printf "$RED Not for your system$NC\n"
 fi
 
 
