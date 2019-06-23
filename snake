@@ -2267,7 +2267,7 @@ _generalize(){
   printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
   printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
   printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
-  printf "$GREEN`echo amed  ` $YELLOW`uname -n`$NC"
+  printf "$GREEN`echo Machine named  ` $YELLOW` uname -n`$NC"
   printf "\n`echo You are connected on channel `$BLUE `airport -c | awk '{print $2}'` $NC`echo on router ` $BLUE`airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}'`$NC\n"
   printf "`echo "There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
   printf "$BLUE"
@@ -2361,10 +2361,10 @@ _generalize(){
     clear
     _wts
     _motto
-    printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
-    printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
-    printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
-    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
+  #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+    printf "\n`echo Local IP  ` >> $YELLOW`ifconfig | grep inet | sed '1,2d' | awk '{print $3}'`$NC"
+    printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig | grep Address | sed '1d' | awk '{print $5}'`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig | grep Address | sed '1d' | awk '{print $5}')`$NC"
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
     printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
@@ -2373,7 +2373,7 @@ _generalize(){
     printf "$BLUE"
     arp -a | sed -n '1p'
     printf "$YELLOW"
-    arp -a | grep $(ifconfig enp0s3 | grep inet | awk '{print $2}')
+    arp -a | grep $(ifconfig | grep inet | sed '1,2d' | awk '{print $3}')
     printf "$NC"
     arp -a | sed '1d'
     echo
