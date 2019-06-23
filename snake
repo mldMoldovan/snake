@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.3.6"
+_version="0.3.7"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 
@@ -1507,6 +1507,21 @@ _magic_morph(){
 }
 
 
+_mirror(){
+
+   _system="$(uname -s)"
+
+   if [ $_system == "Darwin" ]; then
+     open -a /Applications/FaceTime/Contents/MacOS/FaceTime
+   elif [[ $_system == "Linux" ]]; then
+     printf "$RED Not supported on this system$NC\n"
+   else
+     printf "$RED Not supported on this system$NC\n"
+   fi
+
+}
+
+
 _people(){
 
     _system="$(uname -s)"
@@ -1521,7 +1536,7 @@ _people(){
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
     elif [[ $_system == "Haiku" ]]; then
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
-    elif [[ $_system == "Unix" ]]; then
+    elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
     else
        printf "$RED Not supported on your OS$NC\n"
@@ -1544,7 +1559,7 @@ _myself(){
       printf "Not available on your OS$NC\n"
   elif [[ $_system == "Haiku" ]]; then
       printf "Not available on your OS$NC\n"
-  elif [[ $_system == "Unix" ]]; then
+  elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
       printf "Not available on your OS$NC\n"
   else
       printf "Not available on your OS$NC\n"
@@ -1568,7 +1583,7 @@ _everything(){
        printf "Not available on your OS$NC\n"
    elif [[ $_system == "Haiku" ]]; then
        printf "Not available on your OS$NC\n"
-   elif [[ $_system == "Unix" ]]; then
+   elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
        printf "Not available on your OS$NC\n"
    else
        printf "Not available on your OS$NC\n"
@@ -1607,7 +1622,7 @@ _router_info(){
      printf "$RED Not supported on your system$NC\n"
   elif [[ $_system == "Haiku" ]]; then
      printf "$RED Not supported on your system$NC\n"
-  elif [[ $_system == "Unix" ]]; then
+  elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
      printf "$RED Not supported on your system$NC\n"
   else
      printf "$RED Not supported on your system$NC\n"
@@ -1641,7 +1656,7 @@ _network(){
           printf "$RED Not supported on your system$NC\n"
        elif [[ $_system == "Haiku" ]]; then
           printf "$RED Not supported on your system$NC\n"
-       elif [[ $_system == "Unix" ]]; then
+       elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
           printf "$RED Not supported on your system$NC\n"
        else
           printf "$RED Not supported on your system$NC\n"
@@ -1698,26 +1713,93 @@ printf "This is $GREEN $_name$BLUE $_version$NC at your service  \n"
 
 }
 
-_logo(){
 
-  #printf "Logo call: $_blinking\n"
-  if $_blinking ; then
-  printf "$BLINK\n"
+_l_poor(){
+
+  printf "\n"
   printf "$GREEN     <<<<< $_name >>>>>$NC\n"
-  printf "$BLINK$GREEN       <<<$NC$BLINK     🐍     $GREEN$BLINK>>>  $NC\n"
-  printf "$BLINK$GREEN         < $_name >    $NC\n"
+  printf "$GREEN       <<<$WHITE     S     $GREEN>>>  $NC\n"
+  printf "$GREEN         < $_name >    $NC\n"
   printf "$NC\n"
-  else
+
+}
+
+_l_unblink(){
+
   printf "\n"
   printf "$GREEN     <<<<< $_name >>>>>$NC\n"
   printf "$GREEN       <<<$NC     🐍     $GREEN>>>  $NC\n"
   printf "$GREEN         < $_name >    $NC\n"
   printf "$NC\n"
+
+}
+
+
+
+
+_l_blink(){
+
+  printf "$BLINK\n"
+  printf "$GREEN     <<<<< $_name >>>>>$NC\n"
+  printf "$BLINK$GREEN       <<<$NC$BLINK     🐍     $GREEN$BLINK>>>  $NC\n"
+  printf "$BLINK$GREEN         < $_name >    $NC\n"
+  printf "$NC\n"
+
+}
+
+_logo(){
+
+  #printf "Logo call: $_blinking\n"
+
+
+  _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+
+     if $_blinking ; then
+       _l_blink
+     else
+       _l_unblink
+     fi
+
+  elif [[ $_system == "Linux" ]]; then
+
+     if $_blinking ; then
+       _l_blink
+     else
+       _l_unblink
+     fi
+
+  elif [[ $_system == "BSD" ]]; then
+
+     if $_blinking ; then
+       _l_blink
+     else
+       _l_unblink
+     fi
+
+  elif [[ $_system == "Minix" ]]; then
+
+      _l_poor
+
+  elif [[ $_system == "Haiku" ]]; then
+
+      _l_poor
+
+  elif [[ $_system == "$(uname -n)" ]]; then # UNIX
+
+      _l_poor
+
+  else
+
   fi
 
 
 
 }
+
+
+
 
 
 
@@ -2149,13 +2231,13 @@ _affichage(){
   _motto
   _logo
   printf "$GREEN     $_name$WHITE Affichage Mode\n"
-  printf "\n$WHITE         I see $GREEN Gates\n"
+  printf "\n$WHITE         I see $GREEN People\n"
   printf "$WHITE         I see $GREEN Ports\n"
   printf "$WHITE         I see $GREEN Wifi\n"
-  printf "$WHITE         I see $GREEN People\n"
-  printf "$WHITE         I see $GREEN Sockets\n"
-  printf "$WHITE         I see $GREEN Router\n"
-  printf "$WHITE         I see $GREEN Devices\n"
+  printf "$WHITE         I see $YELLOW Light\n"
+  printf "$WHITE         I see $RED Blood\n"
+  printf "$WHITE         I see $NEW_BLUE Router\n"
+  printf "$WHITE         I see $BLUE Devices\n"
   printf "\n$BLUE          I see myself\n"
   printf "$RED        I see everything\n"
   printf "$BLUE        What do you see?\n"
@@ -2185,7 +2267,7 @@ _generalize(){
   printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
   printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
   printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
-  printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
+  printf "$GREEN`echo amed  ` $YELLOW`uname -n`$NC"
   printf "\n`echo You are connected on channel `$BLUE `airport -c | awk '{print $2}'` $NC`echo on router ` $BLUE`airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}'`$NC\n"
   printf "`echo "There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
   printf "$BLUE"
@@ -2200,6 +2282,7 @@ _generalize(){
   printf "$NC\n"
 
   elif [[ $_system == "Linux" ]]; then
+
     clear
     _wts
     _motto
@@ -2222,7 +2305,9 @@ _generalize(){
     printf "$WHITE\n"
     date
     printf "$NC\n"
+
   elif [[ $_system == "BSD" ]]; then
+
     clear
     _wts
     _motto
@@ -2245,7 +2330,9 @@ _generalize(){
     printf "$WHITE\n"
     date
     printf "$NC\n"
+
   elif [[ $_system == "Minix" ]]; then
+
     clear
     _wts
     _motto
@@ -2268,7 +2355,9 @@ _generalize(){
     printf "$WHITE\n"
     date
     printf "$NC\n"
+
   elif [[ $_system == "Haiku" ]]; then
+
     clear
     _wts
     _motto
@@ -2291,7 +2380,9 @@ _generalize(){
     printf "$WHITE\n"
     date
     printf "$NC\n"
-  elif [[ $_system == "Unix" ]]; then
+
+  elif [[ $_system == "$(uname -n)" ]]; then  # UNIX
+
     clear
     _wts
     _motto
@@ -2314,6 +2405,7 @@ _generalize(){
     printf "$WHITE\n"
     date
     printf "$NC\n"
+
   fi
 
 
@@ -2336,7 +2428,7 @@ _research(){
   printf "$WHITE   -maid $GREEN-> Room service\n"
   printf "$WHITE   -radar $GREEN-> Check network speed\n"
   printf "$WHITE   -manual/autoFan $GREEN-> Select fan control type\n"
-  printf "$WHITE   -look $GREEN-> _poof, _lock\n"
+  printf "$WHITE   -look $GREEN-> _poof, _lock, _flush\n"
   _logo
   printf "$WHITE"
   date
@@ -2542,7 +2634,7 @@ _lock(){
 
    printf "$RED Not available on your OS$NC\n"
 
- elif [[ $_system == "Unix" ]]; then
+ elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
 
    printf "$RED Not available on your OS$NC\n"
 
@@ -2556,7 +2648,7 @@ _lock(){
 
 _origin(){
 
-  clear
+
   ps -p $1 | awk '{print $4;}' | sed '1d'
 
 }
@@ -2577,7 +2669,7 @@ _off(){
    printf "$RED Not supported on your OS$NC\n"
  elif [[ $_system == "Haiku" ]]; then
    printf "$RED Not supported on your OS$NC\n"
- elif [[ $_system == "Unix" ]]; then
+ elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
    printf "$RED Not supported on your OS$NC\n"
  else
    printf "$RED Not supported on your OS$NC\n"
@@ -2600,7 +2692,7 @@ elif [[ $_system == "Minix" ]]; then
    printf "$RED Not available on your OS$NC\n"
 elif [[ $_system == "Haiku" ]]; then
    printf "$RED Not available on your OS$NC\n"
-elif [[ $_system == "Unix" ]]; then
+elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
     printf "$RED Not available on your OS$NC\n"
 else
    printf "$RED Not available on your OS$NC\n"
@@ -2611,8 +2703,25 @@ fi
 
 _on(){
 
-   networksetup -setairportpower en0 off
-   networksetup -setairportpower en0 on
+
+
+
+   _system="$(uname -s)"
+
+   if [ $_system == "Darwin" ]; then
+     networksetup -setairportpower en0 off
+     networksetup -setairportpower en0 on
+   elif [[ $_system == "Linux" ]]; then
+     printf "$RED Not available on your OS$NC\n"
+   elif [[ $_system == "BSD" ]]; then
+     printf "$RED Not available on your OS$NC\n"
+   elif [[ $_system == "Minix" ]]; then
+     printf "$RED Not available on your OS$NC\n"
+   elif [[ $_system == "Haiku" ]]; then
+     printf "$RED Not available on your OS$NC\n"
+   else
+     printf "$RED Not available on your OS$NC\n"
+   fi
 
 }
 
@@ -2937,7 +3046,23 @@ fi
 
 _suicide(){
 
-  sudo shutdown now
+  _system="$(uname -s)"
+
+
+  if [ $_system == "Darwin" ]; then
+     sudo shutdown now
+  elif [[ $_system == "Linux" ]]; then
+     sudo shutdown now
+   elif [[ $_system == "BSD" ]]; then
+     sudo shutdown now
+   elif [[ $_system == "Minix" ]]; then
+     sudo shutdown now
+   elif [[ $_system == "Haiku" ]]; then
+     shutdown
+   elif [[ $_system == "$(uname -n)" ]]; then # UNIX
+     shutdown
+   fi
+
 
 
 }
@@ -2972,16 +3097,16 @@ _scanHouse(){
 
   if [ "$_system" == "Darwin" ]; then
 
-  printf "\n"
-  printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
-  printf "\n"
+     printf "\n"
+     printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
+     printf "\n"
 
   fi
 
-  arp -a
-  printf "$WHITE\n"
-  date
-  printf "$NC\n"
+     arp -a
+     printf "$WHITE\n"
+     date
+     printf "$NC\n"
 
 
 }
@@ -2992,16 +3117,16 @@ _deepHouse(){
 
    if [ "$_system" == "Darwin" ]; then
 
-   printf "\n"
-   printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
-   printf "\n"
+      printf "\n"
+      printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
+      printf "\n"
 
    fi
 
-   sudo arp-scan -l | sed -n '2!p'
-   printf "$WHITE\n"
-   date
-   printf "$NC\n"
+      sudo arp-scan -l | sed -n '2!p'
+      printf "$WHITE\n"
+      date
+      printf "$NC\n"
 
 }
 
@@ -3225,42 +3350,47 @@ _summon(){
    elif [[ "$1" == "kolya" ]]; then
       printf "$RED Summoning Kolya...$NC\n"
       cd ~
-      mkdir .kolya ; cd .kolya
+      mkdir .kolya ; cd .kolya/
       git clone https://github.com/mldMoldovan/kolya -q >/dev/null 2>&1
-      sudo cp kolya /usr/local/bin ; sudo chmod +x kolya
-      cd .. ; rm -rf .kolya
+      cd ./kolya
+      sudo chmod +x kolya ; sudo cp kolya /usr/local/bin/
+      cd .. ; cd .. ; rm -rf .kolya
       printf "$RED Kolya is here $NC\n"
    elif [[ "$1" == "wilfred" ]]; then
       printf "$YELLOW Summoning Wilfred...$NC\n"
       cd ~
-      mkdir .wilfred ; cd .wilfred
+      mkdir .wilfred ; cd .wilfred/
       git clone https://github.com/mldMoldovan/wilfred -q
+      cd ./wilfred
       sudo cp wilfred /usr/local/bin ; sudo chmod +x wilfred
-      cd .. ; rm -rf .wilfred
+      cd .. ; cd .. ; rm -rf .wilfred
       printf "$YELLOW Wilfred is here $NC\n"
    elif [[ "$1" == "salazaar" ]]; then
       printf "$GREEN Summoning Salazaar...$NC\n"
       cd ~
-      mkdir .salazaar ; cd .salazaar
+      mkdir .salazaar ; cd .salazaar/
       git clone https://github.com/mldMoldovan/salazaar -q
+      cd ./salazaar
       sudo cp salazaar /usr/local/bin ; sudo chmod +x salazaar
-      cd .. ; rm -rf .salazaar
+      cd .. ; cd .. ; rm -rf .salazaar
       printf "$GREEN Salazaar is here $NC\n"
    elif [[ "$1" == "beria" ]]; then
       printf "$BLUE Summoning Beria...$NC\n"
       cd ~
-      mkdir .beria ; cd .beria
+      mkdir .beria ; cd .beria/
       git clone https://github.com/mldMoldovan/beria -q >/dev/null
+      cd ./beria
       sudo cp beria /usr/local/bin ; sudo chmod +x beria
-      cd .. ; rm -rf .beria
+      cd .. ; cd .. ; rm -rf .beria
       printf "$BLUE Beria is here $NC\n"
     elif [[ "$1" == "shinigami" ]]; then
       printf "$WHITE Summoning Shinigami...$NC\n"
       cd ~
-      mkdir .shinigami ; cd .shinigami
+      mkdir .shinigami ; cd .shinigami/
       git clone https://github.com/mldMoldovan/shinigami -q
-      sudo cp shinigami /usr/local/bin ; sudo chmod +x shinigami
-      cd .. ; rm -rf .shinigami
+      cd ./shinigami
+      sudo chmod +x shinigami ; sudo cp shinigami /usr/local/bin
+      cd .. ; cd .. ; sudo rm -rf .shinigami
       printf "$RED Shinigami is here $NC\n"
    else
       printf "$RED Summoning failed$NC\n"
@@ -3310,7 +3440,8 @@ printf "         -a - affichage\n"
 printf "         -g - generalize\n"
 printf "         -e - engage\n"
 printf "         --summon - Daemon summoning\n"
-printf "         --morph - Netowrk morphing\n"
+printf "         --morph - Network morphing\n"
+printf "         --brew - Just like magic\n"
 printf "\n"
 printf "Examples: snake -p\n"
 printf "          snake -o --summon Artyom\n"
