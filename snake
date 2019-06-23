@@ -1791,7 +1791,9 @@ _logo(){
       _l_poor
 
   else
+
     printf "$REDmOO$WHITEmOO$NC\n"
+
   fi
 
 
@@ -1935,9 +1937,34 @@ _exec(){
 
 _exec_i(){
 
-  sudo chmod +x snake
-  sudo cp snake /usr/local/bin/
-  printf "$RED _installed$NC \n"
+
+  _system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin/
+   printf "$RED _installed$NC \n"
+elif [[ $_system == "Linux" ]]; then
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin/
+   printf "$RED _installed$NC \n"
+elif [[ $_system == "Haiku" ]]; then
+   chmod +x snake
+   cp snake /bin
+   printf "$RED _installed$NC \n"
+elif [[ $_system == "BSD" ]]; then
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin/
+   printf "$RED _installed$NC \n"
+elif [[ $_system == "Minix" ]]; then
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin/
+   printf "$RED _installed$NC \n"
+else
+
+fi
+
+
 
 
 }
@@ -2262,7 +2289,9 @@ _generalize(){
   printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
   printf "\n`echo Local IP  ` >> $YELLOW`ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}'`$NC"
   printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig en0 | grep ether | awk '{print $2;}'`$NC"
+  if [ $1 != "-f" ]; then
   printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig en0 | grep ether | awk '{print $2;}')`$NC"
+  fi
   printf "\n`echo Router IP  ` >> $BLUE`ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12`$NC"
   printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
   printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
@@ -2289,7 +2318,9 @@ _generalize(){
     printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
+    if [ $1 != "-f" ]; then
     printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
+    fi
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
     printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
@@ -2364,7 +2395,9 @@ _generalize(){
   #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig | grep inet | sed '1,2d' | awk '{print $3}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig | grep Address | sed '1d' | awk '{print $5}'`$NC"
+    if [ $1 != "-f" ]; then
     printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig | grep Address | sed '1d' | awk '{print $5}')`$NC"
+    fi
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
     printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
@@ -3451,7 +3484,7 @@ printf "\n"
 
 elif [ "$1" == "-g" ]; then
 
-   _generalize
+   _generalize $2
 
 elif [[ "$1" == "-a" ]]; then
 
