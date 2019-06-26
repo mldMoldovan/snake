@@ -1,7 +1,7 @@
-#!/bin/bash
+#boring#!/bin/bash
 
 
-_version="0.4.0"
+_version="0.4.1"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 
@@ -78,6 +78,12 @@ quietTextRestore(){
 _samsung(){
 
 
+  _rnd=$[RANDOM%14]
+  _codes=("D0:87:E2" "20:55:31" "54:40:AD" "84:2E:27" "50:F0:D3" "84:11:9E" "08:EC:A9" "10:D3:8A" "38:2D:D1" "E0:CB:EE" "64:B8:53" "F4:42:8F" "18:83:31" "84:55:A5" "A8:7C:01" "C0:11:73")
+
+
+
+
 _system="$(uname -s)"
 
 if [ $_system == "Darwin" ]; then
@@ -85,7 +91,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 38:2D:E8$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -131,6 +137,9 @@ fi
 _lg(){
 
 
+  _rnd=$[RANDOM%9]
+  _codes=("14:C9:13" "3C:BD:D8" "2C:54:CF" "00:1F:E3" "00:26:E2" "00:1E:75" "6C:D6:8A" "20:21:A5" "0C:48:85")
+
   _system="$(uname -s)"
 
   if [ $_system == "Darwin" ]; then
@@ -138,7 +147,7 @@ _lg(){
   _off
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
   end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-  echo 2C:54:CF$end)
+  echo ${_codes[$_rnd]}$end)
   _on
 
   if [ "$1" == "-q" ]; then
@@ -182,6 +191,10 @@ _lg(){
 _apple(){
 
 
+  _rnd=$[RANDOM%19]
+  _codes=("F0:76:6F" "40:CB:C0" "40:98:AD" "6C:4D:73" "C4:84:66" "B8:63:4D" "50:32:37" "D4:61:9D" "B0:48:1A" "98:9E:63" "DC:A9:04" "48:A1:95" "6C:AB:31" "7C:50:49" "E4:2B:34" "1C:36:BB" "3C:2E:FF" "6C:96:CF" "30:35:AD" "A8:BE:27" "70:A2:B3")
+
+
   _system="$(uname -s)"
 
   if [ $_system == "Darwin" ]; then
@@ -191,7 +204,7 @@ _apple(){
   _off
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
   end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-  echo DC:A9:04$end)
+  echo ${_codes[$_rnd]}$end)
   _on
 
   if [ "$1" == "-q" ]; then
@@ -241,6 +254,10 @@ _apple(){
 }
 
 _oppo(){
+
+
+  _rnd=$[RANDOM%19]
+  _codes=("E8:BB:A8" "BC:3A:EA" "8C:0E:E3" "6C:5C:14" "EC:F3:42" "DC:55:83" "88:5A:06" "1C:42:7D" "50:29:F5" "84:6F:CE" "F4:D6:20" "EC:51:BC" "F0:79:E8" "F0:6D:78" "50:3C:EA" "58:7A:6A" "E4:C4:83" "D4:67:D3" "58:C6:F0" "C0:2E:25" "48:83:B4")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -361,6 +378,8 @@ fi
 _huawei(){
 
 
+_rnd=$[RANDOM%19]
+_codes=("48:AD:08" "2C:AB:00" "00:E0:FC" "24:DF:6A" "00:9A:CD" "80:38:BC" "D4:40:F0" "64:A6:51" "E8:CD:2D" "AC:E2:15" "EC:23:3D" "78:F5:FD" "80:B6:86" "10:C6:1F" "88:53:D4" "0C:37:DC" "BC:76:70" "24:DB:AC" "0C:45:BA" "CC:A2:23" "E8:08:8B")
 
 _system="$(uname -s)"
 
@@ -369,7 +388,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 78:F5:FD$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -559,6 +578,9 @@ fi
 
 _nokia(){
 
+  _rnd=$[RANDOM%13]
+  _codes=("A4:81:EE" "4C:7F:62" "40:7A:80" "B0:5C:E5" "D4:C1:FC" "48:DC:FB" "E0:A6:70" "6C:9B:02" "0C:DD:EF" "54:44:08" "C8:D1:0B" "C8:97:9F" "F4:F5:A5" "3C:C2:43")
+
 
 _system="$(uname -s)"
 
@@ -567,7 +589,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo A4:81:EE$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -579,7 +601,7 @@ fi
 elif [[ $_system == "Linux" ]]; then
 
 sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo A4:81:EE:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 sudo ip link set dev enp0s3 up
 
 if [ "$1" == "-q" ]; then
@@ -609,6 +631,11 @@ fi
 _htc(){
 
 
+  _rnd=$[RANDOM%18]
+  _codes=("80:7A:BF" "90:E7:C4" "7C:61:93" "2C:8A:72" "98:0D:2E" "A8:26:D9" "D4:20:6D" "18:87:96" "00:23:76" "04:C2:3E" "00:EE:BD" "AC:37:43" "00:09:2D" "F8:DB:7F" "E8:99:C4" "80:01:84" "50:2E:5C" "84:7A:88" "74:F6:1C" "38:E7:D8")
+
+
+
 _system="$(uname -s)"
 
 if [ $_system == "Darwin" ]; then
@@ -616,7 +643,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 80:7A:BF$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -657,6 +684,9 @@ fi
 
 _xiaomi(){
 
+  _rnd=$[RANDOM%19]
+  _codes=("8C:5A:F8" "F8:A4:5F" "8C:BE:BE" "64:09:80" "98:FA:E3" "18:59:36" "9C:99:A0" "C4:0B:CB" "EC:D0:9F" "F4:F5:DB" "E4:46:DA" "18:F0:E4" "9C:2E:A1" "50:A0:09" "20:A6:0C" "E0:DC:FF" "60:AB:67" "90:78:B2" "04:C8:07" "74:23:44" "D8:32:E3")
+
 
 
 _system="$(uname -s)"
@@ -666,7 +696,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo F8:A4:5F$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -709,6 +739,10 @@ fi
 _hp(){
 
 
+  _rnd=$[RANDOM%19]
+  _codes=("3C:D9:2B" "9C:8E:99" "B4:99:BA" "1C:C1:DE" "F4:CE:46" "00:1C:C4" "00:25:B3" "00:18:71" "00:0B:CD" "00:0E:7F" "00:0F:20" "00:11:0A" "00:13:21" "00:16:35" "00:17:A4" "00:08:02" "00:08:83" "C4:34:6B" "8C:DC:D4" "34:64:A9" "D4:C9:EF")
+
+
 _system="$(uname -s)"
 
 if [ $_system == "Darwin" ]; then
@@ -716,7 +750,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 3C:D9:2B$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -755,7 +789,13 @@ fi
 
 }
 
+
+
 _dell(){
+
+
+  _rnd=$[RANDOM%19]
+  _codes=("EC:F4:BB" "D0:67:E5" "18:A9:9B" "F8:DB:88" "18:FB:7B" "74:E6:E2" "10:98:36" "44:A8:42" "34:E6:D7" "00:0B:DB" "00:11:43" "00:18:8B" "D4:BE:D9" "00:1A:A0" "00:21:70" "00:26:B9" "A4:BA:DB" "00:1E:4F" "5C:F9:DD" "00:06:5B" "80:18:44")
 
 
 
@@ -766,7 +806,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo F8:DB:88$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -808,6 +848,9 @@ fi
 _ibm(){
 
 
+_rnd=$[RANDOM%19]
+_codes=("00:04:AC" "00:60:94" "A8:97:DC" "E4:1F:13" "00:25:03" "00:17:EF" "10:00:5A" "98:BE:94" "6C:AE:8B" "5C:F3:FC" "FC:CF:62" "00:21:5E" "00:02:55" "00:50:76" "00:06:29" "00:20:35" "08:00:5A" "40:F2:E9" "00:09:6B" "74:99:75" "34:40:B5")
+
 
 _system="$(uname -s)"
 
@@ -816,7 +859,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 6C:AE:8B$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -858,6 +901,9 @@ fi
 _microsoft(){
 
 
+_rnd=$[RANDOM%19]
+_codes=("38:F2:3E" "48:50:73" "74:E2:8C" "84:63:D6" "D4:8F:33" "00:15:5D" "00:50:F2" "98:5F:D3" "38:25:6B" "BC:83:85" "EC:83:50" "B8:31:B5" "9C:6C:15" "48:86:E8" "2C:29:97" "10:2F:6B" "28:18:78" "60:45:BD" "7C:ED:8D" "00:0D:3A" "B4:E1:C4")
+
 
 _system="$(uname -s)"
 
@@ -866,7 +912,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 48:50:73$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -908,6 +954,9 @@ fi
 _lenovo(){
 
 
+_rnd=$[RANDOM%5]
+_codes=("98:FF:D0" "50:3C:C4" "74:04:2B" "E0:2C:B2" "70:72:0D" "D4:22:3F")
+
 _system="$(uname -s)"
 
 if [ $_system == "Darwin" ]; then
@@ -915,7 +964,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 70:72:0D$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -957,6 +1006,10 @@ fi
 
 _intel(){
 
+
+  _rnd=$[RANDOM%6]
+  _codes=("00:03:47" "00:11:75" "00:13:E8" "00:13:02" "E4:F8:9C" "A4:02:B9" "4C:34:88")
+
 _system="$(uname -s)"
 
 if [ $_system == "Darwin" ]; then
@@ -964,7 +1017,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 2C:6E:85$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -1005,6 +1058,8 @@ fi
 
 
 _amd(){
+
+
 
 
 _system="$(uname -s)"
@@ -1205,6 +1260,10 @@ fi
 
 _boeing(){
 
+
+  _rnd=$[RANDOM%3]
+  _codes=("00:50:93" "00:06:F8" "34:61:78" "00:40:BE")
+
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
@@ -1223,7 +1282,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:50:93$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -1617,6 +1676,10 @@ fi
 
 _parrot(){
 
+
+  _rnd=$[RANDOM%4]
+  _codes=("90:3A:E6" "90:03:B7" "A0:14:3D" "00:26:7E" "00:12:1C")
+
 _system="$(uname -s)"
 
 if [ $_system == "Darwin" ]; then
@@ -1624,7 +1687,7 @@ if [ $_system == "Darwin" ]; then
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo A0:14:3D$end)
+echo ${_codes[$_rnd]}$end)
 _on
 
 if [ "$1" == "-q" ]; then
@@ -2338,18 +2401,23 @@ _exec_q(){
 if [ $_system == "Darwin" ]; then
    sudo chmod +x snake
    sudo cp snake /usr/local/bin/
+
 elif [[ $_system == "Linux" ]]; then
    sudo chmod +x snake
    sudo cp snake /usr/local/bin/
+
 elif [[ $_system == "Haiku" ]]; then
    chmod +x snake
    cp snake /bin
+
 elif [[ $_system == "BSD" ]]; then
    sudo chmod +x snake
    sudo cp snake /usr/local/bin/
+
 elif [[ $_system == "Minix" ]]; then
    sudo chmod +x snake
    sudo cp snake /usr/local/bin/
+
 else
    printf "$RED Not for your system$NC\n"
 fi
@@ -2434,7 +2502,7 @@ _snap(){
              echo "   \"Nestname\":\"$(hostname)\"," >> snake.json
              echo "   \"Shell\":\"$SHELL\"," >> snake.json
              echo "   \"InternalIP\":\"$(ifconfig enp0s3 | grep inet | awk '{print $3}')\"," >> snake.json
-             echo "   \"Mac\":\"$(ipconfig getpacket en0 | grep chaddr | awk '{print $3;}')\"," >> snake.json
+             echo "   \"Mac\":\"$(ifconfig enp0s3 | grep ether | awk '{print $2}')\"," >> snake.json
              echo "   \"Architecture\":\"$(uname -m)\"," >> snake.json
              echo "   \"OS\":\"$(uname -s)\"," >> snake.json
              echo "   \"KernelVersion\":\"$(uname -r)\"," >> snake.json
@@ -2662,6 +2730,14 @@ _decompose(){
 }
 
 
+_t_melt(){
+
+   _melt
+   sleep 10
+
+}
+
+
 _melt(){
 
 
@@ -2676,6 +2752,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/flake/g' | sed 's/S.N.A.K.E/F.L.A.K.E/g' > flake
     sudo rm -rf snake2 ; printf "ekalf\n" ; sh flake -qinstall ; sudo rm -rf flake
+    #boring
 
   elif [[ $_rnd == 1 ]]; then
 
@@ -2685,6 +2762,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/blake/g' | sed 's/S.N.A.K.E/B.L.A.K.E/g' > blake
     sudo rm -rf snake2 ; printf "ekalb\n" ; sh blake -qinstall ; sudo rm -rf blake
+    #boring
 
   elif [[ $_rnd == 2 ]]; then
 
@@ -2694,6 +2772,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/plake/g' | sed 's/S.N.A.K.E/P.L.A.K.E/g' > plake
     sudo rm -rf snake2 ; printf "ekalp\n" ; sh plake -qinstall ; sudo rm -rf plake
+    #boring
 
   elif [[ $_rnd == 3 ]]; then
 
@@ -2703,6 +2782,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/blara/g' | sed 's/S.N.A.K.E/B.L.A.R.A/g' > blara
     sudo rm -rf snake2 ; printf "aralb\n" ; sh blara -qinstall ; sudo rm -rf blara
+    #boring
 
   elif [[ $_rnd == 4 ]]; then
 
@@ -2712,6 +2792,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/marco/g' | sed 's/S.N.A.K.E/M.A.R.C.O/g' > marco
     sudo rm -rf snake2 ; printf "ocram\n" ; sh marco -qinstall ; sudo rm -rf marco
+    #boring
 
   elif [[ $_rnd == 5 ]]; then
 
@@ -2721,6 +2802,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/white/g' | sed 's/S.N.A.K.E/W.H.I.T.E/g' > white
     sudo rm -rf snake2 ; printf "etihw\n" ; sh white -qinstall ; sudo rm -rf white
+    #boring
 
   elif [[ $_rnd == 6 ]]; then
 
@@ -2730,6 +2812,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/james/g' | sed 's/S.N.A.K.E/J.A.M.E.S/g' > james
     sudo rm -rf snake2 ; printf "semaj\n" ; sh james -qinstall ; sudo rm -rf james
+    #boring
 
   elif [[ $_rnd == 7 ]]; then
 
@@ -2739,6 +2822,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/alina/g' | sed 's/S.N.A.K.E/A.L.I.N.A/g' > alina
     sudo rm -rf snake2 ; printf "anila\n" ; sh alina -qinstall ; sudo rm -rf alina
+    #boring
 
   elif [[ $_rnd == 8 ]]; then
 
@@ -2748,6 +2832,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/leana/g' | sed 's/S.N.A.K.E/L.E.A.N.A/g' > leana
     sudo rm -rf snake2 ; printf "anael\n" ; sh leana -qinstall ; sudo rm -rf leana
+    #boring
 
   elif [[ $_rnd == 9 ]]; then
 
@@ -2757,6 +2842,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/slava/g' | sed 's/S.N.A.K.E/S.L.A.V.A/g' > slava
     sudo rm -rf snake2 ; printf "avals\n" ; sh slava -qinstall ; sudo rm -rf slava
+    #boring
 
   elif [[ $_rnd == 10 ]]; then
 
@@ -2766,6 +2852,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/horia/g' | sed 's/S.N.A.K.E/H.O.R.I.A/g' > horia
     sudo rm -rf snake2 ; printf "airoh\n" ; sh horia -qinstall ; sudo rm -rf horia
+    #boring
 
   elif [[ $_rnd == 11 ]]; then
 
@@ -2775,6 +2862,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/moria/g' | sed 's/S.N.A.K.E/M.O.R.I.A/g' > moria
     sudo rm -rf snake2 ; printf "airom\n" ; sh moria -qinstall ; sudo rm -rf moria
+    #boring
 
   elif [[ $_rnd == 12 ]]; then
 
@@ -2784,6 +2872,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/power/g' | sed 's/S.N.A.K.E/P.O.W.E.R/g' > power
     sudo rm -rf snake2 ; printf "rewop\n" ; sh power -qinstall ; sudo rm -rf power
+    #boring
 
   elif [[ $_rnd == 13 ]]; then
 
@@ -2793,6 +2882,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/coral/g' | sed 's/S.N.A.K.E/C.O.R.A.L/g' > coral
     sudo rm -rf snake2 ; printf "laroc\n" ; sh coral -qinstall ; sudo rm -rf coral
+    #boring
 
   elif [[ $_rnd == 14 ]]; then
 
@@ -2802,6 +2892,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/death/g' | sed 's/S.N.A.K.E/D.E.A.T.H/g' > death
     sudo rm -rf snake2 ; printf "htaed\n" ; sh death -qinstall ; sudo rm -rf death
+    #boring
 
   elif [[ $_rnd == 15 ]]; then
 
@@ -2811,6 +2902,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/cobra/g' | sed 's/S.N.A.K.E/C.O.B.R.A/g' > cobra
     sudo rm -rf snake2 ; printf "arboc\n" ; sh cobra -qinstall ; sudo rm -rf cobra
+    #boring
 
   elif [[ $_rnd == 16 ]]; then
 
@@ -2820,6 +2912,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/banel/g' | sed 's/S.N.A.K.E/B.A.N.E.L/g' > banel
     sudo rm -rf snake2 ; printf "lenab\n" ; sh banel -qinstall ; sudo rm -rf banel
+    #boring
 
   elif [[ $_rnd == 17 ]]; then
 
@@ -2829,6 +2922,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/quran/g' | sed 's/S.N.A.K.E/Q.U.R.A.N/g' > quran
     sudo rm -rf snake2 ; printf "naruq\n" ; sh quran -qinstall ; sudo rm -rf quran
+    #boring
 
   elif [[ $_rnd == 18 ]]; then
 
@@ -2838,6 +2932,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/ninja/g' | sed 's/S.N.A.K.E/N.I.N.J.A/g' > ninja
     sudo rm -rf snake2 ; printf "ajnin\n" ; sh ninja -qinstall ; sudo rm -rf ninja
+    #boring
 
   elif [[ $_rnd == 19 ]]; then
 
@@ -2847,6 +2942,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/nixon/g' | sed 's/S.N.A.K.E/N.I.X.O.N/g' > nixon
     sudo rm -rf snake2 ; printf "noxin\n" ; sh nixon -qinstall ; sudo rm -rf nixon
+    #boring
 
   elif [[ $_rnd == 20 ]]; then
 
@@ -2856,6 +2952,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/betty/g' | sed 's/S.N.A.K.E/B.E.T.T.Y/g' > betty
     sudo rm -rf snake2 ; printf "ytteb\n" ; sh betty -qinstall ; sudo rm -rf betty
+    #boring
 
   elif [[ $_rnd == 21 ]]; then
 
@@ -2865,6 +2962,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/harry/g' | sed 's/S.N.A.K.E/H.A.R.R.Y/g' > harry
     sudo rm -rf snake2 ; printf "yrrah\n" ; sh harry -qinstall ; sudo rm -rf harry
+    #boring
 
   elif [[ $_rnd == 22 ]]; then
 
@@ -2874,6 +2972,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/draco/g' | sed 's/S.N.A.K.E/D.R.A.C.O/g' > draco
     sudo rm -rf snake2 ; printf "ocard\n" ; sh draco -qinstall ; sudo rm -rf draco
+    #boring
 
   elif [[ $_rnd == 23 ]]; then
 
@@ -2883,6 +2982,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/boris/g' | sed 's/S.N.A.K.E/B.O.R.I.S/g' > boris
     sudo rm -rf snake2 ; printf "sirob\n" ; sh boris -qinstall ; sudo rm -rf boris
+    #boring
 
   elif [[ $_rnd == 24 ]]; then
 
@@ -2892,6 +2992,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/adolf/g' | sed 's/S.N.A.K.E/A.D.O.L.F/g' > adolf
     sudo rm -rf snake2 ; printf "floda\n" ; sh adolf -qinstall ; sudo rm -rf adolf
+    #boring
 
   elif [[ $_rnd == 25 ]]; then
 
@@ -2901,6 +3002,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/arpad/g' | sed 's/S.N.A.K.E/A.R.P.A.D/g' > arpad
     sudo rm -rf snake2 ; printf "dapra\n" ; sh arpad -qinstall ; sudo rm -rf arpad
+    #boring
 
   elif [[ $_rnd == 26 ]]; then
 
@@ -2910,6 +3012,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/soyuz/g' | sed 's/S.N.A.K.E/S.O.Y.U.Z/g' > soyuz
     sudo rm -rf snake2 ; printf "zuyos\n" ; sh soyuz -qinstall ; sudo rm -rf soyuz
+    #boring
 
   elif [[ $_rnd == 27 ]]; then
 
@@ -2919,6 +3022,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/force/g' | sed 's/S.N.A.K.E/F.O.R.C.E/g' > force
     sudo rm -rf snake2 ; printf "ecrof\n" ; sh force -qinstall ; sudo rm -rf force
+    #boring
 
   elif [[ $_rnd == 28 ]]; then
 
@@ -2928,6 +3032,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/forta/g' | sed 's/S.N.A.K.E/F.O.R.T.A/g' > forta
     sudo rm -rf snake2 ; printf "atrof\n" ; sh forta -qinstall ; sudo rm -rf forta
+    #boring
 
   elif [[ $_rnd == 29 ]]; then
 
@@ -2937,6 +3042,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/balon/g' | sed 's/S.N.A.K.E/B.A.L.O.N/g' > balon
     sudo rm -rf snake2 ; printf "nolab\n" ; sh balon -qinstall ; sudo rm -rf balon
+    #boring
 
   elif [[ $_rnd == 30 ]]; then
 
@@ -2946,6 +3052,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/pablo/g' | sed 's/S.N.A.K.E/P.A.B.L.O/g' > pablo
     sudo rm -rf snake2 ; printf "olbap\n" ; sh pablo -qinstall ; sudo rm -rf pablo
+    #boring
 
   elif [[ $_rnd == 31 ]]; then
 
@@ -2955,6 +3062,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/narco/g' | sed 's/S.N.A.K.E/N.A.R.C.O/g' > narco
     sudo rm -rf snake2 ; printf "ocran\n" ; sh narco -qinstall ; sudo rm -rf narco
+    #boring
 
   elif [[ $_rnd == 32 ]]; then
 
@@ -2964,6 +3072,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/diana/g' | sed 's/S.N.A.K.E/D.I.A.N.A/g' > diana
     sudo rm -rf snake2 ; printf "anaid\n" ; sh diana -qinstall ; sudo rm -rf diana
+    #boring
 
   elif [[ $_rnd == 33 ]]; then
 
@@ -2973,6 +3082,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/andra/g' | sed 's/S.N.A.K.E/A.N.D.R.A/g' > andra
     sudo rm -rf snake2 ; printf "ardna\n" ; sh andra -qinstall ; sudo rm -rf andra
+    #boring
 
   elif [[ $_rnd == 34 ]]; then
 
@@ -2982,6 +3092,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/tower/g' | sed 's/S.N.A.K.E/T.O.W.E.R/g' > tower
     sudo rm -rf snake2 ; printf "rewot\n" ; sh tower -qinstall ; sudo rm -rf tower
+    #boring
 
   elif [[ $_rnd == 35 ]]; then
 
@@ -2991,6 +3102,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/tokyo/g' | sed 's/S.N.A.K.E/T.O.K.Y.O/g' > tokyo
     sudo rm -rf snake2 ; printf "oykot\n" ; sh tokyo -qinstall ; sudo rm -rf tokyo
+    #boring
 
   elif [[ $_rnd == 36 ]]; then
 
@@ -3000,6 +3112,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/baron/g' | sed 's/S.N.A.K.E/B.A.R.O.N/g' > baron
     sudo rm -rf snake2 ; printf "norab\n" ; sh baron -qinstall ; sudo rm -rf baron
+    #boring
 
   elif [[ $_rnd == 37 ]]; then
 
@@ -3009,6 +3122,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/airfr/g' | sed 's/S.N.A.K.E/A.I.R.F.R/g' > airfr
     sudo rm -rf snake2 ; printf "rfria\n" ; sh airfr -qinstall ; sudo rm -rf airfr
+    #boring
 
   elif [[ $_rnd == 38 ]]; then
 
@@ -3018,6 +3132,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/paris/g' | sed 's/S.N.A.K.E/P.A.R.I.S/g' > paris
     sudo rm -rf snake2 ; printf "sirap\n" ; sh paris -qinstall ; sudo rm -rf paris
+    #boring
 
   elif [[ $_rnd == 39 ]]; then
 
@@ -3027,6 +3142,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/trump/g' | sed 's/S.N.A.K.E/T.R.U.M.P/g' > trump
     sudo rm -rf snake2 ; printf "pmurt\n" ; sh trump -qinstall ; sudo rm -rf trump
+    #boring
 
   elif [[ $_rnd == 40 ]]; then
 
@@ -3036,6 +3152,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/archx/g' | sed 's/S.N.A.K.E/A.R.C.H.X/g' > archx
     sudo rm -rf snake2 ; printf "xhcra\n" ; sh archx -qinstall ; sudo rm -rf archx
+    #boring
 
   elif [[ $_rnd == 41 ]]; then
 
@@ -3045,6 +3162,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/genie/g' | sed 's/S.N.A.K.E/G.E.N.I.E/g' > genie
     sudo rm -rf snake2 ; printf "eineg\n" ; sh genie -qinstall ; sudo rm -rf genie
+    #boring
 
   elif [[ $_rnd == 42 ]]; then
 
@@ -3054,6 +3172,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/bacon/g' | sed 's/S.N.A.K.E/B.A.C.O.N/g' > bacon
     sudo rm -rf snake2 ; printf "nocab\n" ; sh bacon -qinstall ; sudo rm -rf bacon
+    #boring
 
   elif [[ $_rnd == 43 ]]; then
 
@@ -3063,6 +3182,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/fruit/g' | sed 's/S.N.A.K.E/F.R.U.I.T/g' > fruit
     sudo rm -rf snake2 ; printf "tiurf\n" ; sh fruit -qinstall ; sudo rm -rf fruit
+    #boring
 
   elif [[ $_rnd == 44 ]]; then
 
@@ -3072,6 +3192,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/masha/g' | sed 's/S.N.A.K.E/M.A.S.H.A/g' > masha
     sudo rm -rf snake2 ; printf "asham\n" ; sh masha -qinstall ; sudo rm -rf masha
+    #boring
 
   elif [[ $_rnd == 45 ]]; then
 
@@ -3081,6 +3202,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/moris/g' | sed 's/S.N.A.K.E/M.O.R.I.S/g' > moris
     sudo rm -rf snake2 ; printf "sirom\n" ; sh moris -qinstall ; sudo rm -rf moris
+    #boring
 
   elif [[ $_rnd == 46 ]]; then
 
@@ -3090,6 +3212,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/elisa/g' | sed 's/S.N.A.K.E/E.L.I.S.A/g' > elisa
     sudo rm -rf snake2 ; printf "asile\n" ; sh elisa -qinstall ; sudo rm -rf elisa
+    #boring
 
   elif [[ $_rnd == 47 ]]; then
 
@@ -3099,6 +3222,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/marii/g' | sed 's/S.N.A.K.E/M.A.R.I.I/g' > marii
     sudo rm -rf snake2 ; printf "iiram\n" ; sh marii -qinstall ; sudo rm -rf marii
+    #boring
 
   elif [[ $_rnd == 48 ]]; then
 
@@ -3108,6 +3232,7 @@ _melt(){
     sudo rm -rf snake
     cat snake2 | sed 's/snake/brain/g' | sed 's/S.N.A.K.E/B.R.A.I.N/g' > brain
     sudo rm -rf snake2 ; printf "niarb\n" ; sh brain -qinstall ; sudo rm -rf brain
+    #boring
 
   elif [[ $_rnd == 49 ]]; then
 
@@ -3115,6 +3240,423 @@ _melt(){
     sudo cp snake snake2
     sh snake -uninstall
     sudo rm -rf snake
+    cat snake2 | sed 's/snake/water/g' | sed 's/S.N.A.K.E/W.A.T.E.R/g' > water
+    sudo rm -rf snake2 ; printf "retaw\n" ; sh water -qinstall ; sudo rm -rf water
+    /usr/bin/osascript -e 'tell application "System Events" to tell process "Terminal" to keystroke "z" using command down'
+
+ else
+
+   printf "$RED WTH RANDOM OOR$NC\n"
+
+ fi
+
+
+
+}
+
+
+_replicate(){
+
+
+    _rnd=$[RANDOM%50]
+
+
+    if [ $_rnd == 0 ]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/flake/g' | sed 's/S.N.A.K.E/F.L.A.K.E/g' > flake
+    sudo rm -rf snake2 ; printf "ekalf\n" ; sh flake -qinstall ; sudo rm -rf flake
+    #boring
+
+  elif [[ $_rnd == 1 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/blake/g' | sed 's/S.N.A.K.E/B.L.A.K.E/g' > blake
+    sudo rm -rf snake2 ; printf "ekalb\n" ; sh blake -qinstall ; sudo rm -rf blake
+    #boring
+
+  elif [[ $_rnd == 2 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/plake/g' | sed 's/S.N.A.K.E/P.L.A.K.E/g' > plake
+    sudo rm -rf snake2 ; printf "ekalp\n" ; sh plake -qinstall ; sudo rm -rf plake
+    #boring
+
+  elif [[ $_rnd == 3 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/blara/g' | sed 's/S.N.A.K.E/B.L.A.R.A/g' > blara
+    sudo rm -rf snake2 ; printf "aralb\n" ; sh blara -qinstall ; sudo rm -rf blara
+    #boring
+
+  elif [[ $_rnd == 4 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/marco/g' | sed 's/S.N.A.K.E/M.A.R.C.O/g' > marco
+    sudo rm -rf snake2 ; printf "ocram\n" ; sh marco -qinstall ; sudo rm -rf marco
+    #boring
+
+  elif [[ $_rnd == 5 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/white/g' | sed 's/S.N.A.K.E/W.H.I.T.E/g' > white
+    sudo rm -rf snake2 ; printf "etihw\n" ; sh white -qinstall ; sudo rm -rf white
+    #boring
+
+  elif [[ $_rnd == 6 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/james/g' | sed 's/S.N.A.K.E/J.A.M.E.S/g' > james
+    sudo rm -rf snake2 ; printf "semaj\n" ; sh james -qinstall ; sudo rm -rf james
+    #boring
+
+  elif [[ $_rnd == 7 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/alina/g' | sed 's/S.N.A.K.E/A.L.I.N.A/g' > alina
+    sudo rm -rf snake2 ; printf "anila\n" ; sh alina -qinstall ; sudo rm -rf alina
+    #boring
+
+  elif [[ $_rnd == 8 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/leana/g' | sed 's/S.N.A.K.E/L.E.A.N.A/g' > leana
+    sudo rm -rf snake2 ; printf "anael\n" ; sh leana -qinstall ; sudo rm -rf leana
+    #boring
+
+  elif [[ $_rnd == 9 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/slava/g' | sed 's/S.N.A.K.E/S.L.A.V.A/g' > slava
+    sudo rm -rf snake2 ; printf "avals\n" ; sh slava -qinstall ; sudo rm -rf slava
+    #boring
+
+  elif [[ $_rnd == 10 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/horia/g' | sed 's/S.N.A.K.E/H.O.R.I.A/g' > horia
+    sudo rm -rf snake2 ; printf "airoh\n" ; sh horia -qinstall ; sudo rm -rf horia
+    #boring
+
+  elif [[ $_rnd == 11 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/moria/g' | sed 's/S.N.A.K.E/M.O.R.I.A/g' > moria
+    sudo rm -rf snake2 ; printf "airom\n" ; sh moria -qinstall ; sudo rm -rf moria
+    #boring
+
+  elif [[ $_rnd == 12 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/power/g' | sed 's/S.N.A.K.E/P.O.W.E.R/g' > power
+    sudo rm -rf snake2 ; printf "rewop\n" ; sh power -qinstall ; sudo rm -rf power
+    #boring
+
+  elif [[ $_rnd == 13 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/coral/g' | sed 's/S.N.A.K.E/C.O.R.A.L/g' > coral
+    sudo rm -rf snake2 ; printf "laroc\n" ; sh coral -qinstall ; sudo rm -rf coral
+    #boring
+
+  elif [[ $_rnd == 14 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/death/g' | sed 's/S.N.A.K.E/D.E.A.T.H/g' > death
+    sudo rm -rf snake2 ; printf "htaed\n" ; sh death -qinstall ; sudo rm -rf death
+    #boring
+
+  elif [[ $_rnd == 15 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/cobra/g' | sed 's/S.N.A.K.E/C.O.B.R.A/g' > cobra
+    sudo rm -rf snake2 ; printf "arboc\n" ; sh cobra -qinstall ; sudo rm -rf cobra
+    #boring
+
+  elif [[ $_rnd == 16 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/banel/g' | sed 's/S.N.A.K.E/B.A.N.E.L/g' > banel
+    sudo rm -rf snake2 ; printf "lenab\n" ; sh banel -qinstall ; sudo rm -rf banel
+    #boring
+
+  elif [[ $_rnd == 17 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/quran/g' | sed 's/S.N.A.K.E/Q.U.R.A.N/g' > quran
+    sudo rm -rf snake2 ; printf "naruq\n" ; sh quran -qinstall ; sudo rm -rf quran
+    #boring
+
+  elif [[ $_rnd == 18 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/ninja/g' | sed 's/S.N.A.K.E/N.I.N.J.A/g' > ninja
+    sudo rm -rf snake2 ; printf "ajnin\n" ; sh ninja -qinstall ; sudo rm -rf ninja
+    #boring
+
+  elif [[ $_rnd == 19 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/nixon/g' | sed 's/S.N.A.K.E/N.I.X.O.N/g' > nixon
+    sudo rm -rf snake2 ; printf "noxin\n" ; sh nixon -qinstall ; sudo rm -rf nixon
+    #boring
+
+  elif [[ $_rnd == 20 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/betty/g' | sed 's/S.N.A.K.E/B.E.T.T.Y/g' > betty
+    sudo rm -rf snake2 ; printf "ytteb\n" ; sh betty -qinstall ; sudo rm -rf betty
+    #boring
+
+  elif [[ $_rnd == 21 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/harry/g' | sed 's/S.N.A.K.E/H.A.R.R.Y/g' > harry
+    sudo rm -rf snake2 ; printf "yrrah\n" ; sh harry -qinstall ; sudo rm -rf harry
+    #boring
+
+  elif [[ $_rnd == 22 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/draco/g' | sed 's/S.N.A.K.E/D.R.A.C.O/g' > draco
+    sudo rm -rf snake2 ; printf "ocard\n" ; sh draco -qinstall ; sudo rm -rf draco
+    #boring
+
+  elif [[ $_rnd == 23 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/boris/g' | sed 's/S.N.A.K.E/B.O.R.I.S/g' > boris
+    sudo rm -rf snake2 ; printf "sirob\n" ; sh boris -qinstall ; sudo rm -rf boris
+    #boring
+
+  elif [[ $_rnd == 24 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/adolf/g' | sed 's/S.N.A.K.E/A.D.O.L.F/g' > adolf
+    sudo rm -rf snake2 ; printf "floda\n" ; sh adolf -qinstall ; sudo rm -rf adolf
+    #boring
+
+  elif [[ $_rnd == 25 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/arpad/g' | sed 's/S.N.A.K.E/A.R.P.A.D/g' > arpad
+    sudo rm -rf snake2 ; printf "dapra\n" ; sh arpad -qinstall ; sudo rm -rf arpad
+    #boring
+
+  elif [[ $_rnd == 26 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/soyuz/g' | sed 's/S.N.A.K.E/S.O.Y.U.Z/g' > soyuz
+    sudo rm -rf snake2 ; printf "zuyos\n" ; sh soyuz -qinstall ; sudo rm -rf soyuz
+    #boring
+
+  elif [[ $_rnd == 27 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/force/g' | sed 's/S.N.A.K.E/F.O.R.C.E/g' > force
+    sudo rm -rf snake2 ; printf "ecrof\n" ; sh force -qinstall ; sudo rm -rf force
+    #boring
+
+  elif [[ $_rnd == 28 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/forta/g' | sed 's/S.N.A.K.E/F.O.R.T.A/g' > forta
+    sudo rm -rf snake2 ; printf "atrof\n" ; sh forta -qinstall ; sudo rm -rf forta
+    #boring
+
+  elif [[ $_rnd == 29 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/balon/g' | sed 's/S.N.A.K.E/B.A.L.O.N/g' > balon
+    sudo rm -rf snake2 ; printf "nolab\n" ; sh balon -qinstall ; sudo rm -rf balon
+    #boring
+
+  elif [[ $_rnd == 30 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/pablo/g' | sed 's/S.N.A.K.E/P.A.B.L.O/g' > pablo
+    sudo rm -rf snake2 ; printf "olbap\n" ; sh pablo -qinstall ; sudo rm -rf pablo
+    #boring
+
+  elif [[ $_rnd == 31 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/narco/g' | sed 's/S.N.A.K.E/N.A.R.C.O/g' > narco
+    sudo rm -rf snake2 ; printf "ocran\n" ; sh narco -qinstall ; sudo rm -rf narco
+    #boring
+
+  elif [[ $_rnd == 32 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/diana/g' | sed 's/S.N.A.K.E/D.I.A.N.A/g' > diana
+    sudo rm -rf snake2 ; printf "anaid\n" ; sh diana -qinstall ; sudo rm -rf diana
+    #boring
+
+  elif [[ $_rnd == 33 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/andra/g' | sed 's/S.N.A.K.E/A.N.D.R.A/g' > andra
+    sudo rm -rf snake2 ; printf "ardna\n" ; sh andra -qinstall ; sudo rm -rf andra
+    #boring
+
+  elif [[ $_rnd == 34 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/tower/g' | sed 's/S.N.A.K.E/T.O.W.E.R/g' > tower
+    sudo rm -rf snake2 ; printf "rewot\n" ; sh tower -qinstall ; sudo rm -rf tower
+    #boring
+
+  elif [[ $_rnd == 35 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/tokyo/g' | sed 's/S.N.A.K.E/T.O.K.Y.O/g' > tokyo
+    sudo rm -rf snake2 ; printf "oykot\n" ; sh tokyo -qinstall ; sudo rm -rf tokyo
+    #boring
+
+  elif [[ $_rnd == 36 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/baron/g' | sed 's/S.N.A.K.E/B.A.R.O.N/g' > baron
+    sudo rm -rf snake2 ; printf "norab\n" ; sh baron -qinstall ; sudo rm -rf baron
+    #boring
+
+  elif [[ $_rnd == 37 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/airfr/g' | sed 's/S.N.A.K.E/A.I.R.F.R/g' > airfr
+    sudo rm -rf snake2 ; printf "rfria\n" ; sh airfr -qinstall ; sudo rm -rf airfr
+    #boring
+
+  elif [[ $_rnd == 38 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/paris/g' | sed 's/S.N.A.K.E/P.A.R.I.S/g' > paris
+    sudo rm -rf snake2 ; printf "sirap\n" ; sh paris -qinstall ; sudo rm -rf paris
+    #boring
+
+  elif [[ $_rnd == 39 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/trump/g' | sed 's/S.N.A.K.E/T.R.U.M.P/g' > trump
+    sudo rm -rf snake2 ; printf "pmurt\n" ; sh trump -qinstall ; sudo rm -rf trump
+    #boring
+
+  elif [[ $_rnd == 40 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/archx/g' | sed 's/S.N.A.K.E/A.R.C.H.X/g' > archx
+    sudo rm -rf snake2 ; printf "xhcra\n" ; sh archx -qinstall ; sudo rm -rf archx
+    #boring
+
+  elif [[ $_rnd == 41 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/genie/g' | sed 's/S.N.A.K.E/G.E.N.I.E/g' > genie
+    sudo rm -rf snake2 ; printf "eineg\n" ; sh genie -qinstall ; sudo rm -rf genie
+    #boring
+
+  elif [[ $_rnd == 42 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/bacon/g' | sed 's/S.N.A.K.E/B.A.C.O.N/g' > bacon
+    sudo rm -rf snake2 ; printf "nocab\n" ; sh bacon -qinstall ; sudo rm -rf bacon
+    #boring
+
+  elif [[ $_rnd == 43 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/fruit/g' | sed 's/S.N.A.K.E/F.R.U.I.T/g' > fruit
+    sudo rm -rf snake2 ; printf "tiurf\n" ; sh fruit -qinstall ; sudo rm -rf fruit
+    #boring
+
+  elif [[ $_rnd == 44 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/masha/g' | sed 's/S.N.A.K.E/M.A.S.H.A/g' > masha
+    sudo rm -rf snake2 ; printf "asham\n" ; sh masha -qinstall ; sudo rm -rf masha
+    #boring
+
+  elif [[ $_rnd == 45 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/moris/g' | sed 's/S.N.A.K.E/M.O.R.I.S/g' > moris
+    sudo rm -rf snake2 ; printf "sirom\n" ; sh moris -qinstall ; sudo rm -rf moris
+    #boring
+
+  elif [[ $_rnd == 46 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/elisa/g' | sed 's/S.N.A.K.E/E.L.I.S.A/g' > elisa
+    sudo rm -rf snake2 ; printf "asile\n" ; sh elisa -qinstall ; sudo rm -rf elisa
+    #boring
+
+  elif [[ $_rnd == 47 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/marii/g' | sed 's/S.N.A.K.E/M.A.R.I.I/g' > marii
+    sudo rm -rf snake2 ; printf "iiram\n" ; sh marii -qinstall ; sudo rm -rf marii
+    #boring
+
+  elif [[ $_rnd == 48 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
+    cat snake2 | sed 's/snake/brain/g' | sed 's/S.N.A.K.E/B.R.A.I.N/g' > brain
+    sudo rm -rf snake2 ; printf "niarb\n" ; sh brain -qinstall ; sudo rm -rf brain
+    #boring
+
+  elif [[ $_rnd == 49 ]]; then
+
+    sudo cp /usr/local/bin/snake ./snake
+    sudo cp snake snake2
     cat snake2 | sed 's/snake/water/g' | sed 's/S.N.A.K.E/W.A.T.E.R/g' > water
     sudo rm -rf snake2 ; printf "retaw\n" ; sh water -qinstall ; sudo rm -rf water
 
@@ -4015,6 +4557,15 @@ _metamorph(){
 
         _newName="$2 | sed -e 's/.sslz//g'"
         openssl des -d -in $2 -out $2.d
+
+   elif [[ $1 == "magic" ]]; then
+
+        printf "\n"
+        printf " Images: ISO\n"
+        printf " Archives: TAR\n"
+        printf " Encryption: DES AES256\n"
+        printf "\n"
+
    else
         printf "$RED Metamorphing failed$NC\n"
    fi
@@ -4413,9 +4964,9 @@ elif [[ $_system == "Linux" ]]; then
 elif [[ $_system == "Haiku" ]]; then
    ifconfig | grep Address | sed '1d' | awk '{print $5}'
 elif [[ $_system == "OpenBSD" ]]; then
-   ifconfig | grep ether | awk '{print $2}'
+   ifconfig em0 | grep lladdr | awk '{print $2}'
 elif [[ $_system == "Minix" ]]; then
-   ifconfig | grep ether | awk '{print $2}'
+   hostaddr -e
 else
    printf ""
 fi
@@ -4952,6 +5503,10 @@ elif [ "$1" == "-g" ]; then
 
    _generalize $2
 
+ elif [ "$1" == "-gf" ]; then
+
+   _generalize -f
+
 elif [[ "$1" == "-a" ]]; then
 
   _affichage
@@ -5220,6 +5775,22 @@ elif [[ "$1" == "-melt" ]]; then
 elif [[ "$1" == "--melt" ]]; then
 
   _melt
+
+elif [[ "$1" == "-shed" ]]; then
+
+  _melt
+
+elif [[ "$1" == "--shed" ]]; then
+
+  _melt
+
+elif [[ "$1" == "-rep" ]]; then
+
+  _replicate
+
+elif [[ "$1" == "--rep" ]]; then
+
+  _replicate
 
 elif [[ "$1" == "-net" ]]; then
 
