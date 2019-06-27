@@ -2753,8 +2753,8 @@ _melt(){
     _rnd=$[RANDOM%50]
     _names={"flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water"}
 
-    _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
-    _revved=$(echo ${_names[$_rnd]} | rev)
+    _converted="$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')"
+    _revved="$(echo ${_names[$_rnd]} | rev)"
 
 
    if [ $_system == "Darwin" ]; then
