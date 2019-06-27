@@ -2773,7 +2773,8 @@ _melt(){
     sh snake -uninstall
     sudo rm -rf snake
     cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
-    sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+    sudo rm -rf snake2 ; printf "$_revved\n" ; printf "Check if name changed exists\n"
+    #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
 
   elif [[ $_system == "Haiku" ]]; then
 
