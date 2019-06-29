@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.4.3"
+_version="0.4.4"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 
@@ -79,7 +79,7 @@ _samsung(){
 
 
   _rnd=$[RANDOM%14]
-  _codes={"D0:87:E2" "20:55:31" "54:40:AD" "84:2E:27" "50:F0:D3" "84:11:9E" "08:EC:A9" "10:D3:8A" "38:2D:D1" "E0:CB:EE" "64:B8:53" "F4:42:8F" "18:83:31" "84:55:A5" "A8:7C:01" "C0:11:73"}
+  _codes=("D0:87:E2" "20:55:31" "54:40:AD" "84:2E:27" "50:F0:D3" "84:11:9E" "08:EC:A9" "10:D3:8A" "38:2D:D1" "E0:CB:EE" "64:B8:53" "F4:42:8F" "18:83:31" "84:55:A5" "A8:7C:01" "C0:11:73")
 
 
 
@@ -138,7 +138,7 @@ _lg(){
 
 
   _rnd=$[RANDOM%9]
-  _codes={"14:C9:13" "3C:BD:D8" "2C:54:CF" "00:1F:E3" "00:26:E2" "00:1E:75" "6C:D6:8A" "20:21:A5" "0C:48:85"}
+  _codes=("14:C9:13" "3C:BD:D8" "2C:54:CF" "00:1F:E3" "00:26:E2" "00:1E:75" "6C:D6:8A" "20:21:A5" "0C:48:85")
 
   _system="$(uname -s)"
 
@@ -192,7 +192,7 @@ _apple(){
 
 
   _rnd=$[RANDOM%19]
-  _codes={"F0:76:6F" "40:CB:C0" "40:98:AD" "6C:4D:73" "C4:84:66" "B8:63:4D" "50:32:37" "D4:61:9D" "B0:48:1A" "98:9E:63" "DC:A9:04" "48:A1:95" "6C:AB:31" "7C:50:49" "E4:2B:34" "1C:36:BB" "3C:2E:FF" "6C:96:CF" "30:35:AD" "A8:BE:27" "70:A2:B3"}
+  _codes=("F0:76:6F" "40:CB:C0" "40:98:AD" "6C:4D:73" "C4:84:66" "B8:63:4D" "50:32:37" "D4:61:9D" "B0:48:1A" "98:9E:63" "DC:A9:04" "48:A1:95" "6C:AB:31" "7C:50:49" "E4:2B:34" "1C:36:BB" "3C:2E:FF" "6C:96:CF" "30:35:AD" "A8:BE:27" "70:A2:B3")
 
 
   _system="$(uname -s)"
@@ -257,7 +257,7 @@ _oppo(){
 
 
   _rnd=$[RANDOM%19]
-  _codes={"E8:BB:A8" "BC:3A:EA" "8C:0E:E3" "6C:5C:14" "EC:F3:42" "DC:55:83" "88:5A:06" "1C:42:7D" "50:29:F5" "84:6F:CE" "F4:D6:20" "EC:51:BC" "F0:79:E8" "F0:6D:78" "50:3C:EA" "58:7A:6A" "E4:C4:83" "D4:67:D3" "58:C6:F0" "C0:2E:25" "48:83:B4"}
+  _codes=("E8:BB:A8" "BC:3A:EA" "8C:0E:E3" "6C:5C:14" "EC:F3:42" "DC:55:83" "88:5A:06" "1C:42:7D" "50:29:F5" "84:6F:CE" "F4:D6:20" "EC:51:BC" "F0:79:E8" "F0:6D:78" "50:3C:EA" "58:7A:6A" "E4:C4:83" "D4:67:D3" "58:C6:F0" "C0:2E:25" "48:83:B4")
 
 
 
@@ -370,7 +370,7 @@ _huawei(){
 
 
 _rnd=$[RANDOM%19]
-_codes={"48:AD:08" "2C:AB:00" "00:E0:FC" "24:DF:6A" "00:9A:CD" "80:38:BC" "D4:40:F0" "64:A6:51" "E8:CD:2D" "AC:E2:15" "EC:23:3D" "78:F5:FD" "80:B6:86" "10:C6:1F" "88:53:D4" "0C:37:DC" "BC:76:70" "24:DB:AC" "0C:45:BA" "CC:A2:23" "E8:08:8B"}
+_codes=("48:AD:08" "2C:AB:00" "00:E0:FC" "24:DF:6A" "00:9A:CD" "80:38:BC" "D4:40:F0" "64:A6:51" "E8:CD:2D" "AC:E2:15" "EC:23:3D" "78:F5:FD" "80:B6:86" "10:C6:1F" "88:53:D4" "0C:37:DC" "BC:76:70" "24:DB:AC" "0C:45:BA" "CC:A2:23" "E8:08:8B")
 
 _system="$(uname -s)"
 
@@ -570,7 +570,7 @@ fi
 _nokia(){
 
   _rnd=$[RANDOM%13]
-  _codes={"A4:81:EE" "4C:7F:62" "40:7A:80" "B0:5C:E5" "D4:C1:FC" "48:DC:FB" "E0:A6:70" "6C:9B:02" "0C:DD:EF" "54:44:08" "C8:D1:0B" "C8:97:9F" "F4:F5:A5" "3C:C2:43"}
+  _codes=("A4:81:EE" "4C:7F:62" "40:7A:80" "B0:5C:E5" "D4:C1:FC" "48:DC:FB" "E0:A6:70" "6C:9B:02" "0C:DD:EF" "54:44:08" "C8:D1:0B" "C8:97:9F" "F4:F5:A5" "3C:C2:43")
 
 
 _system="$(uname -s)"
@@ -623,7 +623,7 @@ _htc(){
 
 
   _rnd=$[RANDOM%18]
-  _codes={"80:7A:BF" "90:E7:C4" "7C:61:93" "2C:8A:72" "98:0D:2E" "A8:26:D9" "D4:20:6D" "18:87:96" "00:23:76" "04:C2:3E" "00:EE:BD" "AC:37:43" "00:09:2D" "F8:DB:7F" "E8:99:C4" "80:01:84" "50:2E:5C" "84:7A:88" "74:F6:1C" "38:E7:D8"}
+  _codes=("80:7A:BF" "90:E7:C4" "7C:61:93" "2C:8A:72" "98:0D:2E" "A8:26:D9" "D4:20:6D" "18:87:96" "00:23:76" "04:C2:3E" "00:EE:BD" "AC:37:43" "00:09:2D" "F8:DB:7F" "E8:99:C4" "80:01:84" "50:2E:5C" "84:7A:88" "74:F6:1C" "38:E7:D8")
 
 
 
@@ -676,7 +676,7 @@ fi
 _xiaomi(){
 
   _rnd=$[RANDOM%19]
-  _codes={"8C:5A:F8" "F8:A4:5F" "8C:BE:BE" "64:09:80" "98:FA:E3" "18:59:36" "9C:99:A0" "C4:0B:CB" "EC:D0:9F" "F4:F5:DB" "E4:46:DA" "18:F0:E4" "9C:2E:A1" "50:A0:09" "20:A6:0C" "E0:DC:FF" "60:AB:67" "90:78:B2" "04:C8:07" "74:23:44" "D8:32:E3"}
+  _codes=("8C:5A:F8" "F8:A4:5F" "8C:BE:BE" "64:09:80" "98:FA:E3" "18:59:36" "9C:99:A0" "C4:0B:CB" "EC:D0:9F" "F4:F5:DB" "E4:46:DA" "18:F0:E4" "9C:2E:A1" "50:A0:09" "20:A6:0C" "E0:DC:FF" "60:AB:67" "90:78:B2" "04:C8:07" "74:23:44" "D8:32:E3")
 
 
 
@@ -731,7 +731,7 @@ _hp(){
 
 
   _rnd=$[RANDOM%19]
-  _codes={"3C:D9:2B" "9C:8E:99" "B4:99:BA" "1C:C1:DE" "F4:CE:46" "00:1C:C4" "00:25:B3" "00:18:71" "00:0B:CD" "00:0E:7F" "00:0F:20" "00:11:0A" "00:13:21" "00:16:35" "00:17:A4" "00:08:02" "00:08:83" "C4:34:6B" "8C:DC:D4" "34:64:A9" "D4:C9:EF"}
+  _codes=("3C:D9:2B" "9C:8E:99" "B4:99:BA" "1C:C1:DE" "F4:CE:46" "00:1C:C4" "00:25:B3" "00:18:71" "00:0B:CD" "00:0E:7F" "00:0F:20" "00:11:0A" "00:13:21" "00:16:35" "00:17:A4" "00:08:02" "00:08:83" "C4:34:6B" "8C:DC:D4" "34:64:A9" "D4:C9:EF")
 
 
 _system="$(uname -s)"
@@ -786,7 +786,7 @@ _dell(){
 
 
   _rnd=$[RANDOM%19]
-  _codes={"EC:F4:BB" "D0:67:E5" "18:A9:9B" "F8:DB:88" "18:FB:7B" "74:E6:E2" "10:98:36" "44:A8:42" "34:E6:D7" "00:0B:DB" "00:11:43" "00:18:8B" "D4:BE:D9" "00:1A:A0" "00:21:70" "00:26:B9" "A4:BA:DB" "00:1E:4F" "5C:F9:DD" "00:06:5B" "80:18:44"}
+  _codes=("EC:F4:BB" "D0:67:E5" "18:A9:9B" "F8:DB:88" "18:FB:7B" "74:E6:E2" "10:98:36" "44:A8:42" "34:E6:D7" "00:0B:DB" "00:11:43" "00:18:8B" "D4:BE:D9" "00:1A:A0" "00:21:70" "00:26:B9" "A4:BA:DB" "00:1E:4F" "5C:F9:DD" "00:06:5B" "80:18:44")
 
 
 
@@ -840,7 +840,7 @@ _ibm(){
 
 
 _rnd=$[RANDOM%19]
-_codes={"00:04:AC" "00:60:94" "A8:97:DC" "E4:1F:13" "00:25:03" "00:17:EF" "10:00:5A" "98:BE:94" "6C:AE:8B" "5C:F3:FC" "FC:CF:62" "00:21:5E" "00:02:55" "00:50:76" "00:06:29" "00:20:35" "08:00:5A" "40:F2:E9" "00:09:6B" "74:99:75" "34:40:B5"}
+_codes=("00:04:AC" "00:60:94" "A8:97:DC" "E4:1F:13" "00:25:03" "00:17:EF" "10:00:5A" "98:BE:94" "6C:AE:8B" "5C:F3:FC" "FC:CF:62" "00:21:5E" "00:02:55" "00:50:76" "00:06:29" "00:20:35" "08:00:5A" "40:F2:E9" "00:09:6B" "74:99:75" "34:40:B5")
 
 
 _system="$(uname -s)"
@@ -893,7 +893,7 @@ _microsoft(){
 
 
 _rnd=$[RANDOM%19]
-_codes={"38:F2:3E" "48:50:73" "74:E2:8C" "84:63:D6" "D4:8F:33" "00:15:5D" "00:50:F2" "98:5F:D3" "38:25:6B" "BC:83:85" "EC:83:50" "B8:31:B5" "9C:6C:15" "48:86:E8" "2C:29:97" "10:2F:6B" "28:18:78" "60:45:BD" "7C:ED:8D" "00:0D:3A" "B4:E1:C4"}
+_codes=("38:F2:3E" "48:50:73" "74:E2:8C" "84:63:D6" "D4:8F:33" "00:15:5D" "00:50:F2" "98:5F:D3" "38:25:6B" "BC:83:85" "EC:83:50" "B8:31:B5" "9C:6C:15" "48:86:E8" "2C:29:97" "10:2F:6B" "28:18:78" "60:45:BD" "7C:ED:8D" "00:0D:3A" "B4:E1:C4")
 
 
 _system="$(uname -s)"
@@ -946,7 +946,7 @@ _lenovo(){
 
 
 _rnd=$[RANDOM%5]
-_codes={"98:FF:D0" "50:3C:C4" "74:04:2B" "E0:2C:B2" "70:72:0D" "D4:22:3F"}
+_codes=("98:FF:D0" "50:3C:C4" "74:04:2B" "E0:2C:B2" "70:72:0D" "D4:22:3F")
 
 _system="$(uname -s)"
 
@@ -999,7 +999,7 @@ _intel(){
 
 
   _rnd=$[RANDOM%6]
-  _codes={"00:03:47" "00:11:75" "00:13:E8" "00:13:02" "E4:F8:9C" "A4:02:B9" "4C:34:88"}
+  _codes=("00:03:47" "00:11:75" "00:13:E8" "00:13:02" "E4:F8:9C" "A4:02:B9" "4C:34:88")
 
 _system="$(uname -s)"
 
@@ -1253,7 +1253,7 @@ _boeing(){
 
 
   _rnd=$[RANDOM%3]
-  _codes={"00:50:93" "00:06:F8" "34:61:78" "00:40:BE"}
+  _codes=("00:50:93" "00:06:F8" "34:61:78" "00:40:BE")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1669,7 +1669,7 @@ _parrot(){
 
 
   _rnd=$[RANDOM%4]
-  _codes={"90:3A:E6" "90:03:B7" "A0:14:3D" "00:26:7E" "00:12:1C"}
+  _codes=("90:3A:E6" "90:03:B7" "A0:14:3D" "00:26:7E" "00:12:1C")
 
 _system="$(uname -s)"
 
@@ -1817,6 +1817,8 @@ _mac(){
 
     sudo gem install iStats >/dev/null  2>&1
 
+
+
 }
 
 _linux(){
@@ -1843,16 +1845,24 @@ _linux(){
     sudo apt install gnome-screensaver -y >/dev/null 2>&1
 
 
+
+
 }
 
 _haiku(){
      echo "Haiku spreading..."
 
      pkgman install speedtest_cli -y >/dev/null
+
+
 }
 
 _bsd(){
      echo " OpenBSD spreading..."
+
+     pkg_add git
+
+
 }
 
 _minix(){
@@ -1866,6 +1876,8 @@ _minix(){
      pkgin install ipcalc -y
 
      pkgin install git-base -y
+
+
 
 
 }
@@ -2065,12 +2077,14 @@ _network(){
        _router_info
    elif [[ "$1" == "top" ]]; then
        _router_info
+   elif [[ "$1" == "speed" ]]; then
+       _radar
    elif [[ "$1" == "sniff" ]]; then
        printf "$RED NRY $NC\n"
    elif [[ "$1" == "infect" ]]; then
        printf "$RED NRY $NC\n"
    elif [[ "$1" == "magic" ]]; then
-       printf " max /$YELLOW router $NC/$BLUE scan $NC/ sniff /$RED infect$NC\n"
+       printf " max /$YELLOW router $NC/$BLUE scan $NC/$WHITE speed $NC/ sniff /$RED infect$NC\n"
    else
        printf "$RED Network protocol ERR $NC\n"
    fi
@@ -2750,14 +2764,16 @@ _melt(){
     _system="$(uname -s)"
 
 
-    _rnd=$[RANDOM%50]
-    _names={"flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water"}
 
-    _converted="$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')"
-    _revved="$(echo ${_names[$_rnd]} | rev)"
 
 
    if [ $_system == "Darwin" ]; then
+
+     _rnd=$[RANDOM%50]
+     _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "hound" "death" "cobra" "carlo" "oscar" "ninja" "nixon" "betty" "harry" "draco" "boris" "pepsi" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "texas" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "buyer" "brain" "water")
+
+     _converted=$( echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+     _revved=$( echo ${_names[$_rnd]} | rev)
 
     sudo cp /usr/local/bin/snake ./snake
     sudo cp snake snake2
@@ -2768,6 +2784,12 @@ _melt(){
 
   elif [[ $_system == "Linux" ]]; then
 
+    _rnd=$[RANDOM%50]
+    _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+    _converted=$( echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+    _revved=$( echo ${_names[$_rnd]} | rev)
+
     sudo cp /usr/local/bin/snake ./snake
     sudo cp snake snake2
     sh snake -uninstall
@@ -2777,6 +2799,12 @@ _melt(){
     #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
 
   elif [[ $_system == "Haiku" ]]; then
+
+    _rnd=$[RANDOM%50]
+    _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+    _converted=$( echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+    _revved=$( echo ${_names[$_rnd]} | rev)
 
     cp /usr/local/bin/snake ./snake
     cp snake snake2
@@ -2799,15 +2827,17 @@ _replicate(){
 
     _system="$(uname -s)"
 
-    _rnd=$[RANDOM%50]
-    _names={"flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water"}
 
-    _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
-    _revved=$(echo ${_names[$_rnd]} | rev)
 
 
 
     if [ $_system == "Darwin" ]; then
+
+      _rnd=$[RANDOM%50]
+      _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+      _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+      _revved=$(echo ${_names[$_rnd]} | rev)
 
        sudo cp /usr/local/bin/snake ./snake
        sudo cp snake snake2
@@ -2816,12 +2846,24 @@ _replicate(){
 
     elif [[ $_system == "Linux" ]]; then
 
+      _rnd=$[RANDOM%50]
+      _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+      _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+      _revved=$(echo ${_names[$_rnd]} | rev)
+
        sudo cp /usr/local/bin/snake ./snake
        sudo cp snake snake2
        cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
        sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
 
     elif [[ $_system == "Haiku" ]]; then
+
+      _rnd=$[RANDOM%50]
+      _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+      _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+      _revved=$(echo ${_names[$_rnd]} | rev)
 
        sudo cp /usr/local/bin/snake ./snake
        sudo cp snake snake2
@@ -2840,11 +2882,13 @@ _replicate(){
 _salt(){
 
    _rnd=$[RANDOM%3]
-   _paths={"/Users" "/etc" "/tmp" "/"}
+
 
 
 
    if [ $1 == "-v" ]; then
+
+     _paths=("/Users" "/etc" "/tmp" "/")
 
      sudo cp /usr/local/bin/snake ./snake
      sudo cp snake ${_paths[$_rnd]}/.snake
@@ -2853,14 +2897,28 @@ _salt(){
 
    elif [[ "$1" == "-s" ]]; then
 
-     sudo cp /usr/local/bin/snake ./snake
-     sudo cp snake ${_paths[$_rnd]}/.snake
-     sudo rm -rf snake
-     cd ${_paths[$_rnd]}
-     snake -meta -e .snake
-     cd ~
+     _paths=("/Users" "/etc" "/tmp" "/")
+
+     if [[ "$2" == "-v" ]]; then
+       sudo cp /usr/local/bin/snake ./snake
+       sudo cp snake ${_paths[$_rnd]}/.snake
+       sudo rm -rf snake
+       cd ${_paths[$_rnd]}
+       snake -meta -e .snake
+       cd ~
+       printf "$_name salted to $RED${_paths[$_rnd]}$NC\n"
+     else
+       sudo cp /usr/local/bin/snake ./snake
+       sudo cp snake ${_paths[$_rnd]}/.snake
+       sudo rm -rf snake
+       cd ${_paths[$_rnd]}
+       snake -meta -e .snake
+       cd ~
+     fi
 
    else
+
+     _paths=("/Users" "/etc" "/tmp" "/")
 
      sudo cp /usr/local/bin/snake ./snake
      sudo cp snake ${_paths[$_rnd]}/.snake
@@ -3319,7 +3377,7 @@ _generalize(){
     clear
     _wts
     _motto
-    printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+    #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig em0 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig em0 | grep lladdr | awk '{print $2}'`$NC"
     printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig em0 | grep lladdr | awk '{print $2}')`$NC"
@@ -3570,10 +3628,10 @@ _just_vendor(){
   get_database()
   {
   # Test Connection
-    ping -c 1 standards-oui.ieee.org &> /dev/null
+    ping -c 1 github.com &> /dev/null
     [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach the database." && exit 68
   # Download Database
-    database="$(curl -sf http://standards-oui.ieee.org/oui/oui.txt)"
+    database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
     [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
   }
   format_vendor_address()
@@ -3822,7 +3880,7 @@ _mb(){
 
 _inject(){
 
-  _names={"flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water"}
+  _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
 
 
    _system="$(uname -s)"
@@ -3831,7 +3889,9 @@ _inject(){
     printf "$RED Injecting on macOS...$NC\n"
     cd ~
     sudo rm .bash_profile
-    echo "export PS1=\">>>\"" >> .bash_profile
+    touch .bash_profile
+    echo " " >> .bash_profile
+    echo "export PS1=\">>> \"" >> .bash_profile
     echo " " >> .bash_profile
     echo "# Aliases " >> .bash_profile
     echo " " >> .bash_profile
@@ -3849,19 +3909,23 @@ _inject(){
     echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
     echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
     echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
-    echo "alias ther=\"temp\"" >> .bash_profile
-    echo "alias thermal=\"temp\"" >> .bash_profile
+    echo "alias rn=\"react-native\"" >> .bash_profile
+    echo "alias ther=\"while true" >> .bash_profile
+    echo "do" >> .bash_profile
+    echo "    temp" >> .bash_profile
+    echo "    sleep 7" >> .bash_profile
+    echo "done\"" >> .bash_profile
     echo " " >> .bash_profile
     echo "# Functions " >> .bash_profile
     echo " " >> .bash_profile
-    echo "cd() { builtin cd \"\$@\"; ls; }" >> .bash_profile
+    echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
     echo "_+() { open -a \$1 \$1 }" >> .bash_profile
     echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
     echo "_f() { open -a Finder ./ }" >> .bash_profile
     echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
-    echo "mkdg() { mkdir \$1 ; clear ; cd \$1 }" >> .bash_profile
-    echo "docked() { sudo lsof -i :\"\$@\" }" >> .bash_profile
-    echo "destroy() { killall -9 appPID \"\$1\" }" >> .bash_profile
+    echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
+  #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+    echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
     echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
     echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
     echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
@@ -3875,6 +3939,13 @@ _inject(){
     echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
     echo "              sudo lsof -i :\$i" >> .bash_profile
     echo "        done" >> .bash_profile
+    echo "}" >> .bash_profile
+    echo "thermic(){" >> .bash_profile
+    echo "while true" >> .bash_profile
+    echo "do" >> .bash_profile
+    echo "    temp" >> .bash_profile
+    echo "    sleep \$1" >> .bash_profile
+    echo "done" >> .bash_profile
     echo "}" >> .bash_profile
     echo "temp(){" >> .bash_profile
     echo "   WHITE='\e[1;97m'" >> .bash_profile
@@ -3928,7 +3999,7 @@ _inject(){
     echo "   NC='\033[0m'" >> .bash_profile
     echo "   printf \"\$NC\n\"" >> .bash_profile
     echo "}" >> .bash_profile
-    echo " " >> .bash_profile
+    : '
     echo "wios(){" >> .bash_profile
     echo "   sudo cd /usr/local/bin " >> .bash_profile
     echo "   if [ \"\$(ls | grep flake)\" == \"flake\"]; then" >> .bash_profile
@@ -4082,9 +4153,12 @@ _inject(){
     echo "   echo \"water\" | rev" >> .bash_profile
     echo "   fi" >> .bash_profile
     echo "}" >> .bash_profile
+    '
     source .bash_profile
-    clear
     printf "$RED _injected$NC\n"
+    printf "$BLINK$GREEN Poofing in 5 seconds...$NC\n"
+    sleep 5
+    snake -poof
   elif [[ $_system == "Linux" ]]; then
     printf "$YELLOW Injecting on Linux...$NC\n"
     cd ~
@@ -4347,9 +4421,9 @@ _suicide(){
   if [ $_system == "Darwin" ]; then
      sudo shutdown now
   elif [[ $_system == "Linux" ]]; then
-     sudo shutdown now
+     shutdown now
    elif [[ $_system == "OpenBSD" ]]; then
-     su ; shutdown now
+     shutdown now
    elif [[ $_system == "Minix" ]]; then
      shutdown now
    elif [[ $_system == "Haiku" ]]; then
@@ -4432,6 +4506,9 @@ _scanHouse(){
 
    elif [[ "$_system" == "Haiku" ]]; then
 
+     printf "\n"
+     printf "Router NAME\n"
+     printf "\n"
      arp -a
      printf "$WHITE\n"
      date
@@ -4439,6 +4516,9 @@ _scanHouse(){
 
    elif [[ "$_system" == "OpenBSD" ]]; then
 
+     printf "\n"
+     printf "Router NAME\n"
+     printf "\n"
      arp -a
      printf "$WHITE\n"
      date
@@ -4446,6 +4526,9 @@ _scanHouse(){
 
    elif [[ "$_system" == "Minix" ]]; then
 
+     printf "\n"
+     printf "Router NAME\n"
+     printf "\n"
      arp -a
      printf "$WHITE\n"
      date
@@ -4495,6 +4578,9 @@ _deepHouse(){
 
        elif [[ "$_system" == "Haiku" ]]; then
 
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
          arp -a | awk '{print $1,$3,$2}'
          printf "$WHITE\n"
          date
@@ -4502,6 +4588,9 @@ _deepHouse(){
 
        elif [[ "$_system" == "OpenBSD" ]]; then
 
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
          sudo arp-scan -l | sed -n '2!p'
          printf "$WHITE\n"
          date
@@ -4509,6 +4598,9 @@ _deepHouse(){
 
        elif [[ "$_system" == "Minix" ]]; then
 
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
          arp-scan -l | sed -n '2!p'
          printf "$WHITE\n"
          date
@@ -4774,7 +4866,7 @@ _summon(){
 
 
    if [ "$1" == "magic" ]; then
-      printf "$RED Kolya $YELLOW Wilfred $GREEN Salazaar $BLUE Beria $WHITE Shinigami $NEW_BLUE Samael$NC\n"
+      printf "$RED Kolya $YELLOW Wilfred $GREEN Salazaar $BLUE Ryan $WHITE Shinigami $NEW_BLUE Samael$NC\n"
    elif [[ "$1" == "kolya" ]]; then
       _real_summon kolya
    elif [[ "$1" == "wilfred" ]]; then
@@ -4795,15 +4887,15 @@ _summon(){
       sudo cp salazaar /usr/local/bin ; sudo chmod +x salazaar
       cd .. ; cd .. ; rm -rf .salazaar
       printf "$GREEN Salazaar is here $NC\n"
-   elif [[ "$1" == "beria" ]]; then
-      printf "$BLUE Summoning Beria...$NC\n"
+   elif [[ "$1" == "ryan" ]]; then
+      printf "$BLUE Summoning Ryan...$NC\n"
       cd ~
-      mkdir .beria ; cd .beria/
-      git clone https://github.com/mldMoldovan/beria -q >/dev/null
-      cd ./beria
-      sudo cp beria /usr/local/bin ; sudo chmod +x beria
-      cd .. ; cd .. ; rm -rf .beria
-      printf "$BLUE Beria is here $NC\n"
+      mkdir .ryan ; cd .ryan/
+      git clone https://github.com/mldMoldovan/ryan -q >/dev/null
+      cd ./ryan
+      sudo cp ryan /usr/local/bin ; sudo chmod +x ryan
+      cd .. ; cd .. ; rm -rf .ryan
+      printf "$BLUE Ryan is here $NC\n"
     elif [[ "$1" == "shinigami" ]]; then
       printf "$WHITE Summoning Shinigami...$NC\n"
       cd ~
@@ -4846,28 +4938,98 @@ printf "        $_name    \n"
 printf "          $_version                 \n"
 printf "\n"
 
+
+elif [[ "$1" == "-vh" ]]; then
+
+  printf "\n"
+  printf "$_name\n"
+  printf "\n"
+  printf "Usage:  snake [-vhrage] [--summon <daemon> ]\n"
+  printf "\n"
+  printf "Options: -v - Show version info\n"
+  printf "         -h - Show help menu\n"
+  printf "         -r - research\n"
+  printf "         -a - affichage\n"
+  printf "         -g - generalize\n"
+  printf "         -e - engage\n"
+  printf "         --summon - Daemon summoning\n"
+  printf "         --morph - Network morphing\n"
+  printf "         --brew - Just like magic\n"
+  printf "         --meta - Metamorphing \n"
+  printf "\n"
+  printf "Examples: snake -p\n"
+  printf "          snake --summon Artyom\n"
+  printf "          snake --opaa\n"
+  printf "\n"
+
+elif [[ "$1" == "-hv" ]]; then
+
+  printf "\n"
+  printf "$_name\n"
+  printf "\n"
+  printf "Usage:  snake [-vhrage] [--summon <daemon> ]\n"
+  printf "\n"
+  printf "Options: -v - Show version info\n"
+  printf "         -h - Show help menu\n"
+  printf "         -r - research\n"
+  printf "         -a - affichage\n"
+  printf "         -g - generalize\n"
+  printf "         -e - engage\n"
+  printf "         --summon - Daemon summoning\n"
+  printf "         --morph - Network morphing\n"
+  printf "         --brew - Just like magic\n"
+  printf "         --meta - Metamorphing \n"
+  printf "\n"
+  printf "Examples: snake -p\n"
+  printf "          snake --summon Artyom\n"
+  printf "          snake --opaa\n"
+  printf "\n"
+
 elif [[ "$1" == "-h" ]]; then
 
 
-printf "\n"
-printf "$_name\n"
-printf "\n"
-printf "Usage:  snake [-vhrage] [--summon <daemon> ]\n"
-printf "\n"
-printf "Options: -v - Show version info\n"
-printf "         -h - Show help menu\n"
-printf "         -r - research\n"
-printf "         -a - affichage\n"
-printf "         -g - generalize\n"
-printf "         -e - engage\n"
-printf "         --summon - Daemon summoning\n"
-printf "         --morph - Network morphing\n"
-printf "         --brew - Just like magic\n"
-printf "\n"
-printf "Examples: snake -p\n"
-printf "          snake --summon Artyom\n"
-printf "          snake --opaa\n"
-printf "\n"
+
+
+if [ "$2" == "-v" ]; then
+  printf "\n"
+  printf "$_name\n"
+  printf "\n"
+  printf "Usage:  snake [-vhrage] [--summon <daemon> ]\n"
+  printf "\n"
+  printf "Options: -v - Show version info\n"
+  printf "         -h - Show help menu\n"
+  printf "         -r - research\n"
+  printf "         -a - affichage\n"
+  printf "         -g - generalize\n"
+  printf "         -e - engage\n"
+  printf "         --summon - Daemon summoning\n"
+  printf "         --morph - Network morphing\n"
+  printf "         --brew - Just like magic\n"
+  printf "         --meta - Metamorphing \n"
+  printf "\n"
+  printf "Examples: snake -p\n"
+  printf "          snake --summon Artyom\n"
+  printf "          snake --opaa\n"
+  printf "\n"
+
+else
+  printf "\n"
+  printf "$_name\n"
+  printf "\n"
+  printf "Usage:  snake [-vhrage] [--summon <daemon> ]\n"
+  printf "\n"
+  printf "Options: -v - Show version info\n"
+  printf "         -h - Show help menu\n"
+  printf "         -r - research\n"
+  printf "         -a - affichage\n"
+  printf "         -g - generalize\n"
+  printf "         -e - engage\n"
+  printf "\n"
+  printf "Examples: snake -v\n"
+  printf "          snake -radar\n"
+  printf "          snake --opaa\n"
+  printf "\n"
+fi
 
 
 elif [ "$1" == "-g" ]; then
@@ -5165,11 +5327,11 @@ elif [[ "$1" == "--rep" ]]; then
 
 elif [[ "$1" == "-salt" ]]; then
 
-  _salt $2
+  _salt $2 $3
 
 elif [[ "$1" == "--salt" ]]; then
 
-  _salt $2
+  _salt $2 $3
 
 elif [[ "$1" == "-net" ]]; then
 
