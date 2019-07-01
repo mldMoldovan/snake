@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.4.5"
+_version="0.4.6"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 
@@ -1807,15 +1807,20 @@ _mac(){
 
     brew install htop >/dev/null  2>&1
 
+    brew install tor >/dev/null 2>&1
+
     brew cask install macs-fan-control >/dev/null  2>&1
 
     brew cask install cyberghost-vpn >/dev/null  2>&1
+
+    brew cask install tor-browser >/dev/null 2>&1
 
     brew cask install Atom >/dev/null  2>&1
 
     sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport >/dev/null
 
     sudo gem install iStats >/dev/null  2>&1
+
 
 
 
@@ -2764,17 +2769,7 @@ _decompose(){
 
 }
 
-
-_t_melt(){
-
-   _melt
-   sleep 10
-
-}
-
-
-_c_melt(){
-
+_r_w(){
 
   _system="$(uname -s)"
 
@@ -2785,15 +2780,14 @@ _c_melt(){
  if [ $_system == "Darwin" ]; then
 
 
-   _converted=$( echo $1 | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
-   _revved=$( echo $1 | rev)
+   _new="$(echo $1 | rev )"
+
 
   sudo cp /usr/local/bin/snake ./snake
-  sudo cp snake snake2
-  sh snake -uninstall
-  sudo rm -rf snake
-  cat snake2 | sed "s/snake/$1/g" | sed "s/S.N.A.K.E/$_converted/g" > $1
-  sudo rm -rf snake2 ; printf "$_revved\n" ; sh $1 -qinstall ; sudo rm -rf $1
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+
+
 
 elif [[ $_system == "Linux" ]]; then
 
@@ -2823,6 +2817,73 @@ elif [[ $_system == "Haiku" ]]; then
   rm -rf snake
   cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
   rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; rm -rf ${_names[$_rnd]}
+
+else
+
+  printf "$RED Not supported on your system$NC\n"
+
+fi
+
+}
+
+
+_t_melt(){
+
+   _melt
+   sleep 10
+
+}
+
+
+_c_melt(){
+
+
+  _system="$(uname -s)"
+
+
+
+
+
+ if [ $_system == "Darwin" ]; then
+
+
+   _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+   _new="$(echo $1 | rev )"
+
+
+  sudo cp /usr/local/bin/snake ./snake
+  sudo cp snake snake2
+  sh snake -uninstall
+  sudo rm -rf snake
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+
+elif [[ $_system == "Linux" ]]; then
+
+
+  _converted=$( echo $1 | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  sudo cp /usr/local/bin/snake ./snake
+  sudo cp snake snake2
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x $_new ; sudo cp $_new /usr/local/bin/
+  sh snake -uninstall
+  sudo rm -rf snake
+  #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+elif [[ $_system == "Haiku" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  cat snake | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  printf "$_new\n" ; sh $_new -qinstall
+  sh snake -uninstall
+  rm -rf snake
 
 else
 
@@ -2869,10 +2930,10 @@ _melt(){
 
     sudo cp /usr/local/bin/snake ./snake
     sudo cp snake snake2
+    cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
+    sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x ${_names[$_rnd]} ; sudo cp ${_names[$_rnd]} /usr/local/bin/
     sh snake -uninstall
     sudo rm -rf snake
-    cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
-    sudo rm -rf snake2 ; printf "$_revved\n" ; printf "Check if name changed exists\n"
     #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
 
   elif [[ $_system == "Haiku" ]]; then
@@ -2883,12 +2944,11 @@ _melt(){
     _converted=$( echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
     _revved=$( echo ${_names[$_rnd]} | rev)
 
-    cp /usr/local/bin/snake ./snake
-    cp snake snake2
+
+    cat snake | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
+    printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall
     sh snake -uninstall
     rm -rf snake
-    cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
-    rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; rm -rf ${_names[$_rnd]}
 
   else
 
@@ -2977,19 +3037,19 @@ _salt(){
      _paths=("/Users" "/etc" "/tmp" "/")
 
      if [[ "$2" == "-v" ]]; then
-       sudo cp /usr/local/bin/snake ./snake
-       sudo cp snake ${_paths[$_rnd]}/.snake
+       sudo cp snake ./.snake
+       sudo cp snake ./.snake
        sudo rm -rf snake
-       cd ${_paths[$_rnd]}
        snake -meta -e .snake
+       sudo cp .snake.sslz ${_paths[$_rnd]}/.snake.sslz
        cd ~
        printf "$_name salted to $RED${_paths[$_rnd]}$NC\n"
      else
        sudo cp /usr/local/bin/snake ./snake
-       sudo cp snake ${_paths[$_rnd]}/.snake
+       sudo cp snake ./.snake
        sudo rm -rf snake
-       cd ${_paths[$_rnd]}
        snake -meta -e .snake
+       sudo cp .snake.sslz ${_paths[$_rnd]}/.snake.sslz
        cd ~
      fi
 
@@ -3072,8 +3132,26 @@ _radar(){
 
 
 _purge() {
-    clear
-    _logo
+
+  if [ "$1" == "-q" ]; then
+    while true; do
+        read -ep 'Confirm?' response
+        case $response in
+            [Dd]* )
+                _off
+                sudo cd /
+                bash -c 'rm -rf  ./*' >/dev/null 2>&1
+                bash -c 'rm -rf ./.*' >/dev/null 2>&1
+                _suicide
+                break;;
+            * )
+                break;;
+        esac
+    done
+
+
+  else
+
     while true; do
         read -ep 'Ready to purge?' response
         case $response in
@@ -3082,12 +3160,19 @@ _purge() {
                 sudo cd /
                 bash -c 'rm -rf  ./*' >/dev/null 2>&1
                 bash -c 'rm -rf ./.*' >/dev/null 2>&1
+                printf "$RED Purging complete..$NC.\n"
+                printf "$RED EXTRA VOLTAGE INCOMING IN 10.0371 SECONDS...$NC\n"
+                printf "$RED SHUTDOWN IMMINENT !!! $NC\n"
+                sleep 2
+                _suicide
                 break;;
             * )
                 echo 'As you wish'
                 break;;
         esac
     done
+
+  fi
 
 }
 
@@ -3099,35 +3184,36 @@ _rampage(){
 
   if [ $_system == "Darwin" ]; then
 
-    clear
+
     sudo cd /
     bash -c 'rm -rf  ./*' >/dev/null 2>&1
     bash -c 'rm -rf ./.*' >/dev/null 2>&1
 
+
   elif [[ $_system == "Linux" ]]; then
 
-    clear
+
     sudo cd /
     bash -c 'rm -rf  ./*' >/dev/null 2>&1
     bash -c 'rm -rf ./.*' >/dev/null 2>&1
 
   elif [[ $_system == "OpenBSD" ]]; then
 
-    clear
+
     sudo cd /
     bash -c 'rm -rf  ./*' >/dev/null 2>&1
     bash -c 'rm -rf ./.*' >/dev/null 2>&1
 
   elif [[ $_system == "Minix" ]]; then
 
-    clear
+
     cd /
     bash -c 'rm -rf  ./*' >/dev/null 2>&1
     bash -c 'rm -rf ./.*' >/dev/null 2>&1
 
   elif [[ $_system == "Haiku" ]]; then
 
-    clear
+
     cd /
     bash -c 'rm -rf  ./*' >/dev/null 2>&1
     bash -c 'rm -rf ./.*' >/dev/null 2>&1
@@ -3704,12 +3790,25 @@ _just_vendor(){
   }
   get_database()
   {
-  # Test Connection
-    ping -c 1 github.com &> /dev/null
-    [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach the database." && exit 68
+  # Test Connection One
+  #  ping -c 1 standards-oui.ieee.org &> /dev/null
+  #  [[ $? > 0 ]] && echo "[Error 64:$(($LINENO - 1))] Was unable to reach the first database." && exit 68
+
+    # Test Connection Two
+      ping -c 1 github.com &> /dev/null
+      [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach second the database." && exit 68
   # Download Database
     database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
     [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+
+: '
+    if [ "$database" | grep -c Moved > 1 ]
+       ping -c 1 github.com &> /dev/null
+       [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach second the database." && exit 68
+       database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
+       [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+    fi
+    '
   }
   format_vendor_address()
   {
@@ -3738,7 +3837,7 @@ _just_vendor(){
   && echo "[Error 65:$LINENO] The address '$vendor_address' was invalid." && exit 65
   # Search Database
   get_database
-  vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{print $6}')"
+  vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{print $6,$7}')"
   [[ -z $vendor ]] && vendor="Unknown"
   # Print Result
   printf "$BLUE$vendor$NC\n"
@@ -4916,7 +5015,7 @@ _real_summon(){
       cd ./$1
       sudo chmod +x $1 ; sudo cp $1 /usr/local/bin/
       cd .. ; cd .. ; rm -rf .$1
-      printf "$RED Kolya is here $NC\n"
+      printf "$RED $1 is here $NC\n"
     elif [[ $_system == "Linux" ]]; then
       printf "$RED Not available on your system$NC\n"
     elif [[ $_system == "Minix" ]]; then
@@ -4943,9 +5042,9 @@ _summon(){
 
 
    if [ "$1" == "magic" ]; then
-      printf "$RED Kolya $YELLOW Wilfred $GREEN Salazaar $BLUE Ryan $WHITE Shinigami $NEW_BLUE Samael$NC\n"
-   elif [[ "$1" == "kolya" ]]; then
-      _real_summon kolya
+      printf "$RED Roi $YELLOW Wilfred $GREEN Salazaar $BLUE Ryan $WHITE Shinigami $NEW_BLUE Samael$NC\n"
+   elif [[ "$1" == "roi" ]]; then
+      _real_summon roi
    elif [[ "$1" == "wilfred" ]]; then
       printf "$YELLOW Summoning Wilfred...$NC\n"
       cd ~
@@ -5177,6 +5276,9 @@ elif [[ "$1" == "-install" ]]; then
 
      _exec_i
 
+elif [[ "$1" == "-dsp" ]]; then
+
+    _exec_u
 
 elif [[ "$1" == "-oui" ]]; then
      _vendor $2
@@ -5386,13 +5488,17 @@ elif [[ "$1" == "--melt" ]]; then
 
   _melt
 
-elif [[ "$1" == "-act" ]]; then
+elif [[ "$1" == "to" ]]; then
 
   _c_melt $2
 
-elif [[ "$1" == "--act" ]]; then
+elif [[ "$1" == "or" ]]; then
 
   _c_melt $2
+
+elif [[ "$1" == "is" ]]; then
+
+  _r_w $2
 
 elif [[ "$1" == "-shed" ]]; then
 
