@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.4.7"
+_version="0.4.8"
 _name="S.N.A.K.E."
 _morph_state="Unknown"
 
@@ -2865,7 +2865,7 @@ _c_melt(){
 elif [[ $_system == "Linux" ]]; then
 
 
-  _converted=$( echo $1 | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
   _new="$(echo $1 | rev )"
 
   sudo cp /usr/local/bin/snake ./snake
@@ -4082,7 +4082,7 @@ elif [[ $_system == "Minix" ]]; then
 elif [[ $_system == "Haiku" ]]; then
    printf "$RED Not available on your OS$NC\n"
 elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
-    printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not available on your OS$NC\n"
 else
    printf "$RED Not available on your OS$NC\n"
 fi
@@ -4123,16 +4123,28 @@ _metamorph(){
 
    if [[ $1 == "image" ]]; then
 
-      if [ $3 == "iso" ]; then
-        sudo hdiutil makehybrid -iso -joliet -o $2.iso $4
+      if [ $2 == "iso" ]; then
+        if [ $_system == "Darwin" ]; then
+           sudo hdiutil makehybrid -iso -joliet -o $3.iso $4
+        elif [[ $_system == "Linux" ]]; then
+           mkisofs -o $3.iso $4
+        else
+           printf "$RED Not for your system$NC\n"
+        fi
       else
         printf "$RED Image type not supported$NC\n"
       fi
 
-   elif [[ $1 == "archive" ]]; then
+   elif [[ $1 == "arch" ]]; then
 
-     if [ $3 == "tar" ]; then
-       sudo tar -vcf $2.tar $4
+     if [ $2 == "tar" ]; then
+       if [ $_system == "Darwin" ]; then
+          sudo tar -vcf $3.tar $4
+       elif [[ $_system == "Linux" ]]; then
+          sudo tar -vcf $3.tar $4
+       else
+          printf "$RED Not for your system$NC\n"
+       fi
      else
        printf "$RED Archive type not supported$NC\n"
      fi
@@ -5877,6 +5889,18 @@ _bdb(){
 
 }
 
+_odb(){
+
+  sudo cp /usr/local/bin/snake ./snake
+  sudo cp snake snake2
+  sh snake -uninstall
+  sudo rm -rf snake
+  cat snake2 | sed "s/_newj()/_jvdr()/g" | sed "s/_newv()/_vndr()/g" | sed "s/_newj/_jvdr/g" | sed "s/_newv/_vndr/g" > snake
+  sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+  printf "$RED Standard database initiated.$NC\n"
+
+}
+
 _deepHouse(){
 
 
@@ -6272,10 +6296,10 @@ elif [[ "$1" == "-vh" ]]; then
   printf "         -a - affichage\n"
   printf "         -g - generalize\n"
   printf "         -e - engage\n"
-  printf "         --summon - Daemon summoning\n"
-  printf "         --morph - Network morphing\n"
-  printf "         --brew - Just like magic\n"
-  printf "         --meta - Metamorphing \n"
+  printf "         --summon - Daemons!\n"
+  printf "         --morph - MAC-only\n"
+  printf "         --brew - Just magic\n"
+  printf "         --meta - Whatever \n"
   printf "\n"
   printf "Examples: snake -p\n"
   printf "          snake --summon Artyom\n"
@@ -6295,10 +6319,10 @@ elif [[ "$1" == "-hv" ]]; then
   printf "         -a - affichage\n"
   printf "         -g - generalize\n"
   printf "         -e - engage\n"
-  printf "         --summon - Daemon summoning\n"
-  printf "         --morph - Network morphing\n"
-  printf "         --brew - Just like magic\n"
-  printf "         --meta - Metamorphing \n"
+  printf "         --summon - Daemons!\n"
+  printf "         --morph - MAC-only\n"
+  printf "         --brew - Just magic\n"
+  printf "         --meta - Whatever \n"
   printf "\n"
   printf "Examples: snake -p\n"
   printf "          snake --summon Artyom\n"
@@ -6322,10 +6346,10 @@ if [ "$2" == "-v" ]; then
   printf "         -a - affichage\n"
   printf "         -g - generalize\n"
   printf "         -e - engage\n"
-  printf "         --summon - Daemon summoning\n"
-  printf "         --morph - Network morphing\n"
-  printf "         --brew - Just like magic\n"
-  printf "         --meta - Metamorphing \n"
+  printf "         --summon - Daemons!\n"
+  printf "         --morph - MAC-only\n"
+  printf "         --brew - Just magic\n"
+  printf "         --meta - Whatever\n"
   printf "\n"
   printf "Examples: snake -p\n"
   printf "          snake --summon Artyom\n"
@@ -6425,6 +6449,10 @@ elif [[ "$1" == "-dsp" ]]; then
 elif [[ "$1" == "-bdb" ]]; then
 
       _bdb
+
+elif [[ "$1" == "-sdb" ]]; then
+
+      _odb
 
 elif [[ "$1" == "-oui" ]]; then
      _vndr $2
