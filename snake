@@ -3588,8 +3588,8 @@ _generalize(){
 
     clear
     printf "Linux DEBUG STR: $_system\n"
-    _wts
-    _motto
+    #_wts
+    #_motto
     printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
@@ -3616,8 +3616,8 @@ _generalize(){
 
     clear
     printf "OpenBSD DEBUG STR: $_system\n"
-    _wts
-    _motto
+    #_wts
+    #_motto
     #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig em0 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig em0 | grep lladdr | awk '{print $2}'`$NC"
@@ -3642,8 +3642,8 @@ _generalize(){
 
     clear
     printf "Minix DEBUG STR: $_system\n"
-    _wts
-    _motto
+    #_wts
+    #_motto
     #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`hostaddr -i`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`hostaddr -e`$NC"
@@ -3668,8 +3668,8 @@ _generalize(){
 
     clear
     printf "Haiku DEBUG STR: $_system\n"
-    _wts
-    _motto
+    #_wts
+    #_motto
   #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig | grep inet | sed '1,2d' | awk '{print $3}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig | grep Address | sed '1d' | awk '{print $5}'`$NC"
@@ -3698,8 +3698,8 @@ _generalize(){
 
     clear
     printf "GNU DEBUG STR: $_system\n"
-    _wts
-    _motto
+    #_wts
+    #_motto
   #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`inetutils-ifconfig /dev/eth0 | grep inet | awk '{print $3}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`inetutils-ifconfig | grep hardware | awk '{print $3}'`$NC"
@@ -3725,8 +3725,8 @@ _generalize(){
   elif [[ $_system == "$(uname -n)" ]]; then  # UNIX
 
     clear
-    _wts
-    _motto
+    #_wts
+    #_motto
     printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
