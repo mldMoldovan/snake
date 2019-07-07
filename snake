@@ -3689,7 +3689,10 @@ _generalize(){
 
   elif [[ $_system == "GNU" ]]; then
 
+
+
     clear
+    printf "GNU DEBUG STR: $_system\n"
     _wts
     _motto
   #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
