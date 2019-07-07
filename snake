@@ -3557,6 +3557,7 @@ _generalize(){
   if [ $_system == "Darwin" ]; then
 
   clear
+  printf "Darwin DEBUG STR: $_system\n"
   _wts
   _motto
   printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
@@ -3586,6 +3587,7 @@ _generalize(){
   elif [[ $_system == "Linux" ]]; then
 
     clear
+    printf "Linux DEBUG STR: $_system\n"
     _wts
     _motto
     printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
@@ -3613,6 +3615,7 @@ _generalize(){
   elif [[ $_system == "OpenBSD" ]]; then
 
     clear
+    printf "OpenBSD DEBUG STR: $_system\n"
     _wts
     _motto
     #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
@@ -3638,6 +3641,7 @@ _generalize(){
   elif [[ $_system == "Minix" ]]; then
 
     clear
+    printf "Minix DEBUG STR: $_system\n"
     _wts
     _motto
     #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
@@ -3663,6 +3667,7 @@ _generalize(){
   elif [[ $_system == "Haiku" ]]; then
 
     clear
+    printf "Haiku DEBUG STR: $_system\n"
     _wts
     _motto
   #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
