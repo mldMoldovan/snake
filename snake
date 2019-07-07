@@ -1898,7 +1898,7 @@ _gnu(){
     echo "Hurd spreading..."
 
     su
-    
+
     apt install git -y
 
     apt install curl -y
@@ -2874,6 +2874,17 @@ fi
 }
 
 
+_a_p(){
+
+
+ sudo cp /usr/local/bin/snake ./snake
+ cat snake | sed "s/magic/$1/g" > snake2
+ sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+
+
+}
+
+
 _t_melt(){
 
    _melt
@@ -3682,10 +3693,10 @@ _generalize(){
     _wts
     _motto
   #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
-    printf "\n`echo Local IP  ` >> $YELLOW`ifconfig | grep inet | sed '1,2d' | awk '{print $3}'`$NC"
-    printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig | grep Address | sed '1d' | awk '{print $5}'`$NC"
+    printf "\n`echo Local IP  ` >> $YELLOW`inetutils-ifconfig /dev/eth0 | grep inet | awk '{print $3}'`$NC"
+    printf "\n`echo MAC-Address  ` >> $YELLOW`inetutils-ifconfig | grep hardware | awk '{print $3}'`$NC"
     if [ $1 != "-f" ]; then
-    printf "\n`echo Device  ` >> $YELLOW`_jvdr $(ifconfig | grep Address | sed '1d' | awk '{print $5}')`$NC"
+    printf "\n`echo Device  ` >> $YELLOW`_jvdr $(inetutils-ifconfig | grep hardware | awk '{print $3}')`$NC"
     fi
     printf "\n$GREEN Location >> $WHITE" ; curl "ipinfo.io/city"
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
@@ -3695,7 +3706,7 @@ _generalize(){
     printf "$BLUE"
     arp -a | sed -n '1p'
     printf "$YELLOW"
-    arp -a | grep $(ifconfig | grep inet | sed '1,2d' | awk '{print $3}')
+    arp -a | grep $(inetutils-ifconfig /dev/eth0 | grep inet | awk '{print $3}')
     printf "$NC"
     arp -a | sed '1d'
     echo
@@ -5799,7 +5810,7 @@ _poof(){
 
   elif [[ $_system == "GNU" ]]; then
 
-    killall Terminal
+    kill term
 
   else
 
@@ -5861,7 +5872,8 @@ _suicide(){
    elif [[ $_system == "Haiku" ]]; then
      shutdown
    elif [[ $_system == "GNU" ]]; then
-     shutdown
+     su
+     /sbin/shutdown now
    elif [[ $_system == "$(uname -n)" ]]; then # UNIX
      shutdown
    fi
@@ -5889,7 +5901,8 @@ elif [[ $_system == "Linux" ]]; then
  elif [[ $_system == "Haiku" ]]; then
    reboot
  elif [[ $_system == "GNU" ]]; then
-   reboot
+   su
+   /sbin/reboot -f
  elif [[ $_system == "$(uname -n)" ]]; then # UNIX
    reboot
  fi
@@ -6364,6 +6377,14 @@ _real_summon(){
     elif [[ $_system == "OpenBSD" ]]; then
       printf "$RED Not available on your system$NC\n"
     elif [[ $_system == "Haiku" ]]; then
+      printf "$RED Summoning $1...$NC\n"
+      cd ~
+      mkdir .$1 ; cd .$1/
+      git clone https://github.com/mldMoldovan/$1 -q >/dev/null 2>&1
+      cd ./$1
+      chmod +x $1
+      printf "$RED Kolya is here $NC\n"
+    elif [[ $_system == "GNU" ]]; then
       printf "$RED Summoning $1...$NC\n"
       cd ~
       mkdir .$1 ; cd .$1/
