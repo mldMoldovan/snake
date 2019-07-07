@@ -2,7 +2,7 @@
 
 
 _version="0.4.8"
-_name="S.N.A.K.E."
+_name="S.N.A.K.E"
 _morph_state="Unknown"
 
 
@@ -1973,6 +1973,133 @@ _people(){
 }
 
 
+
+_ghost(){
+
+
+
+  _system="$(uname -s)"
+
+
+
+
+
+ if [ $_system == "Darwin" ]; then
+
+
+   _converted=$( echo snake | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//' | sed 's/^/./')
+   _new="$(echo snake | sed 's/^/./' )"
+
+
+  sudo cp /usr/local/bin/snake ./snake
+  sudo cp snake snake2
+  sh snake -uninstall
+  sudo rm -rf snake
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+  clear
+
+
+elif [[ $_system == "Linux" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  sudo cp /usr/local/bin/snake ./snake
+  sudo cp snake snake2
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x $_new ; sudo cp $_new /usr/local/bin/
+  sh snake -uninstall
+  sudo rm -rf snake
+  clear
+  #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+elif [[ $_system == "Haiku" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  cat snake | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  printf "$_new\n" ; sh $_new -qinstall
+  sh snake -uninstall
+  rm -rf snake
+
+else
+
+  printf "$RED Not supported on your system$NC\n"
+
+fi
+
+
+
+}
+
+
+_revive(){
+
+
+
+  _system="$(uname -s)"
+
+
+
+
+
+ if [ $_system == "Darwin" ]; then
+
+
+   _converted=$( echo snake | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//' | sed 's/^/./')
+   _new="$(echo snake | sed 's/^/./' )"
+
+
+  sudo cp /usr/local/bin/snake ./snake
+  sudo cp snake snake2
+  sh snake -uninstall
+  sudo rm -rf snake
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+  clear
+
+
+elif [[ $_system == "Linux" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  sudo cp /usr/local/bin/snake ./snake
+  sudo cp snake snake2
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x $_new ; sudo cp $_new /usr/local/bin/
+  sh snake -uninstall
+  sudo rm -rf snake
+  clear
+  #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+elif [[ $_system == "Haiku" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  cat snake | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  printf "$_new\n" ; sh $_new -qinstall
+  sh snake -uninstall
+  rm -rf snake
+
+else
+
+  printf "$RED Not supported on your system$NC\n"
+
+fi
+
+
+
+}
+
+
 _myself(){
 
   _system="$(uname -s)"
@@ -3546,6 +3673,10 @@ _affichage(){
   printf "$NC\n"
 
 
+}
+
+_uname(){
+  printf "$YELLOW$_system$NC\n"
 }
 
 
@@ -6249,6 +6380,11 @@ _morph(){
 
 _update(){
 
+  _system="$(uname -s)"
+
+
+if [ $_system == "Darwin" ]; then
+
    mkdir foornal
    cd foornal
    git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
@@ -6258,6 +6394,71 @@ _update(){
    cd .. ; cd ..
    sudo rm -rf foornal
    printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "Linux" ]]; then
+
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   cd .. ; cd ..
+   sudo rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "OpenBSD" ]]; then
+
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   cd .. ; cd ..
+   sudo rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "Haiku" ]]; then
+
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   cd .. ; cd ..
+   sudo rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "Minix" ]]; then
+
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   cd .. ; cd ..
+   sudo rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "GNU" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ else
+   printf "$RED PLatform unsupported$NC\n"
+ fi
 
 
 }
@@ -6950,6 +7151,10 @@ elif [[ "$1" == "-scan" ]]; then
 
   _scanHouse
 
+elif [[ "$1" == "-ghost" ]]; then
+
+  _ghost
+
 elif [[ "$1" == "-test" ]]; then
 
   _newScan
@@ -6969,6 +7174,10 @@ elif  [[ "$1" == "-check" ]]; then
 elif [[ "$1" == "-blood" ]]; then
 
   _blood
+
+elif [[ "$1" == "-uname" ]]; then
+
+  _uname
 
 elif [[ "$1" == "--blood" ]]; then
 
