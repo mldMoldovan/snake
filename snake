@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.4.8"
+_version="0.5.0"
 _name="S.N.A.K.E"
 _morph_state="Unknown"
 
@@ -10,6 +10,16 @@ _morph_state="Unknown"
 _blinking=true
 _verbose=false
 _decorate=true
+_debug=true
+_undying=true
+
+
+_repo0="https://github.com/mldMoldovan/snake.git"
+_repo1="nry"
+_repo2="nry"
+_repo3="nry"
+
+
 
 
 
@@ -23,35 +33,35 @@ WHITE='\e[1;97m'
 BLINK='\e[5m'
 
 
-_green(){
+_green(){ #color
    GREEN='\e[1;92m'
    clear
    printf "$GREEN Green Bold Activate\n"
    date
 }
 
-_white(){
+_white(){ #color
    WHITE='\e[1;97m'
    clear
    printf "$WHITE White Bold Activate\n"
    date
 }
 
-_yellow(){
+_yellow(){ #color
    YELLOW='\e[1;93m'
    clear
    printf "$YELLOW Yellow Bold Activate\n"
    date
 }
 
-_red(){
+_red(){ #color
    RED='\e[1;91m'
    clear
    printf "$RED Red Bold Activate\n"
    date
 }
 
-_cyan(){
+_cyan(){ #color
 
    CYAN='\e[1;96m'
    clear
@@ -59,1881 +69,31 @@ _cyan(){
    date
 }
 
-_normal(){
+_normal(){ #color
    NC='\033[0m'
    clear
    printf "$NC Text Normalized\n"
    date
 }
 
-quietTextRestore(){
+quietTextRestore(){ #color
     NC='\033[0m'
     printf "$NC\n"
 
 }
 
 
-# MORPHING
 
-_samsung(){
-
-
-  _rnd=$[RANDOM%14]
-  _codes=("D0:87:E2" "20:55:31" "54:40:AD" "84:2E:27" "50:F0:D3" "84:11:9E" "08:EC:A9" "10:D3:8A" "38:2D:D1" "E0:CB:EE" "64:B8:53" "F4:42:8F" "18:83:31" "84:55:A5" "A8:7C:01" "C0:11:73")
-
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Samsung :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Samsung :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo 38:2D:E8:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-
-
-
-
-}
-
-_lg(){
-
-
-  _rnd=$[RANDOM%9]
-  _codes=("14:C9:13" "3C:BD:D8" "2C:54:CF" "00:1F:E3" "00:26:E2" "00:1E:75" "6C:D6:8A" "20:21:A5" "0C:48:85")
-
-  _system="$(uname -s)"
-
-  if [ $_system == "Darwin" ]; then
-
-  _off
-  sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-  echo ${_codes[$_rnd]}$end)
-  _on
-
-  if [ "$1" == "-q" ]; then
-  >/dev/null  2>&1
-  else
-  printf "$WHITE LG :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-  fi
-
-  elif [[ $_system == "Linux" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-  if [ "$1" == "-q" ]; then
-  >/dev/null  2>&1
-  else
-  printf "$WHITE LG :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-  fi
-
-  elif [[ $_system == "Minix" ]]; then
-
-    sudo ip link set dev enp0s3 down
-    sudo ip link set dev enp0s3 address $(echo 2C:54:CF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-    sudo ip link set dev enp0s3 up
-
-  elif [[ $_system == "OpenBSD" ]]; then
-
-    ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-  else
-
-   printf "Not available on this system\n"
-
-  fi
-
-
-
-}
-
-_apple(){
-
-
-  _rnd=$[RANDOM%19]
-  _codes=("F0:76:6F" "40:CB:C0" "40:98:AD" "6C:4D:73" "C4:84:66" "B8:63:4D" "50:32:37" "D4:61:9D" "B0:48:1A" "98:9E:63" "DC:A9:04" "48:A1:95" "6C:AB:31" "7C:50:49" "E4:2B:34" "1C:36:BB" "3C:2E:FF" "6C:96:CF" "30:35:AD" "A8:BE:27" "70:A2:B3")
-
-
-  _system="$(uname -s)"
-
-  if [ $_system == "Darwin" ]; then
-
-  #printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
-
-  _off
-  sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-  echo ${_codes[$_rnd]}$end)
-  _on
-
-  if [ "$1" == "-q" ]; then
-  >/dev/null  2>&1
-  else
-  printf "$WHITE Apple :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-  fi
-
-  elif [[ $_system == "Linux" ]]; then
-
-  #printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
-
-
-
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-  #printf "$YELLOW DEBUG ->$BLUE Should be done$NC\n"
-  #printf "$YELLOW I have generated another :$WHITE $(hexchars="0123456789ABCDEF" end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' ) echo DC:A9:04$end)$NC\n"
-
-  if [ "$1" == "-q" ]; then
-  >/dev/null  2>&1
-  else
-  printf "$WHITE Apple :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-  fi
-
-  elif [[ $_system == "Minix" ]]; then
-
-    sudo ip link set dev enp0s3 down
-    sudo ip link set dev enp0s3 address $(echo DC:A9:04:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-    sudo ip link set dev enp0s3 up
-
-  elif [[ $_system == "OpenBSD" ]]; then
-
-    ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-  else
-
-   printf "$RED Not available on this system$NC\n"
-
-  fi
-
-
-
-}
-
-_oppo(){
-
-
-  _rnd=$[RANDOM%19]
-  _codes=("E8:BB:A8" "BC:3A:EA" "8C:0E:E3" "6C:5C:14" "EC:F3:42" "DC:55:83" "88:5A:06" "1C:42:7D" "50:29:F5" "84:6F:CE" "F4:D6:20" "EC:51:BC" "F0:79:E8" "F0:6D:78" "50:3C:EA" "58:7A:6A" "E4:C4:83" "D4:67:D3" "58:C6:F0" "C0:2E:25" "48:83:B4")
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-#printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Oppo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-#printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
-
-
-
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-#printf "$YELLOW DEBUG ->$BLUE Should be done$NC\n"
-#printf "$YELLOW I have generated another :$WHITE $(hexchars="0123456789ABCDEF" end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' ) echo DC:A9:04$end)$NC\n"
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Oppo :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo 50:29:F5:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "$RED Not available on this system$NC\n"
-
-fi
-
-}
-
-_one_plus(){
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo C0:EE:FB$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE One Plus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE One Plus :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_huawei(){
-
-
-_rnd=$[RANDOM%19]
-_codes=("48:AD:08" "2C:AB:00" "00:E0:FC" "24:DF:6A" "00:9A:CD" "80:38:BC" "D4:40:F0" "64:A6:51" "E8:CD:2D" "AC:E2:15" "EC:23:3D" "78:F5:FD" "80:B6:86" "10:C6:1F" "88:53:D4" "0C:37:DC" "BC:76:70" "24:DB:AC" "0C:45:BA" "CC:A2:23" "E8:08:8B")
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Huawei :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Huawei :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo 78:F5:FD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_xperia(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 1C:7B:21$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Xperia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Xperia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_yota(){
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 28:C6:71$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Yota :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Yota :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-_lumia(){
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 38:F2:3E$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Lumia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Lumia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_nokia(){
-
-  _rnd=$[RANDOM%13]
-  _codes=("A4:81:EE" "4C:7F:62" "40:7A:80" "B0:5C:E5" "D4:C1:FC" "48:DC:FB" "E0:A6:70" "6C:9B:02" "0C:DD:EF" "54:44:08" "C8:D1:0B" "C8:97:9F" "F4:F5:A5" "3C:C2:43")
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Nokia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Nokia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo A4:81:EE:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_htc(){
-
-
-  _rnd=$[RANDOM%18]
-  _codes=("80:7A:BF" "90:E7:C4" "7C:61:93" "2C:8A:72" "98:0D:2E" "A8:26:D9" "D4:20:6D" "18:87:96" "00:23:76" "04:C2:3E" "00:EE:BD" "AC:37:43" "00:09:2D" "F8:DB:7F" "E8:99:C4" "80:01:84" "50:2E:5C" "84:7A:88" "74:F6:1C" "38:E7:D8")
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE HTC :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE HTC :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo 80:7A:BF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_xiaomi(){
-
-  _rnd=$[RANDOM%19]
-  _codes=("8C:5A:F8" "F8:A4:5F" "8C:BE:BE" "64:09:80" "98:FA:E3" "18:59:36" "9C:99:A0" "C4:0B:CB" "EC:D0:9F" "F4:F5:DB" "E4:46:DA" "18:F0:E4" "9C:2E:A1" "50:A0:09" "20:A6:0C" "E0:DC:FF" "60:AB:67" "90:78:B2" "04:C8:07" "74:23:44" "D8:32:E3")
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Xiaomi :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Xiaomi :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo F8:A4:5F:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-_hp(){
-
-
-  _rnd=$[RANDOM%19]
-  _codes=("3C:D9:2B" "9C:8E:99" "B4:99:BA" "1C:C1:DE" "F4:CE:46" "00:1C:C4" "00:25:B3" "00:18:71" "00:0B:CD" "00:0E:7F" "00:0F:20" "00:11:0A" "00:13:21" "00:16:35" "00:17:A4" "00:08:02" "00:08:83" "C4:34:6B" "8C:DC:D4" "34:64:A9" "D4:C9:EF")
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE HP :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE HP :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo 3C:D9:2B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-
-_dell(){
-
-
-  _rnd=$[RANDOM%19]
-  _codes=("EC:F4:BB" "D0:67:E5" "18:A9:9B" "F8:DB:88" "18:FB:7B" "74:E6:E2" "10:98:36" "44:A8:42" "34:E6:D7" "00:0B:DB" "00:11:43" "00:18:8B" "D4:BE:D9" "00:1A:A0" "00:21:70" "00:26:B9" "A4:BA:DB" "00:1E:4F" "5C:F9:DD" "00:06:5B" "80:18:44")
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Dell :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Dell :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo F8:DB:88:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_ibm(){
-
-
-_rnd=$[RANDOM%19]
-_codes=("00:04:AC" "00:60:94" "A8:97:DC" "E4:1F:13" "00:25:03" "00:17:EF" "10:00:5A" "98:BE:94" "6C:AE:8B" "5C:F3:FC" "FC:CF:62" "00:21:5E" "00:02:55" "00:50:76" "00:06:29" "00:20:35" "08:00:5A" "40:F2:E9" "00:09:6B" "74:99:75" "34:40:B5")
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE IBM :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE IBM :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 6C:AE:8B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_microsoft(){
-
-
-_rnd=$[RANDOM%19]
-_codes=("38:F2:3E" "48:50:73" "74:E2:8C" "84:63:D6" "D4:8F:33" "00:15:5D" "00:50:F2" "98:5F:D3" "38:25:6B" "BC:83:85" "EC:83:50" "B8:31:B5" "9C:6C:15" "48:86:E8" "2C:29:97" "10:2F:6B" "28:18:78" "60:45:BD" "7C:ED:8D" "00:0D:3A" "B4:E1:C4")
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Microsoft :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 48:50:73:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_lenovo(){
-
-
-_rnd=$[RANDOM%5]
-_codes=("98:FF:D0" "50:3C:C4" "74:04:2B" "E0:2C:B2" "70:72:0D" "D4:22:3F")
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Lenovo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Lenovo :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 70:72:0D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-_intel(){
-
-
-  _rnd=$[RANDOM%6]
-  _codes=("00:03:47" "00:11:75" "00:13:E8" "00:13:02" "E4:F8:9C" "A4:02:B9" "4C:34:88")
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Intel :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Intel :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 2C:6E:85:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-_amd(){
-
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:0C:87$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE AMD :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE AMD :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_nvidia(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:04:4B$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Nvidia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Nvidia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_tesla(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 98:ED:5C$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Tesla :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Tesla :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_bombardier(){
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:11:BD$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Microsoft :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-_boeing(){
-
-
-  _rnd=$[RANDOM%3]
-  _codes=("00:50:93" "00:06:F8" "34:61:78" "00:40:BE")
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo $end)
-_on
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE  :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Boeing :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Boeing :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:50:93:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-_lockheed(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:07:EF$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Lockheed :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Lockheed :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_airbus(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:23:B9$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Airbus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Airbus :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_northrop(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:19:8A$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Northrop :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Northrop :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_bae(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo CC:3F:EA$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE BAE :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE BAE :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-_us_army(){
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:C0:ED$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE US Army  :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE US Army :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-_toyota(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:0A:AB$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Toyota :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Toyota :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-
-_porsche(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo D0:0E:A4$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Porsche :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Porsche :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_parrot(){
-
-
-  _rnd=$[RANDOM%4]
-  _codes=("90:3A:E6" "90:03:B7" "A0:14:3D" "00:26:7E" "00:12:1C")
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo ${_codes[$_rnd]}$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Parrot :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE Parrot :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo A0:14:3D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_nasa(){
-
-
-
-_system="$(uname -s)"
-
-if [ $_system == "Darwin" ]; then
-
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo 00:08:55$end)
-_on
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE NASA :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Linux" ]]; then
-
-sudo ip link set dev enp0s3 down
-sudo ip link set dev enp0s3 address $(echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-sudo ip link set dev enp0s3 up
-
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE NASA :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
-fi
-
-elif [[ $_system == "Minix" ]]; then
-
-  sudo ip link set dev enp0s3 down
-  sudo ip link set dev enp0s3 address $(echo echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-  sudo ip link set dev enp0s3 up
-
-elif [[ $_system == "OpenBSD" ]]; then
-
-  ifconfig em0 lladdr $(echo echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
-
-else
-
- printf "Not available on this system\n"
-
-fi
-
-}
-
-_tv(){
-
-  _off
-  sudo ifconfig en0 ether 80:56:F2:78:98:DD
-  _on
-  if [ "$1" == "-q" ]; then
-  >/dev/null  2>&1
-  else
-  printf "$WHITE Sony Bravia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-  fi
-
-
-}
-
-
-
-_mac(){
-
-    echo "Mac spreading..."
-
-    sudo xcode-select --install
-
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" >/dev/null
-
-    brew install speedtest-cli >/dev/null
-
-    brew install imagesnap >/dev/null
-
-    brew install nmap >/dev/null  2>&1
-
-    brew install arp-scan >/dev/null  2>&1
-
-    brew install ipcalc >/dev/null  2>&1
-
-    brew install telnet >/dev/null  2>&1
-
-    brew install watch >/dev/null  2>&1
-
-    brew install htop >/dev/null  2>&1
-
-    brew install ffmpeg >/dev/null 2>&1
-
-    brew install tor >/dev/null 2>&1
-
-    brew cask install macs-fan-control >/dev/null  2>&1
-
-    brew cask install cyberghost-vpn >/dev/null  2>&1
-
-    brew cask install tor-browser >/dev/null 2>&1
-
-    brew cask install Atom >/dev/null  2>&1
-
-    sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport >/dev/null
-
-    sudo gem install iStats >/dev/null  2>&1
-
-
-
-
-}
-
-_linux(){
-    echo "Linux spreading..."
-
-    # apt -debian yum -redhat
-
-    sudo apt-get install fswebcam -y >/dev/null 2>&1
-
-    sudo apt install net-tools >/dev/null 2>&1
-
-    sudo apt install nmap >/dev/null  2>&1
-
-    sudo apt install arp-scan >/dev/null  2>&1
-
-    sudo apt install ipcalc >/dev/null  2>&1
-
-    sudo apt install curl >/dev/null 2>&1
-
-    sudo apt install htop >/dev/null 2>&1
-
-    sudo apt install speedtest-cli -y >/dev/null 2>&1
-
-    sudo apt install gnome-screensaver -y >/dev/null 2>&1
-
-
-
-
-}
-
-_haiku(){
-     echo "Haiku spreading..."
-
-     pkgman install speedtest_cli -y >/dev/null
-
-
-}
-
-_bsd(){
-     echo " OpenBSD spreading..."
-
-     pkg_add git
-
-
-}
-
-_minix(){
-
-
-
-     echo "Minix spreading..."
-
-     # y option nw on minix
-
-     pkgin install htop -y
-
-     pkgin install curl -y
-
-     pkgin install ipcalc -y
-
-     pkgin install git-base -y
-
-
-
-
-}
-
-_gnu(){
-
-    echo "Hurd spreading..."
-
-    su
-
-    apt install git -y
-
-    apt install curl -y
-
-    apt install htop -y
-
-    apt install nmap -y
-
-}
-
-_unknown(){
-     echo "Operating system unknown. $_name init failed"
-}
-
-_wts(){
+_wts(){ #decorative
 
      printf "$_name has been waiting for your command\n"
 
 }
 
-_magic_morph(){
-
-    printf "\n"
-    printf " Samsung / Apple / LG / Opoo / One Plus / Huawei\n"
-    printf " HP / Dell / IBM / Lenovo / Xperia / Yota / Nokia \n"
-    printf " Xiaomi / HTC / Lumia / Tesla / Bombardier / Toyota \n"
-    printf " Porsche / Boeing / Lockheed / Airbus / BAE / NASA / Parrot \n"
-    printf " Northrop / Microsoft / US Army / TV / Intel / AMD \n"
-    printf " Nvidia \n"
-    printf "\n"
-
-}
 
 
-_mirror(){
+
+_mirror(){ #human
 
    _system="$(uname -s)"
 
@@ -1948,7 +108,7 @@ _mirror(){
 }
 
 
-_people(){
+_people(){ #enjoy
 
     _system="$(uname -s)"
 
@@ -1956,7 +116,7 @@ _people(){
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
     elif [[ $_system == "Linux" ]]; then
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
-    elif [[ $_system == "BSD" ]]; then
+    elif [[ $_system == "OpenBSD" ]]; then
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
     elif [[ $_system == "Minix" ]]; then
        arp -a
@@ -1974,7 +134,7 @@ _people(){
 
 
 
-_ghost(){
+_ghost(){ #defend
 
 
 
@@ -2028,7 +188,7 @@ elif [[ $_system == "Haiku" ]]; then
 
 else
 
-  printf "$RED Not supported on your system$NC\n"
+  printf "$RED Not supported default$NC\n"
 
 fi
 
@@ -2037,7 +197,10 @@ fi
 }
 
 
-_revive(){
+
+
+
+_revive(){ #defend
 
 
 
@@ -2050,15 +213,17 @@ _revive(){
  if [ $_system == "Darwin" ]; then
 
 
-   _converted=$( echo snake | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//' | sed 's/^/./')
-   _new="$(echo snake | sed 's/^/./' )"
+   _converted=$( echo $(echo snakholder | cut -c 1-4)e | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+   _converted_f=$( echo $(echo snakholder | cut -c 1-4)e | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//' | sed 's/^/./g')
+   _new="$(echo $(echo snakholder | cut -c 1-4)e)"
+   _former="$(echo $(echo snakholder | cut -c 1-4)e | sed 's/^/./g')"
 
 
-  sudo cp /usr/local/bin/snake ./snake
-  sudo cp snake snake2
-  sh snake -uninstall
-  sudo rm -rf snake
-  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo cp /usr/local/bin/$_former ./$_former
+  sudo cp $_former snake2
+  sh $_former -uninstall
+  sudo rm -rf $_former
+  cat snake2 | sed "s/$_former/$_new/g" | sed "s/$_converted_f/$_converted/g" > $_new
   sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
   clear
 
@@ -2091,7 +256,7 @@ elif [[ $_system == "Haiku" ]]; then
 
 else
 
-  printf "$RED Not supported on your system$NC\n"
+  printf "$RED Not supported default$NC\n"
 
 fi
 
@@ -2100,32 +265,135 @@ fi
 }
 
 
-_myself(){
+_myself(){ #enjoy
 
   _system="$(uname -s)"
 
   if [ $_system == "Darwin" ]; then
-      printf "Not available on your OS$NC\n"
+      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "Linux" ]]; then
-      printf "Not available on your OS$NC\n"
-  elif [[ $_system == "BSD" ]]; then
-      printf "Not available on your OS$NC\n"
+      printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "OpenBSD" ]]; then
+      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "Minix" ]]; then
       printf "Local IP -> $(ifconfig | grep \/dev\/ip | awk '{print $3}')\n"
   elif [[ $_system == "Haiku" ]]; then
-      printf "Not available on your OS$NC\n"
+      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "GNU" ]]; then
-      printf "Not available on your OS$NC\n"
+      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
-      printf "Not available on your OS$NC\n"
+      printf "$RED Not supported yet$NC\n"
   else
-      printf "Not available on your OS$NC\n"
+      printf "$RED Not supported default$NC\n"
   fi
 
 }
 
 
-_everything(){
+
+_self(){ #heart
+
+
+  _alive=true
+
+
+   if [ "$1" == "func" ]; then
+     if [ "$2" == "num" ]; then
+       cat /usr/local/bin/snake | sort -u | grep -c '()'
+     elif [[ "$2" == "list" ]]; then
+       cat /usr/local/bin/snake | grep '()' | sort -u
+     elif [[ "$2" == "wip" ]]; then
+       cat /usr/local/bin/snake | grep -c 'Not supported yet'
+     else
+       printf "$RED FUNC ERROR $NC\n"
+     fi
+   elif [[ "$1" == "sys" ]]; then
+     if [ "$2" == "num" ]; then
+       cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed '$d' | wc -l | sed 's/ //g'
+     elif [[ "$2" == "list" ]]; then
+       cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed 's/"/ /g' | sed '$d'
+     elif [[ "$2" == "ratio" ]]; then
+          if [ "$3" == "i" ]; then
+              printf "Darwin $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Darwin"')\n"
+              printf "Linux $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Linux"')\n"
+              printf "BSD $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OpenBSD"')\n"
+              printf "Minix $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Minix"')\n"
+              printf "Haiku $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Haiku"')\n"
+              printf "GNU $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"GNU"')\n"
+              printf "Unix $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"$(uname')\n"
+          elif [[ "$3" == "w" ]]; then
+              printf "Darwin $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Darwin"')\n"
+              printf "Linux $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Linux"')\n"
+              printf "BSD $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OpenBSD"')\n"
+              printf "Minix $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Minix"')\n"
+              printf "Haiku $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Haiku"')\n"
+              printf "GNU $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"GNU"')\n"
+              printf "Unix $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"$(uname')\n"
+          else
+              printf "$RED SYS ERROR$NC\n"
+          fi
+     else
+       printf "$RED SYS ERROR$NC\n"
+     fi
+   elif [[ "$1" == "db" ]]; then
+     if [ "$2" == "s" ]; then
+
+       sudo cp /usr/local/bin/snake ./snake
+       sudo cp snake snake2
+       sh snake -uninstall
+       sudo rm -rf snake
+       cat snake2 | sed "s/_newj()/_jvdr()/g" | sed "s/_newv()/_vndr()/g" | sed "s/_newj/_jvdr/g" | sed "s/_newv/_vndr/g" > snake
+       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+       printf "$YELLOW Standard database initiated.$NC\n"
+
+       :'
+       sudo cp /usr/local/bin/snake ./snake
+       sudo cp snake snake2
+       sh snake -uninstall
+       sudo rm -rf snake
+       cat snake2 | sed "s/#db1/#db0/g" > snake
+       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+       printf "$RED Standard database initiated.$NC\n"
+       '
+     elif [[ "$2" == "b" ]]; then
+
+       sudo cp /usr/local/bin/snake ./snake
+       sudo cp snake snake2
+       sh snake -uninstall
+       sudo rm -rf snake
+       cat snake2 | sed "s/_jvdr()/_uf()/g" | sed "s/_vndr()/_uf2()/g" | sed "s/_jvdr/_newj/g" | sed "s/_vndr/_newv/g" > snake
+       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+       printf "$YELLOW Backup database initiated.$NC\n"
+
+       :'
+       sudo cp /usr/local/bin/snake ./snake
+       sudo cp snake snake2
+       sh snake -uninstall
+       sudo rm -rf snake
+       cat snake2 | sed "s/#db0/#db1/g" > snake
+       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+       printf "$RED Standard database initiated.$NC\n"
+       '
+     elif [[ "$2" == "w" ]]; then
+       _valoare="$(cat /usr/local/bin/snake | grep -c 'uf()')"
+
+       if [ $_valoare == "2" ]; then
+          printf "Standard\n"
+       else
+          printf "Backup\n"
+       fi
+     else
+        printf "$RED DB unknown$NC\n"
+     fi
+   else
+     printf "$RED DB ERROR $NC\n"
+   fi
+
+
+}
+
+
+_everything(){ #enjoy
 
 
    _system="$(uname -s)"
@@ -2133,26 +401,26 @@ _everything(){
    if [ $_system == "Darwin" ]; then
        systemstats
    elif [[ $_system == "Linux" ]]; then
-       printf "Not available on your OS$NC\n"
-   elif [[ $_system == "BSD" ]]; then
-       printf "Not available on your OS$NC\n"
+       printf "$RED Not supported yet$NC\n"
+   elif [[ $_system == "OpenBSD" ]]; then
+       printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "Minix" ]]; then
-       printf "Not available on your OS$NC\n"
+       printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "Haiku" ]]; then
-       printf "Not available on your OS$NC\n"
+       printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "GNU" ]]; then
-       printf "Not available on your OS$NC\n"
+       printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
-       printf "Not available on your OS$NC\n"
+       printf "$RED Not supported yet$NC\n"
    else
-       printf "Not available on your OS$NC\n"
+       printf "$RED Not supported default$NC\n"
    fi
 
 
 
 }
 
-_router_info(){
+_router_info(){ #enjoy
 
   _system="$(uname -s)"
 
@@ -2188,25 +456,25 @@ _router_info(){
     curl ipinfo.io/loc
     curl ipinfo.io/org
     printf "$NC\n"
-  elif [[ $_system == "BSD" ]]; then
-     printf "$RED Not supported on your system$NC\n"
+  elif [[ $_system == "OpenBSD" ]]; then
+     printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "Minix" ]]; then
-     printf "$RED Not supported on your system$NC\n"
+     printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "Haiku" ]]; then
-     printf "$RED Not supported on your system$NC\n"
+     printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "GNU" ]]; then
-      printf "$RED Not supported on your system$NC\n"
+      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
-     printf "$RED Not supported on your system$NC\n"
+     printf "$RED Not supported yet$NC\n"
   else
-     printf "$RED Not supported on your system$NC\n"
+     printf "$RED Not supported default$NC\n"
   fi
 
 
 }
 
 
-_expand(){
+_expand(){ #enjoy
 
     _spread >/dev/null
     _inject >/dev/null
@@ -2217,7 +485,7 @@ _expand(){
 }
 
 
-_network(){
+_network(){ #enjoy
 
    _system="$(uname -s)"
    _local=$(dig +short myip.opendns.com @resolver1.opendns.com)
@@ -2226,25 +494,25 @@ _network(){
        if [ $_system == "Darwin" ]; then
           nmap -F $(ipcalc $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3}') | grep Network | awk '{print $2}')
        elif [[ $_system == "Linux" ]]; then
-          printf "$RED Not supported on your system$NC\n"
+          printf "$RED Not supported yet$NC\n"
        else
-          printf "$RED Not supported on your system$NC\n"
+          printf "$RED Not supported default$NC\n"
        fi
    elif [[ "$1" == "max" ]]; then
        if [ $_system == "Darwin" ]; then
           ipcalc $(ipconfig getpacket en0 | grep yiaddr | awk '{print $3}') | grep Hosts | awk '{print $2}'
        elif [[ $_system == "Linux" ]]; then
-          printf "$RED Not supported on your system$NC\n"
-       elif [[ $_system == "BSD" ]]; then
-          printf "$RED Not supported on your system$NC\n"
+          printf "$RED Not supported yet$NC\n"
+       elif [[ $_system == "OpenBSD" ]]; then
+          printf "$RED Not supported yet$NC\n"
        elif [[ $_system == "Minix" ]]; then
-          printf "$RED Not supported on your system$NC\n"
+          printf "$RED Not supported yet$NC\n"
        elif [[ $_system == "Haiku" ]]; then
-          printf "$RED Not supported on your system$NC\n"
+          printf "$RED Not supported yet$NC\n"
        elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
-          printf "$RED Not supported on your system$NC\n"
+          printf "$RED Not supported yet$NC\n"
        else
-          printf "$RED Not supported on your system$NC\n"
+          printf "$RED Not supported default$NC\n"
        fi
    elif [[ "$1" == "router" ]]; then
        _router_info
@@ -2253,17 +521,17 @@ _network(){
    elif [[ "$1" == "speed" ]]; then
        _radar
    elif [[ "$1" == "sniff" ]]; then
-       printf "$RED NRY $NC\n"
+       printf "$RED ERROR $NC\n"
    elif [[ "$1" == "infect" ]]; then
-       printf "$RED NRY $NC\n"
+       printf "$RED ERROR $NC\n"
    elif [[ "$1" == "magic" ]]; then
        printf " max /$YELLOW router $NC/$BLUE scan $NC/$WHITE speed $NC/ sniff /$RED infect$NC\n"
    else
-       printf "$RED Network protocol ERR $NC\n"
+       printf "$RED sNET ERROR $NC\n"
    fi
 }
 
-_opaa(){
+_opaa(){ #decorative
 
 
   clear
@@ -2294,14 +562,14 @@ _opaa(){
 
 }
 
-_motto(){
+_motto(){ #decorative
 
 printf "This is $GREEN $_name$BLUE $_version$NC at your service  \n"
 
 }
 
 
-_l_poor(){
+_l_poor(){ #decorative
 
   printf "\n"
   printf "$GREEN     <<<<< $_name >>>>>$NC\n"
@@ -2311,7 +579,7 @@ _l_poor(){
 
 }
 
-_l_unblink(){
+_l_unblink(){ #decorative
 
   printf "\n"
   printf "$GREEN     <<<<< $_name >>>>>$NC\n"
@@ -2392,11 +660,1723 @@ _logo(){
 }
 
 
+_samsung(){ #morph
+
+
+  _rnd=$[RANDOM%14]
+  _codes=("D0:87:E2" "20:55:31" "54:40:AD" "84:2E:27" "50:F0:D3" "84:11:9E" "08:EC:A9" "10:D3:8A" "38:2D:D1" "E0:CB:EE" "64:B8:53" "F4:42:8F" "18:83:31" "84:55:A5" "A8:7C:01" "C0:11:73")
 
 
 
 
-_cloak(){
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Samsung :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Samsung :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 38:2D:E8:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+elif [[ $_system == "Haiku" ]]; then
+
+  printf "Not supported yet\n"
+
+elif [[ $_system == "GNU" ]]; then
+
+  printf "Not supported yet\n"
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+
+
+
+
+}
+
+_lg(){ #morph
+
+
+  _rnd=$[RANDOM%9]
+  _codes=("14:C9:13" "3C:BD:D8" "2C:54:CF" "00:1F:E3" "00:26:E2" "00:1E:75" "6C:D6:8A" "20:21:A5" "0C:48:85")
+
+  _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+
+  _off
+  sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+  echo ${_codes[$_rnd]}$end)
+  _on
+
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE LG :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  fi
+
+  elif [[ $_system == "Linux" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE LG :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+  fi
+
+  elif [[ $_system == "Minix" ]]; then
+
+    sudo ip link set dev enp0s3 down
+    sudo ip link set dev enp0s3 address $(echo 2C:54:CF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+    sudo ip link set dev enp0s3 up
+
+  elif [[ $_system == "OpenBSD" ]]; then
+
+    ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+  else
+
+   printf "Not available on this system\n"
+
+  fi
+
+
+
+}
+
+_apple(){ #morph
+
+
+  _rnd=$[RANDOM%19]
+  _codes=("F0:76:6F" "40:CB:C0" "40:98:AD" "6C:4D:73" "C4:84:66" "B8:63:4D" "50:32:37" "D4:61:9D" "B0:48:1A" "98:9E:63" "DC:A9:04" "48:A1:95" "6C:AB:31" "7C:50:49" "E4:2B:34" "1C:36:BB" "3C:2E:FF" "6C:96:CF" "30:35:AD" "A8:BE:27" "70:A2:B3")
+
+
+  _system="$(uname -s)"
+
+  if [ $_system == "Darwin" ]; then
+
+  #printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
+
+  _off
+  sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+  end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+  echo ${_codes[$_rnd]}$end)
+  _on
+
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE Apple :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  fi
+
+  elif [[ $_system == "Linux" ]]; then
+
+  #printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
+
+
+
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+  #printf "$YELLOW DEBUG ->$BLUE Should be done$NC\n"
+  #printf "$YELLOW I have generated another :$WHITE $(hexchars="0123456789ABCDEF" end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' ) echo DC:A9:04$end)$NC\n"
+
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE Apple :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+  fi
+
+  elif [[ $_system == "Minix" ]]; then
+
+    sudo ip link set dev enp0s3 down
+    sudo ip link set dev enp0s3 address $(echo DC:A9:04:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+    sudo ip link set dev enp0s3 up
+
+  elif [[ $_system == "OpenBSD" ]]; then
+
+    ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+  else
+
+   printf "$RED Not available on this system$NC\n"
+
+  fi
+
+
+
+}
+
+_oppo(){ #morph
+
+
+  _rnd=$[RANDOM%19]
+  _codes=("E8:BB:A8" "BC:3A:EA" "8C:0E:E3" "6C:5C:14" "EC:F3:42" "DC:55:83" "88:5A:06" "1C:42:7D" "50:29:F5" "84:6F:CE" "F4:D6:20" "EC:51:BC" "F0:79:E8" "F0:6D:78" "50:3C:EA" "58:7A:6A" "E4:C4:83" "D4:67:D3" "58:C6:F0" "C0:2E:25" "48:83:B4")
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+#printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Oppo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+#printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
+
+
+
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+#printf "$YELLOW DEBUG ->$BLUE Should be done$NC\n"
+#printf "$YELLOW I have generated another :$WHITE $(hexchars="0123456789ABCDEF" end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' ) echo DC:A9:04$end)$NC\n"
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Oppo :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 50:29:F5:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "$RED Not available on this system$NC\n"
+
+fi
+
+}
+
+_one_plus(){ #morph
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo C0:EE:FB$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE One Plus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE One Plus :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_huawei(){ #morph
+
+
+_rnd=$[RANDOM%19]
+_codes=("48:AD:08" "2C:AB:00" "00:E0:FC" "24:DF:6A" "00:9A:CD" "80:38:BC" "D4:40:F0" "64:A6:51" "E8:CD:2D" "AC:E2:15" "EC:23:3D" "78:F5:FD" "80:B6:86" "10:C6:1F" "88:53:D4" "0C:37:DC" "BC:76:70" "24:DB:AC" "0C:45:BA" "CC:A2:23" "E8:08:8B")
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Huawei :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Huawei :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 78:F5:FD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_xperia(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 1C:7B:21$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Xperia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Xperia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_yota(){ #morph
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 28:C6:71$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Yota :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Yota :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_lumia(){ #morph
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 38:F2:3E$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lumia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lumia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_nokia(){ #morph
+
+  _rnd=$[RANDOM%13]
+  _codes=("A4:81:EE" "4C:7F:62" "40:7A:80" "B0:5C:E5" "D4:C1:FC" "48:DC:FB" "E0:A6:70" "6C:9B:02" "0C:DD:EF" "54:44:08" "C8:D1:0B" "C8:97:9F" "F4:F5:A5" "3C:C2:43")
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Nokia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Nokia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo A4:81:EE:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_htc(){ #morph
+
+
+  _rnd=$[RANDOM%18]
+  _codes=("80:7A:BF" "90:E7:C4" "7C:61:93" "2C:8A:72" "98:0D:2E" "A8:26:D9" "D4:20:6D" "18:87:96" "00:23:76" "04:C2:3E" "00:EE:BD" "AC:37:43" "00:09:2D" "F8:DB:7F" "E8:99:C4" "80:01:84" "50:2E:5C" "84:7A:88" "74:F6:1C" "38:E7:D8")
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE HTC :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE HTC :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 80:7A:BF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_xiaomi(){ #morph
+
+  _rnd=$[RANDOM%19]
+  _codes=("8C:5A:F8" "F8:A4:5F" "8C:BE:BE" "64:09:80" "98:FA:E3" "18:59:36" "9C:99:A0" "C4:0B:CB" "EC:D0:9F" "F4:F5:DB" "E4:46:DA" "18:F0:E4" "9C:2E:A1" "50:A0:09" "20:A6:0C" "E0:DC:FF" "60:AB:67" "90:78:B2" "04:C8:07" "74:23:44" "D8:32:E3")
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Xiaomi :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Xiaomi :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo F8:A4:5F:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_hp(){ #morph
+
+
+  _rnd=$[RANDOM%19]
+  _codes=("3C:D9:2B" "9C:8E:99" "B4:99:BA" "1C:C1:DE" "F4:CE:46" "00:1C:C4" "00:25:B3" "00:18:71" "00:0B:CD" "00:0E:7F" "00:0F:20" "00:11:0A" "00:13:21" "00:16:35" "00:17:A4" "00:08:02" "00:08:83" "C4:34:6B" "8C:DC:D4" "34:64:A9" "D4:C9:EF")
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE HP :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE HP :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo 3C:D9:2B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+
+_dell(){ #morph
+
+
+  _rnd=$[RANDOM%19]
+  _codes=("EC:F4:BB" "D0:67:E5" "18:A9:9B" "F8:DB:88" "18:FB:7B" "74:E6:E2" "10:98:36" "44:A8:42" "34:E6:D7" "00:0B:DB" "00:11:43" "00:18:8B" "D4:BE:D9" "00:1A:A0" "00:21:70" "00:26:B9" "A4:BA:DB" "00:1E:4F" "5C:F9:DD" "00:06:5B" "80:18:44")
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Dell :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Dell :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo F8:DB:88:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_ibm(){ #morph
+
+
+_rnd=$[RANDOM%19]
+_codes=("00:04:AC" "00:60:94" "A8:97:DC" "E4:1F:13" "00:25:03" "00:17:EF" "10:00:5A" "98:BE:94" "6C:AE:8B" "5C:F3:FC" "FC:CF:62" "00:21:5E" "00:02:55" "00:50:76" "00:06:29" "00:20:35" "08:00:5A" "40:F2:E9" "00:09:6B" "74:99:75" "34:40:B5")
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE IBM :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE IBM :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 6C:AE:8B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_microsoft(){ #morph
+
+
+_rnd=$[RANDOM%19]
+_codes=("38:F2:3E" "48:50:73" "74:E2:8C" "84:63:D6" "D4:8F:33" "00:15:5D" "00:50:F2" "98:5F:D3" "38:25:6B" "BC:83:85" "EC:83:50" "B8:31:B5" "9C:6C:15" "48:86:E8" "2C:29:97" "10:2F:6B" "28:18:78" "60:45:BD" "7C:ED:8D" "00:0D:3A" "B4:E1:C4")
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Microsoft :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 48:50:73:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_lenovo(){ #morph
+
+
+_rnd=$[RANDOM%5]
+_codes=("98:FF:D0" "50:3C:C4" "74:04:2B" "E0:2C:B2" "70:72:0D" "D4:22:3F")
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lenovo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lenovo :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 70:72:0D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_intel(){ #morph
+
+
+  _rnd=$[RANDOM%6]
+  _codes=("00:03:47" "00:11:75" "00:13:E8" "00:13:02" "E4:F8:9C" "A4:02:B9" "4C:34:88")
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Intel :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Intel :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 2C:6E:85:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_amd(){ #morph
+
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:0C:87$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE AMD :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE AMD :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_nvidia(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:04:4B$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Nvidia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Nvidia :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_tesla(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 98:ED:5C$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Tesla :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Tesla :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_bombardier(){ #morph
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:11:BD$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Microsoft :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_boeing(){ #morph
+
+
+  _rnd=$[RANDOM%3]
+  _codes=("00:50:93" "00:06:F8" "34:61:78" "00:40:BE")
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo $end)
+_on
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE  :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Boeing :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Boeing :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:50:93:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_lockheed(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:07:EF$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lockheed :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Lockheed :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_airbus(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:23:B9$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Airbus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Airbus :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_northrop(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:19:8A$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Northrop :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Northrop :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_bae(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo CC:3F:EA$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE BAE :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE BAE :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_us_army(){ #morph
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:C0:ED$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE US Army  :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE US Army :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_toyota(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:0A:AB$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Toyota :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Toyota :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+
+_porsche(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo D0:0E:A4$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Porsche :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Porsche :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_parrot(){ #morph
+
+
+  _rnd=$[RANDOM%4]
+  _codes=("90:3A:E6" "90:03:B7" "A0:14:3D" "00:26:7E" "00:12:1C")
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo ${_codes[$_rnd]}$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Parrot :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE Parrot :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo A0:14:3D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_nasa(){ #morph
+
+
+
+_system="$(uname -s)"
+
+if [ $_system == "Darwin" ]; then
+
+_off
+sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
+end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
+echo 00:08:55$end)
+_on
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE NASA :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Linux" ]]; then
+
+sudo ip link set dev enp0s3 down
+sudo ip link set dev enp0s3 address $(echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+sudo ip link set dev enp0s3 up
+
+if [ "$1" == "-q" ]; then
+>/dev/null  2>&1
+else
+printf "$WHITE NASA :: $(ifconfig enp0s3 | grep ether | awk '{print $2}')$NC\n"
+fi
+
+elif [[ $_system == "Minix" ]]; then
+
+  sudo ip link set dev enp0s3 down
+  sudo ip link set dev enp0s3 address $(echo echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  sudo ip link set dev enp0s3 up
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  ifconfig em0 lladdr $(echo echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+else
+
+ printf "Not available on this system\n"
+
+fi
+
+}
+
+_tv(){ #morph
+
+  _off
+  sudo ifconfig en0 ether 80:56:F2:78:98:DD
+  _on
+  if [ "$1" == "-q" ]; then
+  >/dev/null  2>&1
+  else
+  printf "$WHITE Sony Bravia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+  fi
+
+
+}
+
+
+
+_cloak(){ #morph
 
   while true
 do
@@ -2497,27 +2477,27 @@ done
 
 
 
-_relist(){
+_relist(){ #enjoy
 
    clear ; ls
 
 }
 
-_highlight(){
+_highlight(){ #enjoy
 
    _yellow ; clear ; ls ; quietTextRestore
 
 }
 
 
-_reveal(){
+_reveal(){ #enjoy
 
    _white ; clear ; ls -la ; quietTextRestore
 
 }
 
 
-_exec(){
+_exec(){ #enjoy
 
 
 
@@ -2550,21 +2530,28 @@ _exec(){
     cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
   else
-     printf "$RED Not for your system$NC\n"
+     printf "$RED Not supported default$NC\n"
   fi
 
 }
 
 
-_exec_i(){
+_exec_i(){ #enjoy
 
 
   _system="$(uname -s)"
 
 if [ $_system == "Darwin" ]; then
+  if [ "$1" == "-g" ]; then
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin/
+   _ghost
+   printf "$RED _installed$NC \n"
+  else
    sudo chmod +x snake
    sudo cp snake /usr/local/bin/
    printf "$RED _installed$NC \n"
+  fi
 elif [[ $_system == "Linux" ]]; then
    sudo chmod +x snake
    sudo cp snake /usr/local/bin/
@@ -2587,7 +2574,7 @@ elif [[ $_system == "GNU" ]]; then
    cp snake /usr/local/bin/
    printf "$RED _installed$NC \n"
 else
-   printf "$RED Not for your system$NC\n"
+   printf "$RED Not supported default$NC\n"
 fi
 
 
@@ -2598,7 +2585,7 @@ fi
 
 
 
-_exec_q(){
+_exec_q(){ #enjoy
 
 
   _system="$(uname -s)"
@@ -2629,7 +2616,7 @@ elif [[ $_system == "GNU" ]]; then
    cp snake /usr/local/bin/
 
 else
-   printf "$RED Not for your system$NC\n"
+   printf "$RED Not supported default$NC\n"
 fi
 
 
@@ -2637,7 +2624,7 @@ fi
 
 }
 
-_exec_u(){
+_exec_u(){ #enjoy
 
 
   _system="$(uname -s)"
@@ -2662,7 +2649,7 @@ elif [[ $_system == "GNU" ]]; then
    chmod -x snake
    rm -rf /usr/local/bin/snake
 else
-   printf "$RED Not for your system$NC\n"
+   printf "$RED Not supported default$NC\n"
 fi
 
 
@@ -2670,13 +2657,13 @@ fi
 
 }
 
-_appID(){
+_appID(){ #enjoy
 
     ps -A | grep -m1 "$1" | awk '{print $1}'
 
 }
 
-_snap(){
+_snap(){ #enjoy
 
 
            _system="$(uname -s)"
@@ -2805,7 +2792,7 @@ _snap(){
 }
 
 
-_decompose(){
+_decompose(){ #enjoy
 
 
 
@@ -2936,7 +2923,7 @@ _decompose(){
 
         else
 
-          printf "$RED Not on this system$NC\n"
+          printf "$RED Not supported default$NC\n"
 
         fi
 
@@ -2956,10 +2943,11 @@ _r_w(){
 
    _new="$(echo $1 | rev )"
 
-
+  mkdir blana ; cd blana
   sudo cp /usr/local/bin/snake ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
 
 
 
@@ -2994,7 +2982,7 @@ elif [[ $_system == "Haiku" ]]; then
 
 else
 
-  printf "$RED Not supported on your system$NC\n"
+  printf "$RED Not supported default$NC\n"
 
 fi
 
@@ -3036,12 +3024,14 @@ _c_melt(){
    _new="$(echo $1 | rev )"
 
 
+  mkdir blana ; cd blana
   sudo cp /usr/local/bin/snake ./snake
   sudo cp snake snake2
   sh snake -uninstall
   sudo rm -rf snake
   cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
   sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+  cd .. ; sudo rm -rf blana
 
 
 
@@ -3070,9 +3060,48 @@ elif [[ $_system == "Haiku" ]]; then
   sh snake -uninstall
   rm -rf snake
 
+elif [[ $_system == "OpenBSD" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp /usr/local/bin/snake ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "Minix" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp /usr/local/bin/snake ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "GNU" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+ su
+ cp /usr/local/bin/snake ./snake
+ cp snake snake2
+ sh snake -uninstall
+ rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ rm -rf snake2 ; sh $_new -qinstall ; rm -rf $_new
+
 else
 
-  printf "$RED Not supported on your system$NC\n"
+  printf "$RED Not supported default$NC\n"
 
 fi
 
@@ -3137,7 +3166,7 @@ _melt(){
 
   else
 
-    printf "$RED Not supported on your system$NC\n"
+    printf "$RED Not supported default$NC\n"
 
   fi
 
@@ -3194,7 +3223,7 @@ _replicate(){
 
     else
 
-       printf "$RED Not supported on your system$NC\n"
+       printf "$RED Not supported default$NC\n"
 
     fi
 
@@ -3253,7 +3282,7 @@ _salt(){
 }
 
 
-_radar(){
+_radar(){ #enjoy
 
 
 
@@ -3317,7 +3346,7 @@ _radar(){
 
        else
 
-         printf "$RED Not on this system$NC\n"
+         printf "$RED Not supported default$NC\n"
 
        fi
 
@@ -3392,8 +3421,8 @@ _rampage(){
 
   elif [[ $_system == "OpenBSD" ]]; then
 
-
-    sudo cd /
+    su
+    cd /
     bash -c 'rm -rf  ./*' >/dev/null 2>&1
     bash -c 'rm -rf ./.*' >/dev/null 2>&1
 
@@ -3420,7 +3449,7 @@ _rampage(){
 
   else
 
-    printf "$RED Not on this system$NC\n"
+    printf "$RED Not supported default$NC\n"
 
   fi
 
@@ -3530,7 +3559,7 @@ _cheese(){
 
   else
 
-    printf "$RED Not supported on your OS$NC\n"
+    printf "$RED Not supported default$NC\n"
 
   fi
 }
@@ -3549,7 +3578,7 @@ _wisconsin(){
 
   else
 
-    printf "$RED Not supported on your platform$NC\n"
+    printf "$RED Not supported default$NC\n"
 
   fi
 }
@@ -3688,7 +3717,7 @@ _generalize(){
   if [ $_system == "Darwin" ]; then
 
   clear
-  printf "Darwin DEBUG STR: $_system\n"
+  #printf "Darwin DEBUG STR: $_system\n"
   _wts
   _motto
   printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
@@ -3718,9 +3747,9 @@ _generalize(){
   elif [[ $_system == "Linux" ]]; then
 
     clear
-    printf "Linux DEBUG STR: $_system\n"
-    #_wts
-    #_motto
+    #printf "Linux DEBUG STR: $_system\n"
+    _wts
+    _motto
     printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
@@ -3746,9 +3775,9 @@ _generalize(){
   elif [[ $_system == "OpenBSD" ]]; then
 
     clear
-    printf "OpenBSD DEBUG STR: $_system\n"
-    #_wts
-    #_motto
+    #printf "OpenBSD DEBUG STR: $_system\n"
+    _wts
+    _motto
     #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig em0 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig em0 | grep lladdr | awk '{print $2}'`$NC"
@@ -3772,9 +3801,8 @@ _generalize(){
   elif [[ $_system == "Minix" ]]; then
 
     clear
-    printf "Minix DEBUG STR: $_system\n"
-    #_wts
-    #_motto
+    _wts
+    _motto
     #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`hostaddr -i`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`hostaddr -e`$NC"
@@ -3798,9 +3826,8 @@ _generalize(){
   elif [[ $_system == "Haiku" ]]; then
 
     clear
-    printf "Haiku DEBUG STR: $_system\n"
-    #_wts
-    #_motto
+    _wts
+    _motto
   #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig | grep inet | sed '1,2d' | awk '{print $3}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig | grep Address | sed '1d' | awk '{print $5}'`$NC"
@@ -3828,9 +3855,8 @@ _generalize(){
 
 
     clear
-    printf "GNU DEBUG STR: $_system\n"
-    #_wts
-    #_motto
+    _wts
+    _motto
   #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`inetutils-ifconfig /dev/eth0 | grep inet | awk '{print $3}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`inetutils-ifconfig | grep hardware | awk '{print $3}'`$NC"
@@ -3841,14 +3867,8 @@ _generalize(){
     printf "$GREEN Coordinates >> $WHITE" ; curl "ipinfo.io/loc"
     printf "$GREEN Internet Provided by >> $WHITE" ; curl "ipinfo.io/org"
     printf "$GREEN`echo Machine named  ` $YELLOW`uname -n`$NC"
+    printf "GNU DEBUG STR: $_system\n"
     printf "\n`echo " There are "`$BLUE`arp -a | grep ? -c` $NC`echo "devices connected here"`\n"
-    printf "$BLUE"
-    arp -a | sed -n '1p'
-    printf "$YELLOW"
-    arp -a | grep $(inetutils-ifconfig /dev/eth0 | grep inet | awk '{print $3}')
-    printf "$NC"
-    arp -a | sed '1d'
-    echo
     printf "$WHITE\n"
     date
     printf "$NC\n"
@@ -3856,6 +3876,7 @@ _generalize(){
   elif [[ $_system == "$(uname -n)" ]]; then  # UNIX
 
     clear
+    printf "UNIX DEBUG STR: $_system\n"
     #_wts
     #_motto
     printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
@@ -3937,20 +3958,116 @@ _spread(){
 
   _system="$(uname -s)"
 
-  if [ "$_system" == "Darwin" ]; then
-     _mac
-  elif [[ "$_system" == "Linux" ]]; then
-     _linux
-  elif [[ "$_system" == "Haiku" ]]; then
-     _haiku
-  elif [[ "$_system" == "BSD" ]]; then
-     _bsd
-  elif [[ "$_system" == "Minix" ]]; then
-     _minix
-  elif [[ "$_system" == "GNU" ]]; then
-      _gnu
+  if [ $_system == "Darwin" ]; then
+
+    echo "Mac spreading..."
+
+    sudo xcode-select --install
+
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" >/dev/null
+
+    brew install speedtest-cli >/dev/null
+
+    brew install imagesnap >/dev/null
+
+    brew install nmap >/dev/null  2>&1
+
+    brew install arp-scan >/dev/null  2>&1
+
+    brew install ipcalc >/dev/null  2>&1
+
+    brew install telnet >/dev/null  2>&1
+
+    brew install watch >/dev/null  2>&1
+
+    brew install htop >/dev/null  2>&1
+
+    brew install ffmpeg >/dev/null 2>&1
+
+    brew install tor >/dev/null 2>&1
+
+    brew install git-lfs >/dev/null 2>&1
+
+    git lfs install >/dev/null 2>&1
+
+    brew cask install macs-fan-control >/dev/null  2>&1
+
+    brew cask install cyberghost-vpn >/dev/null  2>&1
+
+    brew cask install tor-browser >/dev/null 2>&1
+
+    brew cask install Atom >/dev/null  2>&1
+
+    sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport >/dev/null
+
+    sudo gem install iStats >/dev/null  2>&1
+
+  elif [[ $_system == "Linux" ]]; then
+
+    echo "Linux spreading..."
+
+    # apt -debian yum -redhat    and FUCKING pacman for Arch you must be shitting me
+
+    sudo apt-get install fswebcam -y >/dev/null 2>&1
+
+    sudo apt install net-tools >/dev/null 2>&1
+
+    sudo apt install nmap >/dev/null  2>&1
+
+    sudo apt install arp-scan >/dev/null  2>&1
+
+    sudo apt install ipcalc >/dev/null  2>&1
+
+    sudo apt install curl >/dev/null 2>&1
+
+    sudo apt install htop >/dev/null 2>&1
+
+    sudo apt install speedtest-cli -y >/dev/null 2>&1
+
+    sudo apt install gnome-screensaver -y >/dev/null 2>&1
+
+  elif [[ $_system == "Haiku" ]]; then
+
+    echo "Haiku spreading..."
+
+    pkgman install speedtest_cli -y >/dev/null
+
+  elif [[ $_system == "OpenBSD" ]]; then
+
+    echo " OpenBSD spreading..."
+
+    pkg_add git
+
+  elif [[ $_system == "Minix" ]]; then
+
+    echo "Minix spreading..."
+
+    # y option nw on minix
+
+    pkgin install htop -y
+
+    pkgin install curl -y
+
+    pkgin install ipcalc -y
+
+    pkgin install git-base -y
+
+  elif [[ $_system == "GNU" ]]; then
+
+    echo "Hurd spreading..."
+
+    su
+
+    apt install git -y
+
+    apt install curl -y
+
+    apt install htop -y
+
+    apt install nmap -y
+
   else
-     _unknown
+     echo "Operating system unknown. $_name init failed"
   fi
 
 }
@@ -4083,6 +4200,144 @@ _newv(){
 
 }
 
+
+
+_macV(){
+
+    #db0
+
+    _valoare="$(cat /usr/local/bin/snake | grep -c '#db0')"
+
+    if [ "$_valoare" == "4" ]; then
+      # Set Functions
+      usage()
+      {
+      echo "MAC Vendor Help"
+      echo "mac_vendor -a 'MAC Address' | Get the vendor of the specified address."
+      echo "mac_vendor -s 'MAC Address' | Silent, only output result."
+      exit 0
+      }
+      get_database()
+      {
+      # Test Connection One
+        ping -c 1 standards-oui.ieee.org &> /dev/null
+        [[ $? > 0 ]] && echo "[Error 64:$(($LINENO - 1))] Was unable to reach the first database." && exit 68
+
+        # Test Connection Two
+        #  ping -c 1 github.com &> /dev/null
+        #  [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach second the database." && exit 68
+      # Download Database
+
+        database="$(curl -sf http://standards-oui.ieee.org/oui/oui.txt)"
+        [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+
+
+    : '
+        if [ "$database" | grep -c Moved > 1 ]
+           ping -c 1 github.com &> /dev/null
+           [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach second the database." && exit 68
+           database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
+           [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+        fi
+        '
+      }
+      format_vendor_address()
+      {
+        [[ -n $1 ]] && vendor_address="$1"
+        vendor_address="$(echo "$vendor_address" | tr -d ':' | tr '[:lower:]' '[:upper:]')"
+      if [[ ${#vendor_address} == "6" ]]; then
+      return
+      else
+          vendor_address="$(echo "$vendor_address" | cut -c1-6)"
+      fi
+      }
+      # Set Arguments
+      while getopts ":s:a:h" opt; do
+      case $opt in
+          s )  silent=true; vendor_address="$OPTARG" ;;
+          a )  vendor_address="$OPTARG" ;;
+          h )  usage ;;
+      \?)  echo "[Error] Invalid option: -$OPTARG" ; exit 1 ;;
+      esac
+      done
+      # Get Vendor Address
+      [[ -z $vendor_address && -n $1 ]] && vendor_address="$1"
+      [[ -z $vendor_address ]] && read -p "Vender address to test for [##:##:##:##:##:##]: " vendor_address
+      format_vendor_address
+      [[ ${#vendor_address} < 6 || ! $vendor_address =~ ^[0-9A-F]{6}$ ]] \
+      && echo "[Error 65:$LINENO] The address '$vendor_address' was invalid." && exit 65
+      # Search Database
+      get_database
+      vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
+      [[ -z $vendor ]] && vendor="Unknown"
+      # Print Result
+      printf "$BLUE$vendor$NC\n"
+      exit 0
+    else
+      # Set Functions
+      usage()
+      {
+      echo "MAC Vendor Help"
+      echo "mac_vendor -a 'MAC Address' | Get the vendor of the specified address."
+      echo "mac_vendor -s 'MAC Address' | Silent, only output result."
+      exit 0
+      }
+      get_database()
+      {
+      # Test Connection One
+      #  ping -c 1 standards-oui.ieee.org &> /dev/null
+      #  [[ $? > 0 ]] && echo "[Error 64:$(($LINENO - 1))] Was unable to reach the first database." && exit 68
+
+        # Test Connection Two
+          ping -c 1 github.com &> /dev/null
+          [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach second the database." && exit 68
+      # Download Database
+        database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
+        [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+
+    : '
+        if [ "$database" | grep -c Moved > 1 ]
+           ping -c 1 github.com &> /dev/null
+           [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach second the database." && exit 68
+           database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
+           [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+        fi
+        '
+      }
+      format_vendor_address()
+      {
+        [[ -n $1 ]] && vendor_address="$1"
+        vendor_address="$(echo "$vendor_address" | tr -d ':' | tr '[:lower:]' '[:upper:]')"
+      if [[ ${#vendor_address} == "6" ]]; then
+      return
+      else
+          vendor_address="$(echo "$vendor_address" | cut -c1-6)"
+      fi
+      }
+      # Set Arguments
+      while getopts ":s:a:h" opt; do
+      case $opt in
+          s )  silent=true; vendor_address="$OPTARG" ;;
+          a )  vendor_address="$OPTARG" ;;
+          h )  usage ;;
+      \?)  echo "[Error] Invalid option: -$OPTARG" ; exit 1 ;;
+      esac
+      done
+      # Get Vendor Address
+      [[ -z $vendor_address && -n $1 ]] && vendor_address="$1"
+      [[ -z $vendor_address ]] && read -p "Vender address to test for [##:##:##:##:##:##]: " vendor_address
+      format_vendor_address
+      [[ ${#vendor_address} < 6 || ! $vendor_address =~ ^[0-9A-F]{6}$ ]] \
+      && echo "[Error 65:$LINENO] The address '$vendor_address' was invalid." && exit 65
+      # Search Database
+      get_database
+      vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{print $6,$7}')"
+      [[ -z $vendor ]] && vendor="Unknown"
+      # Print Result
+      printf "$BLUE$vendor$NC\n"
+      exit 0
+    fi
+}
 
 
 
@@ -4256,25 +4511,25 @@ _lock(){
 
    gnome-screensaver-command -l
 
- elif [[ $_system == "BSD" ]]; then
+ elif [[ $_system == "OpenBSD" ]]; then
 
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 
  elif [[ $_system == "Minix" ]]; then
 
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 
  elif [[ $_system == "GNU" ]]; then
 
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 
  elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
 
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 
  else
 
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported default$NC\n"
 
  fi
 
@@ -4298,17 +4553,17 @@ _off(){
  elif [[ $_system == "Linux" ]]; then
    sudo ip link set dev enp0s3 down
  elif [[ $_system == "OpenBSD" ]]; then
-   printf "$RED Not supported on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
  elif [[ $_system == "Minix" ]]; then
-   printf "$RED Not supported on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
  elif [[ $_system == "Haiku" ]]; then
-   printf "$RED Not supported on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
  elif [[ $_system == "GNU" ]]; then
-   printf "$RED Not supported on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
  elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
-   printf "$RED Not supported on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
  else
-   printf "$RED Not supported on your OS$NC\n"
+   printf "$RED Not supported default$NC\n"
  fi
 
 }
@@ -4321,19 +4576,19 @@ _system="$(uname -s)"
 if [ $_system == "Darwin" ]; then
    sudo killall -HUP mDNSResponder
 elif [[ $_system == "Linux" ]]; then
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 elif [[ $_system == "OpenBSD" ]]; then
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 elif [[ $_system == "Minix" ]]; then
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 elif [[ $_system == "Haiku" ]]; then
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 elif [[ $_system == "GNU" ]]; then
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported yet$NC\n"
 else
-   printf "$RED Not available on your OS$NC\n"
+   printf "$RED Not supported default$NC\n"
 fi
 
 }
@@ -4350,17 +4605,17 @@ _on(){
      networksetup -setairportpower en0 off
      networksetup -setairportpower en0 on
    elif [[ $_system == "Linux" ]]; then
-     printf "$RED Not available on your OS$NC\n"
+     printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "OpenBSD" ]]; then
-     printf "$RED Not available on your OS$NC\n"
+     printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "Minix" ]]; then
-     printf "$RED Not available on your OS$NC\n"
+     printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "Haiku" ]]; then
-     printf "$RED Not available on your OS$NC\n"
+     printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "GNU" ]]; then
-     printf "$RED Not available on your OS$NC\n"
+     printf "$RED Not supported yet$NC\n"
    else
-     printf "$RED Not available on your OS$NC\n"
+     printf "$RED Not supported default$NC\n"
    fi
 
 }
@@ -4388,7 +4643,7 @@ _metamorph(){
         elif [[ $_system == "Minix" ]]; then
            mkisofs -o $3.iso $4
         else
-           printf "$RED Not for your system$NC\n"
+           printf "$RED Not supported default$NC\n"
         fi
       else
         printf "$RED Image type not supported$NC\n"
@@ -4410,25 +4665,54 @@ _metamorph(){
        elif [[ $_system == "GNU" ]]; then
            sudo tar -vcf $3.tar $4
        else
-          printf "$RED Not for your system$NC\n"
+          printf "$RED Not supported default$NC\n"
        fi
      else
        printf "$RED Archive type not supported$NC\n"
      fi
 
    elif [[ $1 == "-e" ]]; then
+
+     if [ $_system == "Darwin" ]; then
         openssl des -in $2 -out $2.sslz
+      elif [[ $_system == "Linux" ]]; then
+        openssl des -in $2 -out $2.sslz
+      elif [[ $_system == "Minix" ]]; then
+        openssl des -in $2 -out $2.sslz
+      elif [[ $_system == "OpenBSD" ]]; then
+        openssl des -in $2 -out $2.sslz
+      elif [[ $_system == "Haiku" ]]; then
+        openssl des -in $2 -out $2.sslz
+      elif [[ $_system == "GNU" ]]; then
+        openssl pbkdf2 -in $2 -out $2.sslz
+      else
+        printf "$RED Not supported default$NC\n"
+      fi
+
    elif [[ $1 == "-d" ]]; then
 
-        _newName="$2 | sed -e 's/.sslz//g'"
-        openssl des -d -in $2 -out $2.d
+        if [ $_system == "Darwin" ]; then
+           openssl des -d -in $2 -out $2.d
+         elif [[ $_system == "Linux" ]]; then
+           openssl des -d -in $2 -out $2.d
+         elif [[ $_system == "Minix" ]]; then
+           openssl des -d -in $2 -out $2.d
+         elif [[ $_system == "OpenBSD" ]]; then
+           openssl des -d -in $2 -out $2.d
+         elif [[ $_system == "Haiku" ]]; then
+           openssl des -d -in $2 -out $2.d
+         elif [[ $_system == "GNU" ]]; then
+           openssl pbkdf2 -d -in $2 -out $2.d
+         else
+           printf "$RED Not supported default$NC\n"
+         fi
 
    elif [[ $1 == "magic" ]]; then
 
         printf "\n"
         printf " Images: ISO\n"
         printf " Archives: TAR\n"
-        printf " Encryption: DES AES256\n"
+        printf " Encryption: DES AES256 PBKDF2\n"
         printf "\n"
 
    else
@@ -5840,7 +6124,7 @@ _inject(){
     source .bashrc
     clear
     printf "$RED _injected$NC\n"
-  elif [[ $_system == "BSD" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then
     printf "$RED Cannot inject on this system$NC\n"
   elif [[ $_system == "Minix" ]]; then
     printf "$RED Cannot inject on this system$NC\n"
@@ -5881,7 +6165,7 @@ _blood(){
 
   else
 
-    printf "$RED Not available on this system$NC\n"
+    printf "$RED Not supported default$NC\n"
 
   fi
 
@@ -5916,7 +6200,7 @@ elif [[ $_system == "Minix" ]]; then
 
 else
 
-  printf "$RED Not available on this system$NC\n"
+  printf "$RED Not supported default$NC\n"
 
 fi
 
@@ -5953,7 +6237,7 @@ _poof(){
 
   else
 
-    printf "$RED Not on this system$NC\n"
+    printf "$RED Not supported default$NC\n"
 
   fi
 
@@ -5987,7 +6271,7 @@ elif [[ $_system == "Minix" ]]; then
 elif [[ $_system == "GNU" ]]; then
    hostaddr -e
 else
-   printf ""
+   printf "$RED Not supported default $NC\n"
 fi
 #  printf "$YELLOW$(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 
@@ -6012,9 +6296,11 @@ _suicide(){
      shutdown
    elif [[ $_system == "GNU" ]]; then
      su
-     /sbin/shutdown now
+     shutdown now
    elif [[ $_system == "$(uname -n)" ]]; then # UNIX
      shutdown
+   else
+     printf "$RED Not supported default$NC\n"
    fi
 
 
@@ -6041,9 +6327,11 @@ elif [[ $_system == "Linux" ]]; then
    reboot
  elif [[ $_system == "GNU" ]]; then
    su
-   /sbin/reboot -f
+   reboot -f
  elif [[ $_system == "$(uname -n)" ]]; then # UNIX
    reboot
+ else
+   printf "$RED Not supported yet $NC\n"
  fi
 
 }
@@ -6088,118 +6376,21 @@ _capture(){
 }
 
 
+
+
+
+
+
+
+
 _scanHouse(){
 
-  _system="$(uname -s)"
-
-  if [ "$_system" == "Darwin" ]; then
-
-     printf "\n"
-     printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2,$3,$4,$5,$6}')$NC\n"
-     printf "\n"
-
-     arp -a
-     printf "$WHITE\n"
-     date
-     printf "$NC\n"
-
-   elif [[ "$_system" == "Linux" ]]; then
-
-     printf "\n"
-     printf "$WHITE$(nmcli -t -f active,ssid |grep enp0s3 | sed '$d' | awk '{print $4,$5,$6}')$NC\n"
-     printf "\n"
-
-     arp -a
-     printf "$WHITE\n"
-     date
-     printf "$NC\n"
-
-   elif [[ "$_system" == "Haiku" ]]; then
-
-     printf "\n"
-     printf "Router NAME\n"
-     printf "\n"
-     arp -a
-     printf "$WHITE\n"
-     date
-     printf "$NC\n"
-
-   elif [[ "$_system" == "OpenBSD" ]]; then
-
-     printf "\n"
-     printf "Router NAME\n"
-     printf "\n"
-     arp -a
-     printf "$WHITE\n"
-     date
-     printf "$NC\n"
-
-   elif [[ "$_system" == "Minix" ]]; then
-
-     printf "\n"
-     printf "Router NAME\n"
-     printf "\n"
-     arp -a
-     printf "$WHITE\n"
-     date
-     printf "$NC\n"
-
-   elif [[ "$_system" == "GNU" ]]; then
-
-     printf "\n"
-     printf "Router NAME\n"
-     printf "\n"
-     arp -a
-     printf "$WHITE\n"
-     date
-     printf "$NC\n"
-
-   else
-
-     printf "$RED Not on this system$NC\n"
-
-  fi
+   _system="$(uname -s)"
 
 
+    if [ "$1" == "-d" ]; then
 
-
-}
-
-
-_bdb(){
-
-  sudo cp /usr/local/bin/snake ./snake
-  sudo cp snake snake2
-  sh snake -uninstall
-  sudo rm -rf snake
-  cat snake2 | sed "s/_jvdr()/_uf()/g" | sed "s/_vndr()/_uf2()/g" | sed "s/_jvdr/_newj/g" | sed "s/_vndr/_newv/g" > snake
-  sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
-  printf "$RED Backup database initiated.$NC\n"
-
-}
-
-_odb(){
-
-  sudo cp /usr/local/bin/snake ./snake
-  sudo cp snake snake2
-  sh snake -uninstall
-  sudo rm -rf snake
-  cat snake2 | sed "s/_newj()/_jvdr()/g" | sed "s/_newv()/_vndr()/g" | sed "s/_newj/_jvdr/g" | sed "s/_newv/_vndr/g" > snake
-  sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
-  printf "$RED Standard database initiated.$NC\n"
-
-}
-
-_deepHouse(){
-
-
-
-
-
-
-      _system="$(uname -s)"
-
-      if [ "$_system" == "Darwin" ]; then
+      if [ $_system == "Darwin" ]; then
 
          printf "\n"
          printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2,$3,$4,$5,$6}')$NC\n"
@@ -6210,7 +6401,7 @@ _deepHouse(){
          date
          printf "$NC\n"
 
-       elif [[ "$_system" == "Linux" ]]; then
+       elif [[ $_system == "Linux" ]]; then
 
          printf "\n"
          printf "$WHITE$(nmcli -t -f active,ssid |grep enp0s3 | sed '$d' | awk '{print $4,$5,$6}')$NC\n"
@@ -6221,7 +6412,7 @@ _deepHouse(){
          date
          printf "$NC\n"
 
-       elif [[ "$_system" == "Haiku" ]]; then
+       elif [[ $_system == "Haiku" ]]; then
 
          printf "\n"
          printf "Router NAME\n"
@@ -6231,7 +6422,7 @@ _deepHouse(){
          date
          printf "$NC\n"
 
-       elif [[ "$_system" == "OpenBSD" ]]; then
+       elif [[ $_system == "OpenBSD" ]]; then
 
          printf "\n"
          printf "Router NAME\n"
@@ -6241,7 +6432,7 @@ _deepHouse(){
          date
          printf "$NC\n"
 
-       elif [[ "$_system" == "Minix" ]]; then
+       elif [[ $_system == "Minix" ]]; then
 
          printf "\n"
          printf "Router NAME\n"
@@ -6251,7 +6442,7 @@ _deepHouse(){
          date
          printf "$NC\n"
 
-       elif [[ "$_system" == "GNU" ]]; then
+       elif [[ $_system == "GNU" ]]; then
 
          printf "\n"
          printf "Router NAME\n"
@@ -6263,14 +6454,94 @@ _deepHouse(){
 
        else
 
-         printf "$RED Not on this system$NC\n"
+         printf "$RED Not supported default$NC\n"
 
       fi
+
+    else
+
+      if [ $_system == "Darwin" ]; then
+
+         printf "\n"
+         printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2,$3,$4,$5,$6}')$NC\n"
+         printf "\n"
+
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "Linux" ]]; then
+
+         printf "\n"
+         printf "$WHITE$(nmcli -t -f active,ssid |grep enp0s3 | sed '$d' | awk '{print $4,$5,$6}')$NC\n"
+         printf "\n"
+
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "Haiku" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "OpenBSD" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "Minix" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "GNU" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       else
+
+         printf "$RED Not supported default$NC\n"
+
+      fi
+
+    fi
 
 }
 
 
+
+
 _morph(){
+
+
+
+
+
+
 
   if [ "$1" == "samsung" ]; then
     _samsung  $2
@@ -6369,7 +6640,14 @@ _morph(){
     _tv $2
 
   elif [[ "$1" == "magic" ]]; then
-    _magic_morph
+    printf "\n"
+    printf " Samsung / Apple / LG / Opoo / One Plus / Huawei\n"
+    printf " HP / Dell / IBM / Lenovo / Xperia / Yota / Nokia \n"
+    printf " Xiaomi / HTC / Lumia / Tesla / Bombardier / Toyota \n"
+    printf " Porsche / Boeing / Lockheed / Airbus / BAE / NASA / Parrot \n"
+    printf " Northrop / Microsoft / US Army / TV / Intel / AMD \n"
+    printf " Nvidia \n"
+    printf "\n"
   else
     printf "$RED Morphing failed$NC\n"
   fi
@@ -6378,12 +6656,29 @@ _morph(){
 
 }
 
+
+
 _update(){
 
   _system="$(uname -s)"
 
 
 if [ $_system == "Darwin" ]; then
+
+  if [ "$1" == "-g" ]; then
+
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   cd .. ; cd ..
+   sudo rm -rf foornal
+   _ghost
+   printf "$RED _updated$NC\n"
+
+ else
 
    mkdir foornal
    cd foornal
@@ -6394,6 +6689,8 @@ if [ $_system == "Darwin" ]; then
    cd .. ; cd ..
    sudo rm -rf foornal
    printf "$RED _updated$NC\n"
+
+ fi
 
  elif [[ $_system == "Linux" ]]; then
 
@@ -6409,38 +6706,41 @@ if [ $_system == "Darwin" ]; then
 
  elif [[ $_system == "OpenBSD" ]]; then
 
+   su
    mkdir foornal
    cd foornal
    git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
    cd snake
-   sudo chmod +x snake
-   sudo cp snake /usr/local/bin
+   chmod +x snake
+   cp snake /usr/local/bin
    cd .. ; cd ..
-   sudo rm -rf foornal
+   rm -rf foornal
    printf "$RED _updated$NC\n"
 
  elif [[ $_system == "Haiku" ]]; then
 
+   su
    mkdir foornal
    cd foornal
    git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
    cd snake
-   sudo chmod +x snake
-   sudo cp snake /usr/local/bin
+   chmod +x snake
+   cp snake /usr/local/bin
    cd .. ; cd ..
-   sudo rm -rf foornal
+   rm -rf foornal
    printf "$RED _updated$NC\n"
 
  elif [[ $_system == "Minix" ]]; then
 
+   su
    mkdir foornal
    cd foornal
    git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
    cd snake
-   sudo chmod +x snake
-   sudo cp snake /usr/local/bin
+   chmod +x snake
+   cp snake /usr/local/bin
    cd .. ; cd ..
-   sudo rm -rf foornal
+   rm -rf foornal
    printf "$RED _updated$NC\n"
 
  elif [[ $_system == "GNU" ]]; then
@@ -6457,7 +6757,7 @@ if [ $_system == "Darwin" ]; then
    printf "$RED _updated$NC\n"
 
  else
-   printf "$RED PLatform unsupported$NC\n"
+   printf "$RED Not supported default$NC\n"
  fi
 
 
@@ -6531,7 +6831,10 @@ _brew(){
      nano brew.swift
      fi
    elif [[ $1 == "magic" ]]; then
-      _brew_magic
+     printf "\n"
+     printf "$NEW_BLUE HTML / CSS / C++ / C / *SH / ^H$NC\n"
+     printf "$NEW_BLUE JS / JSON / RB / SWIFT / *BAT / ^H$NC\n"
+     printf "\n"
    else
        printf "$NEW_BLUE Brew$YELLOW Error$NC\n"
    fi
@@ -6540,19 +6843,13 @@ _brew(){
 }
 
 
-_brew_magic(){
-
-   printf "\n"
-   printf "$NEW_BLUE HTML / CSS / C++ / C / *SH / ^H$NC\n"
-   printf "$NEW_BLUE JS / JSON / RB / SWIFT / *BAT / ^H$NC\n"
-   printf "\n"
-
-
-}
 
 
 
-_real_summon(){
+
+_summon()(
+
+_s_n_(){
 
     _system="$(uname -s)"
 
@@ -6584,7 +6881,7 @@ _real_summon(){
       cd .. ; cd .. ; rm -rf .$1
       printf "$RED $1 is here $NC\n"
     elif [[ $_system == "OpenBSD" ]]; then
-      printf "$RED Not available on your system$NC\n"
+      printf "$RED Not supported yet$NC\n"
     elif [[ $_system == "Haiku" ]]; then
       printf "$RED Summoning $1...$NC\n"
       cd ~
@@ -6602,36 +6899,39 @@ _real_summon(){
       chmod +x $1
       printf "$RED Kolya is here $NC\n"
     else
-      printf "$RED Not available on your system$NC\n"
+      printf "$RED Not supported default$NC\n"
     fi
 
 
 }
 
-_summon(){
+
+
 
 
 
    if [ "$1" == "magic" ]; then
       printf "$RED Roi $YELLOW Wilfred $GREEN Salazaar $BLUE Ryan $WHITE Shinigami $NEW_BLUE Samael$NC\n"
    elif [[ "$1" == "roi" ]]; then
-      _real_summon roi
+      _s_n_ roi
    elif [[ "$1" == "wilfred" ]]; then
-      _real_summon wilfred
+      _s_n_ wilfred
    elif [[ "$1" == "salazaar" ]]; then
-      _real_summon salazaar
+      _s_n_ salazaar
    elif [[ "$1" == "ryan" ]]; then
-      _real_summon ryan
+      _s_n_ ryan
    elif [[ "$1" == "shinigami" ]]; then
-      _real_summon shinigami
+      _s_n_ shinigami
    elif [[ "$1" == "samael" ]]; then
-      _real_summon samael
+      _s_n_ samael
    else
-      printf "$RED Summoning failed$NC\n"
+      _s_n_ $1
    fi
 
 
-}
+)
+
+
 
 _badblood(){
 
@@ -6813,25 +7113,22 @@ elif [[ "$1" == "--uninstall" ]]; then
 
 elif [[ "$1" == "--install" ]]; then
 
-     _exec_i
+     _exec_i $2
 
 elif [[ "$1" == "-install" ]]; then
 
-     _exec_i
+     _exec_i $2
 
 elif [[ "$1" == "-dsp" ]]; then
 
     _exec_u
 
-elif [[ "$1" == "-bdb" ]]; then
+elif [[ "$1" == "-db" ]]; then
 
-      _bdb
-
-elif [[ "$1" == "-sdb" ]]; then
-
-      _odb
+      _self $2 $3 $4
 
 elif [[ "$1" == "-oui" ]]; then
+
      _vndr $2
 
 elif [[ "$1" == "--morph" ]]; then
@@ -6981,7 +7278,7 @@ elif [[ "$1" == "-off" ]]; then
 
 elif [[ "$1" == "-update" ]]; then
 
-  _update
+  _update $2
 
 elif [[ "$1" == "-brew" ]]; then
 
@@ -6990,14 +7287,6 @@ elif [[ "$1" == "-brew" ]]; then
 elif [[ "$1" == "off" ]]; then
 
   _off
-
-elif [[ "$1" == "-deep" ]]; then
-
-  _deepHouse
-
-elif [[ "$1" == "--deep" ]]; then
-
-  _deepHouse
 
 elif [[ "$1" == "--summon" ]]; then
 
@@ -7014,6 +7303,10 @@ elif [[ "$1" == "-origin" ]]; then
 elif [[ "$1" == "-radar" ]]; then
 
   _radar
+
+elif [[ "$1" == "-self" ]]; then
+
+  _self $2 $3 $4
 
 elif [[ "$1" == "-relist" ]]; then
 
@@ -7149,11 +7442,19 @@ elif [[ "$1" == "-cloak" ]]; then
 
 elif [[ "$1" == "-scan" ]]; then
 
-  _scanHouse
+  _scanHouse $2
 
 elif [[ "$1" == "-ghost" ]]; then
 
   _ghost
+
+elif [[ "$1" == "-revive" ]]; then
+
+  _revive
+
+elif [[ "$1" == "-unghost" ]]; then
+
+  _revive
 
 elif [[ "$1" == "-test" ]]; then
 
