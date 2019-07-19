@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.5.4"
+_version="0.5.5"
 _name="S.N.A.K.E"
 _morph_state="Unknown"
 
@@ -12,6 +12,7 @@ _verbose=false
 _decorate=true
 _debug=true
 _undying=true
+_status="unprotected"
 
 
 _repo0="https://github.com/mldMoldovan/snake.git"
@@ -91,14 +92,31 @@ _wts(){ #selfp
 }
 
 
-_decoy(){
+_decoy(){ #selfc
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
 
 _converted=$( echo $1 | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
 
     cd ~ ; mkdir .blanao ; cd .blanao
-    sudo cp /usr/local/bin/snake ./snake
+    sudo cp $_loc ./snake
     cat snake | sed "s/snake/$1/g" | sed "s/S.N.A.K.E/$_converted/g" >> $1
     sudo chmod +x $1 ; sudo cp $1 /usr/local/bin/ ; cd .. ; sudo rm -rf .blanao
+
+    if [ -f ~/.spx/snake ]; then
+
+      sudo rm -rf ~/.spx/snake
+
+    fi
 
 }
 
@@ -135,7 +153,7 @@ _people(){ #selfe
     elif [[ $_system == "Haiku" ]]; then
        arp -a | awk '{print $1,$3,$2}'
     elif [[ $_system == "GNU" ]]; then
-        arp -a | awk '{print $1,$3,$2}'
+       arp -a | awk '{print $1,$3,$2}'
     elif [[ $_system == "$(uname -n)" ]]; then
        sudo arp-scan -l | sed '1,2d' | sed '$d' | sed '$d' | sed '$d' | sed '$d'
     else
@@ -147,6 +165,17 @@ _people(){ #selfe
 
 
 _ghost(){ #selfc
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
 
 
 
@@ -163,7 +192,7 @@ _ghost(){ #selfc
    _new="$(echo snake | sed 's/^/./' )"
 
 
-  sudo cp /usr/local/bin/snake ./snake
+  sudo cp $_loc ./snake
   sudo cp snake snake2
   sh snake -uninstall
   sudo rm -rf snake
@@ -179,7 +208,7 @@ elif [[ $_system == "Linux" ]]; then
   _new="$(echo snake | sed 's/^/./' )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -193,7 +222,7 @@ elif [[ $_system == "GNU" ]]; then
   _new="$(echo snake | sed 's/^/./' )"
 
  su
- cp /usr/local/bin/snake ./snake
+ cp $_loc ./snake
  cp snake snake2
  sh snake -uninstall
  rm -rf snake
@@ -208,7 +237,7 @@ elif [[ $_system == "Haiku" ]]; then
   _new="$(echo snake | sed 's/^/./' )"
 
  su
- cp /usr/local/bin/snake ./snake
+ cp $_loc ./snake
  cp snake snake2
  sh snake -uninstall
  rm -rf snake
@@ -222,7 +251,7 @@ elif [[ $_system == "Minix" ]]; then
   _new="$(echo snake | sed 's/^/./' )"
 
  su
- cp /usr/local/bin/snake ./snake
+ cp $_loc ./snake
  cp snake snake2
  sh snake -uninstall
  rm -rf snake
@@ -236,7 +265,7 @@ elif [[ $_system == "OpenBSD" ]]; then
   _new="$(echo snake | sed 's/^/./' )"
 
  su
- cp /usr/local/bin/snake ./snake
+ cp $_loc ./snake
  cp snake snake2
  sh snake -uninstall
  rm -rf snake
@@ -263,6 +292,12 @@ elif [[ $_system == "OS/390" ]]; then
 else
 
   printf "$RED Not supported sys$NC\n"
+
+fi
+
+if [ -f ~/.spx/snake ]; then
+
+  sudo rm -rf ~/.spx/snake
 
 fi
 
@@ -308,7 +343,7 @@ elif [[ $_system == "Linux" ]]; then
   _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
   _new="$(echo $1 | rev )"
 
-  sudo cp /usr/local/bin/snake ./snake
+  sudo cp $_loc ./snake
   sudo cp snake snake2
   cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
   sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x $_new ; sudo cp $_new /usr/local/bin/
@@ -446,7 +481,7 @@ _myself(){ #selfc
 }
 
 
-_stringify(){
+_stringify(){ #selft
 
 
 
@@ -471,30 +506,41 @@ _self(){ #selfh
 
   _alive=true
 
+  if [ -f /usr/local/bin/snake ]; then
+     _loc=/usr/local/bin/snake
+  else
+    if [ -f ~/.spx/snake ]; then
+      _loc=~/.spx/snake
+    else
+      openssl des -d -in snake.sslz -out snake -pass pass:cartof
+      _loc=~/.spx/snake
+    fi
+  fi
+
 
    if [ "$1" == "func" ]; then
      if [ "$2" == "num" ]; then
-       cat /usr/local/bin/snake | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo' | wc -l | sed 's/ //g'
+       cat $_loc | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo' | wc -l | sed 's/ //g'
      elif [[ "$2" == "list" ]]; then
-       cat /usr/local/bin/snake | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo'
+       cat $_loc/snake | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo'
      elif [[ "$2" == "wip" ]]; then
-       cat /usr/local/bin/snake | grep -c 'Not supported yet'
+       cat $_loc/snake | grep -c 'Not supported yet'
      elif [[ "$2" == "ratio" ]]; then
        if [ "$3" == "c" ]; then
-         printf "Tools $(cat /usr/local/bin/snake | grep -c '#selft')\n"
-         printf "Demon $(cat /usr/local/bin/snake | grep -c '#selfd')\n"
-         printf "Cards $(cat /usr/local/bin/snake | grep -c '#selfc')\n"
-         printf "Xpert $(cat /usr/local/bin/snake | grep -c '#selfx')\n"
-         printf "Ether $(cat /usr/local/bin/snake | grep -c '#selfe')\n"
-         printf "Showd $(cat /usr/local/bin/snake | grep -c '#selfp')\n"
-         printf "Instl $(cat /usr/local/bin/snake | grep -c '#selfi')\n"
-         printf "Color $(cat /usr/local/bin/snake | grep -c '#color')\n"
-         printf "Morph $(cat /usr/local/bin/snake | grep -c '#morph')\n"
+         printf "Tools $(cat $_loc | grep -c '#selft')\n"
+         printf "Demon $(cat $_loc | grep -c '#selfd')\n"
+         printf "Cards $(cat $_loc | grep -c '#selfc')\n"
+         printf "Xpert $(cat $_loc | grep -c '#selfx')\n"
+         printf "Ether $(cat $_loc | grep -c '#selfe')\n"
+         printf "Showd $(cat $_loc | grep -c '#selfp')\n"
+         printf "Instl $(cat $_loc | grep -c '#selfi')\n"
+         printf "Color $(cat $_loc | grep -c '#color')\n"
+         printf "Morph $(cat $_loc | grep -c '#morph')\n"
        else
          printf "Print default\n"
        fi
      elif [[ "$2" == "add" ]]; then
-       sudo mkdir .blanao ; cd .blanao ; sudo cp /usr/local/bin/snake ./snake
+       sudo mkdir .blanao ; cd .blanao ; sudo cp $_loc ./snake
        sudo chmod +w snake
        echo "$3(){" >> snake
        echo " " >> snake
@@ -502,7 +548,7 @@ _self(){ #selfh
        sudo chmod +x snake ; sudo cp snake /usr/local/bin
        cd .. ; sudo rm -rf .blanao
      elif [[ "$2" == "rmv" ]]; then
-       sudo mkdir .blanao ; cd .blanao ; sudo cp /usr/local/bin/snake ./snake
+       sudo mkdir .blanao ; cd .blanao ; sudo cp $_loc ./snake
        sudo chmod +w snake
        sudo echo "$3(){" >> snake
        sudo echo " " >> snake
@@ -516,66 +562,66 @@ _self(){ #selfh
      fi
    elif [[ "$1" == "sys" ]]; then
      if [ "$2" == "num" ]; then
-       cat /usr/local/bin/snake | grep  '_system == "' | grep -v 'INTEGRITY' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed '$d' | sed '$d' | sed '$d' | sort -u | wc -l | sed 's/ //g'
+       cat $_loc | grep  '_system == "' | grep -v 'INTEGRITY' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed '$d' | sed '$d' | sed '$d' | sort -u | wc -l | sed 's/ //g'
      elif [[ "$2" == "list" ]]; then
-       cat /usr/local/bin/snake | grep  '_system == "' | grep -v 'INTEGRITY' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed 's/CYGWIN_NT-10.0/Windows 10/g' | sed 's/CYGWIN_NT-5.0/Windows 2000/g' | sed 's/CYGWIN_NT-6.0/Windows Vista/g' | sed 's/CYGWIN_NT-6.1/Windows 7/g' | sed 's/CYGWIN_NT-5.1/Windows XP/g' | sed 's/OS\/390/z\/OS/g' | sed 's/"/ /g' | sed '$d' | sed '$d' | sed '$d' | sort -u  | sed '1d'
+       cat $_loc | grep  '_system == "' | grep -v 'INTEGRITY' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed 's/CYGWIN_NT-10.0/Windows 10/g' | sed 's/CYGWIN_NT-5.0/Windows 2000/g' | sed 's/CYGWIN_NT-6.0/Windows Vista/g' | sed 's/CYGWIN_NT-6.1/Windows 7/g' | sed 's/CYGWIN_NT-5.1/Windows XP/g' | sed 's/OS\/390/z\/OS/g' | sed 's/"/ /g' | sed '$d' | sed '$d' | sed '$d' | sort -u  | sed '1d'
      elif [[ "$2" == "ratio" ]]; then
           if [ "$3" == "i" ]; then
-              printf "AIX $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"AIX"')\n"
-              printf "Darwin $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Darwin"')\n"
-              printf "HP-UX $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"HP-UX"')\n"
-              printf "Haiku $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Haiku"')\n"
-              printf "GNU $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"GNU"')\n"
-              printf "Linux $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Linux"')\n"
-              printf "Minix $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Minix"')\n"
-              printf "OpenBSD $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OpenBSD"')\n"
-              printf "SunOS $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"SunOS"')\n"
-              printf "Unix $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"$(uname')\n"
-              printf "Windows 10 $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-10.0"')\n"
-              printf "Windows 2000 $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.0"')\n"
-              printf "Windows 7 $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.1"')\n"
-              printf "Windows Vista $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.0"')\n"
-              printf "Windows XP $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.1"')\n"
-              printf "z/OS $(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OS/390"')\n"
+              printf "AIX $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"AIX"')\n"
+              printf "Darwin $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"Darwin"')\n"
+              printf "HP-UX $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"HP-UX"')\n"
+              printf "Haiku $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"Haiku"')\n"
+              printf "GNU $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"GNU"')\n"
+              printf "Linux $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"Linux"')\n"
+              printf "Minix $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"Minix"')\n"
+              printf "OpenBSD $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"OpenBSD"')\n"
+              printf "SunOS $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"SunOS"')\n"
+              printf "Unix $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"$(uname')\n"
+              printf "Windows 10 $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-10.0"')\n"
+              printf "Windows 2000 $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.0"')\n"
+              printf "Windows 7 $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.1"')\n"
+              printf "Windows Vista $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.0"')\n"
+              printf "Windows XP $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.1"')\n"
+              printf "z/OS $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"OS/390"')\n"
           elif [[ "$3" == "w" ]]; then
-              printf "AIX $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' | sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'AIX"];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Darwin $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Darwin"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "HP-UX $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'HP-UX"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Haiku $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Haiku"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "GNU $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'GNU"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Linux $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Linux"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Minix $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Minix"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "OpenBSD $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OpenBSD"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "SunOS $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'SunOS"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Unix $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | sed 's/)//g' | awk -F'uname-n"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Windows 10 $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-10.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Windows 2000 $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-5.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Windows 7 $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-6.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Windows Vista $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-6.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "Windows XP $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-5.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
-              printf "z/OS $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OS/390"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "AIX $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' | sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'AIX"];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Darwin $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Darwin"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "HP-UX $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'HP-UX"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Haiku $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Haiku"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "GNU $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'GNU"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Linux $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Linux"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Minix $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Minix"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "OpenBSD $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OpenBSD"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "SunOS $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'SunOS"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Unix $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | sed 's/)//g' | awk -F'uname-n"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows 10 $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-10.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows 2000 $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-5.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows 7 $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-6.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows Vista $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-6.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "Windows XP $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'NT-5.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
+              printf "z/OS $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OS/390"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')\n"
           elif [[ "$3" == "m" ]]; then
-              printf "AIX $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"AIX"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'AIX"];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Darwin $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Darwin"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Darwin"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "HP-UX $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"HP-UX"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'HP-UX"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Haiku $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Haiku"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Haiku"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "GNU $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"GNU"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'GNU"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Linux $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Linux"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Linux"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Minix $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"Minix"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Minix"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "OpenBSD $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OpenBSD"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OpenBSD"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "SunOS $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"SunOS"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'SunOS"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Unix $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"$(uname') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/)//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'uname-n"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Windows 10 $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-10.0"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-10.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Windows 2000 $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.0"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-5.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Windows 7 $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.1"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-6.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Windows Vista $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.0"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-6.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "Windows XP $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.1"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-5.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
-              printf "z/OS $(echo "$(cat /usr/local/bin/snake | grep  '_system == "' | awk '{print $5}' | grep -c '"OS/390"') - $(awk '$1=$1' ORS='\\n' /usr/local/bin/snake | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OS/390"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "AIX $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"AIX"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'AIX"];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Darwin $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"Darwin"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Darwin"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "HP-UX $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"HP-UX"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'HP-UX"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Haiku $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"Haiku"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Haiku"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "GNU $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"GNU"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'GNU"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Linux $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"Linux"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Linux"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Minix $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"Minix"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'Minix"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "OpenBSD $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"OpenBSD"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OpenBSD"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "SunOS $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"SunOS"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'SunOS"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Unix $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"$(uname') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/)//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'uname-n"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows 10 $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-10.0"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-10.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows 2000 $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.0"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-5.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows 7 $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.1"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-6.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows Vista $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-6.0"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-6.0"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "Windows XP $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"CYGWIN_NT-5.1"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'CYGWIN_NT-5.1"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
+              printf "z/OS $(echo "$(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"OS/390"') - $(awk '$1=$1' ORS='\\n' $_loc | sed 's/ //g' | sed 's/\\n//g' |sed 's/\$//g' | sed 's/nn//g' | sed 's/tw//g' | sed 's/tn//g' | awk -F'OS/390"]];thenprintf"REDNotsupportedyet' 'NF{print NF-1}')" | bc -l)\n"
           else
               printf "$RED SYS ERROR$NC\n"
           fi
      elif [[ "$2" == "add" ]]; then
-       cat /usr/local/bin/snake | sed -e 's/OpenBSD\(.*\)_system/\1/'
+       cat $_loc | sed -e 's/OpenBSD\(.*\)_system/\1/'
      elif [[ "$2" == "magic" ]]; then
        printf " num :: list :: ratio :: add :: rmv :: edt\n"
      else
@@ -584,28 +630,34 @@ _self(){ #selfh
    elif [[ "$1" == "db" ]]; then
      if [ "$2" == "s" ]; then
 
-       sudo cp /usr/local/bin/snake ./snake
+       cd ~ ; mkdir nicoosor ; cd nicoosor
+       sudo cp $_loc ./snake
        sudo cp snake snake2
        sh snake -uninstall
        sudo rm -rf snake
        cat snake2 | sed "s/_newj()/_jvdr()/g" | sed "s/_newv()/_vndr()/g" | sed "s/_newj/_jvdr/g" | sed "s/_newv/_vndr/g" > snake
-       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake ;  cd .. ; rm -rf nicoosor
        printf "$GREEN Standard database initiated.$NC\n"
 
 
      elif [[ "$2" == "b" ]]; then
 
-       sudo cp /usr/local/bin/snake ./snake
+       cd ~ ; mkdir nicoosor ; cd nicoosor
+       sudo cp $_loc ./snake
        sudo cp snake snake2
        sh snake -uninstall
        sudo rm -rf snake
        cat snake2 | sed "s/_jvdr()/_uf()/g" | sed "s/_vndr()/_uf2()/g" | sed "s/_jvdr/_newj/g" | sed "s/_vndr/_newv/g" > snake
-       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+       sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake ; cd .. ; rm -rf nicoosor
        printf "$RED Backup database initiated.$NC\n"
 
 
      elif [[ "$2" == "w" ]]; then
-       _valoare="$(cat /usr/local/bin/snake | grep -c 'uf()')"
+
+
+
+
+       _valoare="$(cat $_loc | grep -c 'uf()')"
 
        if [ $_valoare == "2" ]; then
           printf "$GREEN Standard$NC\n"
@@ -621,10 +673,46 @@ _self(){ #selfh
      else
        _suicide
      fi
+   elif [[ "$1" == "status" ]]; then
+     if [ -f /usr/local/bin/snake ]; then
+        printf "$RED"
+        printf "NOT protected "
+     else
+       printf "$GREEN"
+       printf "Protected "
+     fi
+     if [ "$(echo snake | grep -c '.')" == 1 ]; then
+        printf "$RED"
+        printf "NOT ghosted "
+     else
+        printf "$GREEN"
+        printf "Ghosted "
+     fi
+     printf "\n$NC"
    elif [[ "$1" == "magic" ]]; then
      printf "$RED FUNC$YELLOW SYS$GREEN DB$NC\n"
    else
      printf "$RED Not supported default$NC\n"
+   fi
+
+   if [ -f ~/.spx/snake ]; then
+
+     sudo rm -rf ~/.spx/snake
+
+   fi
+
+}
+
+
+_geolocate(){ #selft
+
+
+
+
+   if [ -z "$1" ]; then
+     curl -sf ipinfo.io/$(dig +short myip.opendns.com @resolver1.opendns.com) | sed '1d' | sed '$d' | sed 's/"//g'
+   else
+     curl -sf ipinfo.io/$1 | sed '1d' | sed '$d' | sed 's/"//g'
    fi
 
 
@@ -684,7 +772,7 @@ _router_info(){ #selfc
      printf "$(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12)\n"
      printf "$YELLOW$(dig +short myip.opendns.com @resolver1.opendns.com)$NC\n"
      printf "\n"
-     printf "$(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')\n"
+     printf "$(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}' | sed -n '1p')\n"
      printf `_jvdr $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')`
      printf "\n"
      printf "$(snake _wit? $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | sed 's/Aggressive OS guesses/Running/g' | grep 'Running:' | sed -n '1p' | awk '{print $2,$3}')\n"
@@ -4652,18 +4740,29 @@ fi
 _exec_u(){ #selfi
 
 
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
+
   _system="$(uname -s)"
 
 if [ $_system == "Darwin" ]; then
    sudo chmod -x snake >/dev/null 2>&1
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 elif [[ $_system == "Linux" ]]; then
    sudo chmod -x snake
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 elif [[ $_system == "GNU" ]]; then
    su
    chmod -x snake
-   rm -rf /usr/local/bin/snake
+   rm -rf $_loc
 elif [[ $_system == "Haiku" ]]; then
    chmod +x snake
    rm -rf /bin/snake
@@ -4673,36 +4772,41 @@ elif [[ $_system == "HP-UX" ]]; then
    rm -rf snake
 elif [[ $_system == "Minix" ]]; then
    chmod -x snake
-   rm -rf /usr/local/bin/snake
+   rm -rf $_loc
 elif [[ $_system == "OpenBSD" ]]; then
    sudo chmod -x snake
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 elif [[ $_system == "SunOS" ]]; then
    sudo chmod -x snake
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
    sudo chmod -x snake
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
    sudo chmod -x snake
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
    sudo chmod -x snake
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
    sudo chmod -x snake
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
    sudo chmod -x snake
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 elif [[ $_system == "OS/390" ]]; then
    sudo chmod -x snake
-   sudo rm -rf /usr/local/bin/snake
+   sudo rm -rf $_loc
 else
    printf "$RED Not supported sys$NC\n"
 fi
 
 
+if [ -f ~/.spx/snake ]; then
+
+  sudo rm -rf ~/.spx/snake
+
+fi
 
 
 }
@@ -5097,6 +5201,19 @@ _decompose(){ #selfs
 
 _r_w(){ #selfc
 
+
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
+
   _system="$(uname -s)"
 
 
@@ -5109,7 +5226,7 @@ _r_w(){ #selfc
    _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  sudo cp /usr/local/bin/snake ./snake
+  sudo cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5122,7 +5239,7 @@ elif [[ $_system == "Linux" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  sudo cp /usr/local/bin/snake ./snake
+  sudo cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5133,7 +5250,7 @@ elif [[ $_system == "GNU" ]]; then
 
   su
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5143,7 +5260,7 @@ elif [[ $_system == "Haiku" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5153,7 +5270,7 @@ elif [[ $_system == "HP-UX" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5163,7 +5280,7 @@ elif [[ $_system == "OpenBSD" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5173,7 +5290,7 @@ elif [[ $_system == "SunOS" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5183,7 +5300,7 @@ elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5193,7 +5310,7 @@ elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5203,7 +5320,7 @@ elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5213,7 +5330,7 @@ elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5223,7 +5340,7 @@ elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5233,7 +5350,7 @@ elif [[ $_system == "OS/390" ]]; then
   _new="$(echo $1 | rev )"
 
   mkdir blana ; cd blana
-  cp /usr/local/bin/snake ./snake
+  cp $_loc ./snake
   cat snake | sed "s/magic/$_new/g" > snake2
   sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
@@ -5244,13 +5361,97 @@ else
 
 fi
 
+if [ -f ~/.spx/snake ]; then
+
+  sudo rm -rf ~/.spx/snake
+
+fi
+
+}
+
+
+_pd(){
+
+
+
+  cd ~
+  mkdir .spx ; cd .spx
+  sudo cp /usr/local/bin/snake ./snake
+  openssl des -e -in snake -out snake.sslz -pass pass:cartof
+  cd ~ ; snake dsp ; sudo killall -9 Terminal
+
+}
+
+_protect(){
+
+
+
+  cd ~
+  mkdir .spx ; cd .spx
+  sudo cp /usr/local/bin/snake ./snake
+  openssl des -e -in snake -out snake.sslz -pass pass:cartof
+  touch snakex
+  echo "#/!bin/bash" >> snakex
+  echo " " >> snakex
+  echo "if [ -z \"\$1\" ]; then" >> snakex
+  echo " " >> snakex
+  echo "printf \"ERROR\n\"" >> snakex
+  echo " " >> snakex
+  echo "elif [[ \"\$1\" == \"is\" ]]; then" >> snakex
+  echo " " >> snakex
+  echo "cd ~" >> snakex
+  echo "mkdir blana ; cd blana" >> snakex
+  echo "sudo cp /usr/local/bin/snakex ./snakex" >> snakex
+  echo "sudo cp snakex snakex2" >> snakex
+  echo "sudo rm /usr/local/bin/snakex" >> snakex
+  echo "sudo rm -rf snakex" >> snakex
+  echo "cat snakex2 | sed \"s/cartof/\$2/g\" > snakex" >> snakex
+  echo "sudo rm -rf snakex2 ; sudo chmod +x snakex ; sudo cp snakex /usr/local/bin/ ; sudo rm -rf snakex" >> snakex
+  echo "cd .. ; sudo rm -rf blana" >> snakex
+  echo " " >> snakex
+  echo "else" >> snakex
+  echo " " >> snakex
+  echo "cd ~" >> snakex
+  echo "cd .spx" >> snakex
+  echo "openssl des -d -in snake.sslz -out snake -pass pass:cartof" >> snakex
+  echo "sh snake \$1 \$2 \$3 \$4 \$5" >> snakex
+  echo "openssl des -e -in snake -out snake.sslz -pass pass:cartof" >> snakex
+  echo "cd ~" >> snakex
+  echo " " >> snakex
+  echo "fi" >> snakex
+  sudo rm -rf snake ; sudo chmod +x snakex ; sudo cp snakex /usr/local/bin ; rm -rf snakex ; cd ~ ; snake dsp
+
+
+  if [ "$(cat .bash_profile | grep -c 'alias snake=')" == "1" ]; then
+    echo "moo" >/dev/null
+  else
+    echo "alias snake=snakex" >> .bash_profile
+    source .bash_profile
+  fi
+
+}
+
+
+_back(){
+
+   cd ~/.spx
+   openssl des -d -in snake.sslz -out snake -pass pass:cartof >/dev/null 2>&1
+   sh snake -qinstall
+   cd ~
+   cat .bash_profile | sed 's/alias snake=\"snakex\"//g' >> .new_profile >/dev/null 2>&1
+   sudo rm -rf .spx
+   sudo rm -rf /usr/local/bin/snakex
+   sudo rm -rf .bash_profile ; sudo mv .new_profile .bash_profile
+   source .bash_profile >/dev/null 2>&1
+
+
 }
 
 
 _a_p(){ #selfc
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp _loc ./snake
  cat snake | sed "s/magic/$1/g" > snake2
  sudo rm -rf snake ; sudo mv snake2 snake ; sh snake -qinstall ; sudo rm -rf snake
 
@@ -5269,6 +5470,19 @@ _t_melt(){ #selfc
 _c_melt(){ #selfc
 
 
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
+
+
   _system="$(uname -s)"
 
 
@@ -5282,8 +5496,9 @@ _c_melt(){ #selfc
    _new="$(echo $1 | rev )"
 
 
+  cd ~
   mkdir blana ; cd blana
-  sudo cp /usr/local/bin/snake ./snake
+  sudo cp $_loc ./snake
   sudo cp snake snake2
   sh snake -uninstall
   sudo rm -rf snake
@@ -5299,7 +5514,8 @@ elif [[ $_system == "Linux" ]]; then
   _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
   _new="$(echo $1 | rev )"
 
-  sudo cp /usr/local/bin/snake ./snake
+  cd ~
+  sudo cp $_loc ./snake
   sudo cp snake snake2
   cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
   sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x $_new ; sudo cp $_new /usr/local/bin/
@@ -5314,7 +5530,7 @@ elif [[ $_system == "GNU" ]]; then
   _new="$(echo $1 | rev )"
 
  su
- cp /usr/local/bin/snake ./snake
+ cp $_loc ./snake
  cp snake snake2
  sh snake -uninstall
  rm -rf snake
@@ -5339,7 +5555,7 @@ elif [[ $_system == "HP-UX" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5354,7 +5570,7 @@ elif [[ $_system == "Minix" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5367,7 +5583,7 @@ elif [[ $_system == "OpenBSD" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5381,7 +5597,7 @@ elif [[ $_system == "SunOS" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5394,7 +5610,7 @@ elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5407,7 +5623,7 @@ elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5420,7 +5636,7 @@ elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5433,7 +5649,7 @@ elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5447,7 +5663,7 @@ elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5460,7 +5676,7 @@ elif [[ $_system == "OS/390" ]]; then
   _new="$(echo $1 | rev )"
 
 
- sudo cp /usr/local/bin/snake ./snake
+ sudo cp $_loc ./snake
  sudo cp snake snake2
  sh snake -uninstall
  sudo rm -rf snake
@@ -5474,12 +5690,30 @@ else
 
 fi
 
+if [ -f ~/.spx/snake ]; then
+
+  sudo rm -rf ~/.spx/snake
+
+fi
+
 
 }
 
 
 
 _melt(){ #selfc
+
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
 
 
     _system="$(uname -s)"
@@ -5496,12 +5730,14 @@ _melt(){ #selfc
      _converted=$( echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
      _revved=$( echo ${_names[$_rnd]} | rev)
 
-    sudo cp /usr/local/bin/snake ./snake
+    cd ~ ; mkdir muee ; cd muee
+    sudo cp $_loc ./snake
     sudo cp snake snake2
     sh snake -uninstall
     sudo rm -rf snake
     cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
-    sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+    sudo rm -rf snake2 ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+    cd .. ; sudo rm -rf muee
 
   elif [[ $_system == "Linux" ]]; then
 
@@ -5511,7 +5747,7 @@ _melt(){ #selfc
     _converted=$( echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
     _revved=$( echo ${_names[$_rnd]} | rev)
 
-    sudo cp /usr/local/bin/snake ./snake
+    sudo cp $_loc ./snake
     sudo cp snake snake2
     cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
     sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x ${_names[$_rnd]} ; sudo cp ${_names[$_rnd]} /usr/local/bin/
@@ -5595,10 +5831,28 @@ _melt(){ #selfc
 
   fi
 
+  if [ -f ~/.spx/snake ]; then
+
+    sudo rm -rf ~/.spx/snake
+
+  fi
+
 
 }
 
 _replicate(){ #selfc
+
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
 
 
     _system="$(uname -s)"
@@ -5615,7 +5869,7 @@ _replicate(){ #selfc
       _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
       _revved=$(echo ${_names[$_rnd]} | rev)
 
-       sudo cp /usr/local/bin/snake ./snake
+       sudo cp $_loc ./snake
        sudo cp snake snake2
        cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
        sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5628,7 +5882,7 @@ _replicate(){ #selfc
       _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
       _revved=$(echo ${_names[$_rnd]} | rev)
 
-       sudo cp /usr/local/bin/snake ./snake
+       sudo cp $_loc ./snake
        sudo cp snake snake2
        cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
        sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5641,7 +5895,7 @@ _replicate(){ #selfc
        _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
        _revved=$(echo ${_names[$_rnd]} | rev)
 
-        sudo cp /usr/local/bin/snake ./snake
+        sudo cp $_loc ./snake
         sudo cp snake snake2
         cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
         sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5654,7 +5908,7 @@ _replicate(){ #selfc
       _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
       _revved=$(echo ${_names[$_rnd]} | rev)
 
-       sudo cp /usr/local/bin/snake ./snake
+       sudo cp $_loc ./snake
        sudo cp snake snake2
        cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
        sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5668,7 +5922,7 @@ _replicate(){ #selfc
        _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
        _revved=$(echo ${_names[$_rnd]} | rev)
 
-        sudo cp /usr/local/bin/snake ./snake
+        sudo cp $_loc ./snake
         sudo cp snake snake2
         cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
         sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5683,7 +5937,7 @@ _replicate(){ #selfc
         _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
         _revved=$(echo ${_names[$_rnd]} | rev)
 
-         sudo cp /usr/local/bin/snake ./snake
+         sudo cp $_loc ./snake
          sudo cp snake snake2
          cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
          sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5696,7 +5950,7 @@ _replicate(){ #selfc
          _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
          _revved=$(echo ${_names[$_rnd]} | rev)
 
-          sudo cp /usr/local/bin/snake ./snake
+          sudo cp $_loc ./snake
           sudo cp snake snake2
           cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
           sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5709,7 +5963,7 @@ _replicate(){ #selfc
           _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
           _revved=$(echo ${_names[$_rnd]} | rev)
 
-           sudo cp /usr/local/bin/snake ./snake
+           sudo cp $_loc ./snake
            sudo cp snake snake2
            cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
            sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5722,7 +5976,7 @@ _replicate(){ #selfc
            _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
            _revved=$(echo ${_names[$_rnd]} | rev)
 
-            sudo cp /usr/local/bin/snake ./snake
+            sudo cp $_loc ./snake
             sudo cp snake snake2
             cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
             sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5735,7 +5989,7 @@ _replicate(){ #selfc
             _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
             _revved=$(echo ${_names[$_rnd]} | rev)
 
-             sudo cp /usr/local/bin/snake ./snake
+             sudo cp $_loc ./snake
              sudo cp snake snake2
              cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
              sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5748,7 +6002,7 @@ _replicate(){ #selfc
              _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
              _revved=$(echo ${_names[$_rnd]} | rev)
 
-              sudo cp /usr/local/bin/snake ./snake
+              sudo cp $_loc ./snake
               sudo cp snake snake2
               cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
               sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5762,7 +6016,7 @@ _replicate(){ #selfc
               _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
               _revved=$(echo ${_names[$_rnd]} | rev)
 
-               sudo cp /usr/local/bin/snake ./snake
+               sudo cp $_loc ./snake
                sudo cp snake snake2
                cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
                sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5775,7 +6029,7 @@ _replicate(){ #selfc
                _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
                _revved=$(echo ${_names[$_rnd]} | rev)
 
-                sudo cp /usr/local/bin/snake ./snake
+                sudo cp $_loc ./snake
                 sudo cp snake snake2
                 cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
                 sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5788,7 +6042,7 @@ _replicate(){ #selfc
            _converted=$(echo ${_names[$_rnd]} | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
            _revved=$(echo ${_names[$_rnd]} | rev)
 
-            sudo cp /usr/local/bin/snake ./snake
+            sudo cp $_loc ./snake
             sudo cp snake snake2
             cat snake2 | sed "s/snake/${_names[$_rnd]}/g" | sed "s/S.N.A.K.E/$_converted/g" > ${_names[$_rnd]}
             sudo rm -rf snake2 ; printf "$_revved\n" ; sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
@@ -5801,10 +6055,29 @@ _replicate(){ #selfc
 
     fi
 
+    if [ -f ~/.spx/snake ]; then
+
+      sudo rm -rf ~/.spx/snake
+
+    fi
+
 }
 
 
 _salt(){ #selfs
+
+
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
 
    _rnd=$[RANDOM%3]
 
@@ -5815,7 +6088,7 @@ _salt(){ #selfs
 
      _paths=("/Users" "/etc" "/tmp" "/")
 
-     sudo cp /usr/local/bin/snake ./snake
+     sudo cp $_loc ./snake
      sudo cp snake ${_paths[$_rnd]}/.snake
      sudo rm -rf snake
      printf "$_name salted to $RED${_paths[$_rnd]}$NC\n"
@@ -5833,7 +6106,7 @@ _salt(){ #selfs
        cd ~
        printf "$_name salted to $RED${_paths[$_rnd]}$NC\n"
      else
-       sudo cp /usr/local/bin/snake ./snake
+       sudo cp $_loc ./snake
        sudo cp snake ./.snake
        sudo rm -rf snake
        snake -meta -e .snake
@@ -5845,9 +6118,15 @@ _salt(){ #selfs
 
      _paths=("/Users" "/etc" "/tmp" "/")
 
-     sudo cp /usr/local/bin/snake ./snake
+     sudo cp $_loc ./snake
      sudo cp snake ${_paths[$_rnd]}/.snake
      sudo rm -rf snake
+
+   fi
+
+   if [ -f ~/.spx/snake ]; then
+
+     sudo rm -rf ~/.spx/snake
 
    fi
 
@@ -7892,8 +8171,8 @@ echo "alias ll=\"ls -FGlAh\"" >> $1
 echo "alias home=\"cd ~\"" >> $1
 echo "alias root=\"cd /\"" >> $1
 echo "alias ?=\"file\"" >> $1
-echo "alias _edit=\"nano ~/etc/profile\"" >> $1
-echo "alias _update\"source ~/etc/profile\"" >> $1
+echo "alias _edit=\"nano ~/.bash_profile\"" >> $1
+echo "alias _update\"source ~/.bash_profile\"" >> $1
 echo "alias refresh=\"_update ; clear\"" >> $1
 echo "alias relist=\"_update ; clear ; ls\"" >> $1
 echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> $1
@@ -7908,22 +8187,22 @@ echo " " >> $1
 echo "# Functions " >> $1
 echo " " >> $1
 echo "cd() { builtin cd \"\$@\"; ls ;}" >> $1
-echo "_+() { open -a \$1 \$1 }" >> $1
-echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> $1
-echo "_f() { open -a Finder ./ }" >> $1
-echo "space() { du -hs "\$@" | sort -nr; }" >> $1
+echo "_+() { open -a \$1 \$2 ;}" >> $1
+echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 ;}" >> $1
+echo "_f() { open -a Finder ./ ;}" >> $1
+echo "space() { du -hs \"\$@\" | sort -nr; }" >> $1
 echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> $1
 #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
 echo "destroy() { killall -9 appPID \"\$1\" ;}" >> $1
-echo "geolocate() { curl ipinfo.io/\$1 }" >> $1
-echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> $1
-echo "cheese() { imagesnap -w 1 -q }" >> $1
-echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> $1
+echo "geolocate() { curl ipinfo.io/\$1 ;}" >> $1
+echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' ;}" >> $1
+echo "cheese() { imagesnap -w 1 -q ;}" >> $1
+echo "wisconsin() { imagesnap -w 1 -q .snapshot.png ;}" >> $1
 echo "iwannafind() { mdfind \$2 \$1 }" >> $1
-echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> $1
-echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> $1
+echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) ;}" >> $1
+echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e ;}" >> $1
 echo "ports(){" >> $1
-echo "   for i in `seq \$1 \$2`;" >> $1
+echo "   for i in \`seq \$1 \$2\`;" >> $1
 echo "        do" >> $1
 echo "              echo \"проверка процессов для порта  \$i ->>\"" >> $1
 echo "              sudo lsof -i :\$i" >> $1
@@ -8002,614 +8281,76 @@ _inject(){ #selfi
     printf "$RED Injecting on macOS.$NC..\n"
     if [ "$1" == "-i" ]; then
 
-      if [ "$2" == "bash" ]; then
-      cd ~
-      sudo rm .profile
-      touch .profile
-      _echo_profile .profile
-      sudo rm -rf /etc/profile
-      sudo cp ./.profile /etc/profile
-      source /etc/profile
-      printf "$RED Injected$NC\n"
+           if [ "$2" == "bash" ]; then
+                cd ~
+                sudo rm .profile
+                touch .profile
+                _vomit .profile
+                sudo rm -rf /etc/profile
+                sudo cp ./.profile /etc/profile
+                source /etc/profile
+                printf "$RED Injected$NC\n"
 
-    elif [[ "$2" == "zsh" ]]; then
+           elif [[ "$2" == "zsh" ]]; then
 
-      cd ~
-      sudo rm .zprofile
-      touch .zprofile
-      echo " " >> .zprofile
-      echo "export PS1=\">>> \"" >> .zprofile
-      echo " " >> .zprofile
-      echo "# Aliases " >> .zprofile
-      echo " " >> .zprofile
-      echo "alias rip=\"sudo kill -9\"" >> .zprofile
-      echo "alias off=\"sudo airport -z\"" >> .zprofile
-      echo "alias lock=\"pmset displaysleepnow\"" >> .zprofile
-      echo "alias die=\"killall Terminal\"" >> .zprofile
-      echo "alias ll=\"ls -FGlAh\"" >> .zprofile
-      echo "alias home=\"cd ~\"" >> .zprofile
-      echo "alias root=\"cd /\"" >> .zprofile
-      echo "alias ?=\"file\"" >> .zprofile
-      echo "alias _edit=\"nano ~/etc/profile\"" >> .zprofile
-      echo "alias _update\"source ~/etc/profile\"" >> .zprofile
-      echo "alias refresh=\"_update ; clear\"" >> .zprofile
-      echo "alias relist=\"_update ; clear ; ls\"" >> .zprofile
-      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .zprofile
-      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .zprofile
-      echo "alias rn=\"react-native\"" >> .zprofile
-      echo "alias ther=\"while true" >> .zprofile
-      echo "do" >> .zprofile
-      echo "    temp" >> .zprofile
-      echo "    sleep 7" >> .zprofile
-      echo "done\"" >> .zprofile
-      echo " " >> .zprofile
-      echo "# Functions " >> .zprofile
-      echo " " >> .zprofile
-      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .zprofile
-      echo "_+() { open -a \$1 \$1 }" >> .zprofile
-      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .zprofile
-      echo "_f() { open -a Finder ./ }" >> .zprofile
-      echo "space() { du -hs "\$@" | sort -nr; }" >> .zprofile
-      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .zprofile
-    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
-      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .zprofile
-      echo "geolocate() { curl ipinfo.io/\$1 }" >> .zprofile
-      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .zprofile
-      echo "cheese() { imagesnap -w 1 -q }" >> .zprofile
-      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .zprofile
-      echo "iwannafind() { mdfind \$2 \$1 }" >> .zprofile
-      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .zprofile
-      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .zprofile
-      echo "ports(){" >> .zprofile
-      echo "   for i in `seq \$1 \$2`;" >> .zprofile
-      echo "        do" >> .zprofile
-      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .zprofile
-      echo "              sudo lsof -i :\$i" >> .zprofile
-      echo "        done" >> .zprofile
-      echo "}" >> .zprofile
-      echo "thermic(){" >> .zprofile
-      echo "while true" >> .zprofile
-      echo "do" >> .zprofile
-      echo "    temp" >> .zprofile
-      echo "    sleep \$1" >> .zprofile
-      echo "done" >> .zprofile
-      echo "}" >> .zprofile
-      echo "temp(){" >> .zprofile
-      echo "   WHITE='\e[1;97m'" >> .zprofile
-      echo "   NC='\033[0m'" >> .zprofile
-      echo "   clear" >> .zprofile
-      echo "   istats | sed '\$d'" >> .zprofile
-      echo "   printf \"\$WHITE\n\"" >> .zprofile
-      echo "   date" >> .zprofile
-      echo "   printf \"\$NC\n\"" >> .zprofile
-      echo "}" >> .zprofile
-      echo " " >> .zprofile
-      echo "# Color functions " >> .zprofile
-      echo " " >> .zprofile
-      echo "_green(){" >> .zprofile
-      echo "   GREEN='\e[1;92m'" >> .zprofile
-      echo "   clear" >> .zprofile
-      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .zprofile
-      echo "   date" >> .zprofile
-      echo "}" >> .zprofile
-      echo "_white(){" >> .zprofile
-      echo "   WHITE='\e[1;97m'" >> .zprofile
-      echo "   clear" >> .zprofile
-      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .zprofile
-      echo "   date" >> .zprofile
-      echo "}" >> .zprofile
-      echo "_yellow(){" >> .zprofile
-      echo "   YELLOW='\e[1;93m'" >> .zprofile
-      echo "   clear" >> .zprofile
-      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .zprofile
-      echo "   date" >> .zprofile
-      echo "}" >> .zprofile
-      echo "_red(){" >> .zprofile
-      echo "   RED='\e[1;91m'" >> .zprofile
-      echo "   clear" >> .zprofile
-      echo "   printf \"\$RED Red Bold Activate\n\"" >> .zprofile
-      echo "   date" >> .zprofile
-      echo "}" >> .zprofile
-      echo "_cyan(){" >> .zprofile
-      echo "   CYAN='\e[1;96m'" >> .zprofile
-      echo "   clear" >> .zprofile
-      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .zprofile
-      echo "   date" >> .zprofile
-      echo "}" >> .zprofile
-      echo "_normal(){" >> .zprofile
-      echo "   NC='\033[0m'" >> .zprofile
-      echo "   clear" >> .zprofile
-      echo "   printf \"\$NC Text Normalized\n\"" >> .zprofile
-      echo "   date" >> .zprofile
-      echo "}" >> .zprofile
-      echo "quietTextRestore(){" >> .zprofile
-      echo "   NC='\033[0m'" >> .zprofile
-      echo "   printf \"\$NC\n\"" >> .zprofile
-      echo "}" >> .zprofile
-      sudo rm -rf /etc/zprofile
-      sudo cp ./.profile /etc/zprofile
-      source /etc/zprofile
-      printf "$RED Injected$NC\n"
-    else
-      cd ~
-      sudo rm .profile
-      touch .profile
-      echo " " >> .profile
-      echo "export PS1=\">>> \"" >> .profile
-      echo " " >> .profile
-      echo "# Aliases " >> .profile
-      echo " " >> .profile
-      echo "alias rip=\"sudo kill -9\"" >> .profile
-      echo "alias off=\"sudo airport -z\"" >> .profile
-      echo "alias lock=\"pmset displaysleepnow\"" >> .profile
-      echo "alias die=\"killall Terminal\"" >> .profile
-      echo "alias ll=\"ls -FGlAh\"" >> .profile
-      echo "alias home=\"cd ~\"" >> .profile
-      echo "alias root=\"cd /\"" >> .profile
-      echo "alias ?=\"file\"" >> .profile
-      echo "alias _edit=\"nano ~/etc/profile\"" >> .profile
-      echo "alias _update\"source ~/etc/profile\"" >> .profile
-      echo "alias refresh=\"_update ; clear\"" >> .profile
-      echo "alias relist=\"_update ; clear ; ls\"" >> .profile
-      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .profile
-      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .profile
-      echo "alias rn=\"react-native\"" >> .profile
-      echo "alias ther=\"while true" >> .profile
-      echo "do" >> .profile
-      echo "    temp" >> .profile
-      echo "    sleep 7" >> .profile
-      echo "done\"" >> .profile
-      echo " " >> .profile
-      echo "# Functions " >> .profile
-      echo " " >> .profile
-      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .profile
-      echo "_+() { open -a \$1 \$1 }" >> .profile
-      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .profile
-      echo "_f() { open -a Finder ./ }" >> .profile
-      echo "space() { du -hs "\$@" | sort -nr; }" >> .profile
-      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .profile
-    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
-      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .profile
-      echo "geolocate() { curl ipinfo.io/\$1 }" >> .profile
-      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .profile
-      echo "cheese() { imagesnap -w 1 -q }" >> .profile
-      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .profile
-      echo "iwannafind() { mdfind \$2 \$1 }" >> .profile
-      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .profile
-      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .profile
-      echo "ports(){" >> .profile
-      echo "   for i in `seq \$1 \$2`;" >> .profile
-      echo "        do" >> .profile
-      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .profile
-      echo "              sudo lsof -i :\$i" >> .profile
-      echo "        done" >> .profile
-      echo "}" >> .profile
-      echo "thermic(){" >> .profile
-      echo "while true" >> .profile
-      echo "do" >> .profile
-      echo "    temp" >> .profile
-      echo "    sleep \$1" >> .profile
-      echo "done" >> .profile
-      echo "}" >> .profile
-      echo "temp(){" >> .profile
-      echo "   WHITE='\e[1;97m'" >> .profile
-      echo "   NC='\033[0m'" >> .profile
-      echo "   clear" >> .profile
-      echo "   istats | sed '\$d'" >> .profile
-      echo "   printf \"\$WHITE\n\"" >> .profile
-      echo "   date" >> .profile
-      echo "   printf \"\$NC\n\"" >> .profile
-      echo "}" >> .profile
-      echo " " >> .profile
-      echo "# Color functions " >> .profile
-      echo " " >> .profile
-      echo "_green(){" >> .profile
-      echo "   GREEN='\e[1;92m'" >> .profile
-      echo "   clear" >> .profile
-      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .profile
-      echo "   date" >> .profile
-      echo "}" >> .profile
-      echo "_white(){" >> .profile
-      echo "   WHITE='\e[1;97m'" >> .profile
-      echo "   clear" >> .profile
-      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .profile
-      echo "   date" >> .profile
-      echo "}" >> .profile
-      echo "_yellow(){" >> .profile
-      echo "   YELLOW='\e[1;93m'" >> .profile
-      echo "   clear" >> .profile
-      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .profile
-      echo "   date" >> .profile
-      echo "}" >> .profile
-      echo "_red(){" >> .profile
-      echo "   RED='\e[1;91m'" >> .profile
-      echo "   clear" >> .profile
-      echo "   printf \"\$RED Red Bold Activate\n\"" >> .profile
-      echo "   date" >> .profile
-      echo "}" >> .profile
-      echo "_cyan(){" >> .profile
-      echo "   CYAN='\e[1;96m'" >> .profile
-      echo "   clear" >> .profile
-      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .profile
-      echo "   date" >> .profile
-      echo "}" >> .profile
-      echo "_normal(){" >> .profile
-      echo "   NC='\033[0m'" >> .profile
-      echo "   clear" >> .profile
-      echo "   printf \"\$NC Text Normalized\n\"" >> .profile
-      echo "   date" >> .profile
-      echo "}" >> .profile
-      echo "quietTextRestore(){" >> .profile
-      echo "   NC='\033[0m'" >> .profile
-      echo "   printf \"\$NC\n\"" >> .profile
-      echo "}" >> .profile
-      sudo rm -rf /etc/profile
-      sudo cp ./.profile /etc/profile
-      source /etc/profile
-      printf "$RED Injected$NC\n"
-    fi
+                cd ~
+                sudo rm .zprofile
+                touch .zprofile
+                _vomit .zprofile
+                sudo rm -rf /etc/zprofile
+                sudo cp ./.profile /etc/zprofile
+                source /etc/zprofile
+                printf "$RED Injected$NC\n"
+
+           else
+                cd ~
+                sudo rm .profile
+                touch .profile
+                _vomit .profile
+                sudo rm -rf /etc/profile
+                sudo cp ./.profile /etc/profile
+                source /etc/profile
+                printf "$RED Injected$NC\n"
+           fi
 
     elif [[ "$1" == "-e" ]]; then
 
-    if [ "$2" == "bash" ]; then
+           if [ "$2" == "bash" ]; then
 
-      cd ~
-      sudo rm .bash_profile
-      touch .bash_profile
-      echo " " >> .bash_profile
-      echo "export PS1=\">>> \"" >> .bash_profile
-      echo " " >> .bash_profile
-      echo "# Aliases " >> .bash_profile
-      echo " " >> .bash_profile
-      echo "alias rip=\"sudo kill -9\"" >> .bash_profile
-      echo "alias off=\"sudo airport -z\"" >> .bash_profile
-      echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
-      echo "alias die=\"killall Terminal\"" >> .bash_profile
-      echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
-      echo "alias home=\"cd ~\"" >> .bash_profile
-      echo "alias root=\"cd /\"" >> .bash_profile
-      echo "alias ?=\"file\"" >> .bash_profile
-      echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
-      echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
-      echo "alias refresh=\"_update ; clear\"" >> .bash_profile
-      echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
-      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
-      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
-      echo "alias rn=\"react-native\"" >> .bash_profile
-      echo "alias ther=\"while true" >> .bash_profile
-      echo "do" >> .bash_profile
-      echo "    temp" >> .bash_profile
-      echo "    sleep 7" >> .bash_profile
-      echo "done\"" >> .bash_profile
-      echo " " >> .bash_profile
-      echo "# Functions " >> .bash_profile
-      echo " " >> .bash_profile
-      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
-      echo "_+() { open -a \$1 \$1 }" >> .bash_profile
-      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
-      echo "_f() { open -a Finder ./ }" >> .bash_profile
-      echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
-      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
-    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
-      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
-      echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
-      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
-      echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
-      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
-      echo "iwannafind() { mdfind \$2 \$1 }" >> .bash_profile
-      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .bash_profile
-      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .bash_profile
-      echo "ports(){" >> .bash_profile
-      echo "   for i in `seq \$1 \$2`;" >> .bash_profile
-      echo "        do" >> .bash_profile
-      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
-      echo "              sudo lsof -i :\$i" >> .bash_profile
-      echo "        done" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "thermic(){" >> .bash_profile
-      echo "while true" >> .bash_profile
-      echo "do" >> .bash_profile
-      echo "    temp" >> .bash_profile
-      echo "    sleep \$1" >> .bash_profile
-      echo "done" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "temp(){" >> .bash_profile
-      echo "   WHITE='\e[1;97m'" >> .bash_profile
-      echo "   NC='\033[0m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   istats | sed '\$d'" >> .bash_profile
-      echo "   printf \"\$WHITE\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "   printf \"\$NC\n\"" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo " " >> .bash_profile
-      echo "# Color functions " >> .bash_profile
-      echo " " >> .bash_profile
-      echo "_green(){" >> .bash_profile
-      echo "   GREEN='\e[1;92m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_white(){" >> .bash_profile
-      echo "   WHITE='\e[1;97m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_yellow(){" >> .bash_profile
-      echo "   YELLOW='\e[1;93m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_red(){" >> .bash_profile
-      echo "   RED='\e[1;91m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$RED Red Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_cyan(){" >> .bash_profile
-      echo "   CYAN='\e[1;96m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_normal(){" >> .bash_profile
-      echo "   NC='\033[0m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$NC Text Normalized\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "quietTextRestore(){" >> .bash_profile
-      echo "   NC='\033[0m'" >> .bash_profile
-      echo "   printf \"\$NC\n\"" >> .bash_profile
-      echo "}" >> .bash_profile
-      source ./.bash_profile
-      printf "$RED Injected$NC\n"
-      printf "$RED Resetting in 10 seconds..$NC.\n"
-      sleep 3
-      _poof
+                cd ~
+                sudo rm .bash_profile
+                touch .bash_profile
+                _vomit .bash_profile
+                source .bash_profile
+                printf "$RED Injected$NC\n"
+                printf "$RED Resetting in 10 seconds..$NC.\n"
+                sleep 3
+                _poof
 
-    elif [[ "$2" == "zsh" ]]; then
+           elif [[ "$2" == "zsh" ]]; then
 
-      cd ~
-      sudo rm .bash_profile
-      touch .bash_profile
-      echo " " >> .bash_profile
-      echo "export PS1=\">>> \"" >> .bash_profile
-      echo " " >> .bash_profile
-      echo "# Aliases " >> .bash_profile
-      echo " " >> .bash_profile
-      echo "alias rip=\"sudo kill -9\"" >> .bash_profile
-      echo "alias off=\"sudo airport -z\"" >> .bash_profile
-      echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
-      echo "alias die=\"killall Terminal\"" >> .bash_profile
-      echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
-      echo "alias home=\"cd ~\"" >> .bash_profile
-      echo "alias root=\"cd /\"" >> .bash_profile
-      echo "alias ?=\"file\"" >> .bash_profile
-      echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
-      echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
-      echo "alias refresh=\"_update ; clear\"" >> .bash_profile
-      echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
-      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
-      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
-      echo "alias rn=\"react-native\"" >> .bash_profile
-      echo "alias ther=\"while true" >> .bash_profile
-      echo "do" >> .bash_profile
-      echo "    temp" >> .bash_profile
-      echo "    sleep 7" >> .bash_profile
-      echo "done\"" >> .bash_profile
-      echo " " >> .bash_profile
-      echo "# Functions " >> .bash_profile
-      echo " " >> .bash_profile
-      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
-      echo "_+() { open -a \$1 \$1 }" >> .bash_profile
-      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
-      echo "_f() { open -a Finder ./ }" >> .bash_profile
-      echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
-      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
-    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
-      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
-      echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
-      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
-      echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
-      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
-      echo "iwannafind() { mdfind \$2 \$1 }" >> .bash_profile
-      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .bash_profile
-      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .bash_profile
-      echo "ports(){" >> .bash_profile
-      echo "   for i in `seq \$1 \$2`;" >> .bash_profile
-      echo "        do" >> .bash_profile
-      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
-      echo "              sudo lsof -i :\$i" >> .bash_profile
-      echo "        done" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "thermic(){" >> .bash_profile
-      echo "while true" >> .bash_profile
-      echo "do" >> .bash_profile
-      echo "    temp" >> .bash_profile
-      echo "    sleep \$1" >> .bash_profile
-      echo "done" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "temp(){" >> .bash_profile
-      echo "   WHITE='\e[1;97m'" >> .bash_profile
-      echo "   NC='\033[0m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   istats | sed '\$d'" >> .bash_profile
-      echo "   printf \"\$WHITE\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "   printf \"\$NC\n\"" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo " " >> .bash_profile
-      echo "# Color functions " >> .bash_profile
-      echo " " >> .bash_profile
-      echo "_green(){" >> .bash_profile
-      echo "   GREEN='\e[1;92m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_white(){" >> .bash_profile
-      echo "   WHITE='\e[1;97m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_yellow(){" >> .bash_profile
-      echo "   YELLOW='\e[1;93m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_red(){" >> .bash_profile
-      echo "   RED='\e[1;91m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$RED Red Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_cyan(){" >> .bash_profile
-      echo "   CYAN='\e[1;96m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_normal(){" >> .bash_profile
-      echo "   NC='\033[0m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$NC Text Normalized\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "quietTextRestore(){" >> .bash_profile
-      echo "   NC='\033[0m'" >> .bash_profile
-      echo "   printf \"\$NC\n\"" >> .bash_profile
-      echo "}" >> .bash_profile
-      source ./.bash_profile
-      printf "$RED Injected$NC\n"
-      printf "$RED Resetting in 10 seconds..$NC.\n"
-      sleep 3
-      _poof
-    else
+                cd ~
+                sudo rm .bash_profile
+                touch .bash_profile
+                _vomit .bash_profile
+                source .bash_profile
+                printf "$RED Injected$NC\n"
+                printf "$RED Resetting in 10 seconds..$NC.\n"
+                sleep 3
+                _poof
 
-      cd ~
-      sudo rm .bash_profile
-      touch .bash_profile
-      echo " " >> .bash_profile
-      echo "export PS1=\">>> \"" >> .bash_profile
-      echo " " >> .bash_profile
-      echo "# Aliases " >> .bash_profile
-      echo " " >> .bash_profile
-      echo "alias rip=\"sudo kill -9\"" >> .bash_profile
-      echo "alias off=\"sudo airport -z\"" >> .bash_profile
-      echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
-      echo "alias die=\"killall Terminal\"" >> .bash_profile
-      echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
-      echo "alias home=\"cd ~\"" >> .bash_profile
-      echo "alias root=\"cd /\"" >> .bash_profile
-      echo "alias ?=\"file\"" >> .bash_profile
-      echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
-      echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
-      echo "alias refresh=\"_update ; clear\"" >> .bash_profile
-      echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
-      echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
-      echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
-      echo "alias rn=\"react-native\"" >> .bash_profile
-      echo "alias ther=\"while true" >> .bash_profile
-      echo "do" >> .bash_profile
-      echo "    temp" >> .bash_profile
-      echo "    sleep 7" >> .bash_profile
-      echo "done\"" >> .bash_profile
-      echo " " >> .bash_profile
-      echo "# Functions " >> .bash_profile
-      echo " " >> .bash_profile
-      echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
-      echo "_+() { open -a \$1 \$1 }" >> .bash_profile
-      echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
-      echo "_f() { open -a Finder ./ }" >> .bash_profile
-      echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
-      echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
-    #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
-      echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
-      echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
-      echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
-      echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
-      echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
-      echo "iwannafind() { mdfind \$2 \$1 }" >> .bash_profile
-      echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .bash_profile
-      echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .bash_profile
-      echo "ports(){" >> .bash_profile
-      echo "   for i in `seq \$1 \$2`;" >> .bash_profile
-      echo "        do" >> .bash_profile
-      echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
-      echo "              sudo lsof -i :\$i" >> .bash_profile
-      echo "        done" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "thermic(){" >> .bash_profile
-      echo "while true" >> .bash_profile
-      echo "do" >> .bash_profile
-      echo "    temp" >> .bash_profile
-      echo "    sleep \$1" >> .bash_profile
-      echo "done" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "temp(){" >> .bash_profile
-      echo "   WHITE='\e[1;97m'" >> .bash_profile
-      echo "   NC='\033[0m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   istats | sed '\$d'" >> .bash_profile
-      echo "   printf \"\$WHITE\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "   printf \"\$NC\n\"" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo " " >> .bash_profile
-      echo "# Color functions " >> .bash_profile
-      echo " " >> .bash_profile
-      echo "_green(){" >> .bash_profile
-      echo "   GREEN='\e[1;92m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_white(){" >> .bash_profile
-      echo "   WHITE='\e[1;97m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_yellow(){" >> .bash_profile
-      echo "   YELLOW='\e[1;93m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_red(){" >> .bash_profile
-      echo "   RED='\e[1;91m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$RED Red Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_cyan(){" >> .bash_profile
-      echo "   CYAN='\e[1;96m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "_normal(){" >> .bash_profile
-      echo "   NC='\033[0m'" >> .bash_profile
-      echo "   clear" >> .bash_profile
-      echo "   printf \"\$NC Text Normalized\n\"" >> .bash_profile
-      echo "   date" >> .bash_profile
-      echo "}" >> .bash_profile
-      echo "quietTextRestore(){" >> .bash_profile
-      echo "   NC='\033[0m'" >> .bash_profile
-      echo "   printf \"\$NC\n\"" >> .bash_profile
-      echo "}" >> .bash_profile
-      source ./.bash_profile
-      printf "$RED Injected$NC\n"
-      printf "$RED Resetting in 10 seconds..$NC.\n"
-      sleep 3
-      _poof
-    fi
+           else
+
+                cd ~
+                sudo rm .bash_profile
+                touch .bash_profile
+                _vomit .bash_profile
+                source ./.bash_profile
+                printf "$RED Injected$NC\n"
+                printf "$RED Resetting in 10 seconds..$NC.\n"
+                sleep 3
+                _poof
+           fi
 
     else
 
@@ -8617,230 +8358,14 @@ _inject(){ #selfi
          cd ~
          sudo rm .profile
          touch .profile
-         echo " " >> .profile
-         echo "export PS1=\">>> \"" >> .profile
-         echo " " >> .profile
-         echo "# Aliases " >> .profile
-         echo " " >> .profile
-         echo "alias rip=\"sudo kill -9\"" >> .profile
-         echo "alias off=\"sudo airport -z\"" >> .profile
-         echo "alias lock=\"pmset displaysleepnow\"" >> .profile
-         echo "alias die=\"killall Terminal\"" >> .profile
-         echo "alias ll=\"ls -FGlAh\"" >> .profile
-         echo "alias home=\"cd ~\"" >> .profile
-         echo "alias root=\"cd /\"" >> .profile
-         echo "alias ?=\"file\"" >> .profile
-         echo "alias _edit=\"nano ~/etc/profile\"" >> .profile
-         echo "alias _update\"source ~/etc/profile\"" >> .profile
-         echo "alias refresh=\"_update ; clear\"" >> .profile
-         echo "alias relist=\"_update ; clear ; ls\"" >> .profile
-         echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .profile
-         echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .profile
-         echo "alias rn=\"react-native\"" >> .profile
-         echo "alias ther=\"while true" >> .profile
-         echo "do" >> .profile
-         echo "    temp" >> .profile
-         echo "    sleep 7" >> .profile
-         echo "done\"" >> .profile
-         echo " " >> .profile
-         echo "# Functions " >> .profile
-         echo " " >> .profile
-         echo "cd() { builtin cd \"\$@\"; ls ;}" >> .profile
-         echo "_+() { open -a \$1 \$1 }" >> .profile
-         echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .profile
-         echo "_f() { open -a Finder ./ }" >> .profile
-         echo "space() { du -hs "\$@" | sort -nr; }" >> .profile
-         echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .profile
-       #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
-         echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .profile
-         echo "geolocate() { curl ipinfo.io/\$1 }" >> .profile
-         echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .profile
-         echo "cheese() { imagesnap -w 1 -q }" >> .profile
-         echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .profile
-         echo "iwannafind() { mdfind \$2 \$1 }" >> .profile
-         echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .profile
-         echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .profile
-         echo "ports(){" >> .profile
-         echo "   for i in `seq \$1 \$2`;" >> .profile
-         echo "        do" >> .profile
-         echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .profile
-         echo "              sudo lsof -i :\$i" >> .profile
-         echo "        done" >> .profile
-         echo "}" >> .profile
-         echo "thermic(){" >> .profile
-         echo "while true" >> .profile
-         echo "do" >> .profile
-         echo "    temp" >> .profile
-         echo "    sleep \$1" >> .profile
-         echo "done" >> .profile
-         echo "}" >> .profile
-         echo "temp(){" >> .profile
-         echo "   WHITE='\e[1;97m'" >> .profile
-         echo "   NC='\033[0m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   istats | sed '\$d'" >> .profile
-         echo "   printf \"\$WHITE\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "   printf \"\$NC\n\"" >> .profile
-         echo "}" >> .profile
-         echo " " >> .profile
-         echo "# Color functions " >> .profile
-         echo " " >> .profile
-         echo "_green(){" >> .profile
-         echo "   GREEN='\e[1;92m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_white(){" >> .profile
-         echo "   WHITE='\e[1;97m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$WHITE White Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_yellow(){" >> .profile
-         echo "   YELLOW='\e[1;93m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_red(){" >> .profile
-         echo "   RED='\e[1;91m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$RED Red Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_cyan(){" >> .profile
-         echo "   CYAN='\e[1;96m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_normal(){" >> .profile
-         echo "   NC='\033[0m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$NC Text Normalized\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "quietTextRestore(){" >> .profile
-         echo "   NC='\033[0m'" >> .profile
-         echo "   printf \"\$NC\n\"" >> .profile
-         echo "}" >> .profile
+         _vomit .profile
          sudo rm -rf /etc/profile
          sudo cp ./.profile /etc/profile
          source /etc/profile
          cd ~
          sudo rm .bash_profile
          touch .bash_profile
-         echo " " >> .bash_profile
-         echo "export PS1=\">>> \"" >> .bash_profile
-         echo " " >> .bash_profile
-         echo "# Aliases " >> .bash_profile
-         echo " " >> .bash_profile
-         echo "alias rip=\"sudo kill -9\"" >> .bash_profile
-         echo "alias off=\"sudo airport -z\"" >> .bash_profile
-         echo "alias lock=\"pmset displaysleepnow\"" >> .bash_profile
-         echo "alias die=\"killall Terminal\"" >> .bash_profile
-         echo "alias ll=\"ls -FGlAh\"" >> .bash_profile
-         echo "alias home=\"cd ~\"" >> .bash_profile
-         echo "alias root=\"cd /\"" >> .bash_profile
-         echo "alias ?=\"file\"" >> .bash_profile
-         echo "alias _edit=\"nano ~/.bash_profile\"" >> .bash_profile
-         echo "alias _update\"source ~/.bash_profile\"" >> .bash_profile
-         echo "alias refresh=\"_update ; clear\"" >> .bash_profile
-         echo "alias relist=\"_update ; clear ; ls\"" >> .bash_profile
-         echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bash_profile
-         echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bash_profile
-         echo "alias rn=\"react-native\"" >> .bash_profile
-         echo "alias ther=\"while true" >> .bash_profile
-         echo "do" >> .bash_profile
-         echo "    temp" >> .bash_profile
-         echo "    sleep 7" >> .bash_profile
-         echo "done\"" >> .bash_profile
-         echo " " >> .bash_profile
-         echo "# Functions " >> .bash_profile
-         echo " " >> .bash_profile
-         echo "cd() { builtin cd \"\$@\"; ls ;}" >> .bash_profile
-         echo "_+() { open -a \$1 \$1 }" >> .bash_profile
-         echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bash_profile
-         echo "_f() { open -a Finder ./ }" >> .bash_profile
-         echo "space() { du -hs "\$@" | sort -nr; }" >> .bash_profile
-         echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .bash_profile
-       #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
-         echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .bash_profile
-         echo "geolocate() { curl ipinfo.io/\$1 }" >> .bash_profile
-         echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bash_profile
-         echo "cheese() { imagesnap -w 1 -q }" >> .bash_profile
-         echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bash_profile
-         echo "iwannafind() { mdfind \$2 \$1 }" >> .bash_profile
-         echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .bash_profile
-         echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .bash_profile
-         echo "ports(){" >> .bash_profile
-         echo "   for i in `seq \$1 \$2`;" >> .bash_profile
-         echo "        do" >> .bash_profile
-         echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bash_profile
-         echo "              sudo lsof -i :\$i" >> .bash_profile
-         echo "        done" >> .bash_profile
-         echo "}" >> .bash_profile
-         echo "thermic(){" >> .bash_profile
-         echo "while true" >> .bash_profile
-         echo "do" >> .bash_profile
-         echo "    temp" >> .bash_profile
-         echo "    sleep \$1" >> .bash_profile
-         echo "done" >> .bash_profile
-         echo "}" >> .bash_profile
-         echo "temp(){" >> .bash_profile
-         echo "   WHITE='\e[1;97m'" >> .bash_profile
-         echo "   NC='\033[0m'" >> .bash_profile
-         echo "   clear" >> .bash_profile
-         echo "   istats | sed '\$d'" >> .bash_profile
-         echo "   printf \"\$WHITE\n\"" >> .bash_profile
-         echo "   date" >> .bash_profile
-         echo "   printf \"\$NC\n\"" >> .bash_profile
-         echo "}" >> .bash_profile
-         echo " " >> .bash_profile
-         echo "# Color functions " >> .bash_profile
-         echo " " >> .bash_profile
-         echo "_green(){" >> .bash_profile
-         echo "   GREEN='\e[1;92m'" >> .bash_profile
-         echo "   clear" >> .bash_profile
-         echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bash_profile
-         echo "   date" >> .bash_profile
-         echo "}" >> .bash_profile
-         echo "_white(){" >> .bash_profile
-         echo "   WHITE='\e[1;97m'" >> .bash_profile
-         echo "   clear" >> .bash_profile
-         echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bash_profile
-         echo "   date" >> .bash_profile
-         echo "}" >> .bash_profile
-         echo "_yellow(){" >> .bash_profile
-         echo "   YELLOW='\e[1;93m'" >> .bash_profile
-         echo "   clear" >> .bash_profile
-         echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bash_profile
-         echo "   date" >> .bash_profile
-         echo "}" >> .bash_profile
-         echo "_red(){" >> .bash_profile
-         echo "   RED='\e[1;91m'" >> .bash_profile
-         echo "   clear" >> .bash_profile
-         echo "   printf \"\$RED Red Bold Activate\n\"" >> .bash_profile
-         echo "   date" >> .bash_profile
-         echo "}" >> .bash_profile
-         echo "_cyan(){" >> .bash_profile
-         echo "   CYAN='\e[1;96m'" >> .bash_profile
-         echo "   clear" >> .bash_profile
-         echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bash_profile
-         echo "   date" >> .bash_profile
-         echo "}" >> .bash_profile
-         echo "_normal(){" >> .bash_profile
-         echo "   NC='\033[0m'" >> .bash_profile
-         echo "   clear" >> .bash_profile
-         echo "   printf \"\$NC Text Normalized\n\"" >> .bash_profile
-         echo "   date" >> .bash_profile
-         echo "}" >> .bash_profile
-         echo "quietTextRestore(){" >> .bash_profile
-         echo "   NC='\033[0m'" >> .bash_profile
-         echo "   printf \"\$NC\n\"" >> .bash_profile
-         echo "}" >> .bash_profile
+         _vomit .bash_profile
          source ./.bash_profile
          printf "$RED Injected$NC\n"
          printf "$RED Resetting in 10 seconds..$NC.\n"
@@ -8852,277 +8377,13 @@ _inject(){ #selfi
          cd ~
          sudo rm .profile
          touch .profile
-         echo " " >> .profile
-         echo "export PS1=\">>> \"" >> .profile
-         echo " " >> .profile
-         echo "# Aliases " >> .profile
-         echo " " >> .profile
-         echo "alias rip=\"sudo kill -9\"" >> .profile
-         echo "alias off=\"sudo airport -z\"" >> .profile
-         echo "alias lock=\"pmset displaysleepnow\"" >> .profile
-         echo "alias die=\"killall Terminal\"" >> .profile
-         echo "alias ll=\"ls -FGlAh\"" >> .profile
-         echo "alias home=\"cd ~\"" >> .profile
-         echo "alias root=\"cd /\"" >> .profile
-         echo "alias ?=\"file\"" >> .profile
-         echo "alias _edit=\"nano ~/etc/profile\"" >> .profile
-         echo "alias _update\"source ~/etc/profile\"" >> .profile
-         echo "alias refresh=\"_update ; clear\"" >> .profile
-         echo "alias relist=\"_update ; clear ; ls\"" >> .profile
-         echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .profile
-         echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .profile
-         echo "alias rn=\"react-native\"" >> .profile
-         echo "alias ther=\"while true" >> .profile
-         echo "do" >> .profile
-         echo "    temp" >> .profile
-         echo "    sleep 7" >> .profile
-         echo "done\"" >> .profile
-         echo " " >> .profile
-         echo "# Functions " >> .profile
-         echo " " >> .profile
-         echo "cd() { builtin cd \"\$@\"; ls ;}" >> .profile
-         echo "_+() { open -a \$1 \$1 }" >> .profile
-         echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .profile
-         echo "_f() { open -a Finder ./ }" >> .profile
-         echo "space() { du -hs "\$@" | sort -nr; }" >> .profile
-         echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> .profile
-       #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
-         echo "destroy() { killall -9 appPID \"\$1\" ;}" >> .profile
-         echo "geolocate() { curl ipinfo.io/\$1 }" >> .profile
-         echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .profile
-         echo "cheese() { imagesnap -w 1 -q }" >> .profile
-         echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .profile
-         echo "iwannafind() { mdfind \$2 \$1 }" >> .profile
-         echo "iwannasee() { clear ; cat \$(mdfind \$2 \$1) }" >> .profile
-         echo "replace() { sed -i -e 's/\$1/\$2/g' \$3 ; rm \$3-e }" >> .profile
-         echo "ports(){" >> .profile
-         echo "   for i in `seq \$1 \$2`;" >> .profile
-         echo "        do" >> .profile
-         echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .profile
-         echo "              sudo lsof -i :\$i" >> .profile
-         echo "        done" >> .profile
-         echo "}" >> .profile
-         echo "thermic(){" >> .profile
-         echo "while true" >> .profile
-         echo "do" >> .profile
-         echo "    temp" >> .profile
-         echo "    sleep \$1" >> .profile
-         echo "done" >> .profile
-         echo "}" >> .profile
-         echo "temp(){" >> .profile
-         echo "   WHITE='\e[1;97m'" >> .profile
-         echo "   NC='\033[0m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   istats | sed '\$d'" >> .profile
-         echo "   printf \"\$WHITE\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "   printf \"\$NC\n\"" >> .profile
-         echo "}" >> .profile
-         echo " " >> .profile
-         echo "# Color functions " >> .profile
-         echo " " >> .profile
-         echo "_green(){" >> .profile
-         echo "   GREEN='\e[1;92m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_white(){" >> .profile
-         echo "   WHITE='\e[1;97m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$WHITE White Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_yellow(){" >> .profile
-         echo "   YELLOW='\e[1;93m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_red(){" >> .profile
-         echo "   RED='\e[1;91m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$RED Red Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_cyan(){" >> .profile
-         echo "   CYAN='\e[1;96m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "_normal(){" >> .profile
-         echo "   NC='\033[0m'" >> .profile
-         echo "   clear" >> .profile
-         echo "   printf \"\$NC Text Normalized\n\"" >> .profile
-         echo "   date" >> .profile
-         echo "}" >> .profile
-         echo "quietTextRestore(){" >> .profile
-         echo "   NC='\033[0m'" >> .profile
-         echo "   printf \"\$NC\n\"" >> .profile
-         echo "}" >> .profile
+         _vomit .profile
          sudo rm -rf /etc/profile
          sudo cp ./.profile /etc/profile
          source /etc/profile
        fi
 
     fi
-
-    : '
-    echo "wios(){" >> .bash_profile
-    echo "   sudo cd /usr/local/bin " >> .bash_profile
-    echo "   if [ \"\$(ls | grep flake)\" == \"flake\"]; then" >> .bash_profile
-    echo "   echo \"flake\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep blake)\" == \"blake\"]; then" >> .bash_profile
-    echo "   echo \"blake\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep plake)\" == \"plake\"]; then" >> .bash_profile
-    echo "   echo \"plake\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep blara)\" == \"blara\"]; then" >> .bash_profile
-    echo "   echo \"blara\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep marco)\" == \"marco\"]; then" >> .bash_profile
-    echo "   echo \"marco\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep white)\" == \"white\"]; then" >> .bash_profile
-    echo "   echo \"white\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep james)\" == \"james\"]; then" >> .bash_profile
-    echo "   echo \"james\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep alina)\" == \"alina\"]; then" >> .bash_profile
-    echo "   echo \"alina\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep leana)\" == \"leana\"]; then" >> .bash_profile
-    echo "   echo \"leana\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep slava)\" == \"slava\"]; then" >> .bash_profile
-    echo "   echo \"slava\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep horia)\" == \"horia\"]; then" >> .bash_profile
-    echo "   echo \"horia\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep moria)\" == \"moria\"]; then" >> .bash_profile
-    echo "   echo \"moria\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep power)\" == \"power\"]; then" >> .bash_profile
-    echo "   echo \"power\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep coral)\" == \"coral\"]; then" >> .bash_profile
-    echo "   echo \"coral\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep death)\" == \"death\"]; then" >> .bash_profile
-    echo "   echo \"death\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep cobra)\" == \"cobra\"]; then" >> .bash_profile
-    echo "   echo \"cobra\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep banel)\" == \"banel\"]; then" >> .bash_profile
-    echo "   echo \"banel\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep quran)\" == \"quran\"]; then" >> .bash_profile
-    echo "   echo \"quran\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep ninja)\" == \"ninja\"]; then" >> .bash_profile
-    echo "   echo \"ninja\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep nixon)\" == \"nixon\"]; then" >> .bash_profile
-    echo "   echo \"nixon\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep betty)\" == \"betty\"]; then" >> .bash_profile
-    echo "   echo \"betty\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep harry)\" == \"harry\"]; then" >> .bash_profile
-    echo "   echo \"harry\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep draco)\" == \"draco\"]; then" >> .bash_profile
-    echo "   echo \"draco\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep boris)\" == \"boris\"]; then" >> .bash_profile
-    echo "   echo \"boris\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep adolf)\" == \"adolf\"]; then" >> .bash_profile
-    echo "   echo \"adolf\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep arpad)\" == \"arpad\"]; then" >> .bash_profile
-    echo "   echo \"arpad\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep soyuz)\" == \"soyuz\"]; then" >> .bash_profile
-    echo "   echo \"soyuz\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep force)\" == \"force\"]; then" >> .bash_profile
-    echo "   echo \"force\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep forta)\" == \"forta\"]; then" >> .bash_profile
-    echo "   echo \"forta\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep balon)\" == \"balon\"]; then" >> .bash_profile
-    echo "   echo \"balon\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep pablo)\" == \"pablo\"]; then" >> .bash_profile
-    echo "   echo \"pablo\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep narco)\" == \"narco\"]; then" >> .bash_profile
-    echo "   echo \"narco\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep diana)\" == \"diana\"]; then" >> .bash_profile
-    echo "   echo \"diana\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep andra)\" == \"andra\"]; then" >> .bash_profile
-    echo "   echo \"andra\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep tower)\" == \"tower\"]; then" >> .bash_profile
-    echo "   echo \"tower\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep tokyo)\" == \"tokyo\"]; then" >> .bash_profile
-    echo "   echo \"tokyo\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep baron)\" == \"baron\"]; then" >> .bash_profile
-    echo "   echo \"baron\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep airfr)\" == \"airfr\"]; then" >> .bash_profile
-    echo "   echo \"airfr\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep paris)\" == \"paris\"]; then" >> .bash_profile
-    echo "   echo \"paris\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep trump)\" == \"trump\"]; then" >> .bash_profile
-    echo "   echo \"trump\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep archx)\" == \"archx\"]; then" >> .bash_profile
-    echo "   echo \"archx\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep genie)\" == \"genie\"]; then" >> .bash_profile
-    echo "   echo \"genie\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep bacon)\" == \"bacon\"]; then" >> .bash_profile
-    echo "   echo \"bacon\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep fruit)\" == \"fruit\"]; then" >> .bash_profile
-    echo "   echo \"fruit\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep masha)\" == \"masha\"]; then" >> .bash_profile
-    echo "   echo \"masha\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep moris)\" == \"moris\"]; then" >> .bash_profile
-    echo "   echo \"moris\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep elisa)\" == \"elisa\"]; then" >> .bash_profile
-    echo "   echo \"elisa\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep marii)\" == \"marii\"]; then" >> .bash_profile
-    echo "   echo \"marii\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep brain)\" == \"brain\"]; then" >> .bash_profile
-    echo "   echo \"brain\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "   if [ \"\$(ls | grep water)\" == \"water\"]; then" >> .bash_profile
-    echo "   echo \"water\" | rev" >> .bash_profile
-    echo "   fi" >> .bash_profile
-    echo "}" >> .bash_profile
-    '
     source .bash_profile
     printf "$RED _injected$NC\n"
     printf "$BLINK$GREEN Poofing in 5 seconds...$NC\n"
@@ -9132,104 +8393,7 @@ _inject(){ #selfi
     printf "$YELLOW Injecting on Linux...$NC\n"
     cd ~
     sudo rm .bashrc
-    echo "export PS1=\">>>\"" >> .bashrc
-    echo " " >> .bashrc
-    echo "# Aliases " >> .bashrc
-    echo " " >> .bashrc
-    echo "alias rip=\"sudo kill -9\"" >> .bashrc
-    echo "alias off=\"sudo airport -z\"" >> .bashrc
-    echo "alias lock=\"pmset displaysleepnow\"" >> .bashrc
-    echo "alias die=\"killall Terminal\"" >> .bashrc
-    echo "alias ll=\"ls -FGlAh\"" >> .bashrc
-    echo "alias home=\"cd ~\"" >> .bashrc
-    echo "alias root=\"cd /\"" >> .bashrc
-    echo "alias ?=\"file\"" >> .bashrc
-    echo "alias _edit=\"nano ~/.bash_profile\"" >> .bashrc
-    echo "alias _update\"source ~/.bash_profile\"" >> .bashrc
-    echo "alias refresh=\"_update ; clear\"" >> .bashrc
-    echo "alias relist=\"_update ; clear ; ls\"" >> .bashrc
-    echo "alias highlight=\"_update ; _yellow ; clear ; ls ; quietTextRestore\"" >> .bashrc
-    echo "alias reveal=\"_white ; _update ; clear ; ls -la ; quietTextRestore\"" >> .bashrc
-    echo "alias ther=\"temp\"" >> .bashrc
-    echo "alias thermal=\"temp\"" >> .bashrc
-    echo " " >> .bashrc
-    echo "# Functions " >> .bashrc
-    echo " " >> .bashrc
-    echo "cd() { builtin cd \"\$@\"; ls; }" >> .bashrc
-    echo "_+() { open -a \$1 \$2 }" >> .bashrc
-    echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 }" >> .bashrc
-    echo "_f() { open -a Finder ./ }" >> .bashrc
-    echo "space() { du -hs "\$@" | sort -nr; }" >> .bashrc
-    echo "mkdg() { mkdir \$1 ; clear ; cd \$1 }" >> .bashrc
-    echo "docked() { sudo lsof -i :\"\$@\" }" >> .bashrc
-    echo "destroy() { killall -9 appPID \"\$1\" }" >> .bashrc
-    echo "geolocate() { curl ipinfo.io/\$1 }" >> .bashrc
-    echo "origin() { clear ; ps -p \$1 | awk '{print \$4;}' | sed '1d' }" >> .bashrc
-    echo "cheese() { imagesnap -w 1 -q }" >> .bashrc
-    echo "wisconsin() { imagesnap -w 1 -q .snapshot.png }" >> .bashrc
-    echo "iwannafind() { find \$2 \$1 }" >> .bashrc
-    echo "iwannasee() { clear ; cat \$(find \$2 \$1) }" >> .bashrc
-    echo "replace() { sed -i -e 's/\$1/\$1/g' \$3 ; rm \$3-e }" >> .bashrc
-    echo "ports(){" >> .bashrc
-    echo "   for i in `seq \$1 \$2`;" >> .bashrc
-    echo "        do" >> .bashrc
-    echo "              echo \"проверка процессов для порта  \$i ->>\"" >> .bashrc
-    echo "              sudo lsof -i :\$i" >> .bashrc
-    echo "        done" >> .bashrc
-    echo "}" >> .bashrc
-    echo "temp(){" >> .bashrc
-    echo "   WHITE='\e[1;97m'" >> .bashrc
-    echo "   NC='\033[0m'" >> .bashrc
-    echo "   clear" >> .bashrc
-    echo "   istats | sed '\$d'" >> .bashrc
-    echo "   printf \"\$WHITE\n\"" >> .bashrc
-    echo "   date" >> .bashrc
-    echo "   printf \"\$NC\n\"" >> .bashrc
-    echo "}" >> .bashrc
-    echo " " >> .bashrc
-    echo "# Color functions " >> .bashrc
-    echo " " >> .bashrc
-    echo "_green(){" >> .bashrc
-    echo "   GREEN='\e[1;92m'" >> .bashrc
-    echo "   clear" >> .bashrc
-    echo "   printf \"\$GREEN Green Bold Activate\n\"" >> .bashrc
-    echo "   date" >> .bashrc
-    echo "}" >> .bashrc
-    echo "_white(){" >> .bashrc
-    echo "   WHITE='\e[1;97m'" >> .bashrc
-    echo "   clear" >> .bashrc
-    echo "   printf \"\$WHITE White Bold Activate\n\"" >> .bashrc
-    echo "   date" >> .bashrc
-    echo "}" >> .bashrc
-    echo "_yellow(){" >> .bashrc
-    echo "   YELLOW='\e[1;93m'" >> .bashrc
-    echo "   clear" >> .bashrc
-    echo "   printf \"\$YELLOW Yellow Bold Activate\n\"" >> .bashrc
-    echo "   date" >> .bashrc
-    echo "}" >> .bashrc
-    echo "_red(){" >> .bashrc
-    echo "   RED='\e[1;91m'" >> .bashrc
-    echo "   clear" >> .bashrc
-    echo "   printf \"\$RED Red Bold Activate\n\"" >> .bashrc
-    echo "   date" >> .bashrc
-    echo "}" >> .bashrc
-    echo "_cyan(){" >> .bashrc
-    echo "   CYAN='\e[1;96m'" >> .bashrc
-    echo "   clear" >> .bashrc
-    echo "   printf \"\$CYAN Cyan Bold Activate\n\"" >> .bashrc
-    echo "   date" >> .bashrc
-    echo "}" >> .bashrc
-    echo "_normal(){" >> .bashrc
-    echo "   NC='\033[0m'" >> .bashrc
-    echo "   clear" >> .bashrc
-    echo "   printf \"\$NC Text Normalized\n\"" >> .bashrc
-    echo "   date" >> .bashrc
-    echo "}" >> .bashrc
-    echo "quietTextRestore(){" >> .bashrc
-    echo "   NC='\033[0m'" >> .bashrc
-    echo "   printf \"\$NC\n\"" >> .bashrc
-    echo "}" >> .bashrc
-    echo " " >> .bashrc
+    _vomit .bashrc
     source .bashrc
     clear
     printf "$RED _injected$NC\n"
@@ -9336,7 +8500,7 @@ elif [[ $_system == "Linux" ]]; then #tw
 
 elif [[ $_system == "GNU" ]]; then #nn
 
-  printf "$RED Not supported yet$NC\n" # no netstat. pizdu
+  printf "$RED Not supported yet$NC\n" # no netstat. pizdu pfinet? inetutils no
 
 elif [[ $_system == "Haiku" ]]; then #nn
 
@@ -9677,6 +8841,18 @@ _incr(){
 
 
 _scanHouse(){ #selft
+
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
 
    _system="$(uname -s)"
 
@@ -10061,6 +9237,12 @@ _scanHouse(){ #selft
          printf "$RED Not supported sys$NC\n"
 
       fi
+
+    fi
+
+    if [ -f ~/.spx/snake ]; then
+
+      sudo rm -rf ~/.spx/snake
 
     fi
 
@@ -11006,13 +10188,17 @@ elif [[ "$(echo $1 | grep -c 'inject')" == "1" ]]; then
 
      _inject $2 $3
 
+elif [[ "$(echo $1 | grep -c 'geolocate')" == "1" ]]; then
+
+     _geolocate $2
+
 elif [[ "$1" == "_wit?" ]]; then
 
      _wit $2 $3
 
 elif [[ "$1" == "_wit??" ]]; then
 
-        _wit6 $2 $3
+     _wit6 $2 $3
 
 elif [[ "$1" == "_wth?" ]]; then
 
@@ -11236,6 +10422,18 @@ elif [[ "$1" == "-uname" ]]; then
 elif [[ "$1" == "-os" ]]; then
 
   _ros $2 $3
+
+elif [[ "$(echo $1 | grep -c 'protect')" == "1" ]]; then
+
+  _protect
+
+elif [[ "$(echo $1 | grep -c 'back')" == "1" ]]; then
+
+  _back
+
+elif [[ "$(echo $1 | grep -c 'pd')" == "1" ]]; then
+
+  _pd
 
 elif [[ "$1" == "_+" ]]; then
 
