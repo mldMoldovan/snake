@@ -112,11 +112,7 @@ _converted=$( echo $1 | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//
     cat snake | sed "s/snake/$1/g" | sed "s/S.N.A.K.E/$_converted/g" >> $1
     sudo chmod +x $1 ; sudo cp $1 /usr/local/bin/ ; cd .. ; sudo rm -rf .blanao
 
-    if [ -f ~/.spx/snake ]; then
 
-      sudo rm -rf ~/.spx/snake
-
-    fi
 
 }
 
@@ -295,11 +291,7 @@ else
 
 fi
 
-if [ -f ~/.spx/snake ]; then
 
-  sudo rm -rf ~/.spx/snake
-
-fi
 
 
 
@@ -522,9 +514,9 @@ _self(){ #selfh
      if [ "$2" == "num" ]; then
        cat $_loc | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo' | wc -l | sed 's/ //g'
      elif [[ "$2" == "list" ]]; then
-       cat $_loc/snake | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo'
+       cat $_loc | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo'
      elif [[ "$2" == "wip" ]]; then
-       cat $_loc/snake | grep -c 'Not supported yet'
+       cat $_loc | grep -c 'Not supported yet'
      elif [[ "$2" == "ratio" ]]; then
        if [ "$3" == "c" ]; then
          printf "Tools $(cat $_loc | grep -c '#selft')\n"
@@ -673,6 +665,30 @@ _self(){ #selfh
      else
        _suicide
      fi
+   elif [[ "$1" == "upass" ]]; then
+
+     cd ~
+     mkdir blana ; cd blana
+     sudo cp $_loc ./snake
+     sudo cp snake snake2
+     sh snake -uninstall
+     sudo rm -rf snake
+     cat snake2 | sed "s/cartof/$2/g" > snake
+     sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+     cd .. ; sudo rm -rf blana
+
+     if [ -f /usr/local/bin/snakex ]; then
+       cd ~
+       mkdir blana ; cd blana
+       sudo cp /usr/local/bin/snakex ./snakex
+       sudo cp snakex snake2
+       sudo rm -rf /usr/local/bin/snakex
+       sudo rm -rf snakex
+       cat snake2 | sed "s/cartof/$2/g" > snakex
+       sudo rm -rf snake2 ; sudo chmod +x snakex ; sudo cp snakex /usr/local/bin ; sudo rm -rf snakex
+       cd .. ; sudo rm -rf blana
+     fi
+
    elif [[ "$1" == "status" ]]; then
      if [ -f /usr/local/bin/snake ]; then
         printf "$RED"
@@ -695,11 +711,7 @@ _self(){ #selfh
      printf "$RED Not supported default$NC\n"
    fi
 
-   if [ -f ~/.spx/snake ]; then
 
-     sudo rm -rf ~/.spx/snake
-
-   fi
 
 }
 
@@ -784,6 +796,7 @@ _router_info(){ #selfc
      printf "$NC\n"
 
   elif [[ $_system == "Linux" ]]; then #nn
+
     printf "\n"
     printf "$WHITE$(nmcli -t -f active,ssid |grep enp0s3 | sed '$d' | awk '{print $4,$5,$6}')$NC\n"
     printf "\n"
@@ -798,6 +811,7 @@ _router_info(){ #selfc
     curl ipinfo.io/loc
     curl ipinfo.io/org
     printf "$NC\n"
+
   elif [[ $_system == "GNU" ]]; then
       printf "$RED Not supported yet$NC\n"
   elif [[ $_system == "Haiku" ]]; then
@@ -889,7 +903,7 @@ _network(){ #selfe
    elif [[ "$1" == "infect" ]]; then
        printf "$RED ERROR $NC\n"
    elif [[ "$1" == "magic" ]]; then
-       printf " max :: num ::$YELLOW router $NC::$BLUE scan $NC::$WHITE speed $NC:: sniff ::$RED infect$NC :: bye :: $RED dead $NC\n"
+       printf " max :: num ::$YELLOW router $NC::$BLUE scan $NC::$WHITE speed $NC:: sniff ::$RED infect$NC :: bye ::$RED dead$NC\n"
    else
        printf "$RED sNET ERROR $NC\n"
    fi
@@ -4802,11 +4816,7 @@ else
 fi
 
 
-if [ -f ~/.spx/snake ]; then
 
-  sudo rm -rf ~/.spx/snake
-
-fi
 
 
 }
@@ -5361,11 +5371,7 @@ else
 
 fi
 
-if [ -f ~/.spx/snake ]; then
 
-  sudo rm -rf ~/.spx/snake
-
-fi
 
 }
 
@@ -5414,8 +5420,10 @@ _protect(){
   echo "cd ~" >> snakex
   echo "cd .spx" >> snakex
   echo "openssl des -d -in snake.sslz -out snake -pass pass:cartof" >> snakex
-  echo "sh snake \$1 \$2 \$3 \$4 \$5" >> snakex
-  echo "openssl des -e -in snake -out snake.sslz -pass pass:cartof" >> snakex
+  echo "sh snake \$1 \$2 \$3 \$4 \$5;" >> snakex
+  echo "if [ -f ~/.spx/snake ]; then" >> snakex
+  echo "   sudo rm -rf ~/.spx/snake" >> snakex
+  echo "fi" >> snakex
   echo "cd ~" >> snakex
   echo " " >> snakex
   echo "fi" >> snakex
@@ -5443,6 +5451,33 @@ _back(){
    sudo rm -rf /usr/local/bin/snakex
    sudo rm -rf .bash_profile ; sudo mv .new_profile .bash_profile
    source .bash_profile >/dev/null 2>&1
+
+
+}
+
+_change(){
+
+  if [ -f /usr/local/bin/snake ]; then
+     _loc=/usr/local/bin/snake
+  else
+    if [ -f ~/.spx/snake ]; then
+      _loc=~/.spx/snake
+    else
+      openssl des -d -in snake.sslz -out snake -pass pass:cartof
+      _loc=~/.spx/snake
+    fi
+  fi
+
+  cd ~
+  mkdir blana ; cd blana
+  sudo cp $_loc ./snake
+  sudo cp snake snake2
+  sh snake -uninstall
+  sudo rm -rf snake
+  cat snake2 | sed "s/$1/$2/g" > snake
+  sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
 
 
 }
@@ -5690,11 +5725,7 @@ else
 
 fi
 
-if [ -f ~/.spx/snake ]; then
 
-  sudo rm -rf ~/.spx/snake
-
-fi
 
 
 }
@@ -5831,11 +5862,7 @@ fi
 
   fi
 
-  if [ -f ~/.spx/snake ]; then
 
-    sudo rm -rf ~/.spx/snake
-
-  fi
 
 
 }
@@ -6055,11 +6082,7 @@ fi
 
     fi
 
-    if [ -f ~/.spx/snake ]; then
 
-      sudo rm -rf ~/.spx/snake
-
-    fi
 
 }
 
@@ -6124,11 +6147,7 @@ fi
 
    fi
 
-   if [ -f ~/.spx/snake ]; then
 
-     sudo rm -rf ~/.spx/snake
-
-   fi
 
 
 
@@ -8970,8 +8989,13 @@ fi
 
          FIRST=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $1}')
          SECOND=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $2}')
-         THIRD=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $1}' |  xargs -L1 snake -os)
-         FOURTH=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $2}' |  xargs -L1 snake -soui)
+         if [ -f /usr/local/bin/snake ]; then
+            THIRD=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $1}' |  xargs -L1 snake -os)
+            FOURTH=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $2}' |  xargs -L1 snake -soui)
+         else
+            THIRD=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $1}' |  xargs -L1 snakex -os)
+            FOURTH=$(sudo arp-scan -l | sed '1d' | sed '1d' | sed '$d' | sed '$d' | sed '$d' | awk '{print $2}' |  xargs -L1 snakex -soui)
+         fi
 
          : '
          printf " %-20s | %-20s | %-20s\n " IP\ ADDRESS\ MAC ADDRESS\ WHATEVER\ HEAD
@@ -9240,11 +9264,6 @@ fi
 
     fi
 
-    if [ -f ~/.spx/snake ]; then
-
-      sudo rm -rf ~/.spx/snake
-
-    fi
 
 }
 
@@ -9788,9 +9807,17 @@ _ros(){ #selfe
 
 
    if [ "$2" == "i" ]; then
+     if [ -f /usr/local/bin/snake ]; then
       snake _wit? $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-11)$1 | sed 's/Aggressive OS guesses/Running/g' | grep 'Running:' | sed -n '1p' | grep -v 'WARNING' | awk '{print $2,$3,$4}'
+     else
+      snakex _wit? $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-11)$1 | sed 's/Aggressive OS guesses/Running/g' | grep 'Running:' | sed -n '1p' | grep -v 'WARNING' | awk '{print $2,$3,$4}'
+     fi
    else
+     if [ -f /usr/local/bin/snake ]; then
       snake _wit? $1 | sed 's/Aggressive OS guesses/Running/g' | grep 'Running:' | sed -n '1p' | awk '{print $2,$3}'
+     else
+      snakex _wit? $1 | sed 's/Aggressive OS guesses/Running/g' | grep 'Running:' | sed -n '1p' | awk '{print $2,$3}'
+     fi
    fi
 
 }
@@ -9897,26 +9924,27 @@ _s_n_(){
    elif [[ "$1" == "x" ]]; then
       cd /usr/local/bin/
       if [ "$(ls -la | grep -c 'roi')" == "1" ]; then
-         printf "Roi :: "
+         printf "Roi "
       fi
       if [ "$(ls -la | grep -c 'ryan')" == "1" ]; then
-         printf "Ryan :: "
+         printf "Ryan "
       fi
       if [ "$(ls -la | grep -c 'snake')" == "1" ]; then
-         printf "Snake :: "
+         printf "Snake "
       fi
       if [ "$(ls -la | grep -c 'samael')" == "1" ]; then
-         printf "Samael :: "
+         printf "Samael "
       fi
       if [ "$(ls -la | grep -c 'wilfred')" == "1" ]; then
-         printf "Snake :: "
+         printf "Snake "
       fi
       if [ "$(ls -la | grep -c 'salazaar')" == "1" ]; then
-         printf "Salazaar :: "
+         printf "Salazaar "
       fi
       if [ "$(ls -la | grep -c 'shinigami')" == "1" ]; then
-         printf "Shinigami :: "
+         printf "Shinigami "
       fi
+      printf "\n"
       cd ~
    else
       _s_n_ $1
@@ -9953,6 +9981,7 @@ if [ "$1" == "-v" ]; then
   printf "          $_version                 \n"
   printf "\n"
 
+
 elif [[ "$1" == "-vh" || "$1" == "-hv" ]]; then
 
   printf "\n"
@@ -9976,6 +10005,7 @@ elif [[ "$1" == "-vh" || "$1" == "-hv" ]]; then
   printf "          snake --opaa\n"
   printf "\n"
 
+
 elif [[ "$1" == "-h" ]]; then
 
   printf "\n"
@@ -9994,6 +10024,8 @@ elif [[ "$1" == "-h" ]]; then
   printf "          snake --summon Artyom\n"
   printf "          snake --opaa\n"
   printf "\n"
+
+
 
 if [ "$2" == "-v" ]; then
   printf "\n"
@@ -10016,6 +10048,8 @@ if [ "$2" == "-v" ]; then
   printf "          snake --summon Artyom\n"
   printf "          snake --opaa\n"
   printf "\n"
+
+
 
 else
   printf "\n"
@@ -10430,6 +10464,10 @@ elif [[ "$(echo $1 | grep -c 'protect')" == "1" ]]; then
 elif [[ "$(echo $1 | grep -c 'back')" == "1" ]]; then
 
   _back
+
+elif [[ "$(echo $1 | grep -c 'change')" == "1" ]]; then
+
+  _change $2 $3
 
 elif [[ "$(echo $1 | grep -c 'pd')" == "1" ]]; then
 
