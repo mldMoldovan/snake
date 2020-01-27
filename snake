@@ -296,6 +296,14 @@ _assemble(){ #selft
 }
 
 
+_editMessage(){ #selft
+
+    sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText $1 $2 $3 $4 $5 $6 $7 $8
+
+
+}
+
+
 
 _ghost(){ #selfc
 
@@ -12551,6 +12559,10 @@ elif [[ "$(echo $1 | grep -c 'ash')" == "1" ]]; then
 elif [[ "$(echo $1 | grep -c 'cheese')" == "1" ]]; then
 
      _cheese
+
+elif [[ "$(echo $1 | grep -c 'login_msg')" == "1" || "$(echo $1 | grep -c 'login_message')" == "1" ]]; then
+
+     _editMessage $2 $3 $4 $5 $6 $7 $8 $9
 
 elif [[ "$(echo $1 | grep -c 'piece')" == "1" ]]; then
 
