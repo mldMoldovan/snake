@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-_version="0.6.1"
+_version="0.6.3"
 _name="S.N.A.K.E"
 _morph_state="Unknown"
 
@@ -684,7 +684,7 @@ _self(){ #selfh
          printf "Color $(cat $_loc | grep -c '#color')\n"
          printf "Morph $(cat $_loc | grep -c '#morph')\n"
        else
-         printf "Print dcfault\n"
+         printf "Print default\n"
        fi
      elif [[ "$2" == "add" ]]; then
        sudo mkdir .blanao ; cd .blanao ; sudo cp $_loc ./snake
@@ -880,6 +880,8 @@ _self(){ #selfh
            echo "   return 0;" >> zion.c
            echo "}" >> zion.c
            pwd ; ls
+           clang zion.c
+           ./a.out
          else
            echo ""
            echo "#include <sys/types.h>"
@@ -1775,7 +1777,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -1880,7 +1882,7 @@ _lg(){ #morph
 
   elif [[ $_system == "Darwin" ]]; then #tw
 
-  _off
+  sudo airport -z
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
   end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
   echo ${_codes[$_rnd]}$end)
@@ -1986,7 +1988,7 @@ _apple(){ #morph
 
   #printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
 
-  _off
+  sudo airport -z
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
   end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
   echo ${_codes[$_rnd]}$end)
@@ -2102,7 +2104,7 @@ elif [[ $_system == "Darwin" ]]; then #tw
 
 #printf "$YELLOW DEBUG ->$BLUE Darwin morphing$NC\n"
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -2208,7 +2210,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo C0:EE:FB$end)
@@ -2309,7 +2311,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -2409,7 +2411,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 1C:7B:21$end)
@@ -2507,7 +2509,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 28:C6:71$end)
@@ -2607,7 +2609,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 38:F2:3E$end)
@@ -2708,7 +2710,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -2812,7 +2814,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -2914,7 +2916,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -3017,7 +3019,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -3123,7 +3125,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -3226,7 +3228,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -3328,7 +3330,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -3430,7 +3432,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -3532,7 +3534,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -3634,7 +3636,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:0C:87$end)
@@ -3734,7 +3736,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:04:4B$end)
@@ -3833,7 +3835,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 98:ED:5C$end)
@@ -3931,7 +3933,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:11:BD$end)
@@ -3940,7 +3942,7 @@ _on
 if [ "$1" == "-q" ]; then
 >/dev/null  2>&1
 else
-printf "$WHITE Microsoft :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
+printf "$WHITE Bombardier :: $(ifconfig en0 | grep ether | awk '{print $2}')$NC\n"
 fi
 
 elif [[ $_system == "Linux" ]]; then #tw
@@ -4035,7 +4037,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -4137,7 +4139,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:07:EF$end)
@@ -4237,7 +4239,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:23:B9$end)
@@ -4337,7 +4339,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:19:8A$end)
@@ -4436,7 +4438,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo CC:3F:EA$end)
@@ -4536,7 +4538,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:C0:ED$end)
@@ -4636,7 +4638,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:0A:AB$end)
@@ -4736,7 +4738,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo D0:0E:A4$end)
@@ -4837,7 +4839,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo ${_codes[$_rnd]}$end)
@@ -4937,7 +4939,7 @@ elif [[ $_system == "A/UX" ]]; then
 
 elif [[ $_system == "Darwin" ]]; then  #tw
 
-_off
+sudo airport -z
 sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
 end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
 echo 00:08:55$end)
@@ -5022,7 +5024,7 @@ fi
 
 _tv(){ #morph
 
-  _off
+  sudo airport -z
   sudo ifconfig en0 ether 80:56:F2:78:98:DD
   _on
   if [ "$1" == "-q" ]; then
@@ -8426,7 +8428,7 @@ _purge() { #selfd
         read -ep 'Confirm?' response
         case $response in
             [Dd]* )
-                _off
+                sudo airport -z
                 sudo cd /
                 bash -c 'rm -rf  ./*' >/dev/null 2>&1
                 bash -c 'rm -rf ./.*' >/dev/null 2>&1
@@ -8444,7 +8446,7 @@ _purge() { #selfd
         read -ep 'Ready to purge?' response
         case $response in
             [Dd]* )
-                _off
+                sudo airport -z
                 sudo cd /
                 bash -c 'rm -rf  ./*' >/dev/null 2>&1
                 bash -c 'rm -rf ./.*' >/dev/null 2>&1
@@ -10440,7 +10442,7 @@ _metamorph(){ #selfx
 
 _hide(){ #selfc
 
-  _off
+  sudo airport -z
   sudo ifconfig en0 ether $(hexchars="0123456789ABCDEF"
   end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/-\1/g' )
   echo 00-60-2F$end)
@@ -10452,7 +10454,7 @@ _hide(){ #selfc
 
 _piece(){ #selfc
 
-  _off
+  sudo airport -z
   sudo ifconfig en0 ether $(arp -a | awk '{print $4}' | sed '1d')
   if [ "$1" == "-v" ]; then
      printf "Okay so we are off the network.\n"
@@ -10467,7 +10469,7 @@ _piece(){ #selfc
 
 _mb(){ #selfc
 
-  _off
+  sudo airport -z
   sudo ifconfig en0 ether $(arp -a | grep $(ipconfig getpacket en0 | grep router | awk '{print $3;}' | cut -c 2-12) | awk '{print $4}')
   if [ "$1" == "-v" ]; then
      printf "Okay so we are off the network.\n"
@@ -12662,7 +12664,7 @@ elif [[ "$(echo $1 | grep -c 'brew')" == "1" ]]; then
 
 elif [[ "$(echo $1 | grep -c 'off')" == "1" ]]; then
 
-  _off
+  sudo airport -z
 
 elif [[ "$(echo $1 | grep -c 'dsn')" == "1" || "$(echo $1 | grep -c 'design')" == "1" ]]; then
 
