@@ -1,9 +1,11 @@
 #!/bin/bash
 
 
-_version="0.6.5"
+_version="0.6.6"
 _name="S.N.A.K.E"
 _morph_state="Unknown"
+
+_ignited="ready"
 
 _id="0dc4e0"
 
